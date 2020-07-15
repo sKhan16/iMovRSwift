@@ -12,9 +12,22 @@ struct ContentView: View {
     @State private var selection = 0
  
     var body: some View {
+        
+        
+        
+        
         TabView(selection: $selection){
-            Text("Home View")
-                .font(.title)
+            
+            VStack {
+                Image("imovrLogo")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    Spacer()
+                    
+            }
+                
+                //Spacer()
+            
                 .tabItem {
                     VStack {
                         Image(systemName: "house")
@@ -32,6 +45,7 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
+        .padding()
     }
 }
 
