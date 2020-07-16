@@ -15,7 +15,7 @@ struct HomeView: View {
                 .resizable()
                 .frame(width: 110, height: 110)
             
-            Spacer().frame(height: 110)
+            Spacer().frame(height: 70)
             HStack {
                 AddPresetButton()
                 .padding()

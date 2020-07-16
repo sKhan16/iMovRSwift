@@ -10,13 +10,24 @@ import SwiftUI
 
 struct AddPresetButton: View {
     var body: some View {
-        VStack {
+        
+            Button(action: {
+                addPreset()
+            }) {
+            VStack {
             Image(systemName: "plus.circle")
                 .resizable()
                 .frame(width: 50.0, height: 50)
             Text("Add Preset")
+            }
         }
+            .accentColor(Color.black)
     }
+}
+
+func addPreset() {
+    // Replace with functionality to switch to AddPreset screen.
+    print("Moving to the add preset screen!")
 }
 
 struct AddPresetButton_Previews: PreviewProvider {
