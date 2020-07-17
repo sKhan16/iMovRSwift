@@ -21,6 +21,7 @@
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
 		1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E724C12C1A00155123 /* UserObservable.swift */; };
 		1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E924C2254E00155123 /* EditPresetButton.swift */; };
+		1E94E1EC24C2397400155123 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1EB24C2397400155123 /* MotherView.swift */; };
 		63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
 		BA86BF78F4DFD11A4E11CE19 /* Pods_iMovRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EF5AA32B191B376E8A0011 /* Pods_iMovRTests.framework */; };
@@ -65,6 +66,7 @@
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E724C12C1A00155123 /* UserObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObservable.swift; sourceTree = "<group>"; };
 		1E94E1E924C2254E00155123 /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
+		1E94E1EB24C2397400155123 /* MotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotherView.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				1E23015824BCEB35009A0B3C /* SceneDelegate.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
 				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
+				1E94E1EB24C2397400155123 /* MotherView.swift */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E94E1E124BF9F9900155123 /* Buttons */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
@@ -422,6 +425,7 @@
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
 				1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
+				1E94E1EC24C2397400155123 /* MotherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
