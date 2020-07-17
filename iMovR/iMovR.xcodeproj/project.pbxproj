@@ -16,12 +16,12 @@
 		1E23016624BCEB39009A0B3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E23016424BCEB39009A0B3C /* LaunchScreen.storyboard */; };
 		1E23017124BCEB3A009A0B3C /* iMovRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017024BCEB3A009A0B3C /* iMovRTests.swift */; };
 		1E23017C24BCEB3A009A0B3C /* iMovRUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */; };
-		41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */; };
 		1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1DF24BF9DB300155123 /* HomeView.swift */; };
 		1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */; };
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
 		1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E724C12C1A00155123 /* UserObservable.swift */; };
 		1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E924C2254E00155123 /* EditPresetButton.swift */; };
+		41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */; };
 		63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
 		BA86BF78F4DFD11A4E11CE19 /* Pods_iMovRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EF5AA32B191B376E8A0011 /* Pods_iMovRTests.framework */; };
@@ -130,11 +130,11 @@
 		1E23015524BCEB35009A0B3C /* iMovR */ = {
 			isa = PBXGroup;
 			children = (
-				41D079BF24C220E00047FD48 /* Bluetooth */,
 				1E23015624BCEB35009A0B3C /* AppDelegate.swift */,
 				1E23015824BCEB35009A0B3C /* SceneDelegate.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
 				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
+				41D079BF24C220E00047FD48 /* Bluetooth */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E94E1E124BF9F9900155123 /* Buttons */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
