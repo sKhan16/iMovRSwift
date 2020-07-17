@@ -1,0 +1,49 @@
+//
+//  PresetButton.swift
+//  iMovR
+//
+//  Created by Shakeel Khan on 7/16/20.
+//  Copyright © 2020 iMovR. All rights reserved.
+//
+
+import SwiftUI
+
+struct PresetButton: View {
+    
+    
+   @State var name: String
+   @State var presetVal: Float
+    
+    var body: some View {
+        Button(action: {
+            // What to perform
+            self.moveToPreset()
+        }) {
+            // How the button looks like
+            VStack {
+                Text(String(presetVal))
+                
+                    .padding(13)
+                    .overlay(Circle().stroke(Color.gray, lineWidth: 3))
+                    .padding(6)
+                Text(name)
+            }
+            .foregroundColor(Color.black)
+        .frame(width: 80, height: 50)
+        }
+
+    }
+
+    func moveToPreset() {
+        print("Move to \(presetVal)")
+    }
+    
+}
+
+
+
+struct PresetButton_Previews: PreviewProvider {
+    static var previews: some View {
+        PresetButton(name: "Sitting", presetVal: 32.2)
+    }
+}

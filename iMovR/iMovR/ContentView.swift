@@ -18,16 +18,8 @@ struct ContentView: View {
         
         TabView(selection: $selection){
             
-            VStack {
-                Image("imovrLogo")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    Spacer()
+                HomeView()
                     
-            }
-                
-                //Spacer()
-            
                 .tabItem {
                     VStack {
                         Image(systemName: "house")
@@ -45,7 +37,6 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
-        .padding()
     }
 }
 
