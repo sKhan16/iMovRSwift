@@ -8,49 +8,17 @@
 
 import Foundation
 import CoreBluetooth
+//import Darwin  ### old code needed Darwin for power (math function)
+
 
 class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     // Published variables
     @Published var isConnected = false
-    @Published var deskController =
+    @Published var deskWrap: ZGoDeskPeripheral?
+    // shakeel and I need to implement UserData (or userData if struct)
+    @Published var userData: UserData?
     
-    // Bluetooth function handlers and rest go here
-    
-    
-}
-
-// desk controller class goes here
-class DeskController {
-    
-}
-
-
-//MARK: Old code to be imported
-
-import CoreBluetooth
-import Darwin
-
-
-class FirstViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
-    
-    let zStandDef: Double = 36
-    let zSitDef: Double = 30
-    let zWalkDef: Double = 40
-    let sitIndex: Int = 0
-    let standIndex: Int = 1
-    let walkIndex: Int = 2
-    
-    
-    var deskID: Int?
-    var BluetoothReadyFLAG: Bool = false
-    
-    var pickerData: [String] = [String]()
-    
-    // ["Sitting", "Standing", "Walking"]
-    var presets: [(name: String, height: Double)] = [(String, Double)]()
-    
-    
-    //MARK: Bluetooth Implementation
+    //MARK: Bluetooth Objects
     
     // centralManager handles iOS Bluetooth interactions
     var centralManager: CBCentralManager?
@@ -58,103 +26,21 @@ class FirstViewController: UIViewController, CBCentralManagerDelegate, CBPeriphe
     var peripheralDesk: CBPeripheral?
     var deskWrap: ZGoDeskPeripheral?
     var writeCharacteristic, readCharacteristic: CBCharacteristic?
+    var BluetoothReadyFLAG: Bool = false
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view:
-        
-        connStatus.text = "Input Desk ID"
-        connStatus.textColor = UIColor.black
-        
-        self.loadPresets()
-        self.loadPresetTitles()
-        
-        print("intial preset size at startup: \(presets.count)")
-        // Height slider section
-        heightLabel.text = String(Int (heightSlider.value) )
-        //Makes the slider vertical
-        heightSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Float.pi/2))
-        
-        //MARK: Bluetooth Implementation in viewDidLoad()
-        // Creates a background queue to manage UI interactions behind the Bluetooth functions
-        let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
-        
-        // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
-        centralManager = CBCentralManager(delegate: self, queue: centralQueue)
-        
-    } // End viewDidLoad()
-    
-    
-    // If memory is full clear up some space
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // Functions associated with UI elements
-    @IBAction func createPreset(_ sender: Any) {
-        print("Creating preset")
-        self.performSegue(withIdentifier: "PresetSegue", sender: self)
-    }
-    /* Unneeded due to nature of bluetooth code - height only updates when desk notifies that it has changed.
-     @IBAction func sliderSlid(_ sender: UISlider) {
-     //updateHeightLabel()
-     heightLabel.text = String(Int (heightSlider.value))
-     }
-     
-     @IBAction func upClick(_ sender: Any) {
-     heightSlider.value += 1
-     updateHeightLabel()
-     }
-     
-     @IBAction func downClick(_ sender: Any) {
-     heightSlider.value -= 1
-     updateHeightLabel()
-     }
-     */
+    // MARK: Bluetooth function handlers and rest go below:
     
     // Connect to Desk button onClick function
-    @IBAction func connectDeskClick(_ sender: Any) {
-        guard deskIDInput.text?.count == 8 && deskIDInput.text != nil else {
+    //@IBAction (function below)
+    func connectDeskClick(_ sender: Any) {
+        guard userData.deskID.text?.count == 8 && userData.deskID.text != nil else {
             connStatus.text = "Invalid Input"
             connStatus.textColor = UIColor.red
             return
         }
         deskID = Int(deskIDInput.text!)!
-        self.checkDeskID()
-    }
-    
-    @IBAction func unwindToFirstViewController(segue: UIStoryboardSegue) {
-        print("Unwind to Root View Controller")
-        print(self.presets)
-    }
-    
-    func updateHeightLabel() {
-        // Update current height
-        guard let currHeight:Double = deskWrap?.getHeightInches() else { return }
-        heightSlider.setValue(Float(currHeight), animated: true)
-        heightLabel.text = String(format: "%.1f", (currHeight*10.0).rounded(.down)/10.0) // only one decimal point printed
-        //Update max and min height
-        guard let maxHeight:Double = deskWrap?.getMaxHeightInches() else { return }
-        guard let minHeight:Double = deskWrap?.getMinHeightInches() else { return }
-        heightSlider.maximumValue = Float(maxHeight)
-        heightSlider.minimumValue = Float(minHeight)
-    }
-    
-    //loads default values for presets
-    func loadPresets() {
-        self.presets.append((name: "Sitting", height: zSitDef))
-        self.presets.append((name: "Standing", height: zStandDef))
-        self.presets.append((name: "Walking", height: zWalkDef))
-    }
-    
-    func loadPresetTitles() {
-        sittingPreset.setTitle( String(presets[sitIndex].height), for: UIControl.State.normal)
-        
-        standingPreset.setTitle(String(presets[standIndex].height), for: UIControl.State.normal)
-        
-        walkingPreset.setTitle(String(presets[walkIndex].height), for: UIControl.State.normal)
+        checkDeskID()
     }
     
     func checkDeskID() {
@@ -355,122 +241,19 @@ class FirstViewController: UIViewController, CBCentralManagerDelegate, CBPeriphe
         }
     }
     
-    // MARK:
-    // Up button actions
-    @IBAction func onTouch_UpButton(_ sender: Any) {
-        deskWrap?.raiseDesk()
-    }
-    @IBAction func onReleaseInside_UpButton(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    @IBAction func onReleaseOutside_UpButton(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    @IBAction func onTouchDragAway_UpButton(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    
-    // Down button actions: (yes i could tie the actions with the button events but I'll do that later)
-    @IBAction func onTouch_DownButton(_ sender: Any) {
-        deskWrap?.lowerDesk()
-    }
-    @IBAction func onReleaseInside_DownButton(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    
-    @IBAction func onReleaseOutside_DownButton(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    @IBAction func onTouchDragAway_DownButton(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    
-    // Preset button actions
-    // Preset0
-    @IBAction func TouchDown_Preset0(_ sender: UIButton) {
-        deskWrap?.moveToHeight(PresetHeight: self.presets[sitIndex].height)
-    }
-    @IBAction func ReleaseInside_Preset0(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    @IBAction func ReleaseOutside_Preset0(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    
-    // Preset1
-    @IBAction func TouchDown_Preset1(_ sender: UIButton) {
-        //print("Button title: " + sender.currentTitle)
-        deskWrap?.moveToHeight(PresetHeight: self.presets[standIndex].height)
-    }
-    @IBAction func ReleaseInside_Preset1(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    @IBAction func ReleaseOutside_Preset1(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    
-    // Preset2
-    @IBAction func TouchDown_Preset2(_ sender: UIButton) {
-        deskWrap?.moveToHeight(PresetHeight: self.presets[walkIndex].height)
-    }
-    @IBAction func ReleaseInside_Preset2(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    @IBAction func ReleaseOutside_Preset2(_ sender: Any) {
-        deskWrap?.releaseDesk()
-    }
-    
-    
-} // MARK: End of FirstViewController
-
-
-// allows the use of a done button
-extension UITextField{
-    @IBInspectable var doneAccessory: Bool{
-        get{
-            return self.doneAccessory
-        }
-        set (hasDone) {
-            if hasDone{
-                addDoneButtonOnKeyboard()
-            }
-        }
-    }
-    
-    func addDoneButtonOnKeyboard()
-    {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        doneToolbar.barStyle = .default
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-        
-        let items = [flexSpace, done]
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        
-        self.inputAccessoryView = doneToolbar
-    }
-    
-    @objc func doneButtonAction()
-    {
-        self.resignFirstResponder()
-    }
 }
 
 
+//MARK: Bluetooth Implementation - Desk Interaction
 
-//MARK: Bluetooth Implementation - Constants and Desk Interaction
-
-///# ZGo Desk Service and Characteristic CBUUIDs
-let ZGoServiceUUID = CBUUID(string:"0xFEE0")
-let ZGoNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
-let ZGoWriteCharacteristicUUID = CBUUID(string:"0xFEE2")
-let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3") // useless?
-
-
-/// DeskPeripheralWrapper: contains desk control methods and stores pointers to peripheral and characteristics
+///# ZGoDeskPeripheralWrapper: Contains controls for ZGo desk
 class ZGoDeskPeripheral {
+    
+    ///# ZGo Desk Service and Characteristic CBUUIDs
+    let ZGoServiceUUID = CBUUID(string:"0xFEE0")
+    let ZGoNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
+    let ZGoWriteCharacteristicUUID = CBUUID(string:"0xFEE2")
+    let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
     
     let deskPeripheral: CBPeripheral
     let writeCharacteristic, readCharacteristic: CBCharacteristic
@@ -487,7 +270,7 @@ class ZGoDeskPeripheral {
     let raiseCMD : [UInt8] = [0xA5, 0x03, 0x12, 0x15]
     let lowerCMD : [UInt8] = [0xA5, 0x03, 0x14, 0x17]
     let releaseCMD : [UInt8] = [0xA5, 0x03, 0x10, 0x13]
-    // let specificHeightCMD : [UInt8] = [0xA5, 0x05, 0x31, HeightHigh, HeightLow, Checksum]
+    //let specificHeightCMD : [UInt8] = [0xA5, 0x05, 0x31, HeightHigh, HeightLow, Checksum]
     
     /// Controller Information Commands:
     let tableStatusInfo : [UInt8] = [0xA5, 0x04, 0x20, 0x01, 0x25]
@@ -499,15 +282,13 @@ class ZGoDeskPeripheral {
     let lockCMD : [UInt8] = [0xA5, 0x04, 0x32, 0x01, 0x37]
     let unlockCMD : [UInt8] = [0xA5, 0x04, 0x32, 0x00, 0x36]
     
-    /*
-     func readFromDesk() {
-     return self.deskPeripheral.readValue(for: self.readCharacteristic)
-     }
-     */
+    
     func writeToDesk(data:NSData, type:CBCharacteristicWriteType) {
         self.deskPeripheral.writeValue(data as Data, for: self.writeCharacteristic, type: type)
-    }
-    
+    } /*
+     func readFromDesk() {
+     return self.deskPeripheral.readValue(for: self.readCharacteristic)
+     } */
     
     func raiseDesk() {
         self.writeToDesk(data: Data(_:raiseCMD) as NSData, type: .withoutResponse)
@@ -521,6 +302,7 @@ class ZGoDeskPeripheral {
     
     
     func moveToHeight(PresetHeight:Double) {
+        
         // Convert units and construct desk command
         let heightBits: [UInt8] = self.inch2mmBits(HeightIn: PresetHeight)
         //print("PresetHeight: \(PresetHeight)\nheightBits: \(String(describing: String(bytes: heightBits, encoding: .utf8)))")
@@ -640,7 +422,7 @@ class ZGoDeskPeripheral {
         return Double(Int(HeightBits![1])<<8 + Int(HeightBits![0])) / 25.4
     }
     
-    // Convert height in inches to millimeters in [UInt8] array form
+    // Convert height in inches to millimeters in [UInt8] 2 byte array form
     private func inch2mmBits(HeightIn: Double)->[UInt8] {
         // try rounding up with bitwise logic to sync better to desk
         let Height = Int(HeightIn * 25.4)
@@ -648,3 +430,229 @@ class ZGoDeskPeripheral {
     }
     
 } // end DeskPeripheralWrapper
+
+
+
+
+
+
+
+
+
+
+
+
+//MARK: Old code to be imported
+/*
+
+import CoreBluetooth
+import Darwin
+
+
+class FirstViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+    
+    
+    var deskID: Int?
+
+    
+    var pickerData: [String] = [String]()
+    
+    // ["Sitting", "Standing", "Walking"]
+    var presets: [(name: String, height: Double)] = [(String, Double)]()
+    
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view:
+        
+        connStatus.text = "Input Desk ID"
+        connStatus.textColor = UIColor.black
+        
+        self.loadPresets()
+        self.loadPresetTitles()
+        
+        print("intial preset size at startup: \(presets.count)")
+        // Height slider section
+        heightLabel.text = String(Int (heightSlider.value) )
+        //Makes the slider vertical
+        heightSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Float.pi/2))
+        
+        //MARK: Bluetooth Implementation in viewDidLoad()
+        // Creates a background queue to manage UI interactions behind the Bluetooth functions
+        let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
+        
+        // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
+        centralManager = CBCentralManager(delegate: self, queue: centralQueue)
+        
+    } // End viewDidLoad()
+    
+    
+    // If memory is full clear up some space
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // Functions associated with UI elements
+    @IBAction func createPreset(_ sender: Any) {
+        print("Creating preset")
+        self.performSegue(withIdentifier: "PresetSegue", sender: self)
+    }
+    /* Unneeded due to nature of bluetooth code - height only updates when desk notifies that it has changed.
+     @IBAction func sliderSlid(_ sender: UISlider) {
+     //updateHeightLabel()
+     heightLabel.text = String(Int (heightSlider.value))
+     }
+     
+     @IBAction func upClick(_ sender: Any) {
+     heightSlider.value += 1
+     updateHeightLabel()
+     }
+     
+     @IBAction func downClick(_ sender: Any) {
+     heightSlider.value -= 1
+     updateHeightLabel()
+     }
+     */
+    
+    
+    
+    @IBAction func unwindToFirstViewController(segue: UIStoryboardSegue) {
+        print("Unwind to Root View Controller")
+        print(self.presets)
+    }
+    
+    func updateHeightLabel() {
+        // Update current height
+        guard let currHeight:Double = deskWrap?.getHeightInches() else { return }
+        heightSlider.setValue(Float(currHeight), animated: true)
+        heightLabel.text = String(format: "%.1f", (currHeight*10.0).rounded(.down)/10.0) // only one decimal point printed
+        //Update max and min height
+        guard let maxHeight:Double = deskWrap?.getMaxHeightInches() else { return }
+        guard let minHeight:Double = deskWrap?.getMinHeightInches() else { return }
+        heightSlider.maximumValue = Float(maxHeight)
+        heightSlider.minimumValue = Float(minHeight)
+    }
+    
+    //loads default values for presets
+    func loadPresets() {
+        self.presets.append((name: "Sitting", height: zSitDef))
+        self.presets.append((name: "Standing", height: zStandDef))
+        self.presets.append((name: "Walking", height: zWalkDef))
+    }
+    
+    func loadPresetTitles() {
+        sittingPreset.setTitle( String(presets[sitIndex].height), for: UIControl.State.normal)
+        
+        standingPreset.setTitle(String(presets[standIndex].height), for: UIControl.State.normal)
+        
+        walkingPreset.setTitle(String(presets[walkIndex].height), for: UIControl.State.normal)
+    }
+    
+    
+    // MARK:
+    // Up button actions
+    @IBAction func onTouch_UpButton(_ sender: Any) {
+        deskWrap?.raiseDesk()
+    }
+    @IBAction func onReleaseInside_UpButton(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    @IBAction func onReleaseOutside_UpButton(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    @IBAction func onTouchDragAway_UpButton(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    
+    // Down button actions: (yes i could tie the actions with the button events but I'll do that later)
+    @IBAction func onTouch_DownButton(_ sender: Any) {
+        deskWrap?.lowerDesk()
+    }
+    @IBAction func onReleaseInside_DownButton(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    
+    @IBAction func onReleaseOutside_DownButton(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    @IBAction func onTouchDragAway_DownButton(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    
+    // Preset button actions
+    // Preset0
+    @IBAction func TouchDown_Preset0(_ sender: UIButton) {
+        deskWrap?.moveToHeight(PresetHeight: self.presets[sitIndex].height)
+    }
+    @IBAction func ReleaseInside_Preset0(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    @IBAction func ReleaseOutside_Preset0(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    
+    // Preset1
+    @IBAction func TouchDown_Preset1(_ sender: UIButton) {
+        //print("Button title: " + sender.currentTitle)
+        deskWrap?.moveToHeight(PresetHeight: self.presets[standIndex].height)
+    }
+    @IBAction func ReleaseInside_Preset1(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    @IBAction func ReleaseOutside_Preset1(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    
+    // Preset2
+    @IBAction func TouchDown_Preset2(_ sender: UIButton) {
+        deskWrap?.moveToHeight(PresetHeight: self.presets[walkIndex].height)
+    }
+    @IBAction func ReleaseInside_Preset2(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    @IBAction func ReleaseOutside_Preset2(_ sender: Any) {
+        deskWrap?.releaseDesk()
+    }
+    
+    
+} // MARK: End of FirstViewController
+
+
+// allows the use of a done button
+extension UITextField{
+    @IBInspectable var doneAccessory: Bool{
+        get{
+            return self.doneAccessory
+        }
+        set (hasDone) {
+            if hasDone{
+                addDoneButtonOnKeyboard()
+            }
+        }
+    }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction()
+    {
+        self.resignFirstResponder()
+    }
+}
+
+ */
