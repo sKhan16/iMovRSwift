@@ -16,7 +16,12 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var isConnected = false
     @Published var deskWrap: ZGoDeskPeripheral?
     // shakeel and I need to implement UserData (or userData if struct)
-    @Published var userData: UserData?
+    @Published var userData: UserObservable?
+    //delete this struct after Shakeel merges his UserObservable class
+    struct UserObservable {
+        var deskID: String? = "10008002"
+        
+    }
     
     //MARK: Bluetooth Objects
     
@@ -24,7 +29,6 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     var centralManager: CBCentralManager?
     // peripheralDesk and deskWrap represent the connected desk
     var peripheralDesk: CBPeripheral?
-    var deskWrap: ZGoDeskPeripheral?
     var writeCharacteristic, readCharacteristic: CBCharacteristic?
     var BluetoothReadyFLAG: Bool = false
     
@@ -34,27 +38,41 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // Connect to Desk button onClick function
     //@IBAction (function below)
     func connectDeskClick(_ sender: Any) {
-        guard userData.deskID.text?.count == 8 && userData.deskID.text != nil else {
-            connStatus.text = "Invalid Input"
-            connStatus.textColor = UIColor.red
+        guard userData?.deskID != nil && userData?.deskID?.count == 8 else {
+            print("invalid input")
+//            connStatus.text = "Invalid Input"
+//            connStatus.textColor = UIColor.red
             return
         }
-        deskID = Int(deskIDInput.text!)!
+        //deskID = Int(deskIDInput.text!)!
         checkDeskID()
     }
     
     func checkDeskID() {
         // tell central to start scanning, eventually checking discovered peripheral with the deskID
         guard BluetoothReadyFLAG else {
-            connStatus.text = "Turn Bluetooth On To Continue"
-            connStatus.textColor = UIColor.red
+            print("turn bluetooth on to continue")
+//            connStatus.text = "Turn Bluetooth On To Continue"
+//            connStatus.textColor = UIColor.red
             return
         }
         print("Scanning for peripherals with service: \(ZGoServiceUUID)")
-        connStatus.text = "Scanning For Desks"
-        connStatus.textColor = UIColor.black
+//        connStatus.text = "Scanning For Desks"
+//        connStatus.textColor = UIColor.black
         // BT is on, now scan for peripherals that match the CBUUID
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID]);
+    }
+    
+    func updateHeightLabel() {
+        // Update current height
+        guard let currHeight:Double = deskWrap?.getHeightInches() else { return }
+//        heightSlider.setValue(Float(currHeight), animated: true)
+//        heightLabel.text = String(format: "%.1f", (currHeight*10.0).rounded(.down)/10.0) // only one decimal point printed
+        //Update max and min height
+        guard let maxHeight:Double = deskWrap?.getMaxHeightInches() else { return }
+        guard let minHeight:Double = deskWrap?.getMinHeightInches() else { return }
+//        heightSlider.maximumValue = Float(maxHeight)
+//        heightSlider.minimumValue = Float(minHeight)
     }
     
     /*
@@ -85,14 +103,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             print("Bluetooth status is POWERED OFF")
             BluetoothReadyFLAG = false
             DispatchQueue.main.async { () -> Void in
-                self.connStatus.text = "Turn Bluetooth On To Continue"
-                self.connStatus.textColor = UIColor.red
+//                self.connStatus.text = "Turn Bluetooth On To Continue"
+//                self.connStatus.textColor = UIColor.red
             }
         // Ideal case: Bluetooth is powered on, scan for desks
         case .poweredOn:
             DispatchQueue.main.async { () -> Void in
-                self.connStatus.text = "Input Desk ID"
-                self.connStatus.textColor = UIColor.black
+//                self.connStatus.text = "Input Desk ID"
+//                self.connStatus.textColor = UIColor.black
             }
             print("Bluetooth status is POWERED ON")
             // scan when user clicks the Connect To Desk button
@@ -128,11 +146,11 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         print("After, fixed \(manufacturerDeskID)")
         
-        guard self.deskID == manufacturerDeskID else {
+        guard (Int((userData?.deskID)!) != nil) && (Int((userData?.deskID)!)! == manufacturerDeskID) else {
             print("Desk \(String(manufacturerDeskID)) did not match")
             DispatchQueue.main.async { () -> Void in
-                self.connStatus.text = "Discovered Desk(s) Did Not Match ID"
-                self.connStatus.textColor = UIColor.red
+//                self.connStatus.text = "Discovered Desk(s) Did Not Match ID"
+//                self.connStatus.textColor = UIColor.red
             }
             return
         }
@@ -160,8 +178,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // didConnect: Invoked when a peripheral is connected successfully
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         DispatchQueue.main.async { () -> Void in
-            self.connStatus.text = "Desk Connected"
-            self.connStatus.textColor = UIColor.green
+//            self.connStatus.text = "Desk Connected"
+//            self.connStatus.textColor = UIColor.green
         }
         print("Discovering services of \(String(describing: peripheralDesk?.name))")
         peripheralDesk?.discoverServices([ZGoServiceUUID])
@@ -172,8 +190,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Peripheral disconnected; now scanning")
         DispatchQueue.main.async { () -> Void in
-            self.connStatus.text = "Desk Disconnected"
-            self.connStatus.textColor = UIColor.red
+//            self.connStatus.text = "Desk Disconnected"
+//            self.connStatus.textColor = UIColor.red
         }
         // Start scanning for (ZGo) desks again
         //MARK:~~~Maybe this should look for paired devices before scanning for new ones~~~
@@ -246,14 +264,16 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
 
 //MARK: Bluetooth Implementation - Desk Interaction
 
+///# ZGo Desk Service and Characteristic CBUUIDs
+let ZGoServiceUUID = CBUUID(string:"0xFEE0")
+let ZGoNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
+let ZGoWriteCharacteristicUUID = CBUUID(string:"0xFEE2")
+let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
+
 ///# ZGoDeskPeripheralWrapper: Contains controls for ZGo desk
 class ZGoDeskPeripheral {
     
-    ///# ZGo Desk Service and Characteristic CBUUIDs
-    let ZGoServiceUUID = CBUUID(string:"0xFEE0")
-    let ZGoNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
-    let ZGoWriteCharacteristicUUID = CBUUID(string:"0xFEE2")
-    let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
+    
     
     let deskPeripheral: CBPeripheral
     let writeCharacteristic, readCharacteristic: CBCharacteristic
@@ -524,17 +544,7 @@ class FirstViewController: UIViewController, CBCentralManagerDelegate, CBPeriphe
         print(self.presets)
     }
     
-    func updateHeightLabel() {
-        // Update current height
-        guard let currHeight:Double = deskWrap?.getHeightInches() else { return }
-        heightSlider.setValue(Float(currHeight), animated: true)
-        heightLabel.text = String(format: "%.1f", (currHeight*10.0).rounded(.down)/10.0) // only one decimal point printed
-        //Update max and min height
-        guard let maxHeight:Double = deskWrap?.getMaxHeightInches() else { return }
-        guard let minHeight:Double = deskWrap?.getMinHeightInches() else { return }
-        heightSlider.maximumValue = Float(maxHeight)
-        heightSlider.minimumValue = Float(minHeight)
-    }
+    
     
     //loads default values for presets
     func loadPresets() {
