@@ -66,6 +66,7 @@
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E724C12C1A00155123 /* UserObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObservable.swift; sourceTree = "<group>"; };
 		1E94E1E924C2254E00155123 /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
+		1E94E1EF24C2408800155123 /* MotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MotherView.swift; path = /Users/shakeelkhan/Desktop/iMovRSwift/iMovR/iMovR/MotherView.swift; sourceTree = "<absolute>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ZGoBluetoothController.swift; path = iMovR/Bluetooth/ZGoBluetoothController.swift; sourceTree = SOURCE_ROOT; };
@@ -133,6 +134,7 @@
 				1E23015624BCEB35009A0B3C /* AppDelegate.swift */,
 				1E23015824BCEB35009A0B3C /* SceneDelegate.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
+				1E94E1EF24C2408800155123 /* MotherView.swift */,
 				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
 				41D079BF24C220E00047FD48 /* Bluetooth */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
