@@ -11,10 +11,9 @@ import Combine
 import SwiftUI
 
 public class UserObservable: ObservableObject {
-    @Published var presets: [(name: String, height: Float)]
+    @Published var presets: [(name: String, height: Float)] = []
     
     init() {
-        presets = []
         self.addTestPresets()
         
     }

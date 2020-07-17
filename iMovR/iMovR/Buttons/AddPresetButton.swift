@@ -15,10 +15,16 @@ struct AddPresetButton: View {
                 addPreset()
             }) {
             VStack {
-            Image(systemName: "plus.circle")
-                .resizable()
-                .frame(width: 50.0, height: 50)
-            Text("Add Preset")
+                ZStack {
+                    Circle()
+                        //.resizable()
+                        .stroke(Color.gray, lineWidth: 3)
+                        .frame(width: 50.0, height: 50)
+                    Image(systemName: "plus")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    }
+                Text("Add Preset")
             }
         }
             .accentColor(Color.black)
