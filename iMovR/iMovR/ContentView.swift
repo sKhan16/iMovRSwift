@@ -10,15 +10,13 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
+    @EnvironmentObject var user: UserObservable
  
     var body: some View {
         
-        
-        
-        
         TabView(selection: $selection){
             
-                HomeView()
+            HomeView()
                     
                 .tabItem {
                     VStack {

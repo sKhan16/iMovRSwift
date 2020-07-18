@@ -19,10 +19,10 @@ struct AddPresetButton: View {
                     Circle()
                         //.resizable()
                         .stroke(Color.gray, lineWidth: 3)
-                        .frame(width: 50.0, height: 50)
+                        .frame(width: 45.0, height: 45)
                     Image(systemName: "plus")
                     .resizable()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 25, height: 25)
                     }
                 Text("Add Preset")
             }

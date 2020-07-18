@@ -9,11 +9,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var user: UserObservable = UserObservable()
-    
+    @EnvironmentObject var user: UserObservable
     var body: some View {
-        
-        
         
         VStack {
                 
@@ -29,9 +26,11 @@ struct HomeView: View {
                 ScrollView(.horizontal) {
                     HStack  {
                         
-                        ForEach (0..<user.presets.count) { index in
+                        ForEach (0..<self.user.presets.count) { index in
                             PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
+                            //self.addPreset()
                         }
+                        
 //                    PresetButton(name: "Sitting", presetVal: 32.9)
                     }
                     .frame( height: 100)
@@ -46,7 +45,6 @@ struct HomeView: View {
         }
         
     }
-    
 }
 
 
