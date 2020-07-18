@@ -31,3 +31,10 @@ public class UserObservable: ObservableObject {
     }
 
 }
+
+enum LoginState {
+    case firstTime
+    case Connected
+    case Disconnected
+    
+}

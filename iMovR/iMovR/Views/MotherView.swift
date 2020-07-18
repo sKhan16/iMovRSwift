@@ -21,11 +21,11 @@ struct MotherView: View {
     }
 }
 
-enum viewState: Int {
-    case onboarding = 0
-    case home = 1
-    case edit_presets = 2
-}
+//enum viewState: Int {
+//    case onboarding = 0
+//    case home = 1
+//    case edit_presets = 2
+//}
  
 //func pickView() -> AnyView {
 //    switch viewState(superViewState) {
