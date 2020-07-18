@@ -12,6 +12,7 @@ import SwiftUI
 
 public class UserObservable: ObservableObject {
     @Published var presets: [(name: String, height: Float)] = []
+    @Published var loginState: LoginState = .firstTime
     
     init() {
         //self.addTestPresets()

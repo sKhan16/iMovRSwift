@@ -10,11 +10,15 @@ import SwiftUI
 
 struct MotherView: View {
     // Variables here
-    
+    @EnvironmentObject var user: UserObservable
     
     var body: some View {
-        HStack {
-            Text("Mother View")
+        VStack {
+            if user.loginState == .Connected {
+                ContentView()
+            } else if user.loginState == .firstTime {
+                Text("Onboarding screen coming soon") 
+            }
             //self.pickView()
             
         }
