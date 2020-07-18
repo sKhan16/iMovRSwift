@@ -75,7 +75,7 @@
 		1E94E1F424C2801E00155123 /* DownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = "iMovR/Data Structures/BTConnectView.swift"; sourceTree = SOURCE_ROOT; };
+		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
 		41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ZGoBluetoothController.swift; path = iMovR/Bluetooth/ZGoBluetoothController.swift; sourceTree = SOURCE_ROOT; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovRTests.release.xcconfig"; path = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,11 +138,7 @@
 		1E23015524BCEB35009A0B3C /* iMovR */ = {
 			isa = PBXGroup;
 			children = (
-				1E23015624BCEB35009A0B3C /* AppDelegate.swift */,
-				1E23015824BCEB35009A0B3C /* SceneDelegate.swift */,
-				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
-				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
-				1E94E1F024C241A400155123 /* MotherView.swift */,
+				41A3096C24C28F9C00644006 /* Views */,
 				41D079BF24C220E00047FD48 /* Bluetooth */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E94E1E124BF9F9900155123 /* Buttons */,
@@ -196,7 +192,6 @@
 		1E94E1E624C12B6E00155123 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
-				41A3096A24C28F4700644006 /* BTConnectView.swift */,
 				1E94E1E724C12C1A00155123 /* UserObservable.swift */,
 			);
 			path = "Data Structures";
@@ -213,6 +208,19 @@
 				56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		41A3096C24C28F9C00644006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1E23015624BCEB35009A0B3C /* AppDelegate.swift */,
+				1E23015824BCEB35009A0B3C /* SceneDelegate.swift */,
+				1E94E1F024C241A400155123 /* MotherView.swift */,
+				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
+				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
+				41A3096A24C28F4700644006 /* BTConnectView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		41D079BF24C220E00047FD48 /* Bluetooth */ = {
