@@ -40,6 +40,16 @@ struct HomeView: View {
                 
             }
             
+            
+            Spacer()
+            HStack {
+                Spacer()
+                VStack {
+                    UpButton()
+                    DownButton()
+                }
+            .padding(50)
+            }
             Spacer()
          
         }
