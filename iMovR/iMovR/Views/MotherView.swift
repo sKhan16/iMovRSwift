@@ -10,12 +10,14 @@ import SwiftUI
 
 struct MotherView: View {
     var body: some View {
-        HStack {
-            if viewState == 0 {
-                onboardingView()
-            }
-            Text("Mother View")
-        }
+
+        Text("Mother View")
+        //        HStack {
+//            if viewState == 0 {
+//                onboardingView()
+//            }
+//            Text("Mother View")
+//        }
     }
 }
 

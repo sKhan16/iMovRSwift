@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct AddPresetButton: View {
+@EnvironmentObject var user: UserObservable
+    
     var body: some View {
         
             Button(action: {
-                addPreset()
+                addPreset(user: self.user)
             }) {
             VStack {
                 ZStack {
@@ -31,7 +33,8 @@ struct AddPresetButton: View {
     }
 }
 
-func addPreset() {
+func addPreset(user: UserObservable) {
+    user.addTestPresets()
     // Replace with functionality to switch to AddPreset screen.
     print("Moving to the add preset screen!")
 }

@@ -26,7 +26,8 @@ struct HomeView: View {
                 ScrollView(.horizontal) {
                     HStack  {
                         
-                        ForEach (0..<self.user.presets.count) { index in
+                        //Might want to make presets a struct that is identifiable
+                        ForEach (0..<self.user.presets.count, id: \.self) { index in
                             PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
                             //self.addPreset()
                         }

@@ -14,7 +14,7 @@ public class UserObservable: ObservableObject {
     @Published var presets: [(name: String, height: Float)] = []
     
     init() {
-        self.addTestPresets()
+        //self.addTestPresets()
         
     }
     
