@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var BTController: ZGoBluetoothController
  
     var body: some View {
         

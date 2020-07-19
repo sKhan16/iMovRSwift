@@ -13,6 +13,7 @@ import SwiftUI
 public class UserObservable: ObservableObject {
     @Published var presets: [(name: String, height: Float)] = []
     @Published var loginState: LoginState = .firstTime
+    @Published var deskID: String? = nil
     
     init() {
         //self.addTestPresets()

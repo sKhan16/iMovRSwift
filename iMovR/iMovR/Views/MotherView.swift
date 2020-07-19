@@ -18,6 +18,8 @@ struct MotherView: View {
                 ContentView()
             } else if user.loginState == .firstTime {
                 Text("Onboarding screen coming soon") 
+            } else if user.loginState == .Disconnected {
+                
             }
             //self.pickView()
             

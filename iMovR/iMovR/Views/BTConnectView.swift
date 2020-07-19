@@ -12,9 +12,12 @@ struct BTConnectView: View {
     var body: some View {
         VStack {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            
         }
     }
 }
+// get popover to work
+// popover(item: <#T##Binding<Identifiable?>#>, content: self)
 
 struct BTConnectView_Previews: PreviewProvider {
     static var previews: some View {
