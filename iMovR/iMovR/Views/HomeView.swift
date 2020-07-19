@@ -9,7 +9,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    let minHeight: Float = 23.0
+    
     @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: ZGoBluetoothController
+    
+    @State private var testHeight: Float = 35.0
+    
+    
     var body: some View {
         
         VStack {
@@ -45,12 +52,19 @@ struct HomeView: View {
             Spacer()
             HStack {
                 Spacer()
+                
+                //Text(String(testHeight))
+                HStack {
+                    HeightSlider(testHeight: $testHeight)
+                }//.frame(width:250)
                 VStack {
-                    UpButton()
-                    DownButton()
+                    UpButton(testHeight: $testHeight)
+                    .padding()
+                    DownButton(testHeight: $testHeight)
                 }
-            .padding(50)
+            .padding(40)
             }
+            //.frame(height: 300)
             Spacer()
          
         }
@@ -62,6 +76,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView().environmentObject(UserObservable())
+        HomeView().environmentObject(UserObservable()).environmentObject(ZGoBluetoothController())
     }
 }

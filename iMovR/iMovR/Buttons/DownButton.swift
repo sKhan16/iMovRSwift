@@ -9,10 +9,20 @@
 import SwiftUI
 
 struct DownButton: View {
+    @EnvironmentObject var bt: ZGoBluetoothController
+    @Binding var testHeight: Float
+    
     var body: some View {
         Button(action: {
             // What to perform
-            moveDown()
+            self.bt.deskWrap?.lowerDesk()
+            if self.testHeight > 23.0 {
+                self.testHeight -= 1.0
+                print("Moving down!")
+            } else {
+                print("Reached minimum height")
+            }
+            
         }) {
             // How the button looks like
             Image(systemName: "arrow.down.square")
@@ -22,12 +32,9 @@ struct DownButton: View {
     }
 }
 
-func moveDown() {
-    print("Moving down!")
-}
 
 struct DownButton_Previews: PreviewProvider {
     static var previews: some View {
-        DownButton()
+        DownButton(testHeight: .constant(23.0)).environmentObject(ZGoBluetoothController())
     }
 }

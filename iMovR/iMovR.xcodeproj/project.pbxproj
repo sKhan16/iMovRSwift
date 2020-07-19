@@ -25,6 +25,7 @@
 		1E94E1F324C27ED400155123 /* UpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F224C27ED400155123 /* UpButton.swift */; };
 		1E94E1F524C2801E00155123 /* DownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F424C2801E00155123 /* DownButton.swift */; };
 		1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F624C3B8C500155123 /* ViewRouter.swift */; };
+		1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F824C3E06F00155123 /* HeightSlider.swift */; };
 		41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096A24C28F4700644006 /* BTConnectView.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */; };
@@ -77,6 +78,7 @@
 		1E94E1F224C27ED400155123 /* UpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButton.swift; sourceTree = "<group>"; };
 		1E94E1F424C2801E00155123 /* DownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButton.swift; sourceTree = "<group>"; };
 		1E94E1F624C3B8C500155123 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		1E94E1F824C3E06F00155123 /* HeightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightSlider.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
@@ -192,6 +194,7 @@
 				1E94E1E424C0F72800155123 /* PresetButton.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
+				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				41A3096E24C399D300644006 /* Preset.swift in Sources */,
 				1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
+				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
