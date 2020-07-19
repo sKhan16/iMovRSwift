@@ -19,7 +19,7 @@ struct MotherView: View {
             } else if user.loginState == .firstTime {
                 Text("Onboarding screen coming soon") 
             } else if user.loginState == .Disconnected {
-                
+                Text("User is disconnected")
             }
             //self.pickView()
             
@@ -46,6 +46,6 @@ struct MotherView: View {
 
 struct MotherView_Previews: PreviewProvider {
     static var previews: some View {
-        MotherView()
+        MotherView().environmentObject(UserObservable())
     }
 }
