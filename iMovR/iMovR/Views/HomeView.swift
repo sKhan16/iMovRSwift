@@ -15,9 +15,13 @@ struct HomeView: View {
     @EnvironmentObject var bt: ZGoBluetoothController
     
     @State private var testHeight: Float = 35.0
+    @State var showAddPreset: Bool = false
     
-    
+    @ViewBuilder
     var body: some View {
+        
+        //NavigationView {
+        
         
         VStack {
                 
@@ -26,9 +30,20 @@ struct HomeView: View {
                 .frame(width: 110, height: 110)
             
             Spacer().frame(height: 70)
+            
+            ZStack {
+//                if self.$showAddPreset.wrappedValue {
+//                    AddPresetView(showAddPreset: self.$showAddPreset)
+//                } else {
+//
+//                }
             HStack {
-                AddPresetButton()
-                .padding()
+                
+                        AddPresetButton(showAddPreset: self.$showAddPreset)
+                        .padding()
+                
+                //.navigationBarTitle("Home screen")
+                
                 
                 ScrollView(.horizontal) {
                     HStack  {
@@ -47,7 +62,12 @@ struct HomeView: View {
                 
                 
             }
-            
+               ///Shows add preset popup
+                if self.$showAddPreset.wrappedValue {
+                    AddPresetView(showAddPreset: self.$showAddPreset)
+                }
+            //
+            }
             
             Spacer()
             HStack {
@@ -67,9 +87,17 @@ struct HomeView: View {
             //.frame(height: 300)
             Spacer()
          
+        //}
+            
+        //Needed to avoid white space on top, pushing everything downs
+            //.navigationBarTitle("")
+            //.navigationBarHidden(true)
+        
         }
         
+    
     }
+    
 }
 
 

@@ -11,15 +11,18 @@ import SwiftUI
 struct AddPresetButton: View {
 @EnvironmentObject var user: UserObservable
 @State private var testCount: Float = 0.0
+
+@Binding var showAddPreset: Bool
     
     var body: some View {
         
             Button(action: {
-                addPreset(user: self.user, name: "test", height: self.testCount)
-                self.testCount += 1.0
-                
+                //addPreset(user: self.user, name: "test", height: self.testCount)
+                //self.testCount += 1.0
+                self.showAddPreset = true
             }) {
-            VStack {
+           
+        VStack {
                 ZStack {
                     Circle()
                         //.resizable()
@@ -30,10 +33,11 @@ struct AddPresetButton: View {
                     .frame(width: 25, height: 25)
                     }
                 Text("Add Preset")
-            }
+            }//.accentColor(Color.black)
         }
-            .accentColor(Color.black)
+//            .accentColor(Color.black)
     }
+
 }
 
 func addPreset(user: UserObservable, name: String, height: Float) {
@@ -45,6 +49,6 @@ func addPreset(user: UserObservable, name: String, height: Float) {
 
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetButton()
+        AddPresetButton(showAddPreset: .constant(true))
     }
 }
