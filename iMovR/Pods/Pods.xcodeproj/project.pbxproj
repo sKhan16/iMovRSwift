@@ -7,42 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		035854F8763C412005535A35EBEB9E50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		18EF57466FE8A7790FC0230B47A7A8D8 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461945EDE87DFD7CDD4F5126154AF88 /* PopupView.swift */; };
+		1E2C2540AE76FBFDB99C670BEFDFD781 /* Pods-iMovR-iMovRUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C731617BED0A9795D124A03482CB10AB /* Pods-iMovR-iMovRUITests-dummy.m */; };
 		237E0DCED8983050ADD62763C483EB8F /* ExytePopupView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B74E9B3E65E6233A5CA23C355F03E /* ExytePopupView-dummy.m */; };
-		243342FF1A28D67674BAEA61062F8647 /* Pods-iMovR-iMovRUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EFAA17393FBAA7A868E7BC4B97F6EE /* Pods-iMovR-iMovRUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3EC761B8E245A00630C0CB80EBCEC9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		89E3A43EE4BC769E485DFF7504102C66 /* Pods-iMovRTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E361DDDC2FF1845BD094B1D034B9AC8 /* Pods-iMovRTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		96F1271E20A8D8AB6B72F2625AF487AB /* Pods-iMovRTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A487D07CC05B9E9D4ACB39AE9A812D /* Pods-iMovRTests-dummy.m */; };
+		3F096DDE785AF21ABB87EF49C90C7CB5 /* Pods-iMovRTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A487D07CC05B9E9D4ACB39AE9A812D /* Pods-iMovRTests-dummy.m */; };
+		401402569866CEBE2E1DC846C8F7A0E4 /* Pods-iMovRTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E361DDDC2FF1845BD094B1D034B9AC8 /* Pods-iMovRTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4AF847D7C228AF374D4496F011B7A89E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		675C868D633F7965651A609374564ED9 /* Pods-iMovR-iMovRUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EFAA17393FBAA7A868E7BC4B97F6EE /* Pods-iMovR-iMovRUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		97AA28E7AA5B2B0E6A9F1C28E5A0591D /* ExytePopupView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 564A6452FC120F89437DC8F4B10CAEBB /* ExytePopupView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B27195B0578D4D6E36DC848FB265C21B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		B7BA353AE346779F9059041911177CD1 /* Pods-iMovR-iMovRUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C731617BED0A9795D124A03482CB10AB /* Pods-iMovR-iMovRUITests-dummy.m */; };
-		C780328857AAB6DBD0C8B6CEF638869F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		CA50542073EFCD8C89F006FA32832427 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		FF1727AE3941D435828013C207031683 /* Pods-iMovR-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD681185B32D82BB26FC7343BC72E96 /* Pods-iMovR-dummy.m */; };
-		FFEC3113ECB1B4C717D7BC59C330081B /* Pods-iMovR-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CADD1A4537028EA7AB8EFFDD7C2343E0 /* Pods-iMovR-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4C4819FBD118C6B0BB437E4BDAE1432 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		D6F4C527C4356AE0726E25158FB536B0 /* Pods-iMovR-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CADD1A4537028EA7AB8EFFDD7C2343E0 /* Pods-iMovR-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAEA07BA736FB2D01B89E80EA69E81BC /* Pods-iMovR-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD681185B32D82BB26FC7343BC72E96 /* Pods-iMovR-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		29970071FDA9BB7D55E4691F032E7DC9 /* PBXContainerItemProxy */ = {
+		244DCDD0D79F5B347005F8D2F5D3194F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E3BF7971BE024EA2CBC58C6A22E7F7CD;
+			remoteInfo = ExytePopupView;
+		};
+		3DE8BE1E6B0405990FE8E6F301302677 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E3BF7971BE024EA2CBC58C6A22E7F7CD;
+			remoteInfo = ExytePopupView;
+		};
+		DED079BA4928180309291C3AD7AF9A37 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 40251EC317AAE95B552F0B57CBAE97EF;
 			remoteInfo = "Pods-iMovR";
-		};
-		9258FF5F94DCC3CECCA91DDBC518CCC9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E3BF7971BE024EA2CBC58C6A22E7F7CD;
-			remoteInfo = ExytePopupView;
-		};
-		96FDDE98DE143FA18A068A5748BFB7CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E3BF7971BE024EA2CBC58C6A22E7F7CD;
-			remoteInfo = ExytePopupView;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -98,27 +98,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3D632C0A3770F12547D4DF78591022F8 /* Frameworks */ = {
+		29381352EDDF96FBD95BC660D29C6C48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA50542073EFCD8C89F006FA32832427 /* Foundation.framework in Frameworks */,
+				A4C4819FBD118C6B0BB437E4BDAE1432 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		804A7249082D34155DC67DE92F8C2BF2 /* Frameworks */ = {
+		421216088B47824B1D1BAAF12917973F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C780328857AAB6DBD0C8B6CEF638869F /* Foundation.framework in Frameworks */,
+				4AF847D7C228AF374D4496F011B7A89E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C11674F3DDFB52E08BA47AC92C9768B6 /* Frameworks */ = {
+		ECFD2A6A6EB29CBC90DAEA2AD25DEA32 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B27195B0578D4D6E36DC848FB265C21B /* Foundation.framework in Frameworks */,
+				035854F8763C412005535A35EBEB9E50 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +259,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		00D25A23EE1292D39326BFE04E1BAFFF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				401402569866CEBE2E1DC846C8F7A0E4 /* Pods-iMovRTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1DFFF0E5E6B04D7ED36AAF287B9BD937 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,27 +275,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		296381D7863AA09225CDAA1E7CF59479 /* Headers */ = {
+		D4904BD5D3EBC13E360324F802C9521C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				243342FF1A28D67674BAEA61062F8647 /* Pods-iMovR-iMovRUITests-umbrella.h in Headers */,
+				675C868D633F7965651A609374564ED9 /* Pods-iMovR-iMovRUITests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50D056557DCB606A27A506AEC886E116 /* Headers */ = {
+		E5762B0E62E0DA76E7338E2702ACD65B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFEC3113ECB1B4C717D7BC59C330081B /* Pods-iMovR-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		79C876A41FC750EC73A035EB1F368744 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89E3A43EE4BC769E485DFF7504102C66 /* Pods-iMovRTests-umbrella.h in Headers */,
+				D6F4C527C4356AE0726E25158FB536B0 /* Pods-iMovR-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,17 +296,17 @@
 /* Begin PBXNativeTarget section */
 		40251EC317AAE95B552F0B57CBAE97EF /* Pods-iMovR */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B3506D24E2191E3AD2ED7DCA324426C /* Build configuration list for PBXNativeTarget "Pods-iMovR" */;
+			buildConfigurationList = 50D1E403E8235C455FDE4AD08065AAA7 /* Build configuration list for PBXNativeTarget "Pods-iMovR" */;
 			buildPhases = (
-				50D056557DCB606A27A506AEC886E116 /* Headers */,
-				14EE8E6C013515076C033B7502720DB4 /* Sources */,
-				3D632C0A3770F12547D4DF78591022F8 /* Frameworks */,
-				0D8A040875596489FC3419A05083692E /* Resources */,
+				E5762B0E62E0DA76E7338E2702ACD65B /* Headers */,
+				9DF3B0FF775FEADB0BF9A7CC422D7330 /* Sources */,
+				421216088B47824B1D1BAAF12917973F /* Frameworks */,
+				A7EEA5501C5B25F8784BAB71E0BDA273 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7AA584F64DF8215AB67E22C9F4AF0198 /* PBXTargetDependency */,
+				2F553683B7207A18EF5E47C5A0B682C0 /* PBXTargetDependency */,
 			);
 			name = "Pods-iMovR";
 			productName = "Pods-iMovR";
@@ -315,17 +315,17 @@
 		};
 		7D22142A8EAB00828CC9EAEE468FD4ED /* Pods-iMovRTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4AE187D613F8BB3DD64282927F53A12 /* Build configuration list for PBXNativeTarget "Pods-iMovRTests" */;
+			buildConfigurationList = 5EAC7F091014517A9E67EE92DB01DB02 /* Build configuration list for PBXNativeTarget "Pods-iMovRTests" */;
 			buildPhases = (
-				79C876A41FC750EC73A035EB1F368744 /* Headers */,
-				8029FF6871C6EBD4C61B56D057B83FB3 /* Sources */,
-				C11674F3DDFB52E08BA47AC92C9768B6 /* Frameworks */,
-				FA928C88A609DA854030CE05D14A9F52 /* Resources */,
+				00D25A23EE1292D39326BFE04E1BAFFF /* Headers */,
+				334312409A07C4CFFDF88D5C06AEC355 /* Sources */,
+				ECFD2A6A6EB29CBC90DAEA2AD25DEA32 /* Frameworks */,
+				63AF394E565BEBF9B2870586C6918541 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E5B4C9E7706AE86955C14B1804CF238E /* PBXTargetDependency */,
+				06FA61F0492A02F4E8AEC06C35E20A98 /* PBXTargetDependency */,
 			);
 			name = "Pods-iMovRTests";
 			productName = "Pods-iMovRTests";
@@ -334,17 +334,17 @@
 		};
 		9C62A3030333022294F88264461E797E /* Pods-iMovR-iMovRUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9F1C5C9A37369DDBADE7C793423F091F /* Build configuration list for PBXNativeTarget "Pods-iMovR-iMovRUITests" */;
+			buildConfigurationList = 922F592A9DFA415129EABA5CE85803AE /* Build configuration list for PBXNativeTarget "Pods-iMovR-iMovRUITests" */;
 			buildPhases = (
-				296381D7863AA09225CDAA1E7CF59479 /* Headers */,
-				0335532FE8EB8D9B47A1E3E03261F0EA /* Sources */,
-				804A7249082D34155DC67DE92F8C2BF2 /* Frameworks */,
-				4672D98C36EFFC0F3E2F9C9C45C235C1 /* Resources */,
+				D4904BD5D3EBC13E360324F802C9521C /* Headers */,
+				709E6586F59BE5A8196A78E74DADB4E6 /* Sources */,
+				29381352EDDF96FBD95BC660D29C6C48 /* Frameworks */,
+				72E8A8EED530147038497C7530C74121 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				62312D43E34252AAF87138140270784D /* PBXTargetDependency */,
+				939EE54418D6DE4F47CF78621C27662B /* PBXTargetDependency */,
 			);
 			name = "Pods-iMovR-iMovRUITests";
 			productName = "Pods-iMovR-iMovRUITests";
@@ -400,20 +400,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0D8A040875596489FC3419A05083692E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4672D98C36EFFC0F3E2F9C9C45C235C1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5AFABE38439561623BE5902BA0D57039 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,7 +407,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FA928C88A609DA854030CE05D14A9F52 /* Resources */ = {
+		63AF394E565BEBF9B2870586C6918541 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		72E8A8EED530147038497C7530C74121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7EEA5501C5B25F8784BAB71E0BDA273 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -431,27 +431,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0335532FE8EB8D9B47A1E3E03261F0EA /* Sources */ = {
+		334312409A07C4CFFDF88D5C06AEC355 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7BA353AE346779F9059041911177CD1 /* Pods-iMovR-iMovRUITests-dummy.m in Sources */,
+				3F096DDE785AF21ABB87EF49C90C7CB5 /* Pods-iMovRTests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14EE8E6C013515076C033B7502720DB4 /* Sources */ = {
+		709E6586F59BE5A8196A78E74DADB4E6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF1727AE3941D435828013C207031683 /* Pods-iMovR-dummy.m in Sources */,
+				1E2C2540AE76FBFDB99C670BEFDFD781 /* Pods-iMovR-iMovRUITests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8029FF6871C6EBD4C61B56D057B83FB3 /* Sources */ = {
+		9DF3B0FF775FEADB0BF9A7CC422D7330 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F1271E20A8D8AB6B72F2625AF487AB /* Pods-iMovRTests-dummy.m in Sources */,
+				FAEA07BA736FB2D01B89E80EA69E81BC /* Pods-iMovR-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,30 +467,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		62312D43E34252AAF87138140270784D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ExytePopupView;
-			target = E3BF7971BE024EA2CBC58C6A22E7F7CD /* ExytePopupView */;
-			targetProxy = 9258FF5F94DCC3CECCA91DDBC518CCC9 /* PBXContainerItemProxy */;
-		};
-		7AA584F64DF8215AB67E22C9F4AF0198 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ExytePopupView;
-			target = E3BF7971BE024EA2CBC58C6A22E7F7CD /* ExytePopupView */;
-			targetProxy = 96FDDE98DE143FA18A068A5748BFB7CB /* PBXContainerItemProxy */;
-		};
-		E5B4C9E7706AE86955C14B1804CF238E /* PBXTargetDependency */ = {
+		06FA61F0492A02F4E8AEC06C35E20A98 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-iMovR";
 			target = 40251EC317AAE95B552F0B57CBAE97EF /* Pods-iMovR */;
-			targetProxy = 29970071FDA9BB7D55E4691F032E7DC9 /* PBXContainerItemProxy */;
+			targetProxy = DED079BA4928180309291C3AD7AF9A37 /* PBXContainerItemProxy */;
+		};
+		2F553683B7207A18EF5E47C5A0B682C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExytePopupView;
+			target = E3BF7971BE024EA2CBC58C6A22E7F7CD /* ExytePopupView */;
+			targetProxy = 3DE8BE1E6B0405990FE8E6F301302677 /* PBXContainerItemProxy */;
+		};
+		939EE54418D6DE4F47CF78621C27662B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExytePopupView;
+			target = E3BF7971BE024EA2CBC58C6A22E7F7CD /* ExytePopupView */;
+			targetProxy = 244DCDD0D79F5B347005F8D2F5D3194F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		12D44DC105ABDE3764A8C5258281171D /* Release */ = {
+		159EF3742577B6B6D0F2FFF86709F693 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD4E806AB529751408C1540464E2F768 /* Pods-iMovR-iMovRUITests.release.xcconfig */;
+			baseConfigurationReference = F8659848247D76F45C12B42F64742CC8 /* Pods-iMovR.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -503,7 +503,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -512,7 +512,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -563,122 +563,7 @@
 			};
 			name = Debug;
 		};
-		4D74B24BB40BC261EA9F704658C1C0E9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D172C817C086B434D0F1B2463273B567 /* Pods-iMovR-iMovRUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		5C6ADE3E6A23F8A397E420B7FFB9A6F9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3545CD09A370BBB595B7F58DF8FE6EF /* Pods-iMovR.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		645D732CDCD514B83C9FBD75E30A955A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8659848247D76F45C12B42F64742CC8 /* Pods-iMovR.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		678E8956015AAB9ECDC814B4A090219C /* Debug */ = {
+		431017B7B23DDDD10946B572D34D2F35 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D2AF0E55B16994B1AFCA46D00B47F7A8 /* Pods-iMovRTests.debug.xcconfig */;
 			buildSettings = {
@@ -716,9 +601,9 @@
 			};
 			name = Debug;
 		};
-		A41C473359DB7AD87A4774151D84DA6D /* Release */ = {
+		471F528B54BE052EB16CE4B7E10253EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B0B843F143B1910566B30DC2F3FD886 /* Pods-iMovRTests.release.xcconfig */;
+			baseConfigurationReference = A3545CD09A370BBB595B7F58DF8FE6EF /* Pods-iMovR.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -731,7 +616,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -740,7 +625,45 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-iMovR/Pods-iMovR.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5F8E3E65EF443F54CEBE9D16279CA17F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD4E806AB529751408C1540464E2F768 /* Pods-iMovR-iMovRUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -785,6 +708,83 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C0890F32F79D01532D82D033FFA0ACC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D172C817C086B434D0F1B2463273B567 /* Pods-iMovR-iMovRUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D5E8C6B0F1CCE41D236C7F3C72088F9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B0B843F143B1910566B30DC2F3FD886 /* Pods-iMovRTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -928,29 +928,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B3506D24E2191E3AD2ED7DCA324426C /* Build configuration list for PBXNativeTarget "Pods-iMovR" */ = {
+		50D1E403E8235C455FDE4AD08065AAA7 /* Build configuration list for PBXNativeTarget "Pods-iMovR" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5C6ADE3E6A23F8A397E420B7FFB9A6F9 /* Debug */,
-				645D732CDCD514B83C9FBD75E30A955A /* Release */,
+				471F528B54BE052EB16CE4B7E10253EA /* Debug */,
+				159EF3742577B6B6D0F2FFF86709F693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9F1C5C9A37369DDBADE7C793423F091F /* Build configuration list for PBXNativeTarget "Pods-iMovR-iMovRUITests" */ = {
+		5EAC7F091014517A9E67EE92DB01DB02 /* Build configuration list for PBXNativeTarget "Pods-iMovRTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4D74B24BB40BC261EA9F704658C1C0E9 /* Debug */,
-				12D44DC105ABDE3764A8C5258281171D /* Release */,
+				431017B7B23DDDD10946B572D34D2F35 /* Debug */,
+				D5E8C6B0F1CCE41D236C7F3C72088F9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4AE187D613F8BB3DD64282927F53A12 /* Build configuration list for PBXNativeTarget "Pods-iMovRTests" */ = {
+		922F592A9DFA415129EABA5CE85803AE /* Build configuration list for PBXNativeTarget "Pods-iMovR-iMovRUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				678E8956015AAB9ECDC814B4A090219C /* Debug */,
-				A41C473359DB7AD87A4774151D84DA6D /* Release */,
+				C0890F32F79D01532D82D033FFA0ACC2 /* Debug */,
+				5F8E3E65EF443F54CEBE9D16279CA17F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
