@@ -13,10 +13,13 @@ import CoreBluetooth
 
 
 class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
+    
     // Published variables (update UI when changed)
     @Published var isConnected = false
     @Published var deskWrap: ZGoDeskPeripheral?
-    // shakeel and I need to implement UserData (or userData if struct)
+    @Published var currentHeight: Float = 0
+    @Published var maxHeight: Float = 0
+    @Published var minHeight: Float = 0
     @EnvironmentObject var user: UserObservable
     
     //init() {
@@ -66,16 +69,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID]);
     }
     
-    func updateHeightLabel() {
+    func updateDeskHeights() {
         // Update current height
-        guard let currHeight:Double = deskWrap?.getHeightInches() else { return }
-//        heightSlider.setValue(Float(currHeight), animated: true)
-//        heightLabel.text = String(format: "%.1f", (currHeight*10.0).rounded(.down)/10.0) // only one decimal point printed
+        
+        if let temp = deskWrap?.getHeightInches() {self.currentHeight = temp}
+        // MARK: (currHeight*10.0).rounded(.down)/10.0) --rounded to 1 decimal point--
         //Update max and min height
-        guard let maxHeight:Double = deskWrap?.getMaxHeightInches() else { return }
-        guard let minHeight:Double = deskWrap?.getMinHeightInches() else { return }
-//        heightSlider.maximumValue = Float(maxHeight)
-//        heightSlider.minimumValue = Float(minHeight)
+        if let temp = deskWrap?.getMaxHeightInches() {self.maxHeight = temp}
+        if let temp = deskWrap?.getMinHeightInches() {self.minHeight = temp}
     }
     
     /*
@@ -262,7 +263,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         //print("didUpdateValueFor readCharacteristic")
         deskWrap?.updateHeightInfo()
         DispatchQueue.main.async { () -> Void in
-            self.updateHeightLabel()
+            self.updateDeskHeights()
         }
     }
     

@@ -94,16 +94,16 @@ class ZGoDeskPeripheral {
             return
         }
         
-        let readArray: [UInt8] = [UInt8](readData)
-        //print(readArray)
+        let readByteData: [UInt8] = [UInt8](readData)
+        //print(readByteData)
         /*
          let readIntArray: [Int] = []
-         for (index,currByte) in readArray[1..<(readArray.endIndex - 1)] {
+         for (index,currByte) in readByteData[1..<(readByteData.endIndex - 1)] {
          
          }
          // Verify checksum of message:
-         let chksum: [Int] = [Int](readArray[1..<(readArray.endIndex-1)])
-         guard chksum.reduce(0,+) & 0xFF == readArray.last! else {
+         let chksum: [Int] = [Int](readByteData[1..<(readByteData.endIndex-1)])
+         guard chksum.reduce(0,+) & 0xFF == readByteData.last! else {
          print("readData checksum invalid")
          return
          }
@@ -111,27 +111,27 @@ class ZGoDeskPeripheral {
          return [UInt8](arrayLiteral: UInt8(typeIn[0]),UInt8(typeIn[1]))
          }
          */
-        if readArray[0...2] == [0x5A,0x09,0x21] {
-            guard readArray.count == 10 else {
+        if readByteData[0...2] == [0x5A,0x09,0x21] {
+            guard readByteData.count == 10 else {
                 print("readData count invalid")
                 return
             }
             print("successfully detected message: Table Height Information")
-            self.deskHeight = [readArray[4],readArray[3]]
-            self.deskMinHeight = [readArray[6],readArray[5]]
-            self.deskMaxHeight = [readArray[8],readArray[7]]
-            /*self.deskHeight = convertType(typeIn: Array(readArray[3...4]))
-             self.deskMinHeight = convertType(typeIn: Array(readArray[5...6]))
-             self.deskMaxHeight = convertType(typeIn: Array(readArray[7...8]))
+            self.deskHeight = [readByteData[4],readByteData[3]]
+            self.deskMinHeight = [readByteData[6],readByteData[5]]
+            self.deskMaxHeight = [readByteData[8],readByteData[7]]
+            /*self.deskHeight = convertType(typeIn: Array(readByteData[3...4]))
+             self.deskMinHeight = convertType(typeIn: Array(readByteData[5...6]))
+             self.deskMaxHeight = convertType(typeIn: Array(readByteData[7...8]))
              */
-        } else if readArray[0...1] == [0x5A,0x06] {
-            guard readArray.count == 7 else {
+        } else if readByteData[0...1] == [0x5A,0x06] {
+            guard readByteData.count == 7 else {
                 print("readData count invalid")
                 return
             }
             //print("successfully detected message: Movement/Status Change Update")
-            //self.deskHeight = convertType(typeIn: Array(readArray[3...4]))
-            self.deskHeight = [readArray[4],readArray[3]]
+            //self.deskHeight = convertType(typeIn: Array(readByteData[3...4]))
+            self.deskHeight = [readByteData[4],readByteData[3]]
             
         } else {
             print("readData message invalid in updateHeightInfo()")
@@ -166,23 +166,23 @@ class ZGoDeskPeripheral {
          */
     }
     
-    func getHeightInches() -> Double? {
+    func getHeightInches() -> Float? {
         return self.mmBits2inch(HeightBits: self.deskHeight)
     }
-    func getMinHeightInches() -> Double? {
+    func getMinHeightInches() -> Float? {
         return self.mmBits2inch(HeightBits: self.deskMinHeight)
     }
-    func getMaxHeightInches() -> Double? {
+    func getMaxHeightInches() -> Float? {
         return self.mmBits2inch(HeightBits: self.deskMaxHeight)
     }
     
     // Convert height in millimeters to inches
-    private func mmBits2inch(HeightBits: [UInt8]?)->Double? {
+    private func mmBits2inch(HeightBits: [UInt8]?)->Float? {
         guard (HeightBits != nil) && (HeightBits?.count == 2) else {
             print("mmToInch error")
             return nil
         }
-        return Double(Int(HeightBits![1])<<8 + Int(HeightBits![0])) / 25.4
+        return Float(Int(HeightBits![1])<<8 + Int(HeightBits![0])) / 25.4
     }
     
     // Convert height in inches to millimeters in [UInt8] 2 byte array form
