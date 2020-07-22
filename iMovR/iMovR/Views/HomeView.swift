@@ -15,7 +15,7 @@ struct HomeView: View {
     @EnvironmentObject var bt: ZGoBluetoothController
     
     @State private var testHeight: Float = 35.0
-    
+    @State var showAddPreset: Bool = false
     
     var body: some View {
         
@@ -26,20 +26,22 @@ struct HomeView: View {
                 .frame(width: 110, height: 110)
             
             Spacer().frame(height: 70)
+            
+            //ZStack {
             HStack {
-                AddPresetButton()
-                .padding()
                 
+                        AddPresetButton(showAddPreset: self.$showAddPreset)
+                        .padding()
+                
+      
                 ScrollView(.horizontal) {
                     HStack  {
                         
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in
                             PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
-                            //self.addPreset()
                         }
-                        
-//                    PresetButton(name: "Sitting", presetVal: 32.9)
+                    
                     }
                     .frame( height: 100)
                 }
@@ -47,16 +49,16 @@ struct HomeView: View {
                 
                 
             }
-            
+            //
+            //ZSTack end brace  }
             
             Spacer()
             HStack {
                 Spacer()
                 
-                //Text(String(testHeight))
                 HStack {
                     HeightSlider(testHeight: $testHeight)
-                }//.frame(width:250)
+                }
                 VStack {
                     UpButton(testHeight: $testHeight)
                     .padding()
@@ -64,12 +66,17 @@ struct HomeView: View {
                 }
             .padding(40)
             }
-            //.frame(height: 300)
+            
             Spacer()
          
+        //}
+            
+        
         }
         
+    
     }
+    
 }
 
 

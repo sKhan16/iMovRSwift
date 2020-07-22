@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PresetButton: View {
     
+   @Environment(\.colorScheme) var colorScheme
     
    @State var name: String
    @State var presetVal: Float
@@ -28,7 +29,7 @@ struct PresetButton: View {
                     .padding(6)
                 Text(name)
             }
-            .foregroundColor(Color.black)
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
         .frame(width: 80, height: 50)
         }
 
