@@ -19,8 +19,6 @@ struct AddPresetButton: View {
     var body: some View {
         
             Button(action: {
-                //addPreset(user: self.user, name: "test", height: self.testCount)
-                //self.testCount += 1.0
                 self.showAddPreset = true
             }) {
            
@@ -35,14 +33,13 @@ struct AddPresetButton: View {
                     .frame(width: 25, height: 25)
                     }
                 Text("Add Preset")
-        }.accentColor(colorScheme == .dark ? Color.white : Color.black)
+        }
+        .accentColor(colorScheme == .dark ? Color.white : Color.black)
             
         }
-            .sheet(isPresented: self.$showAddPreset) {
+        .sheet(isPresented: self.$showAddPreset) {
                 AddPresetView(showAddPreset: self.$showAddPreset).environmentObject(self.user)
         }
-
-//            .accentColor(Color.black)
     }
 
 }

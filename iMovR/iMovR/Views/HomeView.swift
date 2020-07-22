@@ -19,9 +19,6 @@ struct HomeView: View {
     
     var body: some View {
         
-        //NavigationView {
-        
-        
         VStack {
                 
             Image("imovrLogo")
@@ -30,30 +27,21 @@ struct HomeView: View {
             
             Spacer().frame(height: 70)
             
-            ZStack {
-//                if self.$showAddPreset.wrappedValue {
-//                    AddPresetView(showAddPreset: self.$showAddPreset)
-//                } else {
-//
-//                }
+            //ZStack {
             HStack {
                 
                         AddPresetButton(showAddPreset: self.$showAddPreset)
                         .padding()
                 
-                //.navigationBarTitle("Home screen")
-                
-                
+      
                 ScrollView(.horizontal) {
                     HStack  {
                         
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in
                             PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
-                            //self.addPreset()
                         }
-                        
-//                    PresetButton(name: "Sitting", presetVal: 32.9)
+                    
                     }
                     .frame( height: 100)
                 }
@@ -62,16 +50,15 @@ struct HomeView: View {
                 
             }
             //
-            }
+            //ZSTack end brace  }
             
             Spacer()
             HStack {
                 Spacer()
                 
-                //Text(String(testHeight))
                 HStack {
                     HeightSlider(testHeight: $testHeight)
-                }//.frame(width:250)
+                }
                 VStack {
                     UpButton(testHeight: $testHeight)
                     .padding()
@@ -79,14 +66,11 @@ struct HomeView: View {
                 }
             .padding(40)
             }
-            //.frame(height: 300)
+            
             Spacer()
          
         //}
             
-        //Needed to avoid white space on top, pushing everything downs
-            //.navigationBarTitle("")
-            //.navigationBarHidden(true)
         
         }
         

@@ -21,7 +21,7 @@ struct HeightSlider: View {
                 //Text("\(testHeight, specifier: "%.1f")")
             }//.padding()
             .rotationEffect(.degrees(270))
-            //.disabled(true)
+            .disabled(true)
         
     }
 }
