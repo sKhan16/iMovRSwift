@@ -17,7 +17,6 @@ struct HomeView: View {
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
     
-    @ViewBuilder
     var body: some View {
         
         //NavigationView {
@@ -62,10 +61,6 @@ struct HomeView: View {
                 
                 
             }
-               ///Shows add preset popup
-                if self.$showAddPreset.wrappedValue {
-                    AddPresetView(showAddPreset: self.$showAddPreset)
-                }
             //
             }
             

@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct AddPresetButton: View {
+
+@Environment(\.colorScheme) var colorScheme
 @EnvironmentObject var user: UserObservable
 @State private var testCount: Float = 0.0
 
@@ -33,8 +35,13 @@ struct AddPresetButton: View {
                     .frame(width: 25, height: 25)
                     }
                 Text("Add Preset")
-            }//.accentColor(Color.black)
+        }.accentColor(colorScheme == .dark ? Color.white : Color.black)
+            
         }
+            .sheet(isPresented: self.$showAddPreset) {
+                AddPresetView(showAddPreset: self.$showAddPreset).environmentObject(self.user)
+        }
+
 //            .accentColor(Color.black)
     }
 
