@@ -57,7 +57,7 @@ struct HomeView: View {
                 Spacer()
                 
                 HStack {
-                    HeightSlider(testHeight: $bt.currentHeight)
+                    HeightSlider()
                 }
                 VStack {
                     UpButton(testHeight: $testHeight)

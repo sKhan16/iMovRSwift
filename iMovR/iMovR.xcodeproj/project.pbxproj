@@ -197,9 +197,9 @@
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
 				1E94E1E924C2254E00155123 /* EditPresetButton.swift */,
 				1E94E1E424C0F72800155123 /* PresetButton.swift */,
+				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
-				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";

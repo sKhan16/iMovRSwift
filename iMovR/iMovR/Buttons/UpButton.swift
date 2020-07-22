@@ -14,23 +14,30 @@ struct UpButton: View {
     
     var body: some View {
         Button(action: {
-            // What to perform
-            self.bt.deskWrap?.raiseDesk()
-            if self.testHeight < 48.0 {
-                self.testHeight += 1.0
-                print("Moving up!")
-            } else {
-                print("Reached maximum height")
-            }
             
         }) {
             // How the button looks like
-            Image(systemName: "arrow.up.square")
-            .resizable()
-            .frame(width: 75, height: 75)
+            VStack {
+                Image(systemName: "arrow.up.square")
+                .resizable()
+                .frame(width: 75, height: 75)
+                
+                .onTapGesture {
+                    self.bt.deskWrap?.raiseDesk()
+                }
+            
+            }
         }
     }
 }
+// What to perform
+//            self.bt.deskWrap?.raiseDesk()
+//            if self.testHeight < 48.0 {
+//                self.testHeight += 1.0
+//                print("Moving up!")
+//            } else {
+//                print("Reached maximum height")
+//            }
 
 struct UpButton_Previews: PreviewProvider {
     static var previews: some View {

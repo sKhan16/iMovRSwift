@@ -10,16 +10,15 @@ import SwiftUI
 
 struct HeightSlider: View {
     @EnvironmentObject var bt: ZGoBluetoothController
-    @Binding var testHeight: Float
+    //@Binding var testHeight: Float
     
     var body: some View {
     
         VStack {
-            Text(String(testHeight))
+            Text(String(self.bt.currentHeight))
                 .rotationEffect(.degrees(90))
-                Slider(value: $testHeight, in: 23...48, step: 1)
-                //Text("\(testHeight, specifier: "%.1f")")
-            }//.padding()
+            Slider(value: self.$bt.currentHeight, in: self.bt.minHeight...self.bt.maxHeight, step: 1)
+            }
             .rotationEffect(.degrees(270))
             .disabled(true)
         
@@ -28,6 +27,6 @@ struct HeightSlider: View {
 
 struct HeightSlider_Previews: PreviewProvider {
     static var previews: some View {
-        HeightSlider(testHeight: .constant(23.0)).environmentObject(ZGoBluetoothController())
+        HeightSlider().environmentObject(ZGoBluetoothController())
     }
 }
