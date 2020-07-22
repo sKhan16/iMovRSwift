@@ -63,7 +63,7 @@ class ZGoDeskPeripheral {
         self.writeToDesk(data: Data(_:releaseCMD) as NSData, type: .withoutResponse)
     }
     
-    func moveToHeight(PresetHeight:Double) {
+    func moveToHeight(PresetHeight:Float) {
         
         // Convert units and construct desk command
         let heightBits: [UInt8] = self.inch2mmBits(HeightIn: PresetHeight)
@@ -187,7 +187,7 @@ class ZGoDeskPeripheral {
     }
     
     // Convert height in inches to millimeters in [UInt8] 2 byte array form
-    private func inch2mmBits(HeightIn: Double)->[UInt8] {
+    private func inch2mmBits(HeightIn: Float)->[UInt8] {
         // try rounding up with bitwise logic to sync better to desk
         let Height = Int(HeightIn * 25.4)
         return [(UInt8)(Height & 0xFF), (UInt8)((Height>>8) & 0xFF)]

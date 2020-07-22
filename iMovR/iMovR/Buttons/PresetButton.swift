@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PresetButton: View {
-    
+    @EnvironmentObject var bt: ZGoBluetoothController
    @Environment(\.colorScheme) var colorScheme
     
    @State var name: String
@@ -17,10 +17,8 @@ struct PresetButton: View {
     
     var body: some View {
         Button(action: {
-            // What to perform
-            self.moveToPreset()
+            //self.moveToPreset()
         }) {
-            // How the button looks like
             VStack {
                 Text(String(presetVal))
                 
@@ -30,15 +28,20 @@ struct PresetButton: View {
                 Text(name)
             }
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-        .frame(width: 80, height: 50)
+            .frame(width: 80, height: 50)
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged({ (touch) in
+                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
+                        print("Preset touchdown")
+                    })
+                    .onEnded({ (touch) in
+                        self.bt.deskWrap?.releaseDesk()
+                        print("Preset released")
+                    })
+            )
         }
-
     }
-
-    func moveToPreset() {
-        print("Move to \(presetVal)")
-    }
-    
 }
 
 
@@ -46,5 +49,6 @@ struct PresetButton: View {
 struct PresetButton_Previews: PreviewProvider {
     static var previews: some View {
         PresetButton(name: "Sitting", presetVal: 32.2)
+            .environmentObject(ZGoBluetoothController())
     }
 }
