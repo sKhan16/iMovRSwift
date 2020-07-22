@@ -63,7 +63,6 @@ class ZGoDeskPeripheral {
         self.writeToDesk(data: Data(_:releaseCMD) as NSData, type: .withoutResponse)
     }
     
-    
     func moveToHeight(PresetHeight:Double) {
         
         // Convert units and construct desk command
@@ -82,6 +81,7 @@ class ZGoDeskPeripheral {
         self.writeToDesk(data: Data(_:tableHeightInfo) as NSData, type: .withResponse)
     }
     
+    
     // Called after desk notifies that the height info has been updated
     func updateHeightInfo() {
         
@@ -95,6 +95,7 @@ class ZGoDeskPeripheral {
         }
         
         let readByteData: [UInt8] = [UInt8](readData)
+        // MARK: Checksum verification
         //print(readByteData)
         /*
          let readIntArray: [Int] = []
