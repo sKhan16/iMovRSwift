@@ -18,7 +18,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var isConnected = false
     @Published var deskWrap: ZGoDeskPeripheral?
     @Published var currentHeight: Float = 0
-    @Published var maxHeight: Float = 0
+    @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
     @EnvironmentObject var user: UserObservable
     
