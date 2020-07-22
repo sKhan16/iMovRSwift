@@ -14,7 +14,7 @@ struct UpButton: View {
     
     var body: some View {
         Button(action: {
-            
+            print("Moving up")
         }) {
             // How the button looks like
             VStack {
@@ -22,9 +22,9 @@ struct UpButton: View {
                 .resizable()
                 .frame(width: 75, height: 75)
                 
-                .onTapGesture {
-                    self.bt.deskWrap?.raiseDesk()
-                }
+//                .onTapGesture {
+//                    self.bt.deskWrap?.raiseDesk()
+//                }
             
             }
         }

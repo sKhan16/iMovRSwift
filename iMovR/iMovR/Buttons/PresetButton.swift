@@ -18,6 +18,7 @@ struct PresetButton: View {
     var body: some View {
         Button(action: {
             //self.moveToPreset()
+            print("Moved to \(self.presetVal)")
         }) {
             VStack {
                 Text(String(presetVal))
@@ -29,17 +30,17 @@ struct PresetButton: View {
             }
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(width: 80, height: 50)
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged({ (touch) in
-                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
-                        print("Preset touchdown")
-                    })
-                    .onEnded({ (touch) in
-                        self.bt.deskWrap?.releaseDesk()
-                        print("Preset released")
-                    })
-            )
+//            .gesture(
+//                DragGesture(minimumDistance: 0)
+//                    .onChanged({ (touch) in
+//                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
+//                        print("Preset \(self.presetVal) touchdown")
+//                    })
+//                    .onEnded({ (touch) in
+//                        self.bt.deskWrap?.releaseDesk()
+//                        print("Preset \(self.presetVal) released")
+//                    })
+//            )
         }
     }
 }
