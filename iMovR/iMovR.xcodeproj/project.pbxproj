@@ -270,6 +270,7 @@
 				1E23014F24BCEB35009A0B3C /* Sources */,
 				1E23015024BCEB35009A0B3C /* Frameworks */,
 				1E23015124BCEB35009A0B3C /* Resources */,
+				91FF2CA382127EF4342E16C7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -307,6 +308,7 @@
 				1E23017324BCEB3A009A0B3C /* Sources */,
 				1E23017424BCEB3A009A0B3C /* Frameworks */,
 				1E23017524BCEB3A009A0B3C /* Resources */,
+				1A9EE7CEEFF9A4A752E2935B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -409,6 +411,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A9EE7CEEFF9A4A752E2935B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91FF2CA382127EF4342E16C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iMovR/Pods-iMovR-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iMovR/Pods-iMovR-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iMovR/Pods-iMovR-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AF46D2852C22BDFF114643A7 /* [CP] Check Pods Manifest.lock */ = {

@@ -6,6 +6,7 @@ target 'iMovR' do
   use_frameworks!
 
   # Pods for iMovR
+  pod 'ExytePopupView'
 
   target 'iMovRTests' do
     inherit! :search_paths
