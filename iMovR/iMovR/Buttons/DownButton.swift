@@ -17,7 +17,7 @@ struct DownButton: View {
     var body: some View {
         Button(action: {
             // What to perform
-            self.bt.deskWrap?.lowerDesk()
+            
             if self.testHeight > 23.0 {
                 self.testHeight -= 1.0
                 print("Moving down!")
@@ -35,9 +35,11 @@ struct DownButton: View {
                     self.pressed = pressing
                 }
                 if pressing {
+                    self.bt.deskWrap?.lowerDesk()
                     print("My long pressed starts")
                     print("     I can initiate any action on start")
                 } else {
+                    self.bt.deskWrap?.releaseDesk()
                     print("My long pressed ends")
                     print("     I can initiate any action on end")
                 }

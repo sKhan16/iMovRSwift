@@ -34,9 +34,11 @@ struct UpButton: View {
                     self.pressed = pressing
                 }
                 if pressing {
+                    self.bt.deskWrap?.raiseDesk()
                     print("My long pressed starts")
                     print("     I can initiate any action on start")
                 } else {
+                    self.bt.deskWrap?.releaseDesk()
                     print("My long pressed ends")
                     print("     I can initiate any action on end")
                 }
