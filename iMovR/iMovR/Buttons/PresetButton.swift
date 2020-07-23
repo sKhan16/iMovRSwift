@@ -11,6 +11,8 @@ import SwiftUI
 struct PresetButton: View {
     @EnvironmentObject var bt: ZGoBluetoothController
    @Environment(\.colorScheme) var colorScheme
+   
+    @State private var pressed: Bool = false
     
    @State var name: String
    @State var presetVal: Float
@@ -19,6 +21,7 @@ struct PresetButton: View {
         Button(action: {
             //self.moveToPreset()
             print("Moved to \(self.presetVal)")
+            
         }) {
             VStack {
                 Text(String(presetVal))
@@ -30,6 +33,20 @@ struct PresetButton: View {
             }
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(width: 80, height: 50)
+            .onLongPressGesture(minimumDuration: 10.0, maximumDistance: CGFloat(50), pressing: { pressing in
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    self.pressed = pressing
+                }
+                if pressing {
+                    print("My long pressed starts")
+                    print("     I can initiate any action on start")
+                } else {
+                    print("My long pressed ends")
+                    print("     I can initiate any action on end")
+                }
+            }, perform: {
+                print("activated after the seconds")
+            })
 //            .gesture(
 //                DragGesture(minimumDistance: 0)
 //                    .onChanged({ (touch) in

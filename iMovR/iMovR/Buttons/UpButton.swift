@@ -10,6 +10,8 @@ import SwiftUI
 
 struct UpButton: View {
     @EnvironmentObject var bt: ZGoBluetoothController
+    
+    @State private var pressed: Bool = false
     @Binding var testHeight: Float
     
     var body: some View {
@@ -27,6 +29,18 @@ struct UpButton: View {
 //                }
             
             }
+            .onLongPressGesture(minimumDuration: 2.5, maximumDistance: CGFloat(25), pressing: { pressing in
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    self.pressed = pressing
+                }
+                if pressing {
+                    print("My long pressed starts")
+                    print("     I can initiate any action on start")
+                } else {
+                    print("My long pressed ends")
+                    print("     I can initiate any action on end")
+                }
+            }, perform: { })
         }
     }
 }

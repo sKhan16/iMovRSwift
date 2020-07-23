@@ -16,7 +16,7 @@ public class UserObservable: ObservableObject {
     @Published var deskID: String? = nil
     
     init() {
-        //self.addTestPresets()
+        self.addTestPresets()
         
     }
     
