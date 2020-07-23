@@ -32,17 +32,19 @@ struct BTConnectView: View {
                         TextField("Enter manufacturer Desk ID", text: $inputDeskID)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                        if notifyWrongInput {
+                            VStack {
+                                Text("Invalid field entries. Please give your desk a name and input the 8 digit manufacturer ID.")
+                                    .foregroundColor(.red)
+                                    .padding()
+                                //Spacer()
+                            }
+                            
+                        }
+                        //Spacer()
                     }
                 }
-                if notifyWrongInput {
-                    VStack {
-                        Text("Invalid field entries. Please give your desk a name and input the 8 digit manufacturer ID.")
-                        .foregroundColor(.red)
-                        .padding()
-                        Spacer()
-                    }
-                    
-                }
+                
             }
             .navigationBarTitle("Connect To Desk", displayMode: .inline)
             .navigationBarItems(
