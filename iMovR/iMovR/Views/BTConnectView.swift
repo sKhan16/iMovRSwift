@@ -73,10 +73,12 @@ struct BTDoneButton: View {
                 print("height out of bounds!")
             }
              */
-            if (self.inputDeskName != "") && self.verifyIDFormat(id: Int(self.inputDeskID) ?? 0) {
+            let deskID: Int = Int(self.inputDeskID) ?? 0
+            
+            if (self.inputDeskName != "") && self.verifyIDFormat(id: deskID) {
                 //Store user input and exit connect view
                 self.user.currDeskName = self.inputDeskName
-                self.user.currDeskID = Int(self.inputDeskID) ?? 0
+                self.user.currDeskID = deskID
                 self.user.saveCurrentDesk()
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.notifyWrongInput = false
