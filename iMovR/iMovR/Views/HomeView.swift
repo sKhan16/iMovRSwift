@@ -16,6 +16,7 @@ struct HomeView: View {
     
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
+    @State var showBTConnect: Bool = false
     
     var body: some View {
         
