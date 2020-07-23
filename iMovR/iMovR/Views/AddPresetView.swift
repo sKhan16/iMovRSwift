@@ -23,29 +23,20 @@ struct AddPresetView: View {
             //Text("New preset")
                 Form {
                 Section(header: Text("PRESET")) {
+                    
                     TextField("Preset Name", text: $presetName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
                     TextField("Preset Height", text: $presetHeight)
                         .keyboardType(.decimalPad)
-                }
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
                 
+                }
             }
-
-                //doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset)
-                    
-            
-            }.navigationBarTitle(Text("New Preset"), displayMode: .inline)
-                .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset))
-           
-            
-        //}
-        //.scaledToFill()
-        //.frame( height: 250)
-        //.cornerRadius(20).shadow(radius: 20)
-    //.padding()
-        
-        //
-        
-    }
+            .navigationBarTitle(Text("New Preset"), displayMode: .inline)
+            .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset))
+        }
     }
 }
 

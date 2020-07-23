@@ -15,7 +15,7 @@ public class UserObservable: ObservableObject {
     @Published var loginState: LoginState = .firstTime
     
     @Published var currDeskID: Int = 0
-    @Published var currDeskName: String = "--name_not_assigned--"
+    @Published var currDeskName: String = "--deskName_not_assigned--"
     @Published var desks: [(name: String, deskID: Int)] = []
     
     init() {
@@ -34,9 +34,9 @@ public class UserObservable: ObservableObject {
     func removeDesk (name: String, deskID: Int) {
         desks.removeAll(where: { $0 == (name, deskID) })
     }
-    func setCurrentDesk (name: String, deskID: Int) {
-        if !desks.contains(where: { $0 == (name, deskID)} ) {
-            
+    func saveCurrentDesk () {
+        if !desks.contains(where: { $0 == (self.currDeskName, self.currDeskID)} ) {
+            addDesk(name: self.currDeskName, deskID: self.currDeskID)
         }
     }
     
