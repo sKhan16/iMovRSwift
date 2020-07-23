@@ -66,6 +66,7 @@ struct BTConnectView: View {
 
 struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: ZGoBluetoothController
     
     @Binding  var inputDeskName: String
     @Binding  var inputDeskID: String
@@ -85,6 +86,9 @@ struct BTDoneButton: View {
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.notifyWrongInput = false
                 self.showBTConnect = false
+                // Begin searching for the desk
+                self.bt.startConnection()
+                
             } else {
                 //Inform user their input is incorrect and remain in view
                 print("incorrect desk info submitted")

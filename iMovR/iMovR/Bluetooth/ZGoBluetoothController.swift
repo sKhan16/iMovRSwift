@@ -15,13 +15,18 @@ import CoreBluetooth
 class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
     // Published variables (update UI when changed)
-    @Published var isConnected = false
-    @Published var deskWrap: ZGoDeskPeripheral?
+    
+    
     @Published var currentHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
-    @Published var connectionStatus: String = "--connection not initialized--"
+    
+    @Published var connectionStatus: String = "Connect to a Desk"
     @Published var connectionColor: Color = Color.primary
+    @Published var isConnected = false
+    
+    @Published var deskWrap: ZGoDeskPeripheral?
+    
     @EnvironmentObject var user: UserObservable
     
     
@@ -36,8 +41,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     // centralManager handles iOS Bluetooth interactions
     var centralManager: CBCentralManager?
-    // peripheralDesk and deskWrap represent the connected desk
-    var peripheralDesk: CBPeripheral?
+    // deskPeripheral and deskWrap represent the connected desk
+    var deskPeripheral: CBPeripheral?
     var writeCharacteristic, readCharacteristic: CBCharacteristic?
     var BluetoothReadyFLAG: Bool = false
     
@@ -46,7 +51,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     // Connect to Desk button onClick function
     //@IBAction (function below)
-    func connectDeskClick() {
+    func startConnection() {
         guard user.currDeskID > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
 //            connStatus.text = "Invalid Input"
@@ -54,20 +59,17 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             return
         }
         //deskID = Int(deskIDInput.text!)!
-        checkDeskID()
-    }
-    
-    func checkDeskID() {
+        
         // tell central to start scanning, eventually checking discovered peripheral with the deskID
         guard BluetoothReadyFLAG else {
             print("turn bluetooth on to continue")
-//            connStatus.text = "Turn Bluetooth On To Continue"
-//            connStatus.textColor = UIColor.red
+            //            connStatus.text = "Turn Bluetooth On To Continue"
+            //            connStatus.textColor = UIColor.red
             return
         }
         print("Scanning for peripherals with service: \(ZGoServiceUUID)")
-//        connStatus.text = "Scanning For Desks"
-//        connStatus.textColor = UIColor.black
+        //        connStatus.text = "Scanning For Desks"
+        //        connStatus.textColor = UIColor.black
         // BT is on, now scan for peripherals that match the CBUUID
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID]);
     }
@@ -168,14 +170,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             print("Discovered peripheral name = nil, perhaps connected to wrong peripheral?")
         }
         
-        peripheralDesk = peripheral
+        deskPeripheral = peripheral
         // Must set delegate of peripheralZGoDesk to ViewController(self)
-        peripheralDesk?.delegate = self
+        deskPeripheral?.delegate = self
         // Stop scanning for peripherals to save battery life
         centralManager?.stopScan()
         // Connect to the discovered peripheral
         print("Connecting to peripheral")
-        centralManager?.connect(peripheralDesk!)
+        centralManager?.connect(deskPeripheral!)
         
     } // end didDiscover peripheral
     
@@ -186,8 +188,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
 //            self.connStatus.text = "Desk Connected"
 //            self.connStatus.textColor = UIColor.green
         }
-        print("Discovering services of \(String(describing: peripheralDesk?.name))")
-        peripheralDesk?.discoverServices([ZGoServiceUUID])
+        print("Discovering services of \(String(describing: deskPeripheral?.name))")
+        deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
     
     
@@ -223,7 +225,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // didDiscoverCharacteristicsFor:
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
-        print("Discovering services of \(String(describing: peripheralDesk?.name))")
+        print("Discovering services of \(String(describing: deskPeripheral?.name))")
         
         for characteristic in service.characteristics! {
             //print(characteristic)
@@ -244,7 +246,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         } // END for - characteristic search
         
         // Initialize deskWrap to interact with desk later
-        deskWrap = ZGoDeskPeripheral(peripheral: peripheralDesk!, write: writeCharacteristic!, read: readCharacteristic!)
+        deskWrap = ZGoDeskPeripheral(peripheral: deskPeripheral!, write: writeCharacteristic!, read: readCharacteristic!)
     } // END func peripheral(... didDiscoverCharacteristicsFor service
     
     
