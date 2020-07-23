@@ -77,7 +77,8 @@ struct BTDoneButton: View {
         Button(action: {
             let deskID: Int = Int(self.inputDeskID) ?? 0
             
-            if (self.inputDeskName != "") && self.verifyIDFormat(id: deskID) {
+            //if (self.inputDeskName != "") && self.verifyIDFormat(id: deskID) {
+            if (self.inputDeskName != "") && (self.inputDeskID.count == 8) {
                 print("correct desk info submitted")
                 //Store user input and exit connect view
                 self.user.currDeskName = self.inputDeskName
@@ -99,10 +100,12 @@ struct BTDoneButton: View {
         }
     }
     
+    /*
     func verifyIDFormat(id: Int) -> Bool {
         // Ensures ID is exactly 8 digits long
         var num = id
         var count = 0
+        print("num = \(num)")
         while num != 0 {
             let digit = abs(num % 10)
             if (digit != 0) && (id % digit == 0) {
@@ -113,6 +116,7 @@ struct BTDoneButton: View {
         print("Entered \(count) digits for deskID")
         return (count == 8)
     }
+    */
 }
 
 

@@ -52,7 +52,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // Connect to Desk button onClick function
     //@IBAction (function below)
     func startConnection() {
-        guard user.currDeskID > 0 else {
+        guard self.user.currDeskID > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
 //            connStatus.text = "Invalid Input"
 //            connStatus.textColor = UIColor.red
