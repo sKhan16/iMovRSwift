@@ -84,10 +84,12 @@ struct BTDoneButton: View {
                 self.user.currDeskName = self.inputDeskName
                 self.user.currDeskID = deskID
                 self.user.saveCurrentDesk()
+                
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.notifyWrongInput = false
                 self.showBTConnect = false
                 // Begin searching for the desk
+                self.bt.currDeskID = deskID
                 self.bt.startConnection()
                 
             } else {

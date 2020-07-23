@@ -24,11 +24,9 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var connectionStatus: String = "Connect to a Desk"
     @Published var connectionColor: Color = Color.primary
     @Published var isConnected = false
+    @Published var currDeskID: Int = 0
     
     @Published var deskWrap: ZGoDeskPeripheral?
-    
-    @EnvironmentObject var user: UserObservable
-    
     
     //init() {
         // What do I need to do on initialization?
@@ -52,7 +50,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // Connect to Desk button onClick function
     //@IBAction (function below)
     func startConnection() {
-        guard self.user.currDeskID > 0 else {
+        guard self.currDeskID > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
 //            connStatus.text = "Invalid Input"
 //            connStatus.textColor = UIColor.red
@@ -153,8 +151,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         print("After, fixed \(manufacturerDeskID)")
         
-        guard manufacturerDeskID == user.currDeskID else {
-            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(user.currDeskID))")
+        guard manufacturerDeskID == self.currDeskID else {
+            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currDeskID))")
             DispatchQueue.main.async { () -> Void in
 //                self.connStatus.text = "Discovered Desk(s) Did Not Match ID"
 //                self.connStatus.textColor = UIColor.red
