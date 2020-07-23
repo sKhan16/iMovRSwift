@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFC524C8E869008BDE9A /* Subview.swift */; };
+		1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFC724C8FF37008BDE9A /* OnboardingView.swift */; };
+		1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFC924C8FFC0008BDE9A /* PageViewController.swift */; };
+		1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFCB24C90177008BDE9A /* PageControl.swift */; };
 		1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23015624BCEB35009A0B3C /* AppDelegate.swift */; };
 		1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23015824BCEB35009A0B3C /* SceneDelegate.swift */; };
 		1E23015C24BCEB35009A0B3C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E23015A24BCEB35009A0B3C /* iMovR.xcdatamodeld */; };
@@ -56,6 +60,10 @@
 
 /* Begin PBXFileReference section */
 		17EF5AA32B191B376E8A0011 /* Pods_iMovRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E21EFC524C8E869008BDE9A /* Subview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subview.swift; sourceTree = "<group>"; };
+		1E21EFC724C8FF37008BDE9A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		1E21EFC924C8FFC0008BDE9A /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		1E21EFCB24C90177008BDE9A /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		1E23015324BCEB35009A0B3C /* iMovR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMovR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E23015624BCEB35009A0B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E23015824BCEB35009A0B3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +133,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E21EFC424C8E845008BDE9A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1E21EFC524C8E869008BDE9A /* Subview.swift */,
+				1E21EFC724C8FF37008BDE9A /* OnboardingView.swift */,
+				1E21EFC924C8FFC0008BDE9A /* PageViewController.swift */,
+				1E21EFCB24C90177008BDE9A /* PageControl.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		1E23014A24BCEB35009A0B3C = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				1E94E1F624C3B8C500155123 /* ViewRouter.swift */,
+				1E21EFC424C8E845008BDE9A /* Onboarding */,
 				41A3096C24C28F9C00644006 /* Views */,
 				41D079BF24C220E00047FD48 /* Bluetooth */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
@@ -500,10 +520,12 @@
 			files = (
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */,
+				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
 				1E23015C24BCEB35009A0B3C /* iMovR.xcdatamodeld in Sources */,
 				41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */,
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
 				1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */,
+				1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */,
 				1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */,
 				1E94E1FD24C61CD300155123 /* AddPresetView.swift in Sources */,
@@ -516,8 +538,10 @@
 				41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
+				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
 				1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
+				1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
