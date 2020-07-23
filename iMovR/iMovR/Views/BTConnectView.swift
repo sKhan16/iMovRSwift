@@ -13,7 +13,7 @@ struct BTConnectView: View {
     @EnvironmentObject var user: UserObservable
     
     @State private var inputDeskName: String = ""
-    @State private var inputDeskID: Int = 0
+    @State private var inputDeskID: String = ""
     @Binding var showBTConnect: Bool
     @State var notifyWrongInput: Bool = false
     
@@ -25,23 +25,16 @@ struct BTConnectView: View {
                 //Text("Connect to a desk:")
                 Form {
                     Section(header: Text("Please input your desk information.")) {
-                        HStack {
-                            
-                            Text("Name:    ")
-                                .font(.subheadline)
-                                .fontWeight(.bold)
-                            TextField("Name your desk", text: $inputDeskName)
+                           
+                        TextField("Name your desk", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
                         
-                        HStack {
-                            Text("Desk ID:")
-                                .font(.subheadline)
-                                .fontWeight(.bold)
-                            TextField("Manufacturer Desk ID:", value: $inputDeskID, formatter: NumberFormatter())
+                        
+                        
+                                                        TextField("Enter manufacturer Desk ID", text: $inputDeskID)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
+                        
                     }
                 }
             }
@@ -65,7 +58,7 @@ struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
     
     @Binding  var inputDeskName: String
-    @Binding  var inputDeskID: Int
+    @Binding  var inputDeskID: String
     @Binding var showBTConnect: Bool
     @Binding var notifyWrongInput: Bool
     
@@ -80,10 +73,10 @@ struct BTDoneButton: View {
                 print("height out of bounds!")
             }
              */
-            if (self.inputDeskName != "") && self.verifyIDFormat(id: self.inputDeskID) {
+            if (self.inputDeskName != "") && self.verifyIDFormat(id: Int(self.inputDeskID) ?? 0) {
                 //Store user input and exit connect view
                 self.user.currDeskName = self.inputDeskName
-                self.user.currDeskID = self.inputDeskID
+                self.user.currDeskID = Int(self.inputDeskID) ?? 0
                 self.user.saveCurrentDesk()
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.notifyWrongInput = false
@@ -108,6 +101,7 @@ struct BTDoneButton: View {
             }
             num = num / 10
         }
+        print("Entered \(count) digits for deskID")
         return (count == 8)
     }
 }
