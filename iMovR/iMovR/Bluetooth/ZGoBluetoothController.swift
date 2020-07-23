@@ -20,7 +20,10 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var currentHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
+    @Published var connectionStatus: String = "--connection not initialized--"
+    @Published var connectionColor: Color = Color.primary
     @EnvironmentObject var user: UserObservable
+    
     
     //init() {
         // What do I need to do on initialization?

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct AddPresetButton: View {
 
-@Environment(\.colorScheme) var colorScheme
-@EnvironmentObject var user: UserObservable
-@State private var testCount: Float = 0.0
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var user: UserObservable
+    @State private var testCount: Float = 0.0
 
-@Binding var showAddPreset: Bool
+    @Binding var showAddPreset: Bool
     
     var body: some View {
         
@@ -29,15 +29,15 @@ struct AddPresetButton: View {
                         .stroke(Color.gray, lineWidth: 3)
                         .frame(width: 45.0, height: 45)
                     Image(systemName: "plus")
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                    }
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
                 Text("Add Preset")
         }
         .accentColor(colorScheme == .dark ? Color.white : Color.black)
             
         }
-        .sheet(isPresented: self.$showAddPreset) {
+            .sheet(isPresented: self.$showAddPreset) {
                 AddPresetView(showAddPreset: self.$showAddPreset).environmentObject(self.user)
         }
     }
@@ -53,6 +53,6 @@ func addPreset(user: UserObservable, name: String, height: Float) {
 
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetButton(showAddPreset: .constant(true))
+        AddPresetButton(showAddPreset: .constant(true)).environmentObject(UserObservable())
     }
 }

@@ -25,22 +25,30 @@ struct BTConnectView: View {
                 //Text("Connect to a desk:")
                 Form {
                     Section(header: Text("Please input your desk information.")) {
-                           
+                        
                         TextField("Name your desk", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        
-                        
-                                                        TextField("Enter manufacturer Desk ID", text: $inputDeskID)
+                        TextField("Enter manufacturer Desk ID", text: $inputDeskID)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
                     }
+                }
+                if notifyWrongInput {
+                    VStack {
+                        Text("Invalid field entries. Please give your desk a name and input the 8 digit manufacturer ID.")
+                        .foregroundColor(.red)
+                        .padding()
+                        Spacer()
+                    }
+                    
                 }
             }
             .navigationBarTitle("Connect To Desk", displayMode: .inline)
             .navigationBarItems(
-                leading: CloseButton(showSheet: self.$showBTConnect),
+                leading: CloseButton(
+                    showSheet: self.$showBTConnect
+                ),
                 trailing: BTDoneButton(
                     inputDeskName: self.$inputDeskName,
                     inputDeskID: self.$inputDeskID,
@@ -64,18 +72,10 @@ struct BTDoneButton: View {
     
     var body: some View {
         Button(action: {
-            /*
-            let height: Float = (self.presetHeight as NSString).floatValue
-            if height <= 48.00 && height >= 23.00 {
-                self.user.addPreset(name: self.presetName, height: height)
-                print("Height is \(height)")
-            } else {
-                print("height out of bounds!")
-            }
-             */
             let deskID: Int = Int(self.inputDeskID) ?? 0
             
             if (self.inputDeskName != "") && self.verifyIDFormat(id: deskID) {
+                print("correct desk info submitted")
                 //Store user input and exit connect view
                 self.user.currDeskName = self.inputDeskName
                 self.user.currDeskID = deskID
@@ -85,6 +85,7 @@ struct BTDoneButton: View {
                 self.showBTConnect = false
             } else {
                 //Inform user their input is incorrect and remain in view
+                print("incorrect desk info submitted")
                 self.notifyWrongInput = true
             }
         }) { //Button contents
