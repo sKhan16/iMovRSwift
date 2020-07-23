@@ -13,25 +13,41 @@ import SwiftUI
 public class UserObservable: ObservableObject {
     @Published var presets: [(name: String, height: Float)] = []
     @Published var loginState: LoginState = .firstTime
-    @Published var deskID: String? = nil
+    
+    @Published var currDeskID: Int = 0
+    @Published var currDeskName: String = "--name_not_assigned--"
+    @Published var desks: [(name: String, deskID: Int)] = []
     
     init() {
         //self.addTestPresets()
         
     }
     
-    
-    //MARK: DELETE THIS AFTER. TESTING ONLY
     func addPreset (name: String, height: Float) {
         presets.append((name, height))
     }
     
+    func addDesk (name: String, deskID: Int) {
+        desks.append((name, deskID))
+    }
+    
+    func removeDesk (name: String, deskID: Int) {
+        desks.removeAll(where: { $0 == (name, deskID) })
+    }
+    func setCurrentDesk (name: String, deskID: Int) {
+        if !desks.contains(where: { $0 == (name, deskID)} ) {
+            
+        }
+    }
+    
+/*
     func addTestPresets() {
         for index in (0...10) { 
             self.addPreset(name: "test", height: Float(index))
         }
     }
-
+*/
+    
 }
 
 enum LoginState {

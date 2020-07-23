@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,7 @@
 		1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F824C3E06F00155123 /* HeightSlider.swift */; };
 		1E94E1FD24C61CD300155123 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1FC24C61CD300155123 /* AddPresetView.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
+		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
 		41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096A24C28F4700644006 /* BTConnectView.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */; };
@@ -85,6 +86,7 @@
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BTConnectButton.swift; path = iMovR/Views/BTConnectButton.swift; sourceTree = SOURCE_ROOT; };
 		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoDeskPeripheral.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		1E94E1E124BF9F9900155123 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */,
 				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
 				1E94E1E924C2254E00155123 /* EditPresetButton.swift */,
@@ -502,6 +505,7 @@
 				41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */,
 				1E23015C24BCEB35009A0B3C /* iMovR.xcdatamodeld in Sources */,
 				41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */,
+				412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */,
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
 				1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */,

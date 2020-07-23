@@ -44,7 +44,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // Connect to Desk button onClick function
     //@IBAction (function below)
     func connectDeskClick() {
-        guard user.deskID != nil && user.deskID?.count == 8 else {
+        guard user.currDeskID > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
 //            connStatus.text = "Invalid Input"
 //            connStatus.textColor = UIColor.red
@@ -132,15 +132,13 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // didDiscover(...): Discover the peripherals of interest (ZGo desks in this case)
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        // MARK: Verify advertising data matches user input
+        // MARK: Verify manufacturer deskID matches user input deskID
         var manufacturerData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
         // Bytes are stored as 0x3y, where 'y' is one digit of the 8 digit manufacturer unique ID. 48 = 3*16
         // manufacturerData must be converted for comparison to QR code sticker number
-        print("Before \(manufacturerData)")
         for index in manufacturerData.indices {
             manufacturerData[index] -= 48;
         }
-        print("Before, fixed \(manufacturerData)")
         // Store manufacturer data array into one int
         var manufacturerDeskID : Int = 0
         for (index, digit) in manufacturerData.enumerated() {
@@ -150,16 +148,12 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         print("After, fixed \(manufacturerDeskID)")
         
-        guard let intDeskID = Int((user.deskID)!) else {
-            print("Desk \(String(manufacturerDeskID)) did not match")
+        guard manufacturerDeskID == user.currDeskID else {
+            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(user.currDeskID))")
             DispatchQueue.main.async { () -> Void in
 //                self.connStatus.text = "Discovered Desk(s) Did Not Match ID"
 //                self.connStatus.textColor = UIColor.red
             }
-            return
-        }
-        guard intDeskID == manufacturerDeskID else {
-            print("Desk ID did not match user-stored value")
             return
         }
         

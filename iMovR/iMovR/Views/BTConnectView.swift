@@ -9,14 +9,20 @@
 import SwiftUI
 
 struct BTConnectView: View {
+    
+    @EnvironmentObject var user: UserObservable
+    
+    @Binding var showBTConnect: Bool
+    
     var body: some View {
-        
-        // Shall we use cocoapod for the popup?
-        
-        VStack {
+        // Try cocoapod popoverview later
+        NavigationView {
+            VStack {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             
         }
+    }
+    .navigationBarTitle("Connect to Desk")
     }
 }
 
@@ -26,6 +32,7 @@ struct BTConnectView: View {
 
 struct BTConnectView_Previews: PreviewProvider {
     static var previews: some View {
-        BTConnectView()
+        BTConnectView(showBTConnect: .constant(true))
+            .environmentObject(UserObservable())
     }
 }

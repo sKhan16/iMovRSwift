@@ -23,7 +23,7 @@ struct AddPresetView: View {
             //Text("New preset")
                 Form {
                 Section(header: Text("PRESET")) {
-                    TextField("Preset name", text: $presetName)
+                    TextField("Preset Name", text: $presetName)
                     TextField("Preset Height", text: $presetHeight)
                         .keyboardType(.decimalPad)
                 }
@@ -33,7 +33,7 @@ struct AddPresetView: View {
                 //doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset)
                     
             
-            }.navigationBarTitle(Text("New preset"), displayMode: .inline)
+            }.navigationBarTitle(Text("New Preset"), displayMode: .inline)
                 .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset))
            
             
