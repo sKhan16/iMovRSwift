@@ -64,6 +64,7 @@ struct BTConnectView: View {
     
 }
 
+// Bluetooth connection starts in BTDoneButton
 struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: ZGoBluetoothController

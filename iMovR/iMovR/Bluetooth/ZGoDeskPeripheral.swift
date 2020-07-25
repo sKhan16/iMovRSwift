@@ -13,13 +13,11 @@ let ZGoNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
 let ZGoWriteCharacteristicUUID = CBUUID(string:"0xFEE2")
 let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
 
-///# ZGoDeskPeripheralWrapper: Contains controls for ZGo desk
-class ZGoDeskPeripheral {
-    
-    
-    
+///# ZGoDeskPeripheral Wrapper: Contains controls for ZGo desk
+class ZGoDeskPeripheral:ObservableObject {
     let deskPeripheral: CBPeripheral
     let writeCharacteristic, readCharacteristic: CBCharacteristic
+    
     private var deskHeight, deskMinHeight, deskMaxHeight: [UInt8]?
     // we should have a setting for inches or centimeter measurements!
     
