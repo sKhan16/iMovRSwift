@@ -16,41 +16,34 @@ struct HomeView: View {
     
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
+    @State var showBTConnect: Bool = false
     
     var body: some View {
         
         VStack {
-                
             Image("imovrLogo")
                 .resizable()
                 .frame(width: 110, height: 110)
             
             Spacer().frame(height: 70)
-            
             //ZStack {
             HStack {
+                AddPresetButton(showAddPreset: self.$showAddPreset)
+                .padding()
                 
-                        AddPresetButton(showAddPreset: self.$showAddPreset)
-                        .padding()
-                
-      
                 ScrollView(.horizontal) {
                     HStack  {
-                        
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in
                             PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
                         }
-                    
                     }
                     .frame( height: 100)
-                }
+                } //end ScrollView
                 Spacer()
-                
-                
-            }
-            //
-            //ZSTack end brace  }
+            } //end HStack
+        //} //end ZStack
+            BTConnectButton(showBTConnect: self.$showBTConnect)
             
             Spacer()
             HStack {

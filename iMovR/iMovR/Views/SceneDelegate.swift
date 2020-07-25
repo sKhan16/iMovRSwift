@@ -12,6 +12,9 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    let user = UserObservable()
+    let BTController = ZGoBluetoothController()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -27,8 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let contentView = ContentView().environment(\.managedObjectContext, context)
         
-        let user = UserObservable()
-        let BTController = ZGoBluetoothController()
+
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
