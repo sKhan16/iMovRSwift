@@ -33,19 +33,25 @@ struct PresetButton: View {
             }
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(width: 80, height: 50)
-            .onLongPressGesture(minimumDuration: 10.0, maximumDistance: CGFloat(50), pressing: { pressing in
+            .onTapGesture {}
+            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
                 withAnimation(.easeInOut(duration: 1.0)) {
                     self.pressed = pressing
                 }
                 if pressing {
                     print("My long pressed starts")
-                    print("     I can initiate any action on start")
+                    //print("     I can initiate any action on start")
                 } else {
                     print("My long pressed ends")
-                    print("     I can initiate any action on end")
+                    print("     Desk stops moving")
                 }
             }, perform: {
-                print("activated after the seconds")
+                print("Desk starts moving")
+                if self.pressed {
+                    print("Moving up")
+                } else {
+                    print("Moving down")
+                }
             })
 //            .gesture(
 //                DragGesture(minimumDistance: 0)
