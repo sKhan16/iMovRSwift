@@ -47,11 +47,6 @@ struct PresetButton: View {
                 }
             }, perform: {
                 print("Desk starts moving")
-                if self.pressed {
-                    print("Moving up")
-                } else {
-                    print("Moving down")
-                }
             })
 //            .gesture(
 //                DragGesture(minimumDistance: 0)
@@ -66,6 +61,42 @@ struct PresetButton: View {
 //            )
         }
     }
+    
+    enum DragState {
+        case inactive
+        case pressing
+        case dragging(translation: CGSize)
+        
+        var translation: CGSize {
+            switch self {
+            case .inactive, .pressing:
+                return .zero
+            case .dragging(let translation):
+                return translation
+            }
+        }
+        
+        var isActive: Bool {
+            switch self {
+            case .inactive:
+                return false
+            case .pressing, .dragging:
+                return true
+            }
+        }
+        
+        var isDragging: Bool {
+            switch self {
+            case .inactive, .pressing:
+                return false
+            case .dragging:
+                return true
+            }
+        }
+    }
+    
+    @GestureState var dragState = DragState.inactive
+    @State var viewState = CGSize.zero
 }
 
 
@@ -74,5 +105,33 @@ struct PresetButton_Previews: PreviewProvider {
     static var previews: some View {
         PresetButton(name: "Sitting", presetVal: 32.2)
             .environmentObject(ZGoBluetoothController())
+    }
+}
+
+
+//You can create a custom view modifier:
+
+extension View {
+    func onTouchDownGesture(callback: @escaping () -> Void) -> some View {
+        modifier(OnTouchDownGestureModifier(callback: callback))
+    }
+}
+
+private struct OnTouchDownGestureModifier: ViewModifier {
+    @State private var tapped = false
+    let callback: () -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .simultaneousGesture(DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                    if !self.tapped {
+                        self.tapped = true
+                        self.callback()
+                    }
+                }
+                .onEnded { _ in
+                    self.tapped = false
+                })
     }
 }
