@@ -17,6 +17,19 @@ struct PresetButton: View {
    @State var name: String
    @State var presetVal: Float
     
+//    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
+//        print("Moving")
+//    }).onEnded({
+//        print("STOP MOVING")
+//    })
+    
+    let PresetGesture = LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
+        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({_ in
+        print("Moving")
+    }).onEnded({_ in
+        print("STOP MOVING")
+    }))
+    
     var body: some View {
         Button(action: {
             //self.moveToPreset()
@@ -34,20 +47,22 @@ struct PresetButton: View {
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(width: 80, height: 50)
             .onTapGesture {}
-            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
-                withAnimation(.easeInOut(duration: 1.0)) {
-                    self.pressed = pressing
-                }
-                if pressing {
-                    print("My long pressed starts")
-                    //print("     I can initiate any action on start")
-                } else {
-                    print("My long pressed ends")
-                    print("     Desk stops moving")
-                }
-            }, perform: {
-                print("Desk starts moving")
-            })
+            .gesture(PresetGesture)
+            
+//            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
+//                withAnimation(.easeInOut(duration: 1.0)) {
+//                    self.pressed = pressing
+//                }
+//                if pressing {
+//                    print("My long pressed starts")
+//                    //print("     I can initiate any action on start")
+//                } else {
+//                    print("My long pressed ends")
+//                    print("     Desk stops moving")
+//                }
+//            }, perform: {
+//                print("Desk starts moving")
+//            })
 //            .gesture(
 //                DragGesture(minimumDistance: 0)
 //                    .onChanged({ (touch) in
