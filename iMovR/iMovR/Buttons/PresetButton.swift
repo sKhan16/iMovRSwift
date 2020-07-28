@@ -16,19 +16,24 @@ struct PresetButton: View {
     
    @State var name: String
    @State var presetVal: Float
-    
+
+    @State var tapped = false
 //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
 //        print("Moving")
 //    }).onEnded({
 //        print("STOP MOVING")
 //    })
     
-    let PresetGesture = LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
-        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({_ in
-        print("Moving")
-    }).onEnded({_ in
-        print("STOP MOVING")
-    }))
+//    let PresetGesture = LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
+//        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { _ in
+//            if !self.tapped {
+//                self.tapped = true
+//                self.callback()
+//            }
+//        }
+//        .onEnded { _ in
+//            self.tapped = false
+//        })
     
     var body: some View {
         Button(action: {
@@ -47,8 +52,22 @@ struct PresetButton: View {
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(width: 80, height: 50)
             .onTapGesture {}
-            .gesture(PresetGesture)
+            .gesture(LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
             
+            .sequenced(before: LongPressGesture(minimumDuration: 0.0)
+            .onChanged({ (touch) in
+                //self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
+                print("Preset \(self.presetVal) touchdown")
+            })
+            .onEnded({ (touch) in
+                //self.bt.deskWrap?.releaseDesk()
+                print("Preset \(self.presetVal) released")
+            })
+)
+            )
+            
+            
+            //.sequenced(before: LongPressGesture())
 //            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
 //                withAnimation(.easeInOut(duration: 1.0)) {
 //                    self.pressed = pressing
@@ -133,6 +152,7 @@ extension View {
 }
 
 private struct OnTouchDownGestureModifier: ViewModifier {
+    
     @State private var tapped = false
     let callback: () -> Void
 
@@ -143,10 +163,12 @@ private struct OnTouchDownGestureModifier: ViewModifier {
                     if !self.tapped {
                         self.tapped = true
                         self.callback()
+                        print("moving")
                     }
                 }
                 .onEnded { _ in
                     self.tapped = false
+                    print("stop moving")
                 })
     }
 }
