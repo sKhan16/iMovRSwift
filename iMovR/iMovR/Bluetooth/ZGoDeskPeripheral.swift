@@ -94,7 +94,15 @@ class ZGoDeskPeripheral:ObservableObject {
         
         let readByteData: [UInt8] = [UInt8](readData)
         // MARK: Checksum verification
-        //print(readByteData)
+        print("message checksum = \(String(describing: readByteData.last))")
+        /*
+        var checksum: UInt8 = 0
+        for (currByte) in readByteData[1...(readByteData.count-1)] {
+            checksum += currByte
+        }
+        print("calculated checksum = \(String(describing: checksum))")
+        */
+        
         /*
          let readIntArray: [Int] = []
          for (index,currByte) in readByteData[1..<(readByteData.endIndex - 1)] {

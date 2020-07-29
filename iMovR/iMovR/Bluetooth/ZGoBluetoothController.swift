@@ -148,7 +148,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         
         // MARK: Verify manufacturer deskID matches user input deskID
         var manufacturerData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
-        // Bytes are stored as 0x3y, where 'y' is one digit of the 8 digit manufacturer unique ID. 48 = 3*16
+        // Bytes are stored as 0x3k, where 'k' is a digit of the 8 digit manufacturer unique ID.
+        // 0x30 = 48 = 3 * 2^4
         // manufacturerData must be converted for comparison to QR code sticker number
         for index in manufacturerData.indices {
             manufacturerData[index] -= 48;
