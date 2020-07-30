@@ -27,8 +27,8 @@ struct HomeView: View {
             Image("imovrLogo")
                 .resizable()
                 .frame(width: 110, height: 110)
-            
-            Spacer().frame(height: 70)
+                .padding(.top)
+            //Spacer().frame(height: 70)
             //ZStack {
             HStack {
                 AddPresetButton(showAddPreset: self.$showAddPreset)
@@ -46,36 +46,45 @@ struct HomeView: View {
                 Spacer()
             } //end HStack
         //} //end ZStack
-            BTConnectButton(showBTConnect: self.$showBTConnect)
             
+            VStack {
+            BTConnectButton(showBTConnect: self.$showBTConnect)
+                //.padding()
             Spacer()
             HStack {
                 Spacer()
                 
                 HStack {
                     HeightSlider()
+                        .padding(.trailing, 60)
                 }
+                
                 VStack {
                     UpButton(testHeight: $testHeight)
-                    .padding()
+                        //.padding()
                     DownButton(testHeight: $testHeight)
                 }
-            .padding(40)
+                .padding()
+                Spacer()
+                //.padding()
             }
-            
+                Spacer()
+        }
             Spacer()
          
         //}
             VStack {
             HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
             }
+            .padding(.bottom)
             Spacer()
+            
             
         
         }
-        
-    
+
     }
+    
     
 }
 
