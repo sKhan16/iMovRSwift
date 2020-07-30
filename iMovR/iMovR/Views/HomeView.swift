@@ -18,6 +18,9 @@ struct HomeView: View {
     @State var showAddPreset: Bool = false
     @State var showBTConnect: Bool = false
     
+    @State var presetName: String = ""
+    @State var presetHeight: Float = 0.0
+    
     var body: some View {
         
         VStack {
@@ -35,7 +38,7 @@ struct HomeView: View {
                     HStack  {
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in
-                            PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
+                            PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1, presetName: self.$presetName, presetHeight: self.$presetHeight)
                         }
                     }
                     .frame( height: 100)
@@ -63,6 +66,10 @@ struct HomeView: View {
             Spacer()
          
         //}
+            VStack {
+            HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+            }
+            Spacer()
             
         
         }

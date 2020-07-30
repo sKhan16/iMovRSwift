@@ -19,7 +19,6 @@ public class UserObservable: ObservableObject {
     @Published var desks: [(name: String, deskID: Int)] = []
     
     init() {
-        //self.addTestPresets()
         
     }
     

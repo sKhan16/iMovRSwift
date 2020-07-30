@@ -11,6 +11,7 @@
 		1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFC724C8FF37008BDE9A /* OnboardingView.swift */; };
 		1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFC924C8FFC0008BDE9A /* PageViewController.swift */; };
 		1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFCB24C90177008BDE9A /* PageControl.swift */; };
+		1E21EFCE24D25595008BDE9A /* HoldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21EFCD24D25595008BDE9A /* HoldButton.swift */; };
 		1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23015624BCEB35009A0B3C /* AppDelegate.swift */; };
 		1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23015824BCEB35009A0B3C /* SceneDelegate.swift */; };
 		1E23015C24BCEB35009A0B3C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E23015A24BCEB35009A0B3C /* iMovR.xcdatamodeld */; };
@@ -65,6 +66,7 @@
 		1E21EFC724C8FF37008BDE9A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		1E21EFC924C8FFC0008BDE9A /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		1E21EFCB24C90177008BDE9A /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		1E21EFCD24D25595008BDE9A /* HoldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldButton.swift; sourceTree = "<group>"; };
 		1E23015324BCEB35009A0B3C /* iMovR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMovR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E23015624BCEB35009A0B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E23015824BCEB35009A0B3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
 				1E94E1E924C2254E00155123 /* EditPresetButton.swift */,
 				1E94E1E424C0F72800155123 /* PresetButton.swift */,
+				1E21EFCD24D25595008BDE9A /* HoldButton.swift */,
 				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
@@ -521,6 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E21EFCE24D25595008BDE9A /* HoldButton.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
