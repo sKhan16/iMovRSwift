@@ -17,7 +17,7 @@ struct HeightSlider: View {
       
         
         VStack {
-            Text(String(self.bt.currentHeight))
+            Text(String(format: "%.1f", self.bt.currentHeight))
                 .rotationEffect(.degrees(90))
             Slider(value: self.$bt.currentHeight, in: self.bt.minHeight...self.bt.maxHeight, step: 1)
             }
