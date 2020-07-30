@@ -10,40 +10,46 @@ import SwiftUI
 
 struct PresetButton: View {
     @EnvironmentObject var bt: ZGoBluetoothController
-   @Environment(\.colorScheme) var colorScheme
-   
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var pressed: Bool = false
     
-   @State var name: String
-   @State var presetVal: Float
-
-    @State var tapped = false
-//    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
-//        print("Moving")
-//    }).onEnded({
-//        print("STOP MOVING")
-//    })
+    @State var name: String
+    @State var presetVal: Float
     
-//    let PresetGesture = LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
-//        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { _ in
-//            if !self.tapped {
-//                self.tapped = true
-//                self.callback()
-//            }
-//        }
-//        .onEnded { _ in
-//            self.tapped = false
-//        })
+    //@State var tapped = false
+    
+    @Binding var presetName: String
+    @Binding var presetHeight: Float
+    //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
+    //        print("Moving")
+    //    }).onEnded({
+    //        print("STOP MOVING")
+    //    })
+    
+    //    let PresetGesture = LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
+    //        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { _ in
+    //            if !self.tapped {
+    //                self.tapped = true
+    //                self.callback()
+    //            }
+    //        }
+    //        .onEnded { _ in
+    //            self.tapped = false
+    //        })
     
     var body: some View {
         Button(action: {
             //self.moveToPreset()
             print("Moved to \(self.presetVal)")
             
+            self.presetName = self.name
+            self.presetHeight = self.presetVal
+            
         }) {
             VStack {
                 Text(String(presetVal))
-                
+                    
                     .padding(13)
                     .overlay(Circle().stroke(Color.gray, lineWidth: 3))
                     .padding(6)
@@ -51,48 +57,48 @@ struct PresetButton: View {
             }
             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .frame(width: 80, height: 50)
-            .onTapGesture {}
-            .gesture(LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
-            
-            .sequenced(before: LongPressGesture(minimumDuration: 0.0)
-            .onChanged({ (touch) in
-                //self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
-                print("Preset \(self.presetVal) touchdown")
-            })
-            .onEnded({ (touch) in
-                //self.bt.deskWrap?.releaseDesk()
-                print("Preset \(self.presetVal) released")
-            })
-)
-            )
+            //.onTapGesture {}
+            //            .gesture(LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
+            //
+            //            .sequenced(before: LongPressGesture(minimumDuration: 0.0)
+            //            .onChanged({ (touch) in
+            //                //self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
+            //                print("Preset \(self.presetVal) touchdown")
+            //            })
+            //            .onEnded({ (touch) in
+            //                //self.bt.deskWrap?.releaseDesk()
+            //                print("Preset \(self.presetVal) released")
+            //            })
+            //)
+            //            )
             
             
             //.sequenced(before: LongPressGesture())
-//            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
-//                withAnimation(.easeInOut(duration: 1.0)) {
-//                    self.pressed = pressing
-//                }
-//                if pressing {
-//                    print("My long pressed starts")
-//                    //print("     I can initiate any action on start")
-//                } else {
-//                    print("My long pressed ends")
-//                    print("     Desk stops moving")
-//                }
-//            }, perform: {
-//                print("Desk starts moving")
-//            })
-//            .gesture(
-//                DragGesture(minimumDistance: 0)
-//                    .onChanged({ (touch) in
-//                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
-//                        print("Preset \(self.presetVal) touchdown")
-//                    })
-//                    .onEnded({ (touch) in
-//                        self.bt.deskWrap?.releaseDesk()
-//                        print("Preset \(self.presetVal) released")
-//                    })
-//            )
+            //            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
+            //                withAnimation(.easeInOut(duration: 1.0)) {
+            //                    self.pressed = pressing
+            //                }
+            //                if pressing {
+            //                    print("My long pressed starts")
+            //                    //print("     I can initiate any action on start")
+            //                } else {
+            //                    print("My long pressed ends")
+            //                    print("     Desk stops moving")
+            //                }
+            //            }, perform: {
+            //                print("Desk starts moving")
+            //            })
+            //            .gesture(
+            //                DragGesture(minimumDistance: 0)
+            //                    .onChanged({ (touch) in
+            //                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
+            //                        print("Preset \(self.presetVal) touchdown")
+            //                    })
+            //                    .onEnded({ (touch) in
+            //                        self.bt.deskWrap?.releaseDesk()
+            //                        print("Preset \(self.presetVal) released")
+            //                    })
+            //            )
         }
     }
     
@@ -137,7 +143,7 @@ struct PresetButton: View {
 
 struct PresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        PresetButton(name: "Sitting", presetVal: 32.2)
+        PresetButton(name: "Sitting", presetVal: 32.2, presetName: .constant("Sitting"), presetHeight: .constant(32.2))
             .environmentObject(ZGoBluetoothController())
     }
 }
@@ -155,7 +161,7 @@ private struct OnTouchDownGestureModifier: ViewModifier {
     
     @State private var tapped = false
     let callback: () -> Void
-
+    
     func body(content: Content) -> some View {
         content
             .simultaneousGesture(DragGesture(minimumDistance: 0)
@@ -165,10 +171,10 @@ private struct OnTouchDownGestureModifier: ViewModifier {
                         self.callback()
                         print("moving")
                     }
-                }
-                .onEnded { _ in
-                    self.tapped = false
-                    print("stop moving")
-                })
+            }
+            .onEnded { _ in
+                self.tapped = false
+                print("stop moving")
+            })
     }
 }
