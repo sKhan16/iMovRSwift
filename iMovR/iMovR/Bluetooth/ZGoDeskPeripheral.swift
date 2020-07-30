@@ -46,10 +46,7 @@ class ZGoDeskPeripheral:ObservableObject {
     
     func writeToDesk(data:NSData, type:CBCharacteristicWriteType) {
         self.deskPeripheral.writeValue(data as Data, for: self.writeCharacteristic, type: type)
-    } /*
-     func readFromDesk() {
-     return self.deskPeripheral.readValue(for: self.readCharacteristic)
-     } */
+    }
     
     func raiseDesk() {
         self.writeToDesk(data: Data(_:raiseCMD) as NSData, type: .withoutResponse)
@@ -62,14 +59,12 @@ class ZGoDeskPeripheral:ObservableObject {
     }
     
     func moveToHeight(PresetHeight:Float) {
-        
         // Convert units and construct desk command
         let heightBits: [UInt8] = self.inch2mmBits(HeightIn: PresetHeight)
         //print("PresetHeight: \(PresetHeight)\nheightBits: \(String(describing: String(bytes: heightBits, encoding: .utf8)))")
         let chksum: UInt8 = UInt8(Int(0x05 + 0x31 + Int(heightBits[1]) + Int(heightBits[0])) & 0xFF)
         //print(chksum)
         let specificHeightCMD: [UInt8] = [0xA5, 0x05, 0x31, heightBits[1], heightBits[0], chksum]
-        
         //print(specificHeightCMD)
         self.writeToDesk(data: Data(_:specificHeightCMD) as NSData, type: .withoutResponse)
     }
@@ -79,10 +74,8 @@ class ZGoDeskPeripheral:ObservableObject {
         self.writeToDesk(data: Data(_:tableHeightInfo) as NSData, type: .withResponse)
     }
     
-    
     // Called after desk notifies that the height info has been updated
     func updateHeightInfo() {
-        
         guard let readData: Data = self.readCharacteristic.value else {
             print("invalid read characteristic value (nil)")
             return
@@ -91,79 +84,52 @@ class ZGoDeskPeripheral:ObservableObject {
             print("read characteristic count too small")
             return
         }
-        
         let readByteData: [UInt8] = [UInt8](readData)
+        
+        guard let msgChecksum: UInt8 = readByteData.last else {
+            return
+        }
         // MARK: Checksum verification
-        //print(readByteData)
-        /*
-         let readIntArray: [Int] = []
-         for (index,currByte) in readByteData[1..<(readByteData.endIndex - 1)] {
-         
-         }
-         // Verify checksum of message:
-         let chksum: [Int] = [Int](readByteData[1..<(readByteData.endIndex-1)])
-         guard chksum.reduce(0,+) & 0xFF == readByteData.last! else {
-         print("readData checksum invalid")
-         return
-         }
-         func convertType(typeIn: [Int]) -> [UInt8] {
-         return [UInt8](arrayLiteral: UInt8(typeIn[0]),UInt8(typeIn[1]))
-         }
-         */
+        
+        //print("message checksum = \(String(describing: msgChecksum))")
+        var calcChecksum: UInt = 0
+        for i in 1 ..< (readByteData.count - 1) {
+            //print(calcChecksum)
+            calcChecksum += UInt(readByteData[i])
+        }
+        calcChecksum = calcChecksum & 0xFF
+        //print("calculated checksum = \(String(describing: calcChecksum))")
+        
+        guard calcChecksum == msgChecksum else {
+            print("checksum error - received invalid message from desk")
+            return
+        }
+        
+        //MARK: Identifying the received message
+        
         if readByteData[0...2] == [0x5A,0x09,0x21] {
             guard readByteData.count == 10 else {
                 print("readData count invalid")
                 return
             }
-            print("successfully detected message: Table Height Information")
+            //print("successfully detected message: Table Height Information")
             self.deskHeight = [readByteData[4],readByteData[3]]
             self.deskMinHeight = [readByteData[6],readByteData[5]]
             self.deskMaxHeight = [readByteData[8],readByteData[7]]
-            /*self.deskHeight = convertType(typeIn: Array(readByteData[3...4]))
-             self.deskMinHeight = convertType(typeIn: Array(readByteData[5...6]))
-             self.deskMaxHeight = convertType(typeIn: Array(readByteData[7...8]))
-             */
+            
         } else if readByteData[0...1] == [0x5A,0x06] {
             guard readByteData.count == 7 else {
                 print("readData count invalid")
                 return
             }
             //print("successfully detected message: Movement/Status Change Update")
-            //self.deskHeight = convertType(typeIn: Array(readByteData[3...4]))
             self.deskHeight = [readByteData[4],readByteData[3]]
             
         } else {
-            print("readData message invalid in updateHeightInfo()")
+            print("readData message unidentified in updateHeightInfo()")
             return
         }
-        //print("Current height from desk: \(String(String(bytes: self.deskHeight!, encoding: .utf8) ?? String("nil")))")
-        /*
-         switch (readData[0...2]) {
-         case: (0x5A,0x09,0x21)
-         //    print("successfully detected message: Table Height Information")
-         default:
-         print("readData message invalid in updateHeightInfo()")
-         return
-         }
-         */
-        
-        // Must check that value represents a height update command:
-        // use switch/case statement for sender command; this function can be accessed by requesting desk height or moving the desk
-        
-        //[UInt8] characteristic.value == [0x5A, 0x06, CMD, Height_H, Height_L, ErrorCode, Checksum]:[UInt8]
-        
-        // also verify checksum and message length and such
-        
-        // Then extract the curr, min and max heights
-        // Then update UISlider values to match
-        //self.readFromDesk()
-        //self.readCharacteristic.value
-        /*
-         self.deskHeight =
-         self.deskMaxHeight =
-         self.deskMinHeight =
-         */
-    }
+    }// end updateHeightInfo()
     
     func getHeightInches() -> Float? {
         return self.mmBits2inch(HeightBits: self.deskHeight)
