@@ -48,7 +48,7 @@ struct PresetButton: View {
             
         }) {
             VStack {
-                Text(String(presetVal))
+                Text(String(format: "%.1f", presetVal))
                     
                     .padding(13)
                     .overlay(Circle().stroke(Color.gray, lineWidth: 3))

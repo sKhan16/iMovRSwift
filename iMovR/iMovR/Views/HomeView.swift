@@ -31,11 +31,12 @@ struct HomeView: View {
             //Spacer().frame(height: 70)
             //ZStack {
             HStack {
-                AddPresetButton(showAddPreset: self.$showAddPreset)
-                .padding()
                 
                 ScrollView(.horizontal) {
+                    
                     HStack  {
+                        AddPresetButton(showAddPreset: self.$showAddPreset)
+                            .padding()
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in
                             PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1, presetName: self.$presetName, presetHeight: self.$presetHeight)

@@ -39,13 +39,13 @@ public class UserObservable: ObservableObject {
         }
     }
     
-/*
-    func addTestPresets() {
-        for index in (0...10) { 
-            self.addPreset(name: "test", height: Float(index))
-        }
-    }
-*/
+
+//    func addTestPresets() {
+//        for index in (0...10) {
+//            self.addPreset(name: "test", height: Float(index))
+//        }
+//    }
+
     
 }
 
