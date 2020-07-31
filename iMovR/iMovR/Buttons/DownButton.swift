@@ -28,22 +28,32 @@ struct DownButton: View {
         }) {
             // How the button looks like
             Image(systemName: "arrow.down.square")
-            .resizable()
-            .frame(width: 75, height: 75)
-            .onLongPressGesture(minimumDuration: 2.5, maximumDistance: CGFloat(25), pressing: { pressing in
-                withAnimation(.easeInOut(duration: 1.0)) {
-                    self.pressed = pressing
-                }
-                if pressing {
-                    self.bt.deskWrap?.lowerDesk()
-                    print("My long pressed starts")
-                    print("     I can initiate any action on start")
-                } else {
-                    self.bt.deskWrap?.releaseDesk()
-                    print("My long pressed ends")
-                    print("     I can initiate any action on end")
-                }
-            }, perform: { })
+                .resizable()
+                .frame(width: 75, height: 75)
+                
+                .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        self.pressed = pressing
+                    }
+                    if pressing {
+                        self.bt.deskWrap?.lowerDesk()
+                        print("My long press starts")
+                        //print("     I can initiate any action on start")
+                    } else {
+                        self.bt.deskWrap?.releaseDesk()
+                        print("My long press ends")
+                        //print("     I can initiate any action on end")
+                    }
+                }, perform: {})
+                
+                .simultaneousGesture(
+                    // sends additional command for case when desk is asleep
+                    LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
+                        .onEnded() { _ in
+                            self.bt.deskWrap?.lowerDesk()
+                            print("simultaneous long press upButton")
+                    }
+                )
         }
     }
 }
