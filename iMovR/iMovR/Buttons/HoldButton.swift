@@ -20,6 +20,7 @@ struct HoldButton: View {
     var body: some View {
         //var formatHeight = String(format: "%.1f", self.$presetHeight)
         Text("Move to: \(String(format: "%.1f", self.presetHeight))")
+
             .padding()
             .background(Color(red: 227/255, green: 230/255, blue: 232/255))
             .shadow(radius: 5)
