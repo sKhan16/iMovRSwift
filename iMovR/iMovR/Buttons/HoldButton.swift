@@ -19,26 +19,36 @@ struct HoldButton: View {
     
     var body: some View {
         //var formatHeight = String(format: "%.1f", self.$presetHeight)
-        Text("move to: \(String(format: "%.2f", self.presetHeight))")
+        Text("Move to: \(String(format: "%.1f", self.presetHeight))")
             .padding()
             .background(Color(red: 227/255, green: 230/255, blue: 232/255))
             .shadow(radius: 5)
             .foregroundColor(.black)
             .font(.title)
-            .onLongPressGesture(minimumDuration: 2.5, maximumDistance: CGFloat(25), pressing: { pressing in
+            
+            .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
                 withAnimation(.easeInOut(duration: 1.0)) {
                     self.pressed = pressing
                 }
                 if pressing {
                     self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
-                    print("My long pressed starts")
-                    print("     I can initiate any action on start")
+                    print("My long press starts")
+                    //print("     I can initiate any action on start")
                 } else {
                     self.bt.deskWrap?.releaseDesk()
-                    print("My long pressed ends")
-                    print("     I can initiate any action on end")
+                    print("My long press ends")
+                    //print("     I can initiate any action on end")
                 }
-            }, perform: { })
+            }, perform: {})
+            
+            .simultaneousGesture(
+                // sends additional command for case when desk is asleep
+                LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
+                    .onEnded() { _ in
+                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
+                        print("simultaneous long press upButton")
+                }
+        )
     }
 }
 

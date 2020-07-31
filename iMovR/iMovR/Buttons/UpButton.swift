@@ -19,41 +19,36 @@ struct UpButton: View {
             print("Moving up")
         }) {
             // How the button looks like
-            VStack {
-                Image(systemName: "arrow.up.square")
+            Image(systemName: "arrow.up.square")
                 .resizable()
                 .frame(width: 75, height: 75)
                 
-//                .onTapGesture {
-//                    self.bt.deskWrap?.raiseDesk()
-//                }
-            
-            }
-            .onLongPressGesture(minimumDuration: 2.5, maximumDistance: CGFloat(25), pressing: { pressing in
-                withAnimation(.easeInOut(duration: 1.0)) {
-                    self.pressed = pressing
-                }
-                if pressing {
-                    self.bt.deskWrap?.raiseDesk()
-                    print("My long pressed starts")
-                    print("     I can initiate any action on start")
-                } else {
-                    self.bt.deskWrap?.releaseDesk()
-                    print("My long pressed ends")
-                    print("     I can initiate any action on end")
-                }
-            }, perform: { })
+                .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        self.pressed = pressing
+                    }
+                    if pressing {
+                        self.bt.deskWrap?.raiseDesk()
+                        print("My long press starts")
+                        //print("     I can initiate any action on start")
+                    } else {
+                        self.bt.deskWrap?.releaseDesk()
+                        print("My long press ends")
+                        //print("     I can initiate any action on end")
+                    }
+                }, perform: {})
+                
+                .simultaneousGesture(
+                    // sends additional command for case when desk is asleep
+                    LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
+                        .onEnded() { _ in
+                            self.bt.deskWrap?.raiseDesk()
+                            print("simultaneous long press upButton")
+                    }
+                )
         }
     }
 }
-// What to perform
-//            self.bt.deskWrap?.raiseDesk()
-//            if self.testHeight < 48.0 {
-//                self.testHeight += 1.0
-//                print("Moving up!")
-//            } else {
-//                print("Reached maximum height")
-//            }
 
 struct UpButton_Previews: PreviewProvider {
     static var previews: some View {
