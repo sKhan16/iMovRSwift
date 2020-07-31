@@ -132,7 +132,13 @@ class ZGoDeskPeripheral:ObservableObject {
     }// end updateHeightInfo()
     
     func getHeightInches() -> Float? {
-        return self.mmBits2inch(HeightBits: self.deskHeight)
+        // fix ZGo desk rounding error
+        
+        guard let height = self.mmBits2inch(HeightBits: self.deskHeight) else {
+            return nil
+        }
+        // Attempted fix: Rounding height because of ZGo height units conversion bug on desk
+        return (height * 10.0).rounded(.down)/10.0
     }
     func getMinHeightInches() -> Float? {
         return self.mmBits2inch(HeightBits: self.deskMinHeight)

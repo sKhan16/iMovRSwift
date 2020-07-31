@@ -72,7 +72,6 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
                 self.currentHeight = temp
             }
         }
-        // MARK: (currHeight*10.0).rounded(.down)/10.0) --rounded to 1 decimal point--
         if let temp = deskWrap?.getMaxHeightInches() {
             DispatchQueue.main.async { () -> Void in
                 self.maxHeight = temp
