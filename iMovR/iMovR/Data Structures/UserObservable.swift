@@ -19,7 +19,7 @@ public class UserObservable: ObservableObject {
     @Published var desks: [(name: String, deskID: Int)] = []
     
     init() {
-        //self.addTestPresets()
+        self.addTestPresets()
         
     }
     
@@ -40,13 +40,13 @@ public class UserObservable: ObservableObject {
         }
     }
     
-/*
+
     func addTestPresets() {
         for index in (0...10) { 
-            self.addPreset(name: "test", height: Float(index))
+            self.addPreset(name: "test \(index)", height: Float(index))
         }
     }
-*/
+
     
 }
 
@@ -55,4 +55,10 @@ enum LoginState {
     case Connected
     case Disconnected
     
+}
+
+struct UserObservable_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
 }

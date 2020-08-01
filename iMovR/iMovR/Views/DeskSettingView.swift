@@ -4,22 +4,25 @@
 //
 //  Created by Adrian Yue on 7/30/20.
 //  Copyright © 2020 iMovR. All rights reserved.
-//  View that contains list of desks
+//  View that contains list of desk presets
 
 import SwiftUI
 
 struct DeskSettingView: View {
+    
+    @EnvironmentObject var user: UserObservable
+    
     var body: some View {
         NavigationView{
-            List() {//setting in
+            List(0..<self.user.presets.count) { index in
                 //NavigationLink(destination: //SettingDetail()) {
-                NavigationLink(destination: SettingDetail()) {
-                SettingRow(name: "Desk 1")
+                NavigationLink(destination: SettingDetail(currIndex: index)) {
+                    SettingRow(name: self.user.presets[index].0, id: //self.user.currDeskID)
+                        Int(self.user.presets[index].1))
                 }
-                SettingRow(name: "Desk 2")
-                SettingRow(name: "Desk 3")
             }
             .navigationBarTitle(Text("Desks"))
+            .navigationBarHidden(true)
         }
         //TODO: Make a seperate file to store desk info
     }

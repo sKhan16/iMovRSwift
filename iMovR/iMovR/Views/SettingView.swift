@@ -14,15 +14,16 @@ struct SettingView: View {
             List() {//setting in
                 //NavigationLink(destination: //SettingDetail()) {
                 NavigationLink(destination: DeskSettingView()) {
-                    SettingRow(name: "Desks")
+                    SettingRow(name: "Desks", id: 0)
                 }
-                SettingRow(name: "Presets")
-                SettingRow(name: "Account")
+                SettingRow(name: "Presets", id: 0)
+                SettingRow(name: "Account", id: 0)
                 //}
             }
             .navigationBarTitle(Text("Settings"))
+            //.navigationBarHidden(true)
         }
-        //TODO: Put settings into a seperate json file;
+        //TODO: Put settings into a seperate file;
         //make List into a loop
     }
 }

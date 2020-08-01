@@ -12,23 +12,31 @@ import SwiftUI
 struct SettingRow: View {
     
     var name: String
+    var id: Int
+    //var user: UserObservable
     
     var body: some View {
-        HStack {
+        VStack(alignment: .leading) {
             /*landmark.image
             .resizable()
             .frame(width: 50, height: 50)
             Text(setting.name)*/
+            
             Text(name)
                 .font(.subheadline)
-            Spacer()
+            //Spacer()
+            if(id != 0) { //should add id on bottom if id isn't 0
+                Text("\(id)")
+                    .font(.subheadline)
+            }
             //TODO: change font
         }
+        
     }
 }
 
 struct SettingRow_Previews: PreviewProvider {
     static var previews: some View {
-        SettingRow(name: "Test1")
+        SettingRow(name: "Test1", id: 1)
     }
 }
