@@ -16,8 +16,7 @@ extension UserData {
         return NSFetchRequest<UserData>(entityName: "UserData")
     }
 
-    @NSManaged public var presets: String?
-    @NSManaged public var attribute: NSObject?
-    @NSManaged public var attribute1: NSObject?
+    @NSManaged public var presets: [(name: String, height: Float)]
+    @NSManaged public var desks: [(name: String, deskID: Int)]
 
 }
