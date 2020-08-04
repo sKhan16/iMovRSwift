@@ -13,7 +13,7 @@ struct DeskSettingView: View {
     @EnvironmentObject var user: UserObservable
     
     var body: some View {
-        NavigationView{
+       // NavigationView{
             List(0..<self.user.presets.count) { index in
                 //NavigationLink(destination: //SettingDetail()) {
                 NavigationLink(destination: SettingDetail(currIndex: index)) {
@@ -22,10 +22,10 @@ struct DeskSettingView: View {
                 }
             }
             .navigationBarTitle(Text("Desks"))
-            .navigationBarHidden(true)
+            //.navigationBarHidden(true)
         }
         //TODO: Make a seperate file to store desk info
-    }
+    //}
 }
 
 struct DeskSettingView_Previews: PreviewProvider {

@@ -20,34 +20,33 @@ struct EditPreset: View {
     @Binding var showAddPreset: Bool
     
     @State var currIndex: Int
-
+    
     
     var body: some View {
         
-         NavigationView {
-               //ZStack {
-               VStack {
-               //Text("New preset")
-                   Form {
-                   Section(header: Text(self.user.presets[self.currIndex].0)) {
-                       
-                       TextField("Preset Name", text: $presetName)
-                           .textFieldStyle(RoundedBorderTextFieldStyle())
+        //ZStack {
+        VStack {
+            //Text("New preset")
+            Form {
+                Section(header: Text(self.user.presets[self.currIndex].0)) {
                     
-                        TextField("Preset Height", text: $presetHeight)
-                            .keyboardType(.decimalPad)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Preset Name", text: $presetName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    TextField("Preset Height", text: $presetHeight)
+                        .keyboardType(.decimalPad)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                }
                 
-                       }
-                    
-                   
-                   }
-               }
-                   .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)
-               .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, currIndex: currIndex))
-               }
+                
+            }
+        }
+        .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)
+        .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, currIndex: currIndex))
     }
 }
+
 
 struct editDoneButton: View {
     @EnvironmentObject var user: UserObservable
@@ -60,7 +59,7 @@ struct editDoneButton: View {
     
     var body: some View {
         Button(action: {
-
+            
             let height: Float = (self.presetHeight as NSString).floatValue
             if height <= 48.00 && height >= 23.00 {
                 //self.user.addPreset(name: self.presetName, height: height)
