@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DeskSettingView: View {
+struct PresetSettingView: View {
     
     @EnvironmentObject var user: UserObservable
     
@@ -21,7 +21,7 @@ struct DeskSettingView: View {
                         Int(self.user.presets[index].1))
                 }
             }
-            .navigationBarTitle(Text("Desks"))
+            .navigationBarTitle(Text("Presets"))
             //.navigationBarHidden(true)
         }
         //TODO: Make a seperate file to store desk info
@@ -30,6 +30,6 @@ struct DeskSettingView: View {
 
 struct DeskSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        DeskSettingView()
+        PresetSettingView()
     }
 }
