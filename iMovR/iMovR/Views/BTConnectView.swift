@@ -24,14 +24,20 @@ struct BTConnectView: View {
             VStack {
                 //Text("Connect to a desk:")
                 Form {
-                    Section(header: Text("Please input your desk information.")) {
+                    Section(header: Text("Name your desk:")) {
                         
-                        TextField("Name your desk", text: $inputDeskName)
+                        TextField("Desk Name", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }// end 'name' section
+                    
+                    Section(header: Text("Input desk ID:")) {
                         
-                        TextField("Enter manufacturer Desk ID", text: $inputDeskID)
+                        TextField("Desk ID", text: $inputDeskID)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    
+                    Section() {
                         if notifyWrongInput {
                             VStack {
                                 Text("Invalid field entries. Please give your desk a name and input the 8 digit manufacturer ID.")
@@ -39,14 +45,21 @@ struct BTConnectView: View {
                                     .padding()
                                 //Spacer()
                             }
-                            
+                        } else {
+                            VStack {
+                                Text("Please give your desk a name and input the 8 digit manufacturer ID.\n\nThe manufacturer ID is found underneath the desk. There is a small box with a plug on each end, with a QR sticker. The 8 digit number is printed on this sticker.")
+                                    .foregroundColor(.primary)
+                                    .padding()
+                                //Spacer()
+                            }
                         }
                         //Spacer()
-                    }
-                }
+                    } // end notification section
+                    
+                } // end form
                 
             }
-            .navigationBarTitle("Connect To Desk", displayMode: .inline)
+            .navigationBarTitle("Add New Desk", displayMode: .inline)
             .navigationBarItems(
                 leading: CloseButton(
                     showSheet: self.$showBTConnect
