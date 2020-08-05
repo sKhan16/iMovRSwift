@@ -10,6 +10,9 @@ import SwiftUI
 
 struct BTConnectView: View {
     
+    // For saving to CoreData
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @EnvironmentObject var user: UserObservable
     
     @State private var inputDeskName: String = ""
