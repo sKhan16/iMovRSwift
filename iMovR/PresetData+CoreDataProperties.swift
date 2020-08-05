@@ -19,5 +19,7 @@ extension PresetData {
 
     @NSManaged public var height: Float
     @NSManaged public var name: String
+    @NSManaged public var uuid: UUID
+    
 
 }

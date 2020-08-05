@@ -17,8 +17,9 @@ extension DeskData {
         return NSFetchRequest<DeskData>(entityName: "DeskData")
     }
 
-    @NSManaged public var id: Int32
+    @NSManaged public var deskID: Int64
     @NSManaged public var name: String
-    @NSManaged public var lastConnected: Bool
+    @NSManaged public var isLastConnectedTo: Bool
+    @NSManaged public var uuid: UUID
 
 }

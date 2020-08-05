@@ -13,7 +13,7 @@ import Foundation
 struct Desk: Identifiable {
     
     ///Might want to make these private
-    var name: String
+    let name: String
     var deskID: Int
     
     let id: UUID = UUID()
