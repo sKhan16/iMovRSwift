@@ -20,6 +20,7 @@
 		1E23016624BCEB39009A0B3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E23016424BCEB39009A0B3C /* LaunchScreen.storyboard */; };
 		1E23017124BCEB3A009A0B3C /* iMovRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017024BCEB3A009A0B3C /* iMovRTests.swift */; };
 		1E23017C24BCEB3A009A0B3C /* iMovRUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */; };
+		1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E31FFD424DA4A6100E9913F /* Desk.swift */; };
 		1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1DF24BF9DB300155123 /* HomeView.swift */; };
 		1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */; };
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
@@ -85,6 +86,7 @@
 		1E23017724BCEB3A009A0B3C /* iMovRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iMovRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMovRUITests.swift; sourceTree = "<group>"; };
 		1E23017D24BCEB3A009A0B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E31FFD424DA4A6100E9913F /* Desk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Desk.swift; sourceTree = "<group>"; };
 		1E94E1DF24BF9DB300155123 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				1E94E1E724C12C1A00155123 /* UserObservable.swift */,
+				1E31FFD424DA4A6100E9913F /* Desk.swift */,
 				41A3096D24C399D300644006 /* Preset.swift */,
 			);
 			path = "Data Structures";
@@ -546,6 +549,7 @@
 			files = (
 				1E21EFCE24D25595008BDE9A /* HoldButton.swift in Sources */,
 				41AED7A324D9FAE3007C68E2 /* DeskData+CoreDataClass.swift in Sources */,
+				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,

@@ -11,7 +11,8 @@ import Combine
 import SwiftUI
 
 public class UserObservable: ObservableObject {
-    @Published var presets: [(name: String, height: Float)] = []
+    //@Published var presets: [(name: String, height: Float)] = []
+    @Published var presets : [Preset] = []
     @Published var loginState: LoginState = .firstTime
     
     @Published var currDeskID: Int = 0
@@ -23,7 +24,7 @@ public class UserObservable: ObservableObject {
     }
     
     func addPreset (name: String, height: Float) {
-        presets.append((name, height))
+        presets.append(Preset(name: name, height: height))
     }
     
     func addDesk (name: String, deskID: Int) {
