@@ -6,6 +6,8 @@
 //  Copyright © 2020 iMovR. All rights reserved.
 //  View that contains list of desk presets
 
+///TODO: Edge case checks
+
 import SwiftUI
 
 struct PresetSettingView: View {
@@ -13,21 +15,33 @@ struct PresetSettingView: View {
     @EnvironmentObject var user: UserObservable
     
     var body: some View {
-       // NavigationView{
-        List(self.user.presets, id: \.id) { preset in
-                //NavigationLink(destination: //SettingDetail()) {
-            NavigationLink(destination: SettingDetail(currPreset: preset)) {
-                    SettingRow(name: preset.getName(), id: //self.user.currDeskID)
-                        Int(preset.getHeight()))
+        List {
+            // Need to id with self or else it crashes and can't read the index on delete
+            ForEach(self.user.presets.indices, id: \.self) { index in
+                NavigationLink(destination: SettingDetail(currIndex: index)) {
+                    SettingRow(name: self.user.presets[index].getName(), id:
+                        Int(self.user.presets[index].getHeight()))
                 }
+                
             }
-            .navigationBarTitle(Text("Presets"))
-
-        //.navigationBarHidden(true)
+                
+            .onDelete(perform: removePresets)
         }
-        //TODO: Make a seperate file to store desk info
+        .navigationBarTitle(Text("Presets"))
+    }
+    //TODO: Make a seperate file to store desk info
     //}
+    
+    //Helper function to remove presets
+    func removePresets(at offsets: IndexSet) {
+        self.user.presets.remove(atOffsets: offsets)
+    }
+    
+
+    
 }
+
+
 
 struct DeskSettingView_Previews: PreviewProvider {
     static var previews: some View {

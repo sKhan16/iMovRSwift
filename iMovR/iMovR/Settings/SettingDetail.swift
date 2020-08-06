@@ -7,6 +7,8 @@
 //
 //  A view showing the details for a preset setting
 
+///TODO: Get rid of this view, until we figure out how to delete from button
+
 import SwiftUI
 
 struct SettingDetail: View {
@@ -17,7 +19,7 @@ struct SettingDetail: View {
     //TODO: MAKE FUNCTION TO EDIT NAME
     //MAKE FUNCTION TO DELETE PRESET
     //var preset: self.user.presets
-    var currPreset: Preset
+    var currIndex: Int
     //var name: String
     @EnvironmentObject var user: UserObservable
     
@@ -28,7 +30,7 @@ struct SettingDetail: View {
         //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         VStack {
             
-            NavigationLink(destination: EditPreset(currPreset: self.currPreset)) {
+            NavigationLink(destination: EditPreset(currIndex: self.currIndex)) {
                 /*Button(action: {print("TEST")}) {
                  Text("Edit Name")
                  .padding()
@@ -104,6 +106,6 @@ struct confirmAlert: View {
 
 struct SettingDetail_Previews: PreviewProvider {
     static var previews: some View {
-        SettingDetail(currPreset: Preset(name: "Test", height: 32.0))
+        SettingDetail(currIndex: 0)
     }
 }
