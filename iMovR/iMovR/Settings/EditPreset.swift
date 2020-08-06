@@ -29,6 +29,7 @@ struct EditPreset: View {
             //Text("New preset")
             Form {
                 Section(header:
+                ///Must find a way to store in variable
                 Text(self.user.presets[self.currIndex].0)) {
                     
                     TextField("\(self.user.presets[self.currIndex].0)", text: $presetName)
