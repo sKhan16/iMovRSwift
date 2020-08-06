@@ -12,44 +12,93 @@ import SwiftUI
 struct SettingDetail: View {
     
     //TODO: Get needed variables
-   // var name: String
+    // var name: String
     //@EnvironmentObject var user: UserObservable
     //TODO: MAKE FUNCTION TO EDIT NAME
     //MAKE FUNCTION TO DELETE PRESET
     //var preset: self.user.presets
     var currIndex: Int
     //var name: String
+    @EnvironmentObject var user: UserObservable
+    
+    @State var canDelete: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
         //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         VStack {
             
-            NavigationLink(destination: EditPreset(showAddPreset: .constant(true), currIndex: currIndex)) {
+            NavigationLink(destination: EditPreset(currIndex: currIndex)) {
                 /*Button(action: {print("TEST")}) {
-                    Text("Edit Name")
-                    .padding()
-                    .background(Color.gray)
-                    .foregroundColor(.white)
-                    .font(.title)*/
-                Text("EDIT NAME")
+                 Text("Edit Name")
+                 .padding()
+                 .background(Color.gray)
+                 .foregroundColor(.white)
+                 .font(.title)*/
+                Text("EDIT PRESET")
                 //}
-            
-            //.padding()
+                
+                //.padding()
             }.buttonStyle(PlainButtonStyle())
             
-                
-            /*
-            
-            Button(action: {print("TEST")}) {
-                Text("Delete")
                 .padding()
-                .background(Color.gray)
-                .foregroundColor(.white)
-                .font(.title)
-            }*/
+            
+            Button (action: {
+                self.showAlert = true
+                //if (self.canDelete) {
+                    //self.user.presets.remove(at: self.currIndex)
+                    //print("Removed")
+                    //self.canDelete = false
+                //}
+                
+            }) {
+                Text("DELETE PRESET")
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Delete preset?"), primaryButton: .default(Text("Confirm")) {
+                    if !self.canDelete {
+                        self.canDelete = true
+                    }
+                    if self.canDelete {
+                        print("Removed")
+                        
+                        ///Crashes the app, can't delete from index
+                        //self.user.presets.remove(at: self.currIndex)
+                        
+                        self.canDelete = false
+                    }
+                    },  secondaryButton: .destructive(Text("Cancel")))
+            }
+            /*
+             
+             Button(action: {print("TEST")}) {
+             Text("Delete")
+             .padding()
+             .background(Color.gray)
+             .foregroundColor(.white)
+             .font(.title)
+             }*/
         }
         //.navigationBarTitle(Text(""))
         //.navigationBarHidden(true)
+    }
+}
+
+
+struct confirmAlert: View {
+    
+    @EnvironmentObject var user: UserObservable
+    
+    @Binding var showAlert: Bool
+    @Binding var canDelete: Bool
+    //var currIndex: Int
+    
+    var body: some View {
+        Button(action: {
+            self.canDelete = true
+        }) {
+            Text("Confirm")
+        }
     }
 }
 
