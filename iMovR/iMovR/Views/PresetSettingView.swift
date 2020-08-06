@@ -14,15 +14,16 @@ struct PresetSettingView: View {
     
     var body: some View {
        // NavigationView{
-            List(0..<self.user.presets.count) { index in
+        List(self.user.presets, id: \.id) { preset in
                 //NavigationLink(destination: //SettingDetail()) {
-                NavigationLink(destination: SettingDetail(currIndex: index)) {
-                    SettingRow(name: self.user.presets[index].0, id: //self.user.currDeskID)
-                        Int(self.user.presets[index].1))
+            NavigationLink(destination: SettingDetail(currPreset: preset)) {
+                    SettingRow(name: preset.getName(), id: //self.user.currDeskID)
+                        Int(preset.getHeight()))
                 }
             }
             .navigationBarTitle(Text("Presets"))
-            //.navigationBarHidden(true)
+
+        //.navigationBarHidden(true)
         }
         //TODO: Make a seperate file to store desk info
     //}

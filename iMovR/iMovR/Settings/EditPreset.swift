@@ -19,7 +19,7 @@ struct EditPreset: View {
     @State private var presetHeight: String = ""
     //@Binding var showAddPreset: Bool
     
-    @State var currIndex: Int
+    @State var currPreset: Preset
     
     
     var body: some View {
@@ -30,12 +30,12 @@ struct EditPreset: View {
             Form {
                 Section(header:
                 ///Must find a way to store in variable
-                Text(self.user.presets[self.currIndex].0)) {
+                Text(self.currPreset.getName())) {
                     
-                    TextField("\(self.user.presets[self.currIndex].0)", text: $presetName)
+                    TextField("\(self.currPreset.getName())", text: $presetName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    TextField("\(self.user.presets[self.currIndex].1)", text: $presetHeight)
+                    TextField("\(self.currPreset.getHeight())", text: $presetHeight)
                         .keyboardType(.decimalPad)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
@@ -45,7 +45,7 @@ struct EditPreset: View {
             }
         }
         .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)
-        .navigationBarItems(trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, currIndex: currIndex))
+        .navigationBarItems(trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, currPreset: self.$currPreset))
     }
 }
 
@@ -56,7 +56,7 @@ struct editDoneButton: View {
     @Binding  var presetName: String
     @Binding  var presetHeight: String
     
-    var currIndex: Int
+   @Binding var currPreset: Preset
     //@Binding var showAddPreset: Bool
     
     var body: some View {
@@ -66,8 +66,8 @@ struct editDoneButton: View {
             if height <= 48.00 && height >= 23.00 {
                 //Create helper function to edit preset, with height
                 //being optional
-                self.user.presets[self.currIndex].0 = self.presetName
-                self.user.presets[self.currIndex].1 = height
+                self.currPreset.setName(name: self.presetName)
+                self.currPreset.setHeight(height: height)
                 
                 //TODO: allow height edit, doesn't work right now
                 print("Edited Name is \(self.presetHeight)")
@@ -85,6 +85,6 @@ struct editDoneButton: View {
 
 struct EditPreset_Previews: PreviewProvider {
     static var previews: some View {
-        EditPreset(currIndex: 0).environmentObject(UserObservable())
+        EditPreset(currPreset: Preset(name: "test", height: 32.0)).environmentObject(UserObservable())
     }
 }

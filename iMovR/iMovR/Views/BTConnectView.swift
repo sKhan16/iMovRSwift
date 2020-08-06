@@ -100,7 +100,7 @@ struct BTDoneButton: View {
                 //Store user input and exit connect view
                 self.user.currDeskName = self.inputDeskName
                 self.user.currDeskID = deskID
-                self.user.saveCurrentDesk()
+                //self.user.saveCurrentDesk()
                 
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.notifyWrongInput = false

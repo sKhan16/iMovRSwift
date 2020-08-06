@@ -38,6 +38,14 @@ struct Preset: Identifiable {
         return self.name
     }
 
+    
+    mutating func setHeight(height: Float) {
+        self.height = height
+    }
+    
+    mutating func setName(name: String) {
+        self.name = name
+    }
     //    func getHeight_mm() -> [UInt8] {
 //        // try rounding up with bitwise logic to sync better to desk
 //        let tempHeight = Int(heightInches * 25.4)

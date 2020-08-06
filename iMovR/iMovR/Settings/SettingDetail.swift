@@ -17,7 +17,7 @@ struct SettingDetail: View {
     //TODO: MAKE FUNCTION TO EDIT NAME
     //MAKE FUNCTION TO DELETE PRESET
     //var preset: self.user.presets
-    var currIndex: Int
+    var currPreset: Preset
     //var name: String
     @EnvironmentObject var user: UserObservable
     
@@ -28,7 +28,7 @@ struct SettingDetail: View {
         //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         VStack {
             
-            NavigationLink(destination: EditPreset(currIndex: currIndex)) {
+            NavigationLink(destination: EditPreset(currPreset: self.currPreset)) {
                 /*Button(action: {print("TEST")}) {
                  Text("Edit Name")
                  .padding()
@@ -104,6 +104,6 @@ struct confirmAlert: View {
 
 struct SettingDetail_Previews: PreviewProvider {
     static var previews: some View {
-        SettingDetail(currIndex: 0)
+        SettingDetail(currPreset: Preset(name: "Test", height: 32.0))
     }
 }
