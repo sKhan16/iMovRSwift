@@ -18,24 +18,28 @@ struct HomeView: View {
     @State var showAddPreset: Bool = false
     @State var showBTConnect: Bool = false
     
+    @State var presetName: String = ""
+    @State var presetHeight: Float = 0.0
+    
     var body: some View {
         
         VStack {
             Image("imovrLogo")
                 .resizable()
                 .frame(width: 110, height: 110)
-            
-            Spacer().frame(height: 70)
+                .padding(.top)
+            //Spacer().frame(height: 70)
             //ZStack {
             HStack {
-                AddPresetButton(showAddPreset: self.$showAddPreset)
-                .padding()
                 
                 ScrollView(.horizontal) {
+                    
                     HStack  {
+                        AddPresetButton(showAddPreset: self.$showAddPreset)
+                            .padding()
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in
-                            PresetButton(name: self.user.presets[index].0, presetVal: self.user.presets[index].1)
+                            PresetButton(name: self.user.presets[index].getName(), presetVal: self.user.presets[index].getHeight(), presetName: self.$presetName, presetHeight: self.$presetHeight)
                         }
                     }
                     .frame( height: 100)
@@ -43,32 +47,45 @@ struct HomeView: View {
                 Spacer()
             } //end HStack
         //} //end ZStack
-            BTConnectButton(showBTConnect: self.$showBTConnect)
             
+            VStack {
+            BTConnectButton(showBTConnect: self.$showBTConnect)
+                //.padding()
             Spacer()
             HStack {
                 Spacer()
                 
                 HStack {
                     HeightSlider()
+                        .padding(.trailing, 60)
                 }
+                
                 VStack {
                     UpButton(testHeight: $testHeight)
-                    .padding()
+                        //.padding()
                     DownButton(testHeight: $testHeight)
                 }
-            .padding(40)
+                .padding()
+                Spacer()
+                //.padding()
             }
-            
+                Spacer()
+        }
             Spacer()
          
         //}
+            VStack {
+            HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+            }
+            .padding(.bottom)
+            Spacer()
+            
             
         
         }
-        
-    
+
     }
+    
     
 }
 

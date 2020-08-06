@@ -11,41 +11,79 @@ import Combine
 import SwiftUI
 
 public class UserObservable: ObservableObject {
-    @Published var presets: [(name: String, height: Float)] = []
+
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @Published var presets : [Preset] = []
     @Published var loginState: LoginState = .firstTime
     
     @Published var currDeskID: Int = 0
     @Published var currDeskName: String = "--deskName_not_assigned--"
-    @Published var desks: [(name: String, deskID: Int)] = []
+    @Published var desks: [Desk] = []
     
     init() {
-        self.addTestPresets()
-        
+        // Read all desks and presets from CoreData      
     }
     
     func addPreset (name: String, height: Float) {
-        presets.append((name, height))
+        let newPreset = Preset(name: name, height: height)
+        
+        guard !presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
+            print("error: that preset is already stored on the device")
+            return
+        }
+        presets.append(newPreset)
+        
+        let newPresetData = PresetData(context: managedObjectContext)
+        newPresetData.name = name
+        newPresetData.height = height
+        newPresetData.uuid = newPreset.id
+        /*
+         Save the preset to CoreData here
+         */
+        
+    }
+    
+    func removePreset (preset: Preset) {
+        presets.removeAll(where: { $0 as AnyObject === preset as AnyObject })
+        /*
+         Remove the preset from CoreData here
+         */
     }
     
     func addDesk (name: String, deskID: Int) {
-        desks.append((name, deskID))
-    }
-    
-    func removeDesk (name: String, deskID: Int) {
-        desks.removeAll(where: { $0 == (name, deskID) })
-    }
-    func saveCurrentDesk () {
-        if !desks.contains(where: { $0 == (self.currDeskName, self.currDeskID)} ) {
-            addDesk(name: self.currDeskName, deskID: self.currDeskID)
+        let newDesk = Desk(name: name, deskID: deskID)
+        
+        guard !desks.contains(where: { $0 as AnyObject === newDesk as AnyObject }) else {
+            print("error: that desk is already stored on the device")
+            return
         }
+        desks.append(newDesk)
+        
+        let newDeskData = DeskData(context: managedObjectContext)
+        newDeskData.name = name
+        newDeskData.deskID = Int64(deskID)
+        newDeskData.isLastConnectedTo = false // Maybe initialize to true?
+                                        // Must check if desk is connected
+        newDeskData.uuid = newDesk.id
+        /*
+         Save the desk to CoreData here
+         */
     }
     
+    func removeDesk (desk: Desk) {
+        desks.removeAll(where: { $0 as AnyObject === desk as AnyObject })
+        /*
+         Remove the desk from CoreData here
+         */
+    }
 
-    func addTestPresets() {
-        for index in (0...10) { 
-            self.addPreset(name: "test \(index)", height: Float(index))
-        }
-    }
+
+//    func addTestPresets() {
+//        for index in (0...10) {
+//            self.addPreset(name: "test", height: Float(index))
+//        }
+//    }
 
     
 }
