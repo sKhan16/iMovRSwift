@@ -48,6 +48,9 @@ struct EditPreset: View {
 
 
 struct editDoneButton: View {
+    
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     @EnvironmentObject var user: UserObservable
     
     @Binding  var presetName: String
@@ -63,18 +66,20 @@ struct editDoneButton: View {
             let height: Float = (self.presetHeight as NSString).floatValue
             
             if height <= 48.00 && height >= 23.00 {
-                //Create helper function to edit preset, with height
-                //being optional
+                
                 self.user.presets[self.currIndex].name = self.presetName
                 self.user.presets[self.currIndex].height = height
                 
-                //TODO: allow height edit, doesn't work right now
+                ///TODO: Fix bug where you have to click Done twice to return
+                self.mode.wrappedValue.dismiss()
+                
                 print("Edited Name is \(self.presetHeight)")
                 print("Edited Height is \(height)")
             } else {
                 print("height out of bounds!")
             }
             //self.showAddPreset = false
+            
         }) {
             Text("Done").bold()
         }
