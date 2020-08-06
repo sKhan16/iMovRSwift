@@ -22,9 +22,7 @@ public class UserObservable: ObservableObject {
     @Published var desks: [Desk] = []
     
     init() {
-        // Read all desks and presets from CoreData
-        
-        
+        // Read all desks and presets from CoreData      
     }
     
     func addPreset (name: String, height: Float) {
@@ -95,4 +93,10 @@ enum LoginState {
     case Connected
     case Disconnected
     
+}
+
+struct UserObservable_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
 }
