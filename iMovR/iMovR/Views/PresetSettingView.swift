@@ -15,19 +15,24 @@ struct PresetSettingView: View {
     @EnvironmentObject var user: UserObservable
     
     var body: some View {
+        
         List {
             // Need to id with self or else it crashes and can't read the index on delete
-            ForEach(self.user.presets.indices, id: \.self) { index in
-                NavigationLink(destination: SettingDetail(currIndex: index)) {
-                    SettingRow(name: self.user.presets[index].getName(), id:
-                        Int(self.user.presets[index].getHeight()))
+            
+            if user.presets.count > 0 {
+                ForEach(self.user.presets.indices, id: \.self) { index in
+                    NavigationLink(destination: SettingDetail(currIndex: index)) {
+                        SettingRow(name: self.user.presets[index].getName(), id:
+                            Int(self.user.presets[index].getHeight()))
+                    }
+                    
                 }
-                
+                .onDelete(perform: removePresets)
             }
-                
-            .onDelete(perform: removePresets)
+            
         }
         .navigationBarTitle(Text("Presets"))
+        
     }
     //TODO: Make a seperate file to store desk info
     //}

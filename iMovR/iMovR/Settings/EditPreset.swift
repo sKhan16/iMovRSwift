@@ -17,6 +17,7 @@ struct EditPreset: View {
     
     @State private var presetName: String = ""
     @State private var presetHeight: String = ""
+    //var currPresetName: String =
 
     var currIndex: Int
     
@@ -25,21 +26,23 @@ struct EditPreset: View {
  
         VStack {
             Form {
-                Section(header:
-                ///Must find a way to store in variable: done i think
+                if currIndex < self.user.presets.count {
+                    Section(header:
+                        Text(self.user.presets[self.currIndex].getName())
+                    ) {
+                        
+                        TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        TextField("\(self.user.presets[self.currIndex].getHeight())", text: $presetHeight)
+                            .keyboardType(.decimalPad)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                    }
                     
-                Text(self.user.presets[self.currIndex].getName())) {
-                    
-                    TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    TextField("\(self.user.presets[self.currIndex].getHeight())", text: $presetHeight)
-                        .keyboardType(.decimalPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+                } else {
+                    Text("Preset index error")
                 }
-                
-                
             }
         }
         .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)

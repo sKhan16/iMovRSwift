@@ -25,6 +25,7 @@ public class UserObservable: ObservableObject {
         // Read all desks and presets from CoreData      
     }
     
+    
     func addPreset (name: String, height: Float) {
         let newPreset = Preset(name: name, height: height)
         
