@@ -285,6 +285,7 @@
 			children = (
 				1E94E1FC24C61CD300155123 /* AddPresetView.swift */,
 				982F181B24D386FE003FF080 /* PresetSettingView.swift */,
+				982F181D24D54865003FF080 /* EditPreset.swift */,
 			);
 			path = Presets;
 			sourceTree = "<group>";
@@ -375,7 +376,6 @@
 			children = (
 				982F180F24D37536003FF080 /* Setting.swift */,
 				982F181824D37F4E003FF080 /* SettingDetail.swift */,
-				982F181D24D54865003FF080 /* EditPreset.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

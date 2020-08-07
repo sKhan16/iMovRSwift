@@ -81,7 +81,10 @@ struct editDoneButton: View {
                 
                 self.isInvalidInput = false
                 
-                self.user.presets[self.currIndex].name = self.presetName
+                if (self.presetName != "") {
+                    self.user.presets[self.currIndex].name = self.presetName
+                }
+                
                 self.user.presets[self.currIndex].height = height
                 
                 ///TODO: Fix bug where you have to click Done twice to return
