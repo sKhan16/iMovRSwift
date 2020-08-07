@@ -34,6 +34,8 @@
 		1E94E1FD24C61CD300155123 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1FC24C61CD300155123 /* AddPresetView.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
 		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
+		4138A3A624DD028300BF9B64 /* AddDeskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3A524DD028300BF9B64 /* AddDeskView.swift */; };
+		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
 		41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096A24C28F4700644006 /* BTConnectView.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */; };
@@ -108,7 +110,9 @@
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BTConnectButton.swift; path = iMovR/Views/BTConnectButton.swift; sourceTree = SOURCE_ROOT; };
-		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
+		4138A3A524DD028300BF9B64 /* AddDeskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeskView.swift; sourceTree = "<group>"; };
+		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
+		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/Desks/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoDeskPeripheral.swift; sourceTree = "<group>"; };
 		41AED79C24D9FA69007C68E2 /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
@@ -195,18 +199,18 @@
 		1E23015524BCEB35009A0B3C /* iMovR */ = {
 			isa = PBXGroup;
 			children = (
-				982F181A24D37F63003FF080 /* Settings */,
-				1E94E1F624C3B8C500155123 /* ViewRouter.swift */,
+				4138A3A224DCFFDC00BF9B64 /* Startup */,
 				1E21EFC424C8E845008BDE9A /* Onboarding */,
+				982F181A24D37F63003FF080 /* Settings */,
 				41A3096C24C28F9C00644006 /* Views */,
 				41D079BF24C220E00047FD48 /* Bluetooth */,
 				41AED79E24D9FAA5007C68E2 /* CoreData */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E94E1E124BF9F9900155123 /* Buttons */,
+				1E23016124BCEB39009A0B3C /* Preview Content */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
 				1E23016424BCEB39009A0B3C /* LaunchScreen.storyboard */,
 				1E23016724BCEB39009A0B3C /* Info.plist */,
-				1E23016124BCEB39009A0B3C /* Preview Content */,
 			);
 			path = iMovR;
 			sourceTree = "<group>";
@@ -276,19 +280,61 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		41A3096C24C28F9C00644006 /* Views */ = {
+		4138A3A124DCFF7800BF9B64 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
+				1E94E1FC24C61CD300155123 /* AddPresetView.swift */,
+				982F181B24D386FE003FF080 /* PresetSettingView.swift */,
+			);
+			path = Presets;
+			sourceTree = "<group>";
+		};
+		4138A3A224DCFFDC00BF9B64 /* Startup */ = {
+			isa = PBXGroup;
+			children = (
+				1E94E1F624C3B8C500155123 /* ViewRouter.swift */,
 				1E23015624BCEB35009A0B3C /* AppDelegate.swift */,
 				1E23015824BCEB35009A0B3C /* SceneDelegate.swift */,
+			);
+			path = Startup;
+			sourceTree = "<group>";
+		};
+		4138A3A324DD003E00BF9B64 /* Main Screen */ = {
+			isa = PBXGroup;
+			children = (
 				1E94E1F024C241A400155123 /* MotherView.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
 				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
-				1E94E1FC24C61CD300155123 /* AddPresetView.swift */,
+			);
+			path = "Main Screen";
+			sourceTree = "<group>";
+		};
+		4138A3A424DD01D000BF9B64 /* Desks */ = {
+			isa = PBXGroup;
+			children = (
 				41A3096A24C28F4700644006 /* BTConnectView.swift */,
+				4138A3A524DD028300BF9B64 /* AddDeskView.swift */,
+				4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */,
+			);
+			path = Desks;
+			sourceTree = "<group>";
+		};
+		4138A3A924DD032900BF9B64 /* Settings Views */ = {
+			isa = PBXGroup;
+			children = (
 				982F180924D36FFC003FF080 /* SettingView.swift */,
 				982F180B24D3707D003FF080 /* SettingRow.swift */,
-				982F181B24D386FE003FF080 /* PresetSettingView.swift */,
+			);
+			path = "Settings Views";
+			sourceTree = "<group>";
+		};
+		41A3096C24C28F9C00644006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4138A3A324DD003E00BF9B64 /* Main Screen */,
+				4138A3A924DD032900BF9B64 /* Settings Views */,
+				4138A3A124DCFF7800BF9B64 /* Presets */,
+				4138A3A424DD01D000BF9B64 /* Desks */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -586,6 +632,7 @@
 				41AED7AC24DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift in Sources */,
 				1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */,
 				982F180C24D3707E003FF080 /* SettingRow.swift in Sources */,
+				4138A3A624DD028300BF9B64 /* AddDeskView.swift in Sources */,
 				1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */,
 				41AED7AB24DA5BD3007C68E2 /* PresetData+CoreDataClass.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */,
@@ -599,6 +646,7 @@
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
 				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,
 				982F181024D37536003FF080 /* Setting.swift in Sources */,
+				4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,

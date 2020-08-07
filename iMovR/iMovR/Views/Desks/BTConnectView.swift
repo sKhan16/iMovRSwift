@@ -27,39 +27,44 @@ struct BTConnectView: View {
             VStack {
                 //Text("Connect to a desk:")
                 Form {
-                    Section(header: Text("Name your desk:")) {
+                    Section(header: Text("Instructions:")
+                        .font(.headline)
+                    ) {
+                        VStack() {
+                            Text("Please give your desk a name and input the 8 digit manufacturer ID.\n\nThe manufacturer ID is found underneath the desk. There is a small box with a plug on each end, with a QR sticker. The 8 digit number is printed on this sticker.")
+                                .foregroundColor(.primary)
+                                .font(.callout)
+                                .padding()
+                            
+                            if (notifyWrongInput) {
+                                VStack {
+                                    Text("Invalid field entries.")
+                                        .foregroundColor(.red)
+                                        .padding()
+                                    //Spacer()
+                                }
+                            }
+                            
+                        } //end VStack
+                    } //end notification section
+                    
+                    Section(header:
+                        Text("Name your desk:")
+                            .font(.headline)
+                    ) {
                         
-                        TextField("Desk Name", text: $inputDeskName)
+                        TextField("desk name", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }// end 'name' section
+                    } //end 'Name' section
                     
                     Section(header: Text("Input desk ID:")) {
                         
-                        TextField("Desk ID", text: $inputDeskID)
+                        TextField("desk ID", text: $inputDeskID)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
+                    } //end 'Desk ID' section
                     
-                    Section() {
-                        if notifyWrongInput {
-                            VStack {
-                                Text("Invalid field entries. Please give your desk a name and input the 8 digit manufacturer ID.")
-                                    .foregroundColor(.red)
-                                    .padding()
-                                //Spacer()
-                            }
-                        } else {
-                            VStack {
-                                Text("Please give your desk a name and input the 8 digit manufacturer ID.\n\nThe manufacturer ID is found underneath the desk. There is a small box with a plug on each end, with a QR sticker. The 8 digit number is printed on this sticker.")
-                                    .foregroundColor(.primary)
-                                    .padding()
-                                //Spacer()
-                            }
-                        }
-                        //Spacer()
-                    } // end notification section
-                    
-                } // end form
+                } //end form
                 
             }
             .navigationBarTitle("Add New Desk", displayMode: .inline)

@@ -48,7 +48,7 @@ struct PresetSettingView: View {
 
 
 
-struct DeskSettingView_Previews: PreviewProvider {
+struct PresetSettingView_Previews: PreviewProvider {
     static var previews: some View {
         PresetSettingView()
     }
