@@ -13,9 +13,9 @@ struct SettingView: View {
         NavigationView{
             List() {//setting in
                 //NavigationLink(destination: //SettingDetail()) {
-                //NavigationLink(destination: DeskSettingView()) {
+                NavigationLink(destination: DeskSettingView()) {
                     SettingRow(name: "Desks", id: "")
-                //}
+                }
                 NavigationLink (destination: PresetSettingView()) {
                 SettingRow(name: "Presets", id: "")
                 }
