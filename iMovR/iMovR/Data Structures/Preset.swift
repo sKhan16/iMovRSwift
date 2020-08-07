@@ -45,14 +45,12 @@ struct Preset: Identifiable {
      @param point the decimal point that you want the height at
      */
     func fHeightToString(_ point: Int = 1) -> String {
-        var fString = String(format: "%.1f", self.height)
-        if (point >= 0) {
-            let dPoint = String(point)
-            fString = String(format: "%.\(dPoint)f", self.height)
-        } else {
-            print("!!!Invalid point Parameter! Please give a value greater than zero!!!")
+        var dPoint: Int = point
+        if (point < 0) {
+            dPoint = 1
+            print("!!!Invalid point Parameter! Please give a value greater than or equal to zero!!!")
         }
-        return fString
+        return String(format: "%.\(dPoint)f", self.height)
     }
     //    func getHeight_mm() -> [UInt8] {
     //        // try rounding up with bitwise logic to sync better to desk
