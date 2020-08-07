@@ -22,11 +22,12 @@ struct EditPreset: View {
     
     
     var body: some View {
-        
+ 
         VStack {
             Form {
                 Section(header:
                 ///Must find a way to store in variable: done i think
+                    
                 Text(self.user.presets[self.currIndex].getName())) {
                     
                     TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
