@@ -44,7 +44,7 @@ struct Preset: Identifiable {
      To specified decimal point if param is given
      @param point the decimal point that you want the height at
      */
-    func fHeightToString(_ point: Int = 1) -> String {
+    func heightToStringf(_ point: Int = 1) -> String {
         var dPoint: Int = point
         if (point < 0) {
             dPoint = 1

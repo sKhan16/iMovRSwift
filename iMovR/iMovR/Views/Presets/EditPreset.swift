@@ -34,7 +34,7 @@ struct EditPreset: View {
                         TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        TextField("\(self.user.presets[self.currIndex].fHeightToString())", text: $presetHeight)
+                        TextField("\(self.user.presets[self.currIndex].heightToStringf())", text: $presetHeight)
                             .keyboardType(.decimalPad)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
