@@ -17,7 +17,7 @@ struct EditPreset: View {
     
     @State private var presetName: String = ""
     @State private var presetHeight: String = ""
-    //var currPresetName: String =
+    @State var isInvalidInput: Bool = false
 
     var currIndex: Int
     
@@ -34,9 +34,17 @@ struct EditPreset: View {
                         TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        TextField("\(self.user.presets[self.currIndex].getHeight())", text: $presetHeight)
+                        TextField("\(self.user.presets[self.currIndex].fHeightToString())", text: $presetHeight)
                             .keyboardType(.decimalPad)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        if (self.isInvalidInput) {
+                            VStack {
+                                Text("Invalid field entries.")
+                                .foregroundColor(.red)
+                                .padding()
+                            }
+                        }
                         
                     }
                     
@@ -46,7 +54,7 @@ struct EditPreset: View {
             }
         }
         .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)
-        .navigationBarItems(trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, currIndex: self.currIndex))
+        .navigationBarItems(trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, isInvalidInput: self.$isInvalidInput, currIndex: self.currIndex))
     }
 }
 
@@ -59,7 +67,7 @@ struct editDoneButton: View {
     
     @Binding  var presetName: String
     @Binding  var presetHeight: String
-    
+    @Binding var isInvalidInput: Bool
    var currIndex: Int
     //@Binding var showAddPreset: Bool
     
@@ -71,6 +79,8 @@ struct editDoneButton: View {
             
             if height <= 48.00 && height >= 23.00 {
                 
+                self.isInvalidInput = false
+                
                 self.user.presets[self.currIndex].name = self.presetName
                 self.user.presets[self.currIndex].height = height
                 
@@ -80,6 +90,7 @@ struct editDoneButton: View {
                 print("Edited Name is \(self.presetHeight)")
                 print("Edited Height is \(height)")
             } else {
+                self.isInvalidInput = true
                 print("height out of bounds!")
             }
             //self.showAddPreset = false

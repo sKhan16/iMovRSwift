@@ -23,7 +23,7 @@ struct PresetSettingView: View {
                 ForEach(self.user.presets.indices, id: \.self) { index in
                     NavigationLink(destination: EditPreset(currIndex: index)) {
                         SettingRow(name: self.user.presets[index].getName(), id:
-                            Int(self.user.presets[index].getHeight()))
+                            self.user.presets[index].fHeightToString())
                     }
                     
                 }

@@ -37,19 +37,27 @@ struct Preset: Identifiable {
     func getName() -> String {
         return self.name
     }
-
     
-    mutating func setHeight(height: Float) {
-        self.height = height
-    }
     
-    mutating func setName(name: String) {
-        self.name = name
+    /*
+     Returns string representation of height of the preset to 1 decimal point if no param is given.
+     To specified decimal point if param is given
+     @param point the decimal point that you want the height at
+     */
+    func fHeightToString(_ point: Int = 1) -> String {
+        var fString = String(format: "%.1f", self.height)
+        if (point >= 0) {
+            let dPoint = String(point)
+            fString = String(format: "%.\(dPoint)f", self.height)
+        } else {
+            print("!!!Invalid point Parameter! Please give a value greater than zero!!!")
+        }
+        return fString
     }
     //    func getHeight_mm() -> [UInt8] {
-//        // try rounding up with bitwise logic to sync better to desk
-//        let tempHeight = Int(heightInches * 25.4)
-//        return [(UInt8)(tempHeight & 0xFF), (UInt8)((tempHeight>>8) & 0xFF)]
-//    }
+    //        // try rounding up with bitwise logic to sync better to desk
+    //        let tempHeight = Int(heightInches * 25.4)
+    //        return [(UInt8)(tempHeight & 0xFF), (UInt8)((tempHeight>>8) & 0xFF)]
+    //    }
     
 }

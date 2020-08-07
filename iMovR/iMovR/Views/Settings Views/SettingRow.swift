@@ -12,7 +12,7 @@ import SwiftUI
 struct SettingRow: View {
     
     var name: String
-    var id: Int
+    var id: String
     //var user: UserObservable
     
     var body: some View {
@@ -25,8 +25,8 @@ struct SettingRow: View {
             Text(name)
                 .font(.subheadline)
             //Spacer()
-            if(id != 0) { //should add id on bottom if id isn't 0
-                Text("\(id)")
+            if(self.id != "") { //should add id on bottom if id isn't 0
+                Text("\(self.id)")
                     .font(.subheadline)
             }
             //TODO: change font
@@ -37,6 +37,6 @@ struct SettingRow: View {
 
 struct SettingRow_Previews: PreviewProvider {
     static var previews: some View {
-        SettingRow(name: "Test1", id: 1)
+        SettingRow(name: "Test1", id: "1")
     }
 }
