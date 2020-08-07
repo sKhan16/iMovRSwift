@@ -21,7 +21,7 @@ struct PresetSettingView: View {
             
             if user.presets.count > 0 {
                 ForEach(self.user.presets.indices, id: \.self) { index in
-                    NavigationLink(destination: SettingDetail(currIndex: index)) {
+                    NavigationLink(destination: EditPreset(currIndex: index)) {
                         SettingRow(name: self.user.presets[index].getName(), id:
                             Int(self.user.presets[index].getHeight()))
                     }
