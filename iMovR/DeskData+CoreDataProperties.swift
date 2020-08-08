@@ -20,6 +20,5 @@ extension DeskData {
     @NSManaged public var deskID: Int64
     @NSManaged public var name: String
     @NSManaged public var isLastConnectedTo: Bool
-    @NSManaged public var uuid: UUID
 
 }

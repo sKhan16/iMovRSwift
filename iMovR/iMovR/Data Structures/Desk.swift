@@ -12,23 +12,21 @@ import Foundation
 
 struct Desk: Identifiable {
     
-    ///Might want to make these private
-    let name: String
-    var deskID: Int
-    
-    let id: UUID = UUID()
+    var name: String
+    let id: Int
     
     init(name: String, deskID: Int) {
         self.name = name
-        self.deskID = deskID
+        self.id = deskID
     }
+    
     
     func getName() -> String {
         return self.name
     }
     
     func getDeskID() -> Int {
-        return self.deskID
+        return self.id
     }
     
 }

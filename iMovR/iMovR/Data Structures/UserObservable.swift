@@ -11,18 +11,21 @@ import Combine
 import SwiftUI
 
 public class UserObservable: ObservableObject {
-
+    
+    // Access CoreData persistent storage for desks and presets
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @Published var presets : [Preset] = []
     @Published var loginState: LoginState = .firstTime
     
-    @Published var currDeskID: Int = 0
-    @Published var currDeskName: String = "--deskName_not_assigned--"
     @Published var desks: [Desk] = []
+    @Published var currDeskID: Int = 0
+    @Published var currDeskName: String = "Please add or select a desk."
+
     
     init() {
-        // Read all desks and presets from CoreData      
+        // Populate desks and presets from CoreData on startup
+        self.pullPersistentData()
     }
     
     
@@ -52,6 +55,15 @@ public class UserObservable: ObservableObject {
          */
     }
     
+    func editPreset (index: Int, name: String, height: Float) {
+        presets[index].name = name
+        presets[index].height = height
+        /*
+         Edit the preset from CoreData here
+         */
+    }
+    
+    
     func addDesk (name: String, deskID: Int) {
         let newDesk = Desk(name: name, deskID: deskID)
         
@@ -66,7 +78,6 @@ public class UserObservable: ObservableObject {
         newDeskData.deskID = Int64(deskID)
         newDeskData.isLastConnectedTo = false // Maybe initialize to true?
                                         // Must check if desk is connected
-        newDeskData.uuid = newDesk.id
         /*
          Save the desk to CoreData here
          */
@@ -78,7 +89,25 @@ public class UserObservable: ObservableObject {
          Remove the desk from CoreData here
          */
     }
+    
+    func modifyDeskName (index: Int, name: String) {
+        guard index < desks.count else {
+            print("editDesk(...) - index out of bounds error")
+            return
+        }
+        desks[index].name = name
+        
+        /*
+         Edit the desk in CoreData
+         */
 
+    }
+
+    func pullPersistentData() {
+        /*
+         Perform startup desk and preset data pulls from CoreData
+         */
+    }
 
 //    func addTestPresets() {
 //        for index in (0...10) {

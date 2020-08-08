@@ -15,14 +15,18 @@ struct DeskSettingView: View {
     var body: some View {
         
         List {
-            if user.desks.count > 0 {
-                ForEach(self.user.desks.indices, id: \.self) { index in
-                    NavigationLink(destination: EditDesk(currIndex: index)) {
-                        SettingRow(name: self.user.desks[index].getName(), id:
-                            "\(String(describing: self.user.desks[index].getDeskID))")
-                    }
-                    
+            
+            //AddDeskView()
+            Text("Add desks here")
+            Text("List saved desks to edit here")
+            ForEach(self.user.desks.indices, id: \.self) { index in
+                NavigationLink(
+                    destination: EditDesk(currIndex: index, currDesk: self.user.desks[index])
+                ) {
+                    SettingRow(name: self.user.desks[index].getName(), id:
+                        "\(String(describing: self.user.desks[index].getDeskID))")
                 }
+                    
                 //.onDelete(perform: removePresets)
             } //else { //if there are no desks, ask to add
              //   Text("Add desk?")

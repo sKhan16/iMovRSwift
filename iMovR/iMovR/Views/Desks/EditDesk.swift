@@ -12,30 +12,25 @@ struct EditDesk: View {
     @EnvironmentObject var user: UserObservable
     
     @State private var deskName: String = ""
-    @State private var deskID: Int = 0
     @State var isInvalidInput: Bool = false
     
     var currIndex: Int
-    
+    var currDesk: Desk
     
     var body: some View {
         VStack {
             Form {
-                if currIndex < self.user.presets.count {
+                if currIndex < self.user.desks.count {
                     Section(header:
-                        Text(self.user.presets[self.currIndex].getName())
+                        Text(currDesk.name)
                     ) {
                         
-                        TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
-                        TextField("\(self.user.presets[self.currIndex].heightToStringf())", text: $presetHeight)
-                            .keyboardType(.decimalPad)
+                        TextField("\(currDesk.name)", text: $deskName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
                         if (self.isInvalidInput) {
                             VStack {
-                                Text("Invalid field entries.")
+                                Text("Please type a name.")
                                     .foregroundColor(.red)
                                     .padding()
                             }
@@ -44,54 +39,47 @@ struct EditDesk: View {
                     }
                     
                 } else {
-                    Text("Preset index error")
+                    Text("Desk index error")
                 }
             }
         }
-        .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)
-        .navigationBarItems(trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, isInvalidInput: self.$isInvalidInput, currIndex: self.currIndex))
+        .navigationBarTitle(Text("Edit Desk Name"), displayMode: .inline)
+        .navigationBarItems(trailing: editDeskDoneButton(deskName: self.$deskName, isInvalidInput: self.$isInvalidInput, currIndex: self.currIndex))
     }
 }
 
 
-struct editDoneButton: View {
+struct editDeskDoneButton: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @EnvironmentObject var user: UserObservable
     
-    @Binding  var presetName: String
-    @Binding  var presetHeight: String
+    @Binding var deskName: String
     @Binding var isInvalidInput: Bool
+    
     var currIndex: Int
-    //@Binding var showAddPreset: Bool
     
     var body: some View {
         Button(action: {
             
-            //Converts presetHeight to a float
-            let height: Float = (self.presetHeight as NSString).floatValue
-            
-            if height <= 48.00 && height >= 23.00 {
+            if (self.deskName != "") {
                 
+                //Store new desk name
+                self.user.currDeskName = self.deskName
+                self.user.modifyDeskName(index: self.currIndex, name: self.deskName)
+                //self.user.saveCurrentDesk()
+                
+                // MARK: Maybe only save the desk permanently if connection is successful
                 self.isInvalidInput = false
-                
-                if (self.presetName != "") {
-                    self.user.presets[self.currIndex].name = self.presetName
-                }
-                
-                self.user.presets[self.currIndex].height = height
-                
-                ///TODO: Fix bug where you have to click Done twice to return
-                self.mode.wrappedValue.dismiss()
-                
-                print("Edited Name is \(self.presetHeight)")
-                print("Edited Height is \(height)")
+    
             } else {
+                //Inform user their input is incorrect and remain in view
+                print("incorrect desk info submitted")
                 self.isInvalidInput = true
-                print("height out of bounds!")
             }
-            //self.showAddPreset = false
+            // Fix double press Done button bug
+            self.mode.wrappedValue.dismiss()
             
         }) {
             Text("Done").bold()
@@ -103,7 +91,7 @@ struct editDoneButton: View {
 
 struct EditDesk_Previews: PreviewProvider {
     static var previews: some View {
-        EditDesk(currIndex: 0)
+        EditDesk(currIndex: 0, currDesk: Desk(name: "", deskID: 12345678))
             .environmentObject(UserObservable())
     }
 }

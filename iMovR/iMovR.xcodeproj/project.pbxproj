@@ -114,7 +114,7 @@
 		4138A3A524DD028300BF9B64 /* AddDeskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeskView.swift; sourceTree = "<group>"; };
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
 		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
-		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/Desks/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
+		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Bluetooth/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoDeskPeripheral.swift; sourceTree = "<group>"; };
 		41AED79C24D9FA69007C68E2 /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
@@ -204,11 +204,11 @@
 				4138A3A224DCFFDC00BF9B64 /* Startup */,
 				1E21EFC424C8E845008BDE9A /* Onboarding */,
 				982F181A24D37F63003FF080 /* Settings */,
+				1E94E1E124BF9F9900155123 /* Buttons */,
 				41A3096C24C28F9C00644006 /* Views */,
 				41D079BF24C220E00047FD48 /* Bluetooth */,
 				41AED79E24D9FAA5007C68E2 /* CoreData */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
-				1E94E1E124BF9F9900155123 /* Buttons */,
 				1E23016124BCEB39009A0B3C /* Preview Content */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
 				1E23016424BCEB39009A0B3C /* LaunchScreen.storyboard */,
@@ -315,10 +315,9 @@
 		4138A3A424DD01D000BF9B64 /* Desks */ = {
 			isa = PBXGroup;
 			children = (
-				4138A3AC24DE237800BF9B64 /* EditDesk.swift */,
-				41A3096A24C28F4700644006 /* BTConnectView.swift */,
 				4138A3A524DD028300BF9B64 /* AddDeskView.swift */,
 				4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */,
+				4138A3AC24DE237800BF9B64 /* EditDesk.swift */,
 			);
 			path = Desks;
 			sourceTree = "<group>";
@@ -358,6 +357,7 @@
 		41D079BF24C220E00047FD48 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				41A3096A24C28F4700644006 /* BTConnectView.swift */,
 				41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */,
 				41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */,
 			);
