@@ -18,6 +18,7 @@ struct EditPreset: View {
     @State private var presetName: String = ""
     @State private var presetHeight: String = ""
     @State var isInvalidInput: Bool = false
+    @State var isSaved: Bool = false
 
     var currIndex: Int
     
@@ -45,6 +46,14 @@ struct EditPreset: View {
                                 .padding()
                             }
                         }
+                        if (self.isSaved) {
+                            VStack {
+                                Text("Your changes have been saved.")
+                            .foregroundColor(.green)
+                            .padding()
+                            //Maybe add fade out animation
+                            }
+                        }
                         
                     }
                     
@@ -54,22 +63,22 @@ struct EditPreset: View {
             }
         }
         .navigationBarTitle(Text("Edit Preset"), displayMode: .inline)
-        .navigationBarItems(trailing: editDoneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, isInvalidInput: self.$isInvalidInput, currIndex: self.currIndex))
+        .navigationBarItems(trailing: editSaveButton(presetName: self.$presetName, presetHeight: self.$presetHeight, isInvalidInput: self.$isInvalidInput, isSaved: self.$isSaved, currIndex: self.currIndex))
     }
 }
 
-
-struct editDoneButton: View {
+struct editSaveButton: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @EnvironmentObject var user: UserObservable
     
     @Binding  var presetName: String
     @Binding  var presetHeight: String
     @Binding var isInvalidInput: Bool
-   var currIndex: Int
-    //@Binding var showAddPreset: Bool
+    @Binding var isSaved: Bool
+    
+    var currIndex: Int
     
     var body: some View {
         Button(action: {
@@ -80,6 +89,7 @@ struct editDoneButton: View {
             if height <= 48.00 && height >= 23.00 {
                 
                 self.isInvalidInput = false
+                self.isSaved = true
                 
                 if (self.presetName != "") {
                     self.user.presets[self.currIndex].name = self.presetName
@@ -88,18 +98,19 @@ struct editDoneButton: View {
                 self.user.presets[self.currIndex].height = height
                 
                 ///TODO: Fix bug where you have to click Done twice to return
-                self.mode.wrappedValue.dismiss()
+                //self.mode.wrappedValue.dismiss()
                 
                 print("Edited Name is \(self.presetHeight)")
                 print("Edited Height is \(height)")
             } else {
                 self.isInvalidInput = true
+                self.isSaved = false
                 print("height out of bounds!")
             }
             //self.showAddPreset = false
             
         }) {
-            Text("Done").bold()
+            Text("Save").bold()
         }
     }
 }
