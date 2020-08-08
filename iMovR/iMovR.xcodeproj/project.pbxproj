@@ -36,6 +36,7 @@
 		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
 		4138A3A624DD028300BF9B64 /* AddDeskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3A524DD028300BF9B64 /* AddDeskView.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
+		4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AC24DE237800BF9B64 /* EditDesk.swift */; };
 		41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096A24C28F4700644006 /* BTConnectView.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */; };
@@ -112,6 +113,7 @@
 		412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BTConnectButton.swift; path = iMovR/Views/BTConnectButton.swift; sourceTree = SOURCE_ROOT; };
 		4138A3A524DD028300BF9B64 /* AddDeskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeskView.swift; sourceTree = "<group>"; };
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
+		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
 		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = iMovR/Views/Desks/BTConnectView.swift; sourceTree = SOURCE_ROOT; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoDeskPeripheral.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 		4138A3A424DD01D000BF9B64 /* Desks */ = {
 			isa = PBXGroup;
 			children = (
+				4138A3AC24DE237800BF9B64 /* EditDesk.swift */,
 				41A3096A24C28F4700644006 /* BTConnectView.swift */,
 				4138A3A524DD028300BF9B64 /* AddDeskView.swift */,
 				4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */,
@@ -641,6 +644,7 @@
 				41A3096E24C399D300644006 /* Preset.swift in Sources */,
 				41AED7AD24DA5BD3007C68E2 /* DeskData+CoreDataClass.swift in Sources */,
 				1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */,
+				4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */,
 				1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */,
 				982F181924D37F4E003FF080 /* SettingDetail.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
