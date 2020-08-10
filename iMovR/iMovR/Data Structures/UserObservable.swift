@@ -14,6 +14,22 @@ public class UserObservable: ObservableObject {
     
     // Access CoreData persistent storage for desks and presets
     @Environment(\.managedObjectContext) var managedObjectContext
+    // Fetches persistent presets automatically
+        //- just use fetchedPresets
+    @FetchRequest(entity: PresetData.entity(),
+                  sortDescriptors: []//,
+                )
+    var fetchedPresets: FetchedResults<PresetData>
+    /*
+     Need to update presets array with these results every time it changes
+        -by using a forEach loop
+     */
+    
+    @FetchRequest(entity: DeskData.entity(),
+                  sortDescriptors: []//,
+        //predicate: NSPredicate(format: "isLastConnectedTo")
+    )
+    var fetchedDesks: FetchedResults<DeskData>
     
     @Published var presets : [Preset] = []
     @Published var loginState: LoginState = .firstTime
@@ -25,28 +41,62 @@ public class UserObservable: ObservableObject {
     
     init() {
         // Populate desks and presets from CoreData on startup
-        self.pullPersistentData()
-    }
-    
-    
-    func addPreset (name: String, height: Float) {
-        let newPreset = Preset(name: name, height: height)
-        
-        guard !self.presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
-            print("error: that preset is already stored on the device")
+        guard self.pullPersistentData() else {
+            print("error retrieving stored desks and presets")
             return
         }
+        print("presets and desks successfully retrieved")
+    }
+    
+    func pullPersistentData() -> Bool {
+        /*
+         Perform startup desk and preset data pulls from CoreData
+         if fails, return false
+         
+         desks = ...
+         presets = ...
+         */
+        return true
+    }
+    
+    
+    func setCurrentDesk(desk: Desk) -> Bool {
+        /*
+         In CoreData guard that a desk matches this desk, else
+         return false
+         */
+        self.currDeskID = desk.id
+        self.currDeskName = desk.name
+        return true
+    }
+    
+    func addPreset (name: String, height: Float) -> Bool {
+        let newPreset = Preset(name: name, height: height)
+
+        guard !self.presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
+            print("error: that preset is already stored on the device")
+            return false
+        }
+        // Add the preset to the local presets
         self.presets.append(newPreset)
         
-        let newPresetData = PresetData(context: managedObjectContext)
-        newPresetData.name = name
-        newPresetData.height = height
-        newPresetData.uuid = newPreset.id
-        /*
-         Save the preset to CoreData here
-         */
+        // Create a persistent CoreData representation of the new preset
+        let newPresetData = PresetData(context: self.managedObjectContext)
+            newPresetData.name = name
+            newPresetData.height = height
+            newPresetData.uuid = newPreset.id
         
-    }
+        // Try saving the preset to CoreData
+        do {
+            try self.managedObjectContext.save()
+            print("Order saved.")
+            return true
+        } catch {
+            print(error.localizedDescription)
+        }
+        return false
+        
+    } // addPreset end
     
     func removePreset (preset: Preset) {
         self.presets.removeAll(where: { $0 as AnyObject === preset as AnyObject })
@@ -114,12 +164,8 @@ public class UserObservable: ObservableObject {
          */
 
     }
+    
 
-    func pullPersistentData() {
-        /*
-         Perform startup desk and preset data pulls from CoreData
-         */
-    }
 
 //    func addTestPresets() {
 //        for index in (0...10) {
@@ -135,12 +181,17 @@ public class UserObservable: ObservableObject {
     
 }
 
+
+
+
 enum LoginState {
     case firstTime
     case Connected
     case Disconnected
     
 }
+
+
 
 struct UserObservable_Previews: PreviewProvider {
     static var previews: some View {
