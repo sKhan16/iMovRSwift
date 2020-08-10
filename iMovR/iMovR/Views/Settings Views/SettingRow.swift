@@ -24,10 +24,12 @@ struct SettingRow: View {
             
             Text(name)
                 .font(.subheadline)
+                .bold()
             //Spacer()
             if(self.id != "") { //should add id on bottom if id isn't 0
                 Text("\(self.id)")
                     .font(.subheadline)
+                
             }
             //TODO: change font
         }

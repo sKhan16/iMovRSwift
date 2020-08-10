@@ -17,14 +17,14 @@ struct DeskSettingView: View {
         List {
             
             //AddDeskView()
-            Text("Add desks here")
-            Text("List saved desks to edit here")
+            //Text("Add desks here")
+            //Text("List saved desks to edit here")
             ForEach(self.user.desks.indices, id: \.self) { index in
                 NavigationLink(
                     destination: EditDesk(currIndex: index, currDesk: self.user.desks[index])
                 ) {
                     SettingRow(name: self.user.desks[index].getName(), id:
-                        "\(String(describing: self.user.desks[index].getDeskID))")
+                        String(self.user.desks[index].getDeskID()))
                 }
                     
                 //.onDelete(perform: removePresets)

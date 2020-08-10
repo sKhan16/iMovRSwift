@@ -32,11 +32,11 @@ public class UserObservable: ObservableObject {
     func addPreset (name: String, height: Float) {
         let newPreset = Preset(name: name, height: height)
         
-        guard !presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
+        guard !self.presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
             print("error: that preset is already stored on the device")
             return
         }
-        presets.append(newPreset)
+        self.presets.append(newPreset)
         
         let newPresetData = PresetData(context: managedObjectContext)
         newPresetData.name = name
@@ -49,18 +49,30 @@ public class UserObservable: ObservableObject {
     }
     
     func removePreset (preset: Preset) {
-        presets.removeAll(where: { $0 as AnyObject === preset as AnyObject })
+        self.presets.removeAll(where: { $0 as AnyObject === preset as AnyObject })
         /*
          Remove the preset from CoreData here
          */
     }
     
-    func editPreset (index: Int, name: String, height: Float) {
-        presets[index].name = name
-        presets[index].height = height
-        /*
-         Edit the preset from CoreData here
-         */
+    func editPreset (index: Int, name: String = "", height: Float = 0.0) {
+        
+        var isChanged: Bool = false
+        
+        if (name != "") {
+            self.presets[index].name = name
+            isChanged = true
+        }
+        if (height != 0.0) {
+            self.presets[index].height = height
+            isChanged = true
+        }
+        
+        if (isChanged) {
+            /*
+             Edit the preset from CoreData here if isChanged is true
+             */
+        }
     }
     
     
@@ -115,6 +127,11 @@ public class UserObservable: ObservableObject {
 //        }
 //    }
 
+//    func addTestDesks() {
+//        for i in (0...9) {
+//            self.addDesk(name: "Desk \(i)", deskID: (10000000 + i))
+//        }
+//    }
     
 }
 

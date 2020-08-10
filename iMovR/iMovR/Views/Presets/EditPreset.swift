@@ -19,12 +19,12 @@ struct EditPreset: View {
     @State private var presetHeight: String = ""
     @State var isInvalidInput: Bool = false
     @State var isSaved: Bool = false
-
+    
     var currIndex: Int
     
     
     var body: some View {
- 
+        
         VStack {
             Form {
                 if currIndex < self.user.presets.count {
@@ -42,16 +42,16 @@ struct EditPreset: View {
                         if (self.isInvalidInput) {
                             VStack {
                                 Text("Invalid field entries.")
-                                .foregroundColor(.red)
-                                .padding()
+                                    .foregroundColor(.red)
+                                    .padding()
                             }
                         }
                         if (self.isSaved) {
                             VStack {
                                 Text("Your changes have been saved.")
-                            .foregroundColor(.green)
-                            .padding()
-                            //Maybe add fade out animation
+                                    .foregroundColor(.green)
+                                    .padding()
+                                //Maybe add fade out animation
                             }
                         }
                         
@@ -82,33 +82,41 @@ struct editSaveButton: View {
     
     var body: some View {
         Button(action: {
-            
-            //Converts presetHeight to a float
-            let height: Float = (self.presetHeight as NSString).floatValue
-            
-            if height <= 48.00 && height >= 23.00 {
+            if (self.presetHeight != "") {
                 
-                self.isInvalidInput = false
-                self.isSaved = true
+                //Converts presetHeight to a float
+                let height: Float = (self.presetHeight as NSString).floatValue
                 
-                if (self.presetName != "") {
-                    self.user.presets[self.currIndex].name = self.presetName
+                //TODO: Change min and max to read values from desk
+                if height <= 48.00 && height >= 23.00 {
+                    
+                    self.isInvalidInput = false
+                    self.isSaved = true
+                    
+                    if (self.presetName != "") {
+                        //self.user.presets[self.currIndex].name = self.presetName
+                        self.user.editPreset(index: self.currIndex, name: self.presetName)
+                    }
+                    
+                    //self.user.presets[self.currIndex].height = height
+                    self.user.editPreset(index: self.currIndex, height: height)
+                    
+                    ///TODO: Fix bug where you have to click Done twice to return
+                    //self.mode.wrappedValue.dismiss()
+                    
+                    print("Edited Name is \(self.presetHeight)")
+                    print("Edited Height is \(height)")
+                } else {
+                    self.isInvalidInput = true
+                    self.isSaved = false
+                    print("height out of bounds!")
                 }
-                
-                self.user.presets[self.currIndex].height = height
-                
-                ///TODO: Fix bug where you have to click Done twice to return
-                //self.mode.wrappedValue.dismiss()
-                
-                print("Edited Name is \(self.presetHeight)")
-                print("Edited Height is \(height)")
-            } else {
-                self.isInvalidInput = true
-                self.isSaved = false
-                print("height out of bounds!")
+                //self.showAddPreset = false
+            } else if (self.presetName != "") {
+                //self.user.presets[self.currIndex].name = self.presetName
+                self.user.editPreset(index: self.currIndex, name: self.presetName)
+                self.isSaved = true
             }
-            //self.showAddPreset = false
-            
         }) {
             Text("Save").bold()
         }

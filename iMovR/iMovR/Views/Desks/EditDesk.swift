@@ -13,6 +13,7 @@ struct EditDesk: View {
     
     @State private var deskName: String = ""
     @State var isInvalidInput: Bool = false
+    @State var isSaved: Bool = false
     
     var currIndex: Int
     var currDesk: Desk
@@ -35,7 +36,14 @@ struct EditDesk: View {
                                     .padding()
                             }
                         }
-                        
+                        if (self.isSaved) {
+                           VStack {
+                                Text("Your changes have been saved.")
+                                    .foregroundColor(.green)
+                                    .padding()
+                                //Maybe add fade out animation
+                            }
+                        }
                     }
                     
                 } else {
@@ -44,19 +52,20 @@ struct EditDesk: View {
             }
         }
         .navigationBarTitle(Text("Edit Desk Name"), displayMode: .inline)
-        .navigationBarItems(trailing: editDeskDoneButton(deskName: self.$deskName, isInvalidInput: self.$isInvalidInput, currIndex: self.currIndex))
+        .navigationBarItems(trailing: editDeskSaveButton(deskName: self.$deskName, isInvalidInput: self.$isInvalidInput, isSaved: self.$isSaved, currIndex: self.currIndex))
     }
 }
 
 
-struct editDeskDoneButton: View {
+struct editDeskSaveButton: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @EnvironmentObject var user: UserObservable
     
     @Binding var deskName: String
     @Binding var isInvalidInput: Bool
+    @Binding var isSaved: Bool
     
     var currIndex: Int
     
@@ -72,17 +81,19 @@ struct editDeskDoneButton: View {
                 
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.isInvalidInput = false
+                self.isSaved = true
     
             } else {
                 //Inform user their input is incorrect and remain in view
                 print("incorrect desk info submitted")
                 self.isInvalidInput = true
+                self.isSaved = false
             }
             // Fix double press Done button bug
-            self.mode.wrappedValue.dismiss()
+            //self.mode.wrappedValue.dismiss()
             
         }) {
-            Text("Done").bold()
+            Text("Save").bold()
         }
     }
 }
