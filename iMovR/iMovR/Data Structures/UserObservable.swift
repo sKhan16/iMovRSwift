@@ -49,12 +49,21 @@ public class UserObservable: ObservableObject {
     }
     
     func pullPersistentData() -> Bool {
+        
+        
+        var fPresets: [Preset] = []
+        var fDesks: [Desk] = []
+        
         for presetData in fetchedPresets {
-            presets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
+            fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
         }
         for deskData in fetchedDesks {
-            desks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
+            fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
         }
+        
+        self.presets = fPresets
+        self.desks = fDesks
+        
         /*
          Perform startup desk and preset data pulls from CoreData
          if fails, return false
