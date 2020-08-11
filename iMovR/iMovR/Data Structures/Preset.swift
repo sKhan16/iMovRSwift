@@ -16,18 +16,21 @@ struct Preset: Identifiable {
     ///Might want to make these private?
     var name: String
     var height: Float
+    var deskID: Int
     
     let id: UUID = UUID()
     
-    init(name: String, height: Float?) {
+    init(name: String, height: Float?, deskID: Int) {
         guard height != nil else {
             print("error in stored preset height")
             self.height = -1
             self.name = ""
+            self.deskID = 0
             return
         }
         self.height = height!
         self.name = name
+        self.deskID = deskID
     }
     
     func getHeight() -> Float {

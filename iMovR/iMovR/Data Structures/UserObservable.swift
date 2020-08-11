@@ -71,7 +71,7 @@ public class UserObservable: ObservableObject {
     }
     
     func addPreset (name: String, height: Float) -> Bool {
-        let newPreset = Preset(name: name, height: height)
+        let newPreset = Preset(name: name, height: height, deskID: self.currDeskID)
 
         guard !self.presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
             print("error: that preset is already stored on the device")
@@ -85,6 +85,7 @@ public class UserObservable: ObservableObject {
             newPresetData.name = name
             newPresetData.height = height
             newPresetData.uuid = newPreset.id
+            newPresetData.deskID = Int64(self.currDeskID)
         
         // Try saving the preset to CoreData
         do {
