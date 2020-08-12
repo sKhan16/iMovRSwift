@@ -16,21 +16,26 @@ public class UserObservable: ObservableObject {
     @Environment(\.managedObjectContext) var managedObjectContext
     // Fetches persistent presets automatically
         //- just use fetchedPresets
-    @FetchRequest(entity: PresetData.entity(),
-                  sortDescriptors: []//,
-                )
-    var fetchedPresets: FetchedResults<PresetData>
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+//    @FetchRequest(entity: PresetData.entity(),
+//                  sortDescriptors: []//,
+//                )
+//    var fetchedPresets: FetchedResults<PresetData>
+    
+    var fetchedPresets: [PresetData]?
+    var fetchedDesks: [DeskData]?
     /*
      Need to update presets array with these results every time it changes
         -by using a forEach loop
      */
     
-    @FetchRequest(entity: DeskData.entity(),
-                  sortDescriptors: []//,
-        //predicate: NSPredicate(format: "isLastConnectedTo")
-    )
-    var fetchedDesks: FetchedResults<DeskData>
+//    @FetchRequest(entity: DeskData.entity(),
+//                  sortDescriptors: []//,
+//        //predicate: NSPredicate(format: "isLastConnectedTo")
+//    )
+//    var fetchedDesks: FetchedResults<DeskData>
     
     @Published var presets : [Preset] = []
     @Published var loginState: LoginState = .firstTime
@@ -41,6 +46,8 @@ public class UserObservable: ObservableObject {
 
     
     init() {
+        
+        
         //self.fetchedPresets = FetchRequest<PresetData>(entity: PresetData.entity(), sortDescriptors: [], predicate: NSPredicate(format: "deskID == %@", 0))
         
         //self.fetchedDesks = FetchRequest<DeskData>(entity: DeskData.entity(), sortDescriptors: [])
@@ -64,12 +71,25 @@ public class UserObservable: ObservableObject {
         var fPresets: [Preset] = []
         var fDesks: [Desk] = []
         
-        for presetData in fetchedPresets {
+        do {
+            self.fetchedPresets = try context.fetch(PresetData.fetchRequest())
+        } catch {
+            
+        }
+        
+        
+        if !self.fetchedPresets!.isEmpty {
+            for presetData in self.fetchedPresets!  {
             fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
         }
-        for deskData in fetchedDesks {
-            fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
-        }
+    }
+        /// Uncomment when using tag method of fetching
+//        for presetData in fetchedPresets {
+//            fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
+//        }
+//        for deskData in fetchedDesks {
+//            fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
+//        }
         
         self.presets = fPresets
         self.desks = fDesks
@@ -106,7 +126,7 @@ public class UserObservable: ObservableObject {
         self.presets.append(newPreset)
         
         // Create a persistent CoreData representation of the new preset
-        let newPresetData = PresetData(context: self.managedObjectContext)
+        let newPresetData = PresetData(context: self.context)
             newPresetData.name = name
             newPresetData.height = height
             newPresetData.uuid = newPreset.id
@@ -114,7 +134,7 @@ public class UserObservable: ObservableObject {
         
         // Try saving the preset to CoreData
         do {
-            try self.managedObjectContext.save()
+            try self.context.save()
             print("Order saved.")
             return true
         } catch {
