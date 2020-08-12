@@ -77,8 +77,14 @@ public class UserObservable: ObservableObject {
             
         }
         
-        guard (self.fetchedPresets != nil) else {
-            print("fetchedPresets = null error")
+        do {
+            self.fetchedDesks = try context.fetch(DeskData.fetchRequest())
+        } catch {
+            
+        }
+        
+        guard (self.fetchedPresets != nil || self.fetchedDesks != nil) else {
+            print("error fetching data")
             return false
         }
         
@@ -87,7 +93,13 @@ public class UserObservable: ObservableObject {
             fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
         }
     }
-        /// Uncomment when using tag method of fetching
+        if !self.fetchedDesks!.isEmpty {
+            for deskData in self.fetchedDesks! {
+                fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
+            }
+        }
+  
+/// Uncomment when using tag method of fetching
 //        for presetData in fetchedPresets {
 //            fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
 //        }
