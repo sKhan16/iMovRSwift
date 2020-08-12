@@ -135,7 +135,7 @@ public class UserObservable: ObservableObject {
         // Try saving the preset to CoreData
         do {
             try self.context.save()
-            print("Order saved.")
+            print("Preset saved.")
             return true
         } catch {
             print(error.localizedDescription)
@@ -172,16 +172,16 @@ public class UserObservable: ObservableObject {
     }
     
     
-    func addDesk (name: String, deskID: Int) {
+    func addDesk (name: String, deskID: Int) -> Bool {
         let newDesk = Desk(name: name, deskID: deskID)
         
         guard !desks.contains(where: { $0 as AnyObject === newDesk as AnyObject }) else {
             print("error: that desk is already stored on the device")
-            return
+            return false
         }
         desks.append(newDesk)
         
-        let newDeskData = DeskData(context: managedObjectContext)
+        let newDeskData = DeskData(context: self.context)
         newDeskData.name = name
         newDeskData.deskID = Int64(deskID)
         newDeskData.isLastConnectedTo = false // Maybe initialize to true?
@@ -189,6 +189,14 @@ public class UserObservable: ObservableObject {
         /*
          Save the desk to CoreData here
          */
+        do {
+            try self.context.save()
+            print("Desk saved.")
+            return true
+        } catch {
+            print(error.localizedDescription)
+        }
+        return false
     }
     
     func removeDesk (desk: Desk) {
