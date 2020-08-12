@@ -22,6 +22,19 @@ extension PresetData {
     @NSManaged public var name: String
     @NSManaged public var uuid: UUID
     
+    var wrappedDeskID: Int {
+        Int(deskID)
+    }
     
-
+    var wrappedHeight: Float {
+        height
+    }
+    
+    var wrappedName: String {
+        name
+    }
+    
+    var wrappedUUID: UUID {
+        uuid
+    }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="DeskData" representedClassName="DeskData" syncable="YES">
+    <entity name="DeskData" representedClassName=".DeskData" syncable="YES">
         <attribute name="deskID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isLastConnectedTo" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
     </entity>
-    <entity name="PresetData" representedClassName="PresetData" syncable="YES">
+    <entity name="PresetData" representedClassName=".PresetData" syncable="YES">
         <attribute name="deskID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="height" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
