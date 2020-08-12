@@ -16,21 +16,21 @@ public class UserObservable: ObservableObject {
     @Environment(\.managedObjectContext) var managedObjectContext
     // Fetches persistent presets automatically
         //- just use fetchedPresets
-    //@FetchRequest(entity: PresetData.entity(),
-      //            sortDescriptors: []//,
-        //        )
-    var fetchedPresets: FetchRequest<PresetData>
+    @FetchRequest(entity: PresetData.entity(),
+                  sortDescriptors: []//,
+                )
+    var fetchedPresets: FetchedResults<PresetData>
     
     /*
      Need to update presets array with these results every time it changes
         -by using a forEach loop
      */
     
-//    @FetchRequest(entity: DeskData.entity(),
-//                  sortDescriptors: []//,
-//        //predicate: NSPredicate(format: "isLastConnectedTo")
-//    )
-    var fetchedDesks: FetchRequest<DeskData>
+    @FetchRequest(entity: DeskData.entity(),
+                  sortDescriptors: []//,
+        //predicate: NSPredicate(format: "isLastConnectedTo")
+    )
+    var fetchedDesks: FetchedResults<DeskData>
     
     @Published var presets : [Preset] = []
     @Published var loginState: LoginState = .firstTime
@@ -41,9 +41,9 @@ public class UserObservable: ObservableObject {
 
     
     init() {
-        self.fetchedPresets = FetchRequest<PresetData>(entity: PresetData.entity(), sortDescriptors: [], predicate: NSPredicate(format: "deskID == %@", 0))
+        //self.fetchedPresets = FetchRequest<PresetData>(entity: PresetData.entity(), sortDescriptors: [], predicate: NSPredicate(format: "deskID == %@", 0))
         
-        self.fetchedDesks = FetchRequest<DeskData>(entity: DeskData.entity(), sortDescriptors: [])
+        //self.fetchedDesks = FetchRequest<DeskData>(entity: DeskData.entity(), sortDescriptors: [])
         
         // Populate desks and presets from CoreData on startup
         guard self.pullPersistentData() else {
@@ -57,17 +57,17 @@ public class UserObservable: ObservableObject {
     
     func pullPersistentData() -> Bool {
         
-        self.fetchedPresets = FetchRequest<PresetData>(entity: PresetData.entity(), sortDescriptors: [], predicate: NSPredicate(format: "deskID == %@", self.currDeskID))
+        //self.fetchedPresets = FetchRequest<PresetData>(entity: PresetData.entity(), sortDescriptors: [], predicate: NSPredicate(format: "deskID == %@", self.currDeskID))
         
-        self.fetchedDesks = FetchRequest<DeskData>(entity: DeskData.entity(), sortDescriptors: [])
+        //self.fetchedDesks = FetchRequest<DeskData>(entity: DeskData.entity(), sortDescriptors: [])
         
         var fPresets: [Preset] = []
         var fDesks: [Desk] = []
         
-        for presetData in fetchedPresets.wrappedValue {
-            fPresets.append(Preset(name: presetData.wrappedName, height: presetData.wrappedHeight, deskID: presetData.wrappedDeskID))
+        for presetData in fetchedPresets {
+            fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
         }
-        for deskData in fetchedDesks.wrappedValue {
+        for deskData in fetchedDesks {
             fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
         }
         
