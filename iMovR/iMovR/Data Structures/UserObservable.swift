@@ -77,6 +77,10 @@ public class UserObservable: ObservableObject {
             
         }
         
+        guard (self.fetchedPresets != nil) else {
+            print("fetchedPresets = null error")
+            return false
+        }
         
         if !self.fetchedPresets!.isEmpty {
             for presetData in self.fetchedPresets!  {
@@ -118,10 +122,6 @@ public class UserObservable: ObservableObject {
     func addPreset (name: String, height: Float) -> Bool {
         let newPreset = Preset(name: name, height: height, deskID: self.currDeskID)
 
-        guard !self.presets.contains(where: { $0 as AnyObject === newPreset as AnyObject }) else {
-            print("error: that preset is already stored on the device")
-            return false
-        }
         // Add the preset to the local presets
         self.presets.append(newPreset)
         
