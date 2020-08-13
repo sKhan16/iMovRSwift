@@ -90,7 +90,13 @@ public class UserObservable: ObservableObject {
         
         if !self.fetchedPresets!.isEmpty {
             for presetData in self.fetchedPresets!  {
-            fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
+            
+            var preset: Preset = Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID))
+            
+            preset.setId(id: presetData.uuid)
+            
+            fPresets.append(preset)
+                //fPresets.append(Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID)))
         }
     }
         if !self.fetchedDesks!.isEmpty {
@@ -120,6 +126,55 @@ public class UserObservable: ObservableObject {
         return true
     }
     
+    func pullPresetData () -> Bool {
+        var fPresets: [Preset] = []
+        
+        do {
+            self.fetchedPresets = try context.fetch(PresetData.fetchRequest())
+        } catch {
+            
+        }
+        guard (self.fetchedPresets != nil) else {
+                   print("error fetching data")
+                   return false
+               }
+        
+        if !self.fetchedPresets!.isEmpty {
+                for presetData in self.fetchedPresets!  {
+                    var preset: Preset = Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID))
+                    
+                    preset.setId(id: presetData.uuid)
+                    
+                    fPresets.append(preset)
+            }
+        }
+        
+        self.presets = fPresets
+        return true
+    }
+    
+    func pullDeskData () -> Bool {
+        var fDesks: [Desk] = []
+        do {
+            self.fetchedDesks = try context.fetch(DeskData.fetchRequest())
+        } catch {
+            
+        }
+        guard (self.fetchedDesks != nil) else {
+                   print("error fetching data")
+                   return false
+               }
+        
+        if !self.fetchedDesks!.isEmpty {
+            for deskData in self.fetchedDesks! {
+                fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
+            }
+        }
+        
+        self.desks = fDesks
+        return true
+    }
+    
     
     func setCurrentDesk(desk: Desk) -> Bool {
         /*
@@ -132,6 +187,8 @@ public class UserObservable: ObservableObject {
     }
     
     func addPreset (name: String, height: Float) -> Bool {
+        var isSuccess: Bool = false
+        
         let newPreset = Preset(name: name, height: height, deskID: self.currDeskID)
 
         // Add the preset to the local presets
@@ -148,21 +205,66 @@ public class UserObservable: ObservableObject {
         do {
             try self.context.save()
             print("Preset saved.")
-            return true
+            isSuccess = true
         } catch {
             print(error.localizedDescription)
         }
-        return false
+        
+        //fetch new data
+        if isSuccess {
+            self.pullPresetData()
+        }
+        
+        return isSuccess
         
     } // addPreset end
     
     func removePreset (index: Int) {
         let preset: Preset = self.presets[index]
         
+        
+        
+        guard let presetData: PresetData = findPresetData(preset: preset) else {
+            print("Error removing preset")
+            return
+        }
+        
+        self.context.delete(presetData)
         self.presets.remove(at: index)
         /*
          Remove the preset from CoreData here
          */
+        do {
+            try self.context.save()
+            print("Preset saved.")
+            
+        } catch {
+            print(error.localizedDescription)
+            print("Error saving removed preset")
+        }
+        
+        self.pullPresetData()
+
+    }
+    
+    //Finds and returns PresetData that matches the given preset
+    // Otherwise, returns nil
+    func findPresetData (preset: Preset) -> PresetData? {
+        
+        //var presetDataTmp: PresetData
+        
+        for presetData in self.fetchedPresets! {
+            
+//            print("~~~")
+//            print("presetData uuid: \(presetData.uuid)\n preset uuid: \(preset.id)\n~~~")
+            if presetData.uuid == preset.id {
+                
+                print("Found preset!")
+                return presetData
+            }
+        }
+        
+        return nil
     }
     
     func editPreset (index: Int, name: String = "", height: Float = 0.0) {
@@ -187,6 +289,8 @@ public class UserObservable: ObservableObject {
     
     
     func addDesk (name: String, deskID: Int) -> Bool {
+        var isSuccess: Bool = false
+        
         let newDesk = Desk(name: name, deskID: deskID)
         
         guard !desks.contains(where: { $0 as AnyObject === newDesk as AnyObject }) else {
@@ -206,11 +310,15 @@ public class UserObservable: ObservableObject {
         do {
             try self.context.save()
             print("Desk saved.")
-            return true
+            isSuccess = true
         } catch {
             print(error.localizedDescription)
         }
-        return false
+        if isSuccess {
+            self.pullDeskData()
+        }
+        
+        return isSuccess
     }
     
     func removeDesk (desk: Desk) {

@@ -18,7 +18,7 @@ struct Preset: Identifiable {
     var height: Float
     var deskID: Int
     
-    let id: UUID = UUID()
+    var id: UUID = UUID()
     
     init(name: String, height: Float?, deskID: Int) {
         guard height != nil else {
@@ -39,6 +39,10 @@ struct Preset: Identifiable {
     
     func getName() -> String {
         return self.name
+    }
+    
+    mutating func setId (id: UUID) {
+        self.id = id
     }
     
     
