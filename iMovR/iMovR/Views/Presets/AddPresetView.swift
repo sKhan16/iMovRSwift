@@ -63,7 +63,11 @@ struct doneButton: View {
             let height: Float = (self.presetHeight as NSString).floatValue
             if height <= 48.00 && height >= 23.00 {
                 self.isInvalidInput = false
-                self.user.addPreset(name: self.presetName, height: height)
+                if self.user.addPreset(name: self.presetName, height: height) {
+                    print("preset successfully added")
+                } else {
+                    print("user.addPreset failed")
+                }
                 print("Height is \(height)")
                 self.showAddPreset = false
             } else {

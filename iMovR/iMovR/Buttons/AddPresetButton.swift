@@ -46,7 +46,11 @@ struct AddPresetButton: View {
 
 func addPreset(user: UserObservable, name: String, height: Float) {
     //Test code. Replace when neccessary. Can mutate observable object.
-    user.addPreset(name: name, height: height)
+    if user.addPreset(name: name, height: height) {
+        print("preset successfully added")
+    } else {
+        print("user.addPreset failed")
+    }
     // Replace with functionality to switch to AddPreset screen.
     print("Moving to the add preset screen!")
 }
