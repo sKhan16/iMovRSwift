@@ -156,8 +156,10 @@ public class UserObservable: ObservableObject {
         
     } // addPreset end
     
-    func removePreset (preset: Preset) {
-        self.presets.removeAll(where: { $0 as AnyObject === preset as AnyObject })
+    func removePreset (index: Int) {
+        let preset: Preset = self.presets[index]
+        
+        self.presets.remove(at: index)
         /*
          Remove the preset from CoreData here
          */
