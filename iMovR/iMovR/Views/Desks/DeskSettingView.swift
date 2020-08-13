@@ -27,8 +27,11 @@ struct DeskSettingView: View {
                         String(self.user.desks[index].getDeskID()))
                 }
                     
-                //.onDelete(perform: removePresets)
-            } //else { //if there are no desks, ask to add
+                
+            }
+               .onDelete(perform: removeDesks)
+                //else { //if there are no desks, ask to add
+                
              //   Text("Add desk?")
                 //TODO: ADD DESK VIEW
             //}
@@ -37,6 +40,15 @@ struct DeskSettingView: View {
         }
         .navigationBarTitle(Text("Desks"))
         
+    }
+    
+    //Helper function to remove desks
+    func removeDesks(at offsets: IndexSet) {
+        
+        offsets.sorted(by: > ).forEach { (i) in
+            self.user.removeDesk(index: i)
+        }
+        //self.user.presets.remove(atOffsets: offsets)
     }
 }
 
