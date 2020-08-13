@@ -39,7 +39,11 @@ struct PresetSettingView: View {
     
     //Helper function to remove presets
     func removePresets(at offsets: IndexSet) {
-        self.user.presets.remove(atOffsets: offsets)
+        
+        offsets.sorted(by: > ).forEach { (i) in
+            self.user.removePreset(index: i)
+        }
+        //self.user.presets.remove(atOffsets: offsets)
     }
     
 
