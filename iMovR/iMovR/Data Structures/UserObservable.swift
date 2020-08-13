@@ -281,9 +281,29 @@ public class UserObservable: ObservableObject {
         }
         
         if (isChanged) {
+            let preset: Preset = self.presets[index]
+                  
             /*
              Edit the preset from CoreData here if isChanged is true
              */
+            guard let presetData: PresetData = findPresetData(preset: preset) else {
+                print("Error retrieving presetData to edit")
+                return
+            }
+            
+            presetData.name = preset.name
+            presetData.height = preset.height
+            
+            do {
+                try self.context.save()
+                print("Preset edit saved.")
+                
+            } catch {
+                print(error.localizedDescription)
+                print("Error saving edited preset")
+            }
+            
+            self.pullPresetData()
         }
     }
     
