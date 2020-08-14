@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import CoreData
 
 public class UserObservable: ObservableObject {
     
@@ -96,7 +97,14 @@ public class UserObservable: ObservableObject {
         var fPresets: [Preset] = []
         
         do {
-            self.fetchedPresets = try context.fetch(PresetData.fetchRequest())
+            let request = PresetData.fetchRequest() as NSFetchRequest<PresetData>
+            
+//            print("desk ID = \(self.currentDesk.id)")
+//            let pred = NSPredicate(format: "deskID == %@", Int64(self.currentDesk.id))
+//
+//            request.predicate = pred
+            
+            self.fetchedPresets = try context.fetch(request)
         } catch {
             print("Failed to fetch PresetData")
             return false
@@ -136,6 +144,7 @@ public class UserObservable: ObservableObject {
         if !self.fetchedDesks!.isEmpty {
             for deskData in self.fetchedDesks! {
                 fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
+                print("DeskData(\(deskData.name)'s deskID = \(deskData.deskID)")
             }
         }
         
