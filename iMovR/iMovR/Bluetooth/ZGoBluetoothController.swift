@@ -13,13 +13,14 @@ import CoreBluetooth
 
 class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
-    @EnvironmentObject var user: UserObservable
 
     
     // Published variables (update UI when changed)
     @Published var currentHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
+    
+    @Published var currentDesk: Desk = Desk(name: "desk not yet initialized", deskID: 0)
     
     @Published var connectionStatus: String = "Connect to a Desk"
     @Published var connectionColor: Color = Color.primary
@@ -48,7 +49,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     
     func startConnection() {
-        guard user.currentDesk.id > 0 else {
+        guard self.currentDesk.id > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
             connectionStatus = "Invalid Desk ID\nPlease Change"
             connectionColor = Color.red
@@ -147,8 +148,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         //print("corrected manufacturerID: \(manufacturerDeskID)")
         
-        guard manufacturerDeskID == user.currentDesk.id else {
-            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(user.currentDesk.id))")
+        guard manufacturerDeskID == self.currentDesk.id else {
+            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currentDesk.id))")
             DispatchQueue.main.async { () -> Void in
                 self.connectionStatus = "ID Didn't Match Discovered Desk(s)"
                 self.connectionColor = Color.red
@@ -181,8 +182,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         
         self.isConnected = true
-        user.addDesk()
-        
+
         deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
     
