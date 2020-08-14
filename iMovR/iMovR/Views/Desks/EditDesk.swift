@@ -75,7 +75,7 @@ struct editDeskSaveButton: View {
             if (self.deskName != "") {
                 
                 //Store new desk name
-                self.user.currDeskName = self.deskName
+                self.user.currentDesk.name = self.deskName
                 self.user.modifyDeskName(index: self.currIndex, name: self.deskName)
                 //self.user.saveCurrentDesk()
                 

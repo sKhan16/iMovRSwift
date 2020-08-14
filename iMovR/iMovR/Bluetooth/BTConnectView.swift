@@ -103,15 +103,12 @@ struct BTDoneButton: View {
             if (self.inputDeskName != "") && (self.inputDeskID.count == 8) {
                 print("correct desk info submitted")
                 //Store user input and exit connect view
-                self.user.currDeskName = self.inputDeskName
-                self.user.currDeskID = deskID
-                //self.user.saveCurrentDesk()
+                self.user.currentDesk = Desk(name: self.inputDeskName, deskID: deskID)
                 
                 // MARK: Maybe only save the desk permanently if connection is successful
                 self.notifyWrongInput = false
                 self.showBTConnect = false
                 // Begin searching for the desk
-                self.bt.currDeskID = deskID
                 self.bt.startConnection()
                 
             } else {

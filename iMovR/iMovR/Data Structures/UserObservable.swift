@@ -19,31 +19,15 @@ public class UserObservable: ObservableObject {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    //    @FetchRequest(entity: PresetData.entity(),
-    //                  sortDescriptors: []//,
-    //                )
-    //    var fetchedPresets: FetchedResults<PresetData>
-    
     var fetchedPresets: [PresetData]?
     var fetchedDesks: [DeskData]?
-    /*
-     Need to update presets array with these results every time it changes
-     -by using a forEach loop
-     */
-    
-    //    @FetchRequest(entity: DeskData.entity(),
-    //                  sortDescriptors: []//,
-    //        //predicate: NSPredicate(format: "isLastConnectedTo")
-    //    )
-    //    var fetchedDesks: FetchedResults<DeskData>
     
     @Published var presets : [Preset] = []
-    @Published var loginState: LoginState = .firstTime
-    
     @Published var desks: [Desk] = []
-    @Published var currDeskID: Int = 0
-    @Published var currDeskName: String = "Please add or select a desk."
+
+    @Published var currentDesk: Desk = Desk(name: "Please add or select a desk.", deskID: 0)
     
+    @Published var loginState: LoginState = .firstTime
     
     init() {
         
@@ -63,8 +47,6 @@ public class UserObservable: ObservableObject {
     }
     
     func pullPersistentData() -> Bool {
-        
-        
         return self.pullPresetData() && self.pullDeskData()
         //        var fPresets: [Preset] = []
         //        var fDesks: [Desk] = []
@@ -116,11 +98,11 @@ public class UserObservable: ObservableObject {
         do {
             self.fetchedPresets = try context.fetch(PresetData.fetchRequest())
         } catch {
-            print("Failed to fetch presetData")
+            print("Failed to fetch PresetData")
             return false
         }
         guard (self.fetchedPresets != nil) else {
-            print("error fetching data")
+            print("error fetching PresetData")
             return false
         }
         
@@ -143,11 +125,11 @@ public class UserObservable: ObservableObject {
         do {
             self.fetchedDesks = try context.fetch(DeskData.fetchRequest())
         } catch {
-            print("Failed to fetch Desk data")
+            print("Failed to fetch DeskData")
             return false
         }
         guard (self.fetchedDesks != nil) else {
-            print("error fetching data")
+            print("error fetching DeskData")
             return false
         }
         
@@ -162,20 +144,10 @@ public class UserObservable: ObservableObject {
     }
     
     
-    func setCurrentDesk(desk: Desk) -> Bool {
-        /*
-         In CoreData guard that a desk matches this desk, else
-         return false
-         */
-        self.currDeskID = desk.id
-        self.currDeskName = desk.name
-        return true
-    }
-    
     func addPreset (name: String, height: Float) -> Bool {
         var isSuccess: Bool = false
         
-        let newPreset = Preset(name: name, height: height, deskID: self.currDeskID)
+        let newPreset = Preset(name: name, height: height, deskID: self.currentDesk.id)
         
         // Add the preset to the local presets
         self.presets.append(newPreset)
@@ -185,7 +157,7 @@ public class UserObservable: ObservableObject {
         newPresetData.name = name
         newPresetData.height = height
         newPresetData.uuid = newPreset.id
-        newPresetData.deskID = Int64(self.currDeskID)
+        newPresetData.deskID = Int64(self.currentDesk.id)
         
         // Try saving the preset to CoreData
         do {
@@ -294,25 +266,27 @@ public class UserObservable: ObservableObject {
     }
     
     
-    func addDesk (name: String, deskID: Int) -> Bool {
+    func addDesk() -> Bool {
         var isSuccess: Bool = false
         
-        let newDesk = Desk(name: name, deskID: deskID)
-        
-        guard !desks.contains(where: { $0 as AnyObject === newDesk as AnyObject }) else {
+        guard !desks.contains(where: { $0 as AnyObject === self.currentDesk as AnyObject }) else {
             print("error: that desk is already stored on the device")
             return false
         }
-        desks.append(newDesk)
+        desks.append(self.currentDesk)
         
         let newDeskData = DeskData(context: self.context)
-        newDeskData.name = name
-        newDeskData.deskID = Int64(deskID)
-        newDeskData.isLastConnectedTo = false // Maybe initialize to true?
-        // Must check if desk is connected
-        /*
-         Save the desk to CoreData here
-         */
+        newDeskData.name = self.currentDesk.name
+        newDeskData.deskID = Int64(self.currentDesk.id)
+        newDeskData.isLastConnectedTo = true // Maybe initialize to true?
+
+        // Set all other desks besides currentDesk to not last connected
+        for deskData in self.fetchedDesks! {
+            if(deskData.deskID != self.currentDesk.id) {
+                deskData.isLastConnectedTo = false
+            }
+        }
+        
         do {
             try self.context.save()
             print("Desk saved.")
@@ -328,9 +302,7 @@ public class UserObservable: ObservableObject {
     }
     
     func removeDesk (index: Int) {
-        
         let desk: Desk = self.desks[index]
-        
         
         guard let deskData: DeskData = findDeskData(desk: desk) else {
             print("Error removing deskData")
@@ -352,23 +324,39 @@ public class UserObservable: ObservableObject {
         }
         
         self.pullDeskData()
-        //desks.removeAll(where: { $0 as AnyObject === desk as AnyObject })
-        /*
-         Remove the desk from CoreData here
-         */
     }
     
     func modifyDeskName (index: Int, name: String) {
         guard index < desks.count else {
-            print("editDesk(...) - index out of bounds error")
+            print("modifyDeskName(..) - index out of bounds error")
             return
         }
-        desks[index].name = name
         
-        /*
-         Edit the desk in CoreData
-         */
-        
+        if (name != "") {
+            self.desks[index].name = name
+            let desk: Desk = self.desks[index]
+            
+            /*
+             Edit the preset from CoreData here if isChanged is true
+             */
+            guard let deskData: DeskData = findDeskData(desk: desk) else {
+                print("Error retrieving deskData to edit")
+                return
+            }
+            
+            deskData.name = desk.name
+            
+            do {
+                try self.context.save()
+                print("Desk edit saved.")
+                
+            } catch {
+                print(error.localizedDescription)
+                print("Error saving edited desk")
+            }
+            
+            self.pullDeskData()
+        }
     }
     
     func findDeskData (desk: Desk) -> DeskData? {
