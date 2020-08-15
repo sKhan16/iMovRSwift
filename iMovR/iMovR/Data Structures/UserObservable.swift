@@ -322,7 +322,7 @@ public class UserObservable: ObservableObject {
         }
         
         self.context.delete(deskData)
-        self.presets.remove(at: index)
+        self.desks.remove(at: index)
         /*
          Remove the preset from CoreData here
          */
