@@ -100,11 +100,13 @@ public class UserObservable: ObservableObject {
             let request = PresetData.fetchRequest() as NSFetchRequest<PresetData>
             
 //            print("desk ID = \(self.currentDesk.id)")
-//            let pred = NSPredicate(format: "deskID == %@", Int64(self.currentDesk.id))
-//
-//            request.predicate = pred
+            ///Filters desk based off of deskID
+            let pred = NSPredicate(format: "deskID == %@", "\(self.currentDesk.id)")
+
+            request.predicate = pred
             
             self.fetchedPresets = try context.fetch(request)
+
         } catch {
             print("Failed to fetch PresetData")
             return false
@@ -114,10 +116,11 @@ public class UserObservable: ObservableObject {
             return false
         }
         
+        ///Populate tmp array with correct ordering
         if !self.fetchedPresets!.isEmpty {
             for presetData in self.fetchedPresets!  {
                 var preset: Preset = Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID))
-                
+                //print("presetData(\(presetData.name))'s deskID: \(presetData.deskID)")
                 preset.setId(id: presetData.uuid)
                 
                 fPresets.append(preset)
