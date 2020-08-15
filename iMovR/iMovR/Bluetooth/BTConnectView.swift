@@ -27,27 +27,6 @@ struct BTConnectView: View {
             VStack {
                 //Text("Connect to a desk:")
                 Form {
-                    Section(header: Text("Instructions:")
-                        .font(.headline)
-                    ) {
-                        VStack() {
-                            Text("Please give your desk a name and input the 8 digit manufacturer ID.\n\nThe manufacturer ID is found underneath the desk. There is a small box with a plug on each end, with a QR sticker. The 8 digit number is printed on this sticker.")
-                                .foregroundColor(.primary)
-                                .font(.callout)
-                                .padding()
-                            
-                            if (notifyWrongInput) {
-                                VStack {
-                                    Text("Invalid field entries.")
-                                        .foregroundColor(.red)
-                                        .padding()
-                                    //Spacer()
-                                }
-                            }
-                            
-                        } //end VStack
-                    } //end notification section
-                    
                     Section(header:
                         Text("Name your desk:")
                             .font(.headline)
@@ -63,6 +42,25 @@ struct BTConnectView: View {
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Desk ID' section
+                    
+                    Section(header: Text("Instructions:")
+                        .font(.headline)
+                    ) {
+                        VStack() {
+                            if (notifyWrongInput) {
+                                VStack {
+                                    Text("Invalid field entries.")
+                                        .foregroundColor(.red)
+                                        .padding()
+                                    //Spacer()
+                                }
+                            }
+                            Text("Please give your desk a name and input the 8 digit manufacturer ID.\n\nThe manufacturer ID is found underneath the desk. There is a small box with a plug on each end, with a QR sticker. The 8 digit number is printed on this sticker.")
+                                .foregroundColor(.primary)
+                                .font(.callout)
+                                .padding()
+                        } //end VStack
+                    } //end notification section
                     
                 } //end form
                 
@@ -103,14 +101,22 @@ struct BTDoneButton: View {
             if (self.inputDeskName != "") && (self.inputDeskID.count == 8) {
                 print("correct desk info submitted")
                 //Store user input and exit connect view
-                self.user.currentDesk = Desk(name: self.inputDeskName, deskID: deskID)
-                
-                // MARK: Maybe only save the desk permanently if connection is successful
-                self.notifyWrongInput = false
-                self.showBTConnect = false
+                let currDesk = Desk(name: self.inputDeskName, deskID: deskID)
+                self.user.currentDesk = currDesk
+                self.bt.currentDesk = currDesk
                 // Begin searching for the desk
                 self.bt.startConnection()
-                
+                // Only save the desk permanently if connection is successful
+                if self.bt.isConnected {
+                    guard self.user.addDesk() else {
+                        print("addDesk error, staying in BTConnectView")
+                        return
+                    }
+                } else {
+                    print("desk not connected yet when trying addDesk()")
+                }
+                self.notifyWrongInput = false
+                self.showBTConnect = false
             } else {
                 //Inform user their input is incorrect and remain in view
                 print("incorrect desk info submitted")
