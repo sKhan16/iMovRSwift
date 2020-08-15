@@ -338,25 +338,28 @@ public class UserObservable: ObservableObject {
         self.pullDeskData()
     }
     
-    func modifyDeskName (index: Int, name: String) {
-        guard index < desks.count else {
-            print("modifyDeskName(..) - index out of bounds error")
-            return
-        }
+    func editDesk (index: Int, name: String = "", deskID: Int = 0) {
+        var isChanged: Bool = false
         
         if (name != "") {
             self.desks[index].name = name
+            isChanged = true
+        }
+        if (deskID > 0) {
+            self.desks[index].id = deskID
+            isChanged = true
+        }
+        
+        if (isChanged) {
             let desk: Desk = self.desks[index]
-            
-            /*
-             Edit the preset from CoreData here if isChanged is true
-             */
+
             guard let deskData: DeskData = findDeskData(desk: desk) else {
                 print("Error retrieving deskData to edit")
                 return
             }
             
             deskData.name = desk.name
+            deskData.deskID = Int64(desk.id)
             
             do {
                 try self.context.save()
@@ -367,7 +370,9 @@ public class UserObservable: ObservableObject {
                 print("Error saving edited desk")
             }
             
-            self.pullDeskData()
+            if !self.pullDeskData() {
+                print("error pulling saved desks in editDesk(..)")
+            }
         }
     }
     

@@ -19,18 +19,17 @@ struct DeskSettingView: View {
             //AddDeskView()
             //Text("Add desks here")
             //Text("List saved desks to edit here")
-            ForEach(self.user.desks.indices, id: \.self) { index in
-                NavigationLink(
-                    destination: EditDesk(currIndex: index, currDesk: self.user.desks[index])
-                ) {
-                    SettingRow(name: self.user.desks[index].getName(), id:
-                        String(self.user.desks[index].getDeskID()))
+            if user.desks.count > 0 {
+                ForEach(self.user.desks.indices, id: \.self) { index in
+                    NavigationLink(destination:
+                        EditDesk(currIndex: index)) {
+                        SettingRow(name: self.user.desks[index].name, id:
+                            String(self.user.desks[index].id))
+                    }
                 }
-                    
-                
-            }
                .onDelete(perform: removeDesks)
                 //else { //if there are no desks, ask to add
+            }
                 
              //   Text("Add desk?")
                 //TODO: ADD DESK VIEW
@@ -48,7 +47,6 @@ struct DeskSettingView: View {
         offsets.sorted(by: > ).forEach { (i) in
             self.user.removeDesk(index: i)
         }
-        //self.user.presets.remove(atOffsets: offsets)
     }
 }
 

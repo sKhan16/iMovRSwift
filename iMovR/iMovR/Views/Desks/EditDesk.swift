@@ -11,27 +11,33 @@ import SwiftUI
 struct EditDesk: View {
     @EnvironmentObject var user: UserObservable
     
-    @State private var deskName: String = ""
+    @State private var deskNameBinding: String = ""
+    @State private var deskIDBinding: String = ""
     @State var isInvalidInput: Bool = false
     @State var isSaved: Bool = false
     
     var currIndex: Int
-    var currDesk: Desk
+    
     
     var body: some View {
+        
         VStack {
             Form {
                 if currIndex < self.user.desks.count {
                     Section(header:
-                        Text(currDesk.name)
+                        Text("Edit:  \(self.user.desks[currIndex].name)")
                     ) {
                         
-                        TextField("\(currDesk.name)", text: $deskName)
+                        TextField("Change desk name?", text: $deskNameBinding)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        TextField("Change desk ID?", text: $deskIDBinding)
+                            .keyboardType(.numberPad)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
                         if (self.isInvalidInput) {
                             VStack {
-                                Text("Please type a name.")
+                                Text("Invalid field entries.")
                                     .foregroundColor(.red)
                                     .padding()
                             }
@@ -51,19 +57,24 @@ struct EditDesk: View {
                 }
             }
         }
-        .navigationBarTitle(Text("Edit Desk Name"), displayMode: .inline)
-        .navigationBarItems(trailing: editDeskSaveButton(deskName: self.$deskName, isInvalidInput: self.$isInvalidInput, isSaved: self.$isSaved, currIndex: self.currIndex))
+        .navigationBarTitle(Text("Edit Desk"), displayMode: .inline)
+        .navigationBarItems(trailing:
+            editDeskSaveButton(
+                deskName: self.$deskNameBinding,
+                deskID: self.$deskIDBinding,
+                isInvalidInput: self.$isInvalidInput,
+                isSaved: self.$isSaved,
+                currIndex: self.currIndex )
+        )
     }
 }
 
 
 struct editDeskSaveButton: View {
-    
-    //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
     @EnvironmentObject var user: UserObservable
     
     @Binding var deskName: String
+    @Binding var deskID: String
     @Binding var isInvalidInput: Bool
     @Binding var isSaved: Bool
     
@@ -71,24 +82,29 @@ struct editDeskSaveButton: View {
     
     var body: some View {
         Button(action: {
+            self.isInvalidInput = false
             
-            if (self.deskName != "") {
-                
-                //Store new desk name
-                self.user.currentDesk.name = self.deskName
-                self.user.modifyDeskName(index: self.currIndex, name: self.deskName)
-                //self.user.saveCurrentDesk()
-                
-                // MARK: Maybe only save the desk permanently if connection is successful
-                self.isInvalidInput = false
+            // Check if deskID changed and is valid
+            var newID: Int = 0
+            if (self.deskID != "") {
+                guard self.deskID.count == 8 else { // Invalid deskID
+                    self.isInvalidInput = true
+                    self.isSaved = false
+                    return
+                }
+                newID = Int(self.deskID) ?? 0
+            }
+
+            // Save changes when input is valid
+            if !self.isInvalidInput {
+                self.user.editDesk(index: self.currIndex, name: self.deskName, deskID: newID)
                 self.isSaved = true
-    
             } else {
                 //Inform user their input is incorrect and remain in view
                 print("incorrect desk info submitted")
-                self.isInvalidInput = true
                 self.isSaved = false
             }
+            
             // Fix double press Done button bug
             //self.mode.wrappedValue.dismiss()
             
@@ -102,7 +118,7 @@ struct editDeskSaveButton: View {
 
 struct EditDesk_Previews: PreviewProvider {
     static var previews: some View {
-        EditDesk(currIndex: 0, currDesk: Desk(name: "", deskID: 12345678))
+        EditDesk(currIndex: 0)
             .environmentObject(UserObservable())
     }
 }

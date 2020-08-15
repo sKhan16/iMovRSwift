@@ -13,20 +13,10 @@ import Foundation
 struct Desk: Identifiable {
     
     var name: String
-    let id: Int
+    var id: Int
     
     init(name: String, deskID: Int) {
         self.name = name
         self.id = deskID
     }
-    
-    
-    func getName() -> String {
-        return self.name
-    }
-    
-    func getDeskID() -> Int {
-        return self.id
-    }
-    
 }

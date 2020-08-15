@@ -42,7 +42,7 @@ struct BTConnectView: View {
                     ) {
                         
                         TextField("desk id", text: $inputDeskID)
-                                .keyboardType(.decimalPad)
+                                .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Desk ID' section
                     
