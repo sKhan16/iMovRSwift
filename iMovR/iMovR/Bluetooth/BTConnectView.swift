@@ -86,6 +86,7 @@ struct BTConnectView: View {
     
 }
 
+
 // Bluetooth connection starts in BTDoneButton
 struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
@@ -96,58 +97,38 @@ struct BTDoneButton: View {
     @Binding var showBTConnect: Bool
     @Binding var notifyWrongInput: Bool
     
+    
     var body: some View {
         Button(action: {
             let deskID: Int = Int(self.inputDeskID) ?? 0
             
-            //if (self.inputDeskName != "") && self.verifyIDFormat(id: deskID) {
             if (self.inputDeskName != "") && (self.inputDeskID.count == 8) {
                 print("correct desk info submitted")
-                //Store user input and exit connect view
+                //Try to store user input, connect and exit connect view
                 let currDesk = Desk(name: self.inputDeskName, deskID: deskID)
                 self.user.currentDesk = currDesk
                 self.bt.currentDesk = currDesk
+                // Save the desk to persistent data
+                guard self.user.addDesk() else {
+                    print("addDesk error, staying in BTConnectView")
+                    return
+                }
                 // Begin searching for the desk
                 self.bt.startConnection()
-                // Only save the desk permanently if connection is successful
-                if self.bt.isConnected {
-                    guard self.user.addDesk() else {
-                        print("addDesk error, staying in BTConnectView")
-                        return
-                    }
-                } else {
-                    print("desk not connected yet when trying addDesk()")
-                }
+                
                 self.notifyWrongInput = false
                 self.showBTConnect = false
             } else {
-                //Inform user their input is incorrect and remain in view
+                //Input is incorrect, inform user and remain in view
                 print("incorrect desk info submitted")
                 self.notifyWrongInput = true
             }
-        }) { //Button contents
-            Text("Done").bold()
-        }
+        }) { // Button displayed contents
+            Text("Connect").bold()
+        } // end Button
     }
     
-    /*
-    func verifyIDFormat(id: Int) -> Bool {
-        // Ensures ID is exactly 8 digits long
-        var num = id
-        var count = 0
-        print("num = \(num)")
-        while num != 0 {
-            let digit = abs(num % 10)
-            if (digit != 0) && (id % digit == 0) {
-                count += 1
-            }
-            num = num / 10
-        }
-        print("Entered \(count) digits for deskID")
-        return (count == 8)
-    }
-    */
-}
+} // end BTDoneButton
 
 
 struct BTConnectView_Previews: PreviewProvider {
