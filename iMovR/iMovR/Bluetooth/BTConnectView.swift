@@ -28,7 +28,7 @@ struct BTConnectView: View {
                 //Text("Connect to a desk:")
                 Form {
                     Section(header:
-                        Text("Name your desk:")
+                        Text("Name Your Desk:")
                             .font(.headline)
                     ) {
                         
@@ -36,9 +36,12 @@ struct BTConnectView: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Name' section
                     
-                    Section(header: Text("Input desk ID:")) {
+                    Section(header:
+                        Text("Input Desk ID:")
+                            .font(.headline)
+                    ) {
                         
-                        TextField("desk ID", text: $inputDeskID)
+                        TextField("desk id", text: $inputDeskID)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Desk ID' section
