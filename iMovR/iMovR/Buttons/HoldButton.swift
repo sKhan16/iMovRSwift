@@ -52,8 +52,10 @@ struct HoldButton: View {
 
             .padding(.leading, 80)
             .padding(.trailing, 80)
+            .padding(.top, 40)
+            .padding(.bottom, 40)
             //.background(Color(red: 227/255, green: 230/255, blue: 232/255))
-            .font(.system(size: 500))
+            .font(.system(size: 1000))
             .minimumScaleFactor(0.01)
             .foregroundColor(.black)
             .lineLimit(1)
@@ -66,6 +68,6 @@ struct HoldButton: View {
 
 struct HoldButton_Previews: PreviewProvider {
     static var previews: some View {
-        HoldButton(presetName: .constant("Sitting"), presetHeight: .constant(Float(32.2.rounded())))
+        HoldButton(presetName: .constant("Sitting"), presetHeight: .constant(Float(0.0.rounded())))
     }
 }
