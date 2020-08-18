@@ -49,6 +49,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     
     func startConnection() {
+        print("attempting to connect to desk \(self.currentDesk.name)")
         guard self.currentDesk.id > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
             connectionStatus = "Invalid Desk ID\nPlease Change"
@@ -60,6 +61,9 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             connectionStatus = "Turn On Bluetooth To Continue"
             connectionColor = Color.red
             return
+        }
+        if self.isConnected {
+            centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
         }
         
         print("Scanning for peripherals with service: \(ZGoServiceUUID)")
