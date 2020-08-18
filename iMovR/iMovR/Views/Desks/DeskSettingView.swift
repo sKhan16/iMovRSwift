@@ -22,7 +22,8 @@ struct DeskSettingView: View {
             if user.desks.count > 0 {
                 ForEach(self.user.desks.indices, id: \.self) { index in
                     NavigationLink(destination:
-                        EditDesk(currIndex: index)) {
+                    //Desk setting detail is here. remove if conn bug
+                    DeskSettingDetail(currIndex: index)) {
                         SettingRow(name: self.user.desks[index].name, id:
                             String(self.user.desks[index].id))
                     }
