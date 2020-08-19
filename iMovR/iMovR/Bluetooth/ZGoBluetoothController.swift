@@ -13,15 +13,18 @@ import CoreBluetooth
 
 class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
+
+    
     // Published variables (update UI when changed)
     @Published var currentHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
     
+    @Published var currentDesk: Desk = Desk(name: "desk not yet initialized", deskID: 0)
+    
     @Published var connectionStatus: String = "Connect to a Desk"
     @Published var connectionColor: Color = Color.primary
     @Published var isConnected = false
-    @Published var currDeskID: Int = 0
     
     @Published var deskWrap: ZGoDeskPeripheral?
     
@@ -46,7 +49,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     
     func startConnection() {
-        guard self.currDeskID > 0 else {
+        print("attempting to connect to desk \(self.currentDesk.name)")
+        guard self.currentDesk.id > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
             connectionStatus = "Invalid Desk ID\nPlease Change"
             connectionColor = Color.red
@@ -57,6 +61,9 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             connectionStatus = "Turn On Bluetooth To Continue"
             connectionColor = Color.red
             return
+        }
+        if self.isConnected {
+            centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
         }
         
         print("Scanning for peripherals with service: \(ZGoServiceUUID)")
@@ -145,8 +152,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         //print("corrected manufacturerID: \(manufacturerDeskID)")
         
-        guard manufacturerDeskID == self.currDeskID else {
-            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currDeskID))")
+        guard manufacturerDeskID == self.currentDesk.id else {
+            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currentDesk.id))")
             DispatchQueue.main.async { () -> Void in
                 self.connectionStatus = "ID Didn't Match Discovered Desk(s)"
                 self.connectionColor = Color.red
@@ -177,6 +184,9 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             self.connectionStatus = "Connected To Desk"
             self.connectionColor = Color.green
         }
+        
+        self.isConnected = true
+
         deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
     
@@ -188,6 +198,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             self.connectionStatus = "Desk Disconnected"
             self.connectionColor = Color.primary
         }
+        self.isConnected = false
         // Start scanning for (ZGo) desks again
         //MARK:~~~Maybe this should look for paired devices before scanning for new ones~~~
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])

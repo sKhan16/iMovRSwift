@@ -15,6 +15,7 @@ struct AddPresetView: View {
     @State private var presetName: String = ""
     @State private var presetHeight: String = ""
     @Binding var showAddPreset: Bool
+    @State var isInvalidInput: Bool = false
     
     var body: some View {
         NavigationView {
@@ -30,12 +31,20 @@ struct AddPresetView: View {
                     TextField("Preset Height", text: $presetHeight)
                         .keyboardType(.decimalPad)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    if (self.isInvalidInput) {
+                        VStack {
+                            Text("Invalid field entries.")
+                            .foregroundColor(.red)
+                            .padding()
+                        }
+                    }
                     }
                 
                 }
             }
             .navigationBarTitle(Text("New Preset"), displayMode: .inline)
-            .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset))
+            .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset, isInvalidInput: self.$isInvalidInput))
         }
     }
 }
@@ -46,18 +55,26 @@ struct doneButton: View {
     @Binding  var presetName: String
     @Binding  var presetHeight: String
     @Binding var showAddPreset: Bool
+    @Binding var isInvalidInput: Bool
     
     var body: some View {
         Button(action: {
 
             let height: Float = (self.presetHeight as NSString).floatValue
             if height <= 48.00 && height >= 23.00 {
-                self.user.addPreset(name: self.presetName, height: height)
+                self.isInvalidInput = false
+                if self.user.addPreset(name: self.presetName, height: height) {
+                    print("preset successfully added")
+                } else {
+                    print("user.addPreset failed")
+                }
                 print("Height is \(height)")
+                self.showAddPreset = false
             } else {
+                self.isInvalidInput = true
                 print("height out of bounds!")
             }
-            self.showAddPreset = false
+            
         }) {
             Text("Done").bold()
         }

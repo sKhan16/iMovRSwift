@@ -26,8 +26,12 @@ struct ContentView: View {
                     }
                 }
                 .tag(0)
-            Text("Settings View")
-                .font(.title)
+            
+            /*Text("Settings View")
+                .font(.title) */
+                
+            SettingView()
+                
                 .tabItem {
                     VStack {
                         Image(systemName: "gear")
@@ -41,6 +45,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(UserObservable()).environmentObject(ZGoBluetoothController())
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        return ContentView().environment(\.managedObjectContext, context)
+                .environmentObject(UserObservable())
+                .environmentObject(ZGoBluetoothController())
     }
 }
