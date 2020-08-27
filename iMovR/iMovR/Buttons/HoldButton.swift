@@ -51,7 +51,8 @@ struct HoldButton: View {
                 // Increases size of button to show hold
                 ///Might cause issues where pressing isn't always registered.
                 .scaleEffect(self.pressed ? 1.1 : 1.0)
-            Text("Move to: \(String(format: "%.1f", self.presetHeight))")
+            //Hold button text
+            Text(self.presetHeight == 0.0 ? "Move to preset height" : "Move to: \(String(format: "%.1f", self.presetHeight))")
 
             .padding(.leading, 80)
             .padding(.trailing, 80)
