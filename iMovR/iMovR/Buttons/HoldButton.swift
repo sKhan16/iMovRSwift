@@ -44,11 +44,15 @@ struct HoldButton: View {
                     LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
                         .onEnded() { _ in
                             self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
-                            print("simultaneous long press upButton")
+                            print("simultaneous long press activated")
                     }
                     
                 )
-            Text("Move to: \(String(format: "%.1f", self.presetHeight))")
+                // Increases size of button to show hold
+                ///Might cause issues where pressing isn't always registered.
+                .scaleEffect(self.pressed ? 1.1 : 1.0)
+            //Hold button text
+            Text(self.presetHeight == 0.0 ? "Move to preset height" : "Move to: \(String(format: "%.1f", self.presetHeight))")
 
             .padding(.leading, 80)
             .padding(.trailing, 80)
