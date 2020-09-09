@@ -119,7 +119,7 @@ public class UserObservable: ObservableObject {
         ///Populate tmp array with correct ordering
         if !self.fetchedPresets!.isEmpty {
             for presetData in self.fetchedPresets!  {
-                var preset: Preset = Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID))
+                var preset: Preset = Preset(name: presetData.name ?? "", height: presetData.height, deskID: Int(presetData.deskID))
                 //print("presetData(\(presetData.name))'s deskID: \(presetData.deskID)")
                 preset.setId(id: presetData.uuid)
                 
@@ -146,7 +146,7 @@ public class UserObservable: ObservableObject {
         
         if !self.fetchedDesks!.isEmpty {
             for deskData in self.fetchedDesks! {
-                fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
+                fDesks.append(Desk(name: deskData.name ?? "", deskID: Int(deskData.deskID)))
                 print("DeskData(\(deskData.name)'s deskID = \(deskData.deskID)")
             }
         }
