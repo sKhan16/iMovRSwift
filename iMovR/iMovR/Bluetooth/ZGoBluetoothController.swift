@@ -15,7 +15,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
 
     
-    // Published variables (update UI when changed)
+    // Published height variables (automatically updates UI when changed)
     @Published var currentHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
@@ -28,7 +28,11 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     @Published var deskWrap: ZGoDeskPeripheral?
     
+    // For desk scan feature in BTConnectView
+    @Published var scannedDeskPeripherals: [CBPeripheral] = []
+    
     @State var deskUpdatedHeight = false
+    
     
     
     override init() {
@@ -47,6 +51,15 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     var bluetoothReadyFlag = false
     
+    func scanForDesks() {
+        guard self.bluetoothReadyFlag else {
+            print("bluetooth not ready yet")
+            connectionStatus = "Turn On Bluetooth To Continue"
+            connectionColor = Color.red
+            return
+        }
+        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
+    }
     
     func startConnection() {
         print("attempting to connect to desk \(self.currentDesk.name)")
@@ -62,6 +75,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             connectionColor = Color.red
             return
         }
+        // disconnect to connect to a different desk
         if self.isConnected {
             centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
         }
@@ -136,10 +150,13 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     //MARK: centralManager methods for interacting with the bluetooth peripheral
     
-    // didDiscover peripheral
+    /// didDiscover peripheral
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        // MARK: Verify manufacturer deskID matches user input deskID
+        // scanForDesks feature: save discovered peripheral for later use/connection
+        self.scannedDeskPeripherals.append(peripheral)
+        
+        // Verify manufacturer deskID matches user input deskID
         var manufacturerData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
         // Bytes are stored as 0x3k, where 'k' is a digit of the 8 digit manufacturer unique ID.
         // 0x30 = 48 = 3 * 2^4

@@ -9,11 +9,13 @@
 import SwiftUI
 
 struct BTConnectView: View {
+
     
     // For saving to CoreData
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: ZGoBluetoothController
     
     @State private var inputDeskName: String = ""
     @State private var inputDeskID: String = ""
@@ -27,12 +29,22 @@ struct BTConnectView: View {
             VStack {
                 //Text("Connect to a desk:")
                 Form {
+                    Button(action: {
+                        self.bt.scanForDesks()
+                        
+                    }) {
+                        Text("Scan for Desks")
+                    }
+                    List {
+                        /*@START_MENU_TOKEN@*/ /*@PLACEHOLDER=Content@*/Text("Content")/*@END_MENU_TOKEN@*/
+                        //self.bt.scannedDeskPeripherals
+                    }
                     Section(header:
                         Text("Name Your Desk:")
                             .font(.headline)
                     ) {
                         
-                        TextField("desk name", text: $inputDeskName)
+                        TextField("Desk Name", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Name' section
                     
@@ -41,7 +53,7 @@ struct BTConnectView: View {
                             .font(.headline)
                     ) {
                         
-                        TextField("desk id", text: $inputDeskID)
+                        TextField("Desk ID", text: $inputDeskID)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Desk ID' section
