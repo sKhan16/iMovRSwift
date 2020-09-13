@@ -21,6 +21,9 @@
 		1E23017124BCEB3A009A0B3C /* iMovRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017024BCEB3A009A0B3C /* iMovRTests.swift */; };
 		1E23017C24BCEB3A009A0B3C /* iMovRUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */; };
 		1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E31FFD424DA4A6100E9913F /* Desk.swift */; };
+		1E5F1824250BFFFA00455E96 /* TouchGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F1823250BFFFA00455E96 /* TouchGoButton.swift */; };
+		1E5F1826250C002D00455E96 /* StartGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F1825250C002D00455E96 /* StartGoButton.swift */; };
+		1E5F1828250C003F00455E96 /* StopGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F1827250C003E00455E96 /* StopGoButton.swift */; };
 		1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1DF24BF9DB300155123 /* HomeView.swift */; };
 		1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */; };
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
@@ -97,6 +100,9 @@
 		1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMovRUITests.swift; sourceTree = "<group>"; };
 		1E23017D24BCEB3A009A0B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E31FFD424DA4A6100E9913F /* Desk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Desk.swift; sourceTree = "<group>"; };
+		1E5F1823250BFFFA00455E96 /* TouchGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchGoButton.swift; sourceTree = "<group>"; };
+		1E5F1825250C002D00455E96 /* StartGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGoButton.swift; sourceTree = "<group>"; };
+		1E5F1827250C003E00455E96 /* StopGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopGoButton.swift; sourceTree = "<group>"; };
 		1E94E1DF24BF9DB300155123 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
@@ -257,6 +263,9 @@
 				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
+				1E5F1823250BFFFA00455E96 /* TouchGoButton.swift */,
+				1E5F1825250C002D00455E96 /* StartGoButton.swift */,
+				1E5F1827250C003E00455E96 /* StopGoButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -632,6 +641,7 @@
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
 				41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */,
 				982F181E24D54865003FF080 /* EditPreset.swift in Sources */,
+				1E5F1826250C002D00455E96 /* StartGoButton.swift in Sources */,
 				412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */,
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
 				41AED7AE24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift in Sources */,
@@ -654,8 +664,10 @@
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
 				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,
 				982F181024D37536003FF080 /* Setting.swift in Sources */,
+				1E5F1824250BFFFA00455E96 /* TouchGoButton.swift in Sources */,
 				4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
+				1E5F1828250C003F00455E96 /* StopGoButton.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,

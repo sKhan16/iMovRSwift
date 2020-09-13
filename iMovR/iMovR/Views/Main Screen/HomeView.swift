@@ -17,6 +17,7 @@ struct HomeView: View {
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
     @State var showBTConnect: Bool = false
+    @State var isTouchGo: Bool = false
     
     @State var presetName: String = ""
     @State var presetHeight: Float = 0.0
@@ -74,8 +75,17 @@ struct HomeView: View {
             Spacer()
          
         //}
+
+            VStack () {
+            Text("Touch & Go")
+            Toggle("Sound", isOn: $isTouchGo).labelsHidden()
+            }
             VStack {
-            HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+                if isTouchGo {
+                    TouchGoButton(isTouchGo: $isTouchGo)
+                } else {
+                HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+                }
             }
             .padding(.bottom)
             Spacer()
