@@ -36,9 +36,15 @@ struct BTConnectView: View {
                         Text("Scan for Desks")
                     }
                     List {
-                        /*@START_MENU_TOKEN@*/ /*@PLACEHOLDER=Content@*/Text("Content")/*@END_MENU_TOKEN@*/
+                        Text("first scanned desks list element")
+                        
+                        ForEach (0..<self.bt.scannedDeskPeripherals.enumerated(), id: \.self) { index in
+                            Text(self.bt.discoveredDeskPeripherals[index](0).name)
+                            //PresetButton(name: self.user.presets[index].getName(), presetVal: self.user.presets[index].getHeight(), presetName: self.$presetName, presetHeight: self.$presetHeight)
+                        }
+                        
                         //self.bt.scannedDeskPeripherals
-                    }
+                    } // end List
                     Section(header:
                         Text("Name Your Desk:")
                             .font(.headline)

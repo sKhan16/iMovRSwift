@@ -29,7 +29,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var deskWrap: ZGoDeskPeripheral?
     
     // For desk scan feature in BTConnectView
-    @Published var scannedDeskPeripherals: [CBPeripheral] = []
+    @Published var discoveredDeskPeripherals: [(Desk, CBPeripheral)] = []
     
     @State var deskUpdatedHeight = false
     
@@ -43,13 +43,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
     
+    
     //MARK: Bluetooth Objects
     var centralManager: CBCentralManager?
     var deskPeripheral: CBPeripheral?
     
     var writeCharacteristic, readCharacteristic: CBCharacteristic?
-    
     var bluetoothReadyFlag = false
+    
     
     func scanForDesks() {
         guard self.bluetoothReadyFlag else {
@@ -61,6 +62,11 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
+    /* connect to a specific desk picked from the discovered desks array
+    func connectToDesk {
+        
+    }
+    */
     func startConnection() {
         print("attempting to connect to desk \(self.currentDesk.name)")
         guard self.currentDesk.id > 0 else {
@@ -150,25 +156,29 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     //MARK: centralManager methods for interacting with the bluetooth peripheral
     
+    
     /// didDiscover peripheral
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        // scanForDesks feature: save discovered peripheral for later use/connection
-        self.scannedDeskPeripherals.append(peripheral)
-        
-        // Verify manufacturer deskID matches user input deskID
-        var manufacturerData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
+        // Make raw manufacturer ID readable
+        var rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
         // Bytes are stored as 0x3k, where 'k' is a digit of the 8 digit manufacturer unique ID.
         // 0x30 = 48 = 3 * 2^4
-        for index in manufacturerData.indices {
-            manufacturerData[index] -= 48;
+        for index in rawData.indices {
+            rawData[index] -= 48;
         }
         var manufacturerDeskID : Int = 0
-        for (index, digit) in manufacturerData.enumerated() {
+        for (index, digit) in rawData.enumerated() {
             manufacturerDeskID += Int(digit) * Int(pow(10,Double(7-index)))
         }
-        //print("corrected manufacturerID: \(manufacturerDeskID)")
         
+        
+        // scanForDesks feature: save discovered peripheral for later use/connection
+        self.discoveredDeskPeripherals.append((Desk(name: "Discovered Desk:", deskID: manufacturerDeskID), peripheral))
+        // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the below connect functionality into a different method called elsewhere in the code.
+        // scan stops below if the guard statement is passed. if first scanned desk happens to be the selected current desk it won't discover any more desks
+        
+        // Begin connection if current discovered desk matches stored user selection
         guard manufacturerDeskID == self.currentDesk.id else {
             print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currentDesk.id))")
             DispatchQueue.main.async { () -> Void in
@@ -182,7 +192,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             self.connectionStatus = "ID Matches Discovered Desk"
             self.connectionColor = Color.primary
         }
-        print("Connecting to desk with ID:\n \(manufacturerData)")
+        print("Connecting to desk with ID:\n \(rawData)")
         
         deskPeripheral = peripheral
         // Must set delegate of peripheralZGoDesk to ViewController(self)
