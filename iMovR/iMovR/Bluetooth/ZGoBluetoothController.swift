@@ -29,7 +29,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var deskWrap: ZGoDeskPeripheral?
     
     // For desk scan feature in BTConnectView
-    @Published var discoveredDeskPeripherals: [(Desk, CBPeripheral)] = []
+    @Published var discoveredDeskPeripherals: [Desk] = []
     
     @State var deskUpdatedHeight = false
     
@@ -157,7 +157,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     //MARK: centralManager methods for interacting with the bluetooth peripheral
     
     
-    /// didDiscover peripheral
+    ///# didDiscover peripheral
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
         // Make raw manufacturer ID readable
@@ -174,7 +174,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         
         
         // scanForDesks feature: save discovered peripheral for later use/connection
-        self.discoveredDeskPeripherals.append((Desk(name: "Discovered Desk:", deskID: manufacturerDeskID), peripheral))
+        self.discoveredDeskPeripherals.append(Desk(deskID: manufacturerDeskID, peripheral: peripheral))
         // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the below connect functionality into a different method called elsewhere in the code.
         // scan stops below if the guard statement is passed. if first scanned desk happens to be the selected current desk it won't discover any more desks
         

@@ -35,16 +35,40 @@ struct BTConnectView: View {
                     }) {
                         Text("Scan for Desks")
                     }
-                    List {
-                        Text("first scanned desks list element")
-                        
-                        ForEach (0..<self.bt.scannedDeskPeripherals.enumerated(), id: \.self) { index in
-                            Text(self.bt.discoveredDeskPeripherals[index](0).name)
-                            //PresetButton(name: self.user.presets[index].getName(), presetVal: self.user.presets[index].getHeight(), presetName: self.$presetName, presetHeight: self.$presetHeight)
+                    NavigationView {
+                        List {
+                            
+                            //AddDeskView()
+                            //Text("Add desks here")
+                            //Text("List saved desks to edit here")
+                            if user.desks.count > 0 {
+                                ForEach(self.user.desks.indices, id: \.self) { index in
+                                    NavigationLink(destination:
+                                        //Desk setting detail is here. remove if conn bug
+                                    DeskSettingDetail(currIndex: index)) {
+                                        SettingRow(name: self.user.desks[index].name, id:
+                                            String(self.user.desks[index].id))
+                                    }
+                                }
+                                //else { //if there are no desks, ask to add
+                            }
                         }
-                        
-                        //self.bt.scannedDeskPeripherals
-                    } // end List
+                        .navigationBarTitle(Text("Saved Desks"))
+                        List {
+                            
+                            Text("first scanned desks list element")
+                            
+                            /*
+                            ForEach (0..<self.bt.scannedDeskPeripherals, id: \.self) { index in
+                                Text(self.bt.discoveredDeskPeripherals[index].0.name)
+                                //PresetButton(name: self.user.presets[index].getName(), presetVal: self.user.presets[index].getHeight(), presetName: self.$presetName, presetHeight: self.$presetHeight)
+                            }
+                            */
+                            
+                            //self.bt.scannedDeskPeripherals
+                        } // end List
+                        .navigationBarTitle(Text("Scanned Desks"))
+                    }
                     Section(header:
                         Text("Name Your Desk:")
                             .font(.headline)
@@ -151,7 +175,10 @@ struct BTDoneButton: View {
 
 struct BTConnectView_Previews: PreviewProvider {
     static var previews: some View {
-        BTConnectView(showBTConnect: .constant(true))
-            .environmentObject(UserObservable())
+        let user: UserObservable = UserObservable()
+        user.desks.append(contentsOf: [Desk(name: "test desk 1", deskID: 13371234), Desk(name: "test desk 2", deskID: 56789012)])
+        
+        return BTConnectView(showBTConnect: .constant(true))
+            .environmentObject(user)
     }
 }
