@@ -82,7 +82,9 @@ struct HomeView: View {
             }
             VStack {
                 if isTouchGo {
-                    TouchGoButton(isTouchGo: $isTouchGo)
+                    TouchGoButton(isTouchGo: $isTouchGo,
+                        presetHeight:
+                        self.$presetHeight)
                 } else {
                 HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
                 }

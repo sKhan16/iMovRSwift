@@ -10,9 +10,11 @@ import SwiftUI
 
 struct TouchGoButton: View {
     @Binding var isTouchGo: Bool
+    @Binding var presetHeight: Float
+    
     var body: some View {
         HStack {
-            StartGoButton()
+            StartGoButton(presetHeight: self.$presetHeight)
             StopGoButton()
         }
         
@@ -22,6 +24,6 @@ struct TouchGoButton: View {
 
 struct TouchGoButton_Previews: PreviewProvider {
     static var previews: some View {
-        TouchGoButton(isTouchGo: .constant(false))
+        TouchGoButton(isTouchGo: .constant(false), presetHeight: .constant(32.0))
     }
 }

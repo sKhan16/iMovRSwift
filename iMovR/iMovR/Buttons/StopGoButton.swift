@@ -9,9 +9,17 @@
 import SwiftUI
 
 struct StopGoButton: View {
+    @EnvironmentObject var bt: ZGoBluetoothController
+    
     var body: some View {
         Button(action: {
-                
+            self.bt.deskWrap?.releaseDesk()
+            print("Stop Timer fired b4 interval")
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
+                    print("Stop Timer fired after interval!")
+                self.bt.deskWrap?.releaseDesk()
+                    timer.invalidate()
+                }
             }) {
             Text("Stop")
             .fontWeight(.bold)

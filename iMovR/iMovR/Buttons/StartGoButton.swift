@@ -9,9 +9,19 @@
 import SwiftUI
 
 struct StartGoButton: View {
+    @EnvironmentObject var bt: ZGoBluetoothController
+    
+    @Binding var presetHeight: Float
+    
     var body: some View {
         Button(action: {
-            
+            self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
+            print("Start Timer fired b4 interval")
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                print("Start Timer fired after interval!")
+                self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
+                timer.invalidate()
+            }
         }) {
         Text("Start")
         .fontWeight(.bold)
@@ -32,6 +42,6 @@ struct StartGoButton: View {
 
 struct StartGoButton_Previews: PreviewProvider {
     static var previews: some View {
-        StartGoButton()
+        StartGoButton(presetHeight: .constant(32.0))
     }
 }
