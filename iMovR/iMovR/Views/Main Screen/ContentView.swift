@@ -14,11 +14,13 @@ struct ContentView: View {
     @EnvironmentObject var BTController: ZGoBluetoothController
  
     var body: some View {
-        
-        TabView(selection: $selection){
-            
+        GeometryReader { geo in
+            TabView(selection: self.$selection){
             HomeView()
-                    
+                .frame(width: geo.size.width * 1.0,
+                       height: geo.size.height * 1.0)
+                
+                //.aspectRatio(contentMode: .fit)
                 .tabItem {
                     VStack {
                         Image(systemName: "house")
@@ -40,6 +42,9 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
+            ///geo reader paren
+            }
+        //.edgesIgnoringSafeArea(.top)
     }
 }
 

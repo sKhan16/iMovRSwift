@@ -23,12 +23,17 @@ struct HomeView: View {
     @State var presetHeight: Float = 0.0
     
     var body: some View {
+        GeometryReader { geo in
         
         VStack {
-            Image("imovrLogo")
-                .resizable()
-                .frame(width: 110, height: 110)
-                .padding(.top)
+            Spacer()
+            VStack {
+                Image("imovrLogo")
+                    .resizable()
+                    .frame(width: geo.size.width / 6, height: geo.size.height / 10)
+                    .padding(.top)
+                }
+            
             //Spacer().frame(height: 70)
             //ZStack {
             HStack {
@@ -62,9 +67,9 @@ struct HomeView: View {
                 }
                 
                 VStack {
-                    UpButton(testHeight: $testHeight)
+                    UpButton(testHeight: self.$testHeight)
                         //.padding()
-                    DownButton(testHeight: $testHeight)
+                    DownButton(testHeight: self.$testHeight)
                 }
                 .padding()
                 Spacer()
@@ -78,11 +83,11 @@ struct HomeView: View {
 
             VStack () {
             Text("Touch & Go")
-            Toggle("Sound", isOn: $isTouchGo).labelsHidden()
+                Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
             }
             VStack {
-                if isTouchGo {
-                    TouchGoButton(isTouchGo: $isTouchGo,
+                if self.isTouchGo {
+                    TouchGoButton(isTouchGo: self.$isTouchGo,
                         presetHeight:
                         self.$presetHeight)
                 } else {
@@ -97,7 +102,8 @@ struct HomeView: View {
         }
 
     }
-    
+    ///Geo reader end paren
+    }
     
 }
 
