@@ -134,8 +134,8 @@ struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: ZGoBluetoothController
     
-    @Binding  var inputDeskName: String
-    @Binding  var inputDeskID: String
+    @Binding var inputDeskName: String
+    @Binding var inputDeskID: String
     @Binding var showBTConnect: Bool
     @Binding var notifyWrongInput: Bool
     
@@ -165,7 +165,7 @@ struct BTDoneButton: View {
                 print("incorrect desk info submitted")
                 self.notifyWrongInput = true
             }
-        }) { // Button displayed contents
+        }) { // End button action. Button displayed contents:
             Text("Connect").bold()
         } // end Button
     }
@@ -175,8 +175,9 @@ struct BTDoneButton: View {
 
 struct BTConnectView_Previews: PreviewProvider {
     static var previews: some View {
+        
         let user: UserObservable = UserObservable()
-        user.desks.append(contentsOf: [Desk(name: "test desk 1", deskID: 13371234), Desk(name: "test desk 2", deskID: 56789012)])
+//        user.desks.append(contentsOf: [Desk(name: "test desk 1", deskID: 13371234), Desk(name: "test desk 2", deskID: 56789012)])
         
         return BTConnectView(showBTConnect: .constant(true))
             .environmentObject(user)

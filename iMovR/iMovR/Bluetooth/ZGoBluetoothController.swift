@@ -62,13 +62,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
-    /* connect to a specific desk picked from the discovered desks array
-    func connectToDesk {
-        
-    }
-    */
     func startConnection() {
-        print("attempting to connect to desk \(self.currentDesk.name)")
+        print("attempting to connect to current selected desk \(self.currentDesk.name)")
         guard self.currentDesk.id > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
             connectionStatus = "Invalid Desk ID\nPlease Change"
@@ -83,6 +78,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         // disconnect to connect to a different desk
         if self.isConnected {
+            print("disconnecting from connected desk")
+            self.isConnected = false
             centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
         }
         
@@ -213,6 +210,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
         
         self.isConnected = true
+        print("successfully connected to desk \(self.currentDesk.name)")
 
         deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
@@ -221,14 +219,19 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // didDisconnectPeripheral: When the peripheral disconnects, start scanning on BT again
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Peripheral disconnected; now scanning")
+        //catch error here?
+        
+        self.isConnected = false
         DispatchQueue.main.async { () -> Void in
             self.connectionStatus = "Desk Disconnected"
             self.connectionColor = Color.primary
         }
-        self.isConnected = false
-        // Start scanning for (ZGo) desks again
-        //MARK:~~~Maybe this should look for paired devices before scanning for new ones~~~
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
+        
+        // Unintentional disconnection: attempt to reestablish connection with current desk
+        if error != nil {
+            print("desk disconnected with error\nattempting reconnection with current desk")
+            centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
+        }
     }
     
     // didDiscoverServices: makes sure the desk has the correct service before continuing
