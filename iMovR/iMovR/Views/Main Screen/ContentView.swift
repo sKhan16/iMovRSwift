@@ -16,10 +16,11 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geo in
             TabView(selection: self.$selection){
-            HomeView()
-                .frame(width: geo.size.width * 1.0,
-                       height: geo.size.height * 1.0)
-                
+                HomeView()
+                    .padding(0.0)
+                .frame(width: geo.size.width,
+                       height: geo.size.height * 1.0 / 3.0)
+                    
                 //.aspectRatio(contentMode: .fit)
                 .tabItem {
                     VStack {
@@ -42,10 +43,16 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
+            
+//            .introspectTabBarController { tabV in
+//
+//            }
             ///geo reader paren
-            }
+        }
+        
         //.edgesIgnoringSafeArea(.top)
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -26,7 +26,7 @@ struct StartGoButton: View {
         Text("Start")
         .fontWeight(.bold)
         .font(.title)
-            .frame(minWidth: 0, maxWidth: 250)
+            .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
         .background(Color.green)
         .cornerRadius(40)
