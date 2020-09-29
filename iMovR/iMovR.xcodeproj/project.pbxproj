@@ -37,7 +37,7 @@
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
 		4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AC24DE237800BF9B64 /* EditDesk.swift */; };
 		415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415B9CE624EB46B700A2EF28 /* DeskSettingDetail.swift */; };
-		418CEB1F251433C100309C89 /* DiscoveredDesksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418CEB1E251433C100309C89 /* DiscoveredDesksView.swift */; };
+		418CEB1F251433C100309C89 /* DiscoveredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418CEB1E251433C100309C89 /* DiscoveredDevicesView.swift */; };
 		41A3096B24C28F4700644006 /* BTConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096A24C28F4700644006 /* BTConnectView.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */; };
@@ -115,7 +115,7 @@
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
 		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
 		415B9CE624EB46B700A2EF28 /* DeskSettingDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingDetail.swift; sourceTree = "<group>"; };
-		418CEB1E251433C100309C89 /* DiscoveredDesksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveredDesksView.swift; sourceTree = "<group>"; };
+		418CEB1E251433C100309C89 /* DiscoveredDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveredDevicesView.swift; sourceTree = "<group>"; };
 		41A3096A24C28F4700644006 /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTConnectView.swift; path = "iMovR/Views/Bluetooth Views/BTConnectView.swift"; sourceTree = SOURCE_ROOT; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoDeskPeripheral.swift; sourceTree = "<group>"; };
@@ -319,7 +319,6 @@
 			children = (
 				4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */,
 				4138A3AC24DE237800BF9B64 /* EditDesk.swift */,
-				418CEB1E251433C100309C89 /* DiscoveredDesksView.swift */,
 			);
 			path = Desks;
 			sourceTree = "<group>";
@@ -370,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				41A3096A24C28F4700644006 /* BTConnectView.swift */,
+				418CEB1E251433C100309C89 /* DiscoveredDevicesView.swift */,
 			);
 			path = "Bluetooth Views";
 			sourceTree = "<group>";
@@ -669,7 +669,7 @@
 				982F181C24D386FF003FF080 /* PresetSettingView.swift in Sources */,
 				982F180A24D36FFC003FF080 /* SettingView.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
-				418CEB1F251433C100309C89 /* DiscoveredDesksView.swift in Sources */,
+				418CEB1F251433C100309C89 /* DiscoveredDevicesView.swift in Sources */,
 				1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */,
 				41AED79D24D9FA69007C68E2 /* iMovR.xcdatamodeld in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
@@ -841,14 +841,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iMovR/Preview Content\"";
-				DEVELOPMENT_TEAM = P6AZA7SNK6;
+				DEVELOPMENT_TEAM = M25MU7D9NY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iMovR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR;
+				PRODUCT_BUNDLE_IDENTIFIER = iMovR.Mike;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -863,14 +863,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iMovR/Preview Content\"";
-				DEVELOPMENT_TEAM = P6AZA7SNK6;
+				DEVELOPMENT_TEAM = M25MU7D9NY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iMovR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR;
+				PRODUCT_BUNDLE_IDENTIFIER = iMovR.Mike;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

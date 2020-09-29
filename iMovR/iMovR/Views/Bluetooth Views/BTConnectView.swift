@@ -26,63 +26,52 @@ struct BTConnectView: View {
     var body: some View {
         // Try cocoapod popoverview later
         NavigationView {
+            
             VStack {
-                //Text("Connect to a desk:")
                 Form {
                     Button(action: {
-                        self.bt.scanForDesks()
+                        self.bt.scanForDevices()
                         
                     }) {
                         Text("Scan for Desks")
                     }
-                    NavigationView {
-                        List {
-                            
-                            //AddDeskView()
-                            //Text("Add desks here")
-                            //Text("List saved desks to edit here")
-                            if user.desks.count > 0 {
-                                ForEach(self.user.desks.indices, id: \.self) { index in
-                                    NavigationLink(destination:
-                                        //Desk setting detail is here. remove if conn bug
-                                    DeskSettingDetail(currIndex: index)) {
-                                        SettingRow(name: self.user.desks[index].name, id:
-                                            String(self.user.desks[index].id))
-                                    }
+                    Spacer()
+                    List {
+                        //AddDeskView()
+                        //Text("Add desks here")
+                        Text("Discovered Devices:")
+                        if bt.discoveredDevices.count > 0 {
+                            ForEach(bt.discoveredDevices.indices, id: \.self) { index in
+                                Button(action: {
+                                    self.bt.connectToDevice(peripheral: self.bt.discoveredDevices[index].peripheral)
+                                    
+                                }) {
+                                    Text("Device #\(self.bt.discoveredDevices[index].id)")
                                 }
-                                //else { //if there are no desks, ask to add
+                                    /*
+                                     DeskSettingDetail(currIndex: index) ) {
+                                     SettingRow(name: self.bt.discoveredDevices[index].name, id:
+                                     String(self.bt.discoveredDevices[index].id))
+                                     }
+                                     */
                             }
                         }
-                        .navigationBarTitle(Text("Saved Desks"))
-                        List {
-                            
-                            Text("first scanned desks list element")
-                            
-                            /*
-                            ForEach (0..<self.bt.scannedDeskPeripherals, id: \.self) { index in
-                                Text(self.bt.discoveredDeskPeripherals[index].0.name)
-                                //PresetButton(name: self.user.presets[index].getName(), presetVal: self.user.presets[index].getHeight(), presetName: self.$presetName, presetHeight: self.$presetHeight)
-                            }
-                            */
-                            
-                            //self.bt.scannedDeskPeripherals
-                        } // end List
-                        .navigationBarTitle(Text("Scanned Desks"))
                     }
+                    
+                    // Desk name input section of form
                     Section(header:
                         Text("Name Your Desk:")
                             .font(.headline)
                     ) {
-                        
                         TextField("Desk Name", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Name' section
                     
+                    // Desk ID input section of form
                     Section(header:
                         Text("Input Desk ID:")
                             .font(.headline)
                     ) {
-                        
                         TextField("Desk ID", text: $inputDeskID)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
