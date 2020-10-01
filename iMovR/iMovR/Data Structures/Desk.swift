@@ -16,16 +16,18 @@ struct Desk: Identifiable {
     var name: String
     var id: Int
     var peripheral: CBPeripheral?
+    var rssi: NSNumber?
     
     init(name: String, deskID: Int) {
         self.name = name
         self.id = deskID
     }
     
-    init(deskID: Int, peripheral: CBPeripheral) {
+    init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber) {
         self.id = deskID
-        self.peripheral = peripheral
+        self.peripheral = deskPeripheral
+        self.rssi = rssi
         
-        self.name = "Discovered Desk"
+        self.name = "Discovered ZipDesk"
     }
 }

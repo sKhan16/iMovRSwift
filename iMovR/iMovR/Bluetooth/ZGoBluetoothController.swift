@@ -172,32 +172,32 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     ///# didDiscover peripheral
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        // Make raw manufacturer ID readable
-        var rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
-        // Bytes are stored as 0x3k, where 'k' is a digit of the 8 digit manufacturer unique ID.
-        // 0x30 = 48 = 3 * 2^4
-        for index in rawData.indices {
-            rawData[index] -= 48;
-        }
+        // Make unique manufacturer ID readable
+        let rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
+        // Bytes are stored as 0x3k, where 'k' is one digit of the 8 digit manufacturer ID.
+        // 0x30 = 3 * 2^4 = 48
         var manufacturerDeskID : Int = 0
         for (index, digit) in rawData.enumerated() {
-            manufacturerDeskID += Int(digit) * Int(pow(10,Double(7-index)))
+            manufacturerDeskID += Int(digit - 0x30) * Int(pow(10,Double(7-index)))
         }
         
         print("discovered device with ID#\(manufacturerDeskID)")
-        // scanForDesks feature: save discovered peripheral for later use/connection
-        let tempPeripheral: CBPeripheral = peripheral
-        tempPeripheral.delegate = self
         
-        self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, peripheral: tempPeripheral))
+        // scanForDesks feature: save discovered peripheral for later use/connection
+        // Before saving desk in discovered peripherals, need to see if it is contained in saved desks first.
+        // Or know what function led to the desk being discovered. Hmmm
+        
+        self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
         
         // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the code after this guard into a different method only called with the currentDesk ID check.
+        // Alternatively, put in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
+        
         guard self.currentDesk.id > 0 else {
             // peripheral was discovered during the scan process, exit code now
             return
         }
         
-        // scan is stopped after the guard statement. If first scanned desk happens to be the targeted currentDesk it won't discover any more desks
+        // scan is stopped after the guard statement. If first scanned desk happens to be the searched for currentDesk it won't discover any more desks, but this functionality must change
 
         // Begin connection if current discovered desk matches stored user selection
         guard manufacturerDeskID == self.currentDesk.id else {
@@ -217,7 +217,6 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         
         deskPeripheral = peripheral
         // Must set delegate of peripheralZGoDesk to ViewController(self)
-        deskPeripheral?.delegate = self
         // Stop scanning for peripherals to save battery life
         centralManager?.stopScan()
         // Connect to the discovered peripheral
@@ -228,6 +227,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     // didConnect: Invoked when a peripheral is connected successfully
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        peripheral.delegate = self
+        
         DispatchQueue.main.async { () -> Void in
             self.connectionStatus = "Connected To Desk"
             self.connectionColor = Color.green
