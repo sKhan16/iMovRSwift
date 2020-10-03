@@ -15,7 +15,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
 
     
-    ///# Externally modified variables
+    // Published variables (update UI when changed)
     @Published var currentHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
@@ -28,18 +28,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     @Published var deskWrap: ZGoDeskPeripheral?
     
-    // For desk scan feature in BTConnectView
-    @Published var discoveredDevices: [Desk] = []
-    
     @State var deskUpdatedHeight = false
-    
-    
-    ///# Local Bluetooth Objects
-    private var centralManager: CBCentralManager?
-    private var deskPeripheral: CBPeripheral?
-    
-    private var writeCharacteristic, readCharacteristic: CBCharacteristic?
-    private var bluetoothReadyFlag = false
     
     
     override init() {
@@ -50,35 +39,17 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
     
+    //MARK: Bluetooth Objects
+    var centralManager: CBCentralManager?
+    var deskPeripheral: CBPeripheral?
     
-    func scanForDevices() {
-        print("attemping to scan for devices")
-        guard self.bluetoothReadyFlag else {
-            print("bluetooth not ready yet")
-            connectionStatus = "Turn On Bluetooth To Continue"
-            connectionColor = Color.red
-            return
-        }
-        // clear previously discovered devices
-        // later only clear devices if their connection cannot be validated
-        self.discoveredDevices = []
-        // reset current desk for proper behavior in 'didDiscover peripheral' CoreBluetooth function
-        self.currentDesk = Desk(name: "desk not yet initialized", deskID: 0)
-        
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
-    }
+    var writeCharacteristic, readCharacteristic: CBCharacteristic?
     
-    func connectToDevice(peripheral: CBPeripheral?) {
-        guard peripheral != nil else {
-            print("error: attempted to connect to nil peripheral\nperipheral expired or wasn't initialized")
-            return
-        }
-        
-        centralManager?.connect(peripheral!)
-    }
+    var bluetoothReadyFlag = false
+    
     
     func startConnection() {
-        print("attempting to find and connect to current selected desk \(self.currentDesk.name)")
+        print("attempting to connect to desk \(self.currentDesk.name)")
         guard self.currentDesk.id > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
             connectionStatus = "Invalid Desk ID\nPlease Change"
@@ -91,17 +62,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             connectionColor = Color.red
             return
         }
-        // disconnect if needed to connect to a different desk
         if self.isConnected {
-            print("disconnecting from connected desk")
-            self.isConnected = false
             centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
         }
         
         print("Scanning for peripherals with service: \(ZGoServiceUUID)")
         connectionStatus = "Scanning For Desks"
         connectionColor = Color.primary
-        // BT is on, targeted current desk is set, now scan for peripherals that match the CBUUID
+        // BT is on, now scan for peripherals that match the CBUUID
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID]);
     }
     
@@ -168,38 +136,22 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     //MARK: centralManager methods for interacting with the bluetooth peripheral
     
-    
-    ///# didDiscover peripheral
+    // didDiscover peripheral
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        // Make unique manufacturer ID readable
-        let rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
-        // Bytes are stored as 0x3k, where 'k' is one digit of the 8 digit manufacturer ID.
-        // 0x30 = 3 * 2^4 = 48
+        // MARK: Verify manufacturer deskID matches user input deskID
+        var manufacturerData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
+        // Bytes are stored as 0x3k, where 'k' is a digit of the 8 digit manufacturer unique ID.
+        // 0x30 = 48 = 3 * 2^4
+        for index in manufacturerData.indices {
+            manufacturerData[index] -= 48;
+        }
         var manufacturerDeskID : Int = 0
-        for (index, digit) in rawData.enumerated() {
-            manufacturerDeskID += Int(digit - 0x30) * Int(pow(10,Double(7-index)))
+        for (index, digit) in manufacturerData.enumerated() {
+            manufacturerDeskID += Int(digit) * Int(pow(10,Double(7-index)))
         }
+        //print("corrected manufacturerID: \(manufacturerDeskID)")
         
-        print("discovered device with ID#\(manufacturerDeskID)")
-        
-        // scanForDesks feature: save discovered peripheral for later use/connection
-        // Before saving desk in discovered peripherals, need to see if it is contained in saved desks first.
-        // Or know what function led to the desk being discovered. Hmmm
-        
-        self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
-        
-        // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the code after this guard into a different method only called with the currentDesk ID check.
-        // Alternatively, put in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
-        
-        guard self.currentDesk.id > 0 else {
-            // peripheral was discovered during the scan process, exit code now
-            return
-        }
-        
-        // scan is stopped after the guard statement. If first scanned desk happens to be the searched for currentDesk it won't discover any more desks, but this functionality must change
-
-        // Begin connection if current discovered desk matches stored user selection
         guard manufacturerDeskID == self.currentDesk.id else {
             print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currentDesk.id))")
             DispatchQueue.main.async { () -> Void in
@@ -213,10 +165,11 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             self.connectionStatus = "ID Matches Discovered Desk"
             self.connectionColor = Color.primary
         }
-        print("Connecting to desk with ID:\n \(rawData)")
+        print("Connecting to desk with ID:\n \(manufacturerData)")
         
         deskPeripheral = peripheral
         // Must set delegate of peripheralZGoDesk to ViewController(self)
+        deskPeripheral?.delegate = self
         // Stop scanning for peripherals to save battery life
         centralManager?.stopScan()
         // Connect to the discovered peripheral
@@ -227,15 +180,12 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     // didConnect: Invoked when a peripheral is connected successfully
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        peripheral.delegate = self
-        
         DispatchQueue.main.async { () -> Void in
             self.connectionStatus = "Connected To Desk"
             self.connectionColor = Color.green
         }
         
         self.isConnected = true
-        print("successfully connected to desk \(self.currentDesk.name)")
 
         deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
@@ -244,19 +194,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     // didDisconnectPeripheral: When the peripheral disconnects, start scanning on BT again
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Peripheral disconnected; now scanning")
-        //catch error here?
-        
-        self.isConnected = false
         DispatchQueue.main.async { () -> Void in
             self.connectionStatus = "Desk Disconnected"
             self.connectionColor = Color.primary
         }
-        
-        // Unintentional disconnection: attempt to reestablish connection with current desk
-        if error != nil {
-            print("desk disconnected with error\nattempting reconnection with current desk")
-            centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
-        }
+        self.isConnected = false
+        // Start scanning for (ZGo) desks again
+        //MARK:~~~Maybe this should look for paired devices before scanning for new ones~~~
+        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
     // didDiscoverServices: makes sure the desk has the correct service before continuing
