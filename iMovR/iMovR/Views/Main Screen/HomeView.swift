@@ -17,23 +17,17 @@ struct HomeView: View {
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
     @State var showBTConnect: Bool = false
-    @State var isTouchGo: Bool = false
     
     @State var presetName: String = ""
     @State var presetHeight: Float = 0.0
     
     var body: some View {
-        GeometryReader { geo in
         
         VStack {
-            Spacer()
-            VStack {
-                Image("imovrLogo")
-                    .resizable()
-                    .frame(width: geo.size.width / 6, height: geo.size.height / 10)
-                    .padding(.top)
-                }
-            
+            Image("imovrLogo")
+                .resizable()
+                .frame(width: 110, height: 110)
+                .padding(.top)
             //Spacer().frame(height: 70)
             //ZStack {
             HStack {
@@ -67,9 +61,9 @@ struct HomeView: View {
                 }
                 
                 VStack {
-                    UpButton(testHeight: self.$testHeight)
+                    UpButton(testHeight: $testHeight)
                         //.padding()
-                    DownButton(testHeight: self.$testHeight)
+                    DownButton(testHeight: $testHeight)
                 }
                 .padding()
                 Spacer()
@@ -80,19 +74,8 @@ struct HomeView: View {
             Spacer()
          
         //}
-
-            VStack () {
-            Text("Touch & Go")
-                Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
-            }
             VStack {
-                if self.isTouchGo {
-                    TouchGoButton(isTouchGo: self.$isTouchGo,
-                        presetHeight:
-                        self.$presetHeight)
-                } else {
-                HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
-                }
+            HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
             }
             .padding(.bottom)
             Spacer()
@@ -102,8 +85,7 @@ struct HomeView: View {
         }
 
     }
-    ///Geo reader end paren
-    }
+    
     
 }
 
