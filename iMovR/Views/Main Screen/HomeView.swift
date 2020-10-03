@@ -13,21 +13,27 @@ struct HomeView: View {
     
     @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: ZGoBluetoothController
-    
+    //a
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
     @State var showBTConnect: Bool = false
+    @State var isTouchGo: Bool = false
     
     @State var presetName: String = ""
     @State var presetHeight: Float = 0.0
     
     var body: some View {
+        GeometryReader { geo in
         
         VStack {
-            Image("imovrLogo")
-                .resizable()
-                .frame(width: 110, height: 110)
-                .padding(.top)
+            //Spacer()
+            //VStack {
+                Image("imovrLogo")
+                    .resizable()
+                    .frame(width: geo.size.width / 6, height: geo.size.height / 10)
+                    //.padding(.top)
+                //}
+            
             //Spacer().frame(height: 70)
             //ZStack {
             HStack {
@@ -54,38 +60,57 @@ struct HomeView: View {
             Spacer()
             HStack {
                 Spacer()
-                
-                HStack {
+                VStack(alignment: .leading) {
+                    HStack() {
                     HeightSlider()
                         .padding(.trailing, 60)
                 }
+                    
+                    VStack (){
+                        Text("Touch & Go")
+                        Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
+                            //.padding()
+                    }.padding(.top)
+                }
                 
                 VStack {
-                    UpButton(testHeight: $testHeight)
+                    UpButton(testHeight: self.$testHeight)
                         //.padding()
-                    DownButton(testHeight: $testHeight)
+                    DownButton(testHeight: self.$testHeight)
                 }
                 .padding()
-                Spacer()
+                //Spacer()
                 //.padding()
             }
                 Spacer()
         }
-            Spacer()
+            //Spacer()
          
         //}
+
+//            VStack (alignment: .center) {
+//            Text("Touch & Go")
+//                Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
+//            }
             VStack {
-            HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+                if self.isTouchGo {
+                    TouchGoButton(isTouchGo: self.$isTouchGo,
+                        presetHeight:
+                        self.$presetHeight)
+                } else {
+                HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+                }
             }
-            .padding(.bottom)
-            Spacer()
+            //.padding(.bottom)
+            //Spacer()
             
             
         
         }
 
     }
-    
+    ///Geo reader end paren
+    }
     
 }
 

@@ -14,11 +14,14 @@ struct ContentView: View {
     @EnvironmentObject var BTController: ZGoBluetoothController
  
     var body: some View {
-        
-        TabView(selection: $selection){
-            
-            HomeView()
+        GeometryReader { geo in
+            TabView(selection: self.$selection){
+                HomeView()
+                    //.padding(0.0)
+//                .frame(width: geo.size.width,
+//                       height: geo.size.height * 1.0 / 3.0)
                     
+                //.aspectRatio(contentMode: .fit)
                 .tabItem {
                     VStack {
                         Image(systemName: "house")
@@ -40,7 +43,16 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
+            
+//            .introspectTabBarController { tabV in
+//
+//            }
+            ///geo reader paren
+        }
+        
+        //.edgesIgnoringSafeArea(.top)
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

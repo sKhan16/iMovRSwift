@@ -9,13 +9,11 @@
 import SwiftUI
 
 struct BTConnectView: View {
-
     
     // For saving to CoreData
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: ZGoBluetoothController
     
     @State private var inputDeskName: String = ""
     @State private var inputDeskID: String = ""
@@ -26,53 +24,24 @@ struct BTConnectView: View {
     var body: some View {
         // Try cocoapod popoverview later
         NavigationView {
-            
             VStack {
+                //Text("Connect to a desk:")
                 Form {
-                    Button(action: {
-                        self.bt.scanForDevices()
-                        
-                    }) {
-                        Text("Scan for Desks")
-                    }
-                    Spacer()
-                    List {
-                        //AddDeskView()
-                        //Text("Add desks here")
-                        Text("Discovered Devices:")
-                        if bt.discoveredDevices.count > 0 {
-                            ForEach(bt.discoveredDevices.indices, id: \.self) { index in
-                                Button(action: {
-                                    self.bt.connectToDevice(peripheral: self.bt.discoveredDevices[index].peripheral)
-                                    
-                                }) {
-                                    Text("Device #\(self.bt.discoveredDevices[index].id)")
-                                }
-                                    /*
-                                     DeskSettingDetail(currIndex: index) ) {
-                                     SettingRow(name: self.bt.discoveredDevices[index].name, id:
-                                     String(self.bt.discoveredDevices[index].id))
-                                     }
-                                     */
-                            }
-                        }
-                    }
-                    
-                    // Desk name input section of form
                     Section(header:
                         Text("Name Your Desk:")
                             .font(.headline)
                     ) {
-                        TextField("Desk Name", text: $inputDeskName)
+                        
+                        TextField("desk name", text: $inputDeskName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Name' section
                     
-                    // Desk ID input section of form
                     Section(header:
                         Text("Input Desk ID:")
                             .font(.headline)
                     ) {
-                        TextField("Desk ID", text: $inputDeskID)
+                        
+                        TextField("desk id", text: $inputDeskID)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                     } //end 'Desk ID' section
@@ -123,8 +92,8 @@ struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: ZGoBluetoothController
     
-    @Binding var inputDeskName: String
-    @Binding var inputDeskID: String
+    @Binding  var inputDeskName: String
+    @Binding  var inputDeskID: String
     @Binding var showBTConnect: Bool
     @Binding var notifyWrongInput: Bool
     
@@ -154,7 +123,7 @@ struct BTDoneButton: View {
                 print("incorrect desk info submitted")
                 self.notifyWrongInput = true
             }
-        }) { // End button action. Button displayed contents:
+        }) { // Button displayed contents
             Text("Connect").bold()
         } // end Button
     }
@@ -164,11 +133,7 @@ struct BTDoneButton: View {
 
 struct BTConnectView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        let user: UserObservable = UserObservable()
-//        user.desks.append(contentsOf: [Desk(name: "test desk 1", deskID: 13371234), Desk(name: "test desk 2", deskID: 56789012)])
-        
-        return BTConnectView(showBTConnect: .constant(true))
-            .environmentObject(user)
+        BTConnectView(showBTConnect: .constant(true))
+            .environmentObject(UserObservable())
     }
 }

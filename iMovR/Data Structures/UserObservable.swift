@@ -182,9 +182,7 @@ public class UserObservable: ObservableObject {
         
         //fetch new data
         if isSuccess {
-            if !self.pullPresetData() {
-                print("addPreset(..) data fetch error")
-            }
+            self.pullPresetData()
         }
         
         return isSuccess
@@ -215,9 +213,7 @@ public class UserObservable: ObservableObject {
             print("Error saving removed preset")
         }
         
-        if !self.pullPresetData() {
-            print("removePreset(..) data fetch error")
-        }
+        self.pullPresetData()
         
     }
     
@@ -277,9 +273,7 @@ public class UserObservable: ObservableObject {
                 print("Error saving edited preset")
             }
             
-            if !self.pullPresetData() {
-                print("editPreset(..) data fetch error")
-            }
+            self.pullPresetData()
         }
     }
     
@@ -313,9 +307,7 @@ public class UserObservable: ObservableObject {
             print(error.localizedDescription)
         }
         if isSuccess {
-            if !self.pullDeskData() {
-                print("addDesk(..) data fetch error")
-            }
+            self.pullDeskData()
         }
         
         return isSuccess
@@ -343,9 +335,7 @@ public class UserObservable: ObservableObject {
             print("Error saving removed preset")
         }
         
-        if !self.pullDeskData() {
-            print("removeDesk(..) data fetch error")
-        }
+        self.pullDeskData()
     }
     
     func editDesk (index: Int, name: String = "", deskID: Int = 0) {
