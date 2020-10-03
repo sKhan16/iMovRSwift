@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:iMovR/Data Structures/UserData+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:iMovR/Data Structures/UserData+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:iMovR.xcodeproj">
    </FileRef>
    <FileRef
