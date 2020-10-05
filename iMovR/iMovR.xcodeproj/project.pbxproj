@@ -36,6 +36,9 @@
 		1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C77252B90E300A471E2 /* StartGoButton.swift */; };
 		1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
+		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
+		4116613C252BAA570063A68D /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4116613B252BAA570063A68D /* DeviceRowView.swift */; };
+		41166146252BAC900063A68D /* ZGoBluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166145252BAC900063A68D /* ZGoBluetoothController.swift */; };
 		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
 		4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AC24DE237800BF9B64 /* EditDesk.swift */; };
@@ -48,7 +51,6 @@
 		41AED7AC24DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A824DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift */; };
 		41AED7AD24DA5BD3007C68E2 /* DeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A924DA5BD3007C68E2 /* DeskData+CoreDataClass.swift */; };
 		41AED7AE24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7AA24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift */; };
-		41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */; };
 		41EF1EFE252901D300AEE90F /* DiscoveredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF1EFD252901D300AEE90F /* DiscoveredDevicesView.swift */; };
 		63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */; };
 		982F180A24D36FFC003FF080 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F180924D36FFC003FF080 /* SettingView.swift */; };
@@ -117,6 +119,9 @@
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
+		4116613B252BAA570063A68D /* DeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRowView.swift; sourceTree = "<group>"; };
+		41166145252BAC900063A68D /* ZGoBluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGoBluetoothController.swift; sourceTree = "<group>"; };
 		412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BTConnectButton.swift; path = iMovR/Views/BTConnectButton.swift; sourceTree = SOURCE_ROOT; };
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
 		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
@@ -129,7 +134,6 @@
 		41AED7A824DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		41AED7A924DA5BD3007C68E2 /* DeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeskData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		41AED7AA24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeskData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ZGoBluetoothController.swift; path = iMovR/Bluetooth/ZGoBluetoothController.swift; sourceTree = SOURCE_ROOT; };
 		41EF1EFD252901D300AEE90F /* DiscoveredDevicesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredDevicesView.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovRTests.release.xcconfig"; path = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -214,7 +218,7 @@
 				982F181A24D37F63003FF080 /* Settings */,
 				1E94E1E124BF9F9900155123 /* Buttons */,
 				41A3096C24C28F9C00644006 /* Views */,
-				41D079BF24C220E00047FD48 /* Bluetooth */,
+				41D079BF24C220E00047FD48 /* Bluetooth APIs */,
 				41AED79E24D9FAA5007C68E2 /* CoreData */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E23016124BCEB39009A0B3C /* Preview Content */,
@@ -293,6 +297,33 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		41166132252BA9A80063A68D /* Device Manager Views */ = {
+			isa = PBXGroup;
+			children = (
+				41166133252BA9F80063A68D /* DeviceManagerView.swift */,
+				4116613B252BAA570063A68D /* DeviceRowView.swift */,
+			);
+			path = "Device Manager Views";
+			sourceTree = "<group>";
+		};
+		41166140252BAB410063A68D /* Desks */ = {
+			isa = PBXGroup;
+			children = (
+				4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */,
+				4138A3AC24DE237800BF9B64 /* EditDesk.swift */,
+			);
+			path = Desks;
+			sourceTree = "<group>";
+		};
+		41166141252BABFD0063A68D /* ZGo ZipDesk */ = {
+			isa = PBXGroup;
+			children = (
+				41166145252BAC900063A68D /* ZGoBluetoothController.swift */,
+				41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */,
+			);
+			path = "ZGo ZipDesk";
+			sourceTree = "<group>";
+		};
 		4138A3A124DCFF7800BF9B64 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,23 +344,14 @@
 			path = Startup;
 			sourceTree = "<group>";
 		};
-		4138A3A324DD003E00BF9B64 /* Main Screen */ = {
+		4138A3A324DD003E00BF9B64 /* Main Screen Views */ = {
 			isa = PBXGroup;
 			children = (
 				1E94E1F024C241A400155123 /* MotherView.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
 				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
 			);
-			path = "Main Screen";
-			sourceTree = "<group>";
-		};
-		4138A3A424DD01D000BF9B64 /* Desks */ = {
-			isa = PBXGroup;
-			children = (
-				4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */,
-				4138A3AC24DE237800BF9B64 /* EditDesk.swift */,
-			);
-			path = Desks;
+			path = "Main Screen Views";
 			sourceTree = "<group>";
 		};
 		4138A3A924DD032900BF9B64 /* Settings Views */ = {
@@ -337,6 +359,8 @@
 			children = (
 				982F180924D36FFC003FF080 /* SettingView.swift */,
 				982F180B24D3707D003FF080 /* SettingRow.swift */,
+				41166140252BAB410063A68D /* Desks */,
+				4138A3A124DCFF7800BF9B64 /* Presets */,
 			);
 			path = "Settings Views";
 			sourceTree = "<group>";
@@ -344,11 +368,10 @@
 		41A3096C24C28F9C00644006 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				41EF1EFC2529019600AEE90F /* Bluetooth Views */,
-				4138A3A324DD003E00BF9B64 /* Main Screen */,
+				4138A3A324DD003E00BF9B64 /* Main Screen Views */,
+				41166132252BA9A80063A68D /* Device Manager Views */,
 				4138A3A924DD032900BF9B64 /* Settings Views */,
-				4138A3A124DCFF7800BF9B64 /* Presets */,
-				4138A3A424DD01D000BF9B64 /* Desks */,
+				41EF1EFC2529019600AEE90F /* Bluetooth Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,13 +388,12 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		41D079BF24C220E00047FD48 /* Bluetooth */ = {
+		41D079BF24C220E00047FD48 /* Bluetooth APIs */ = {
 			isa = PBXGroup;
 			children = (
-				41D079BC24BFD9FD0047FD48 /* ZGoBluetoothController.swift */,
-				41A3097124C3C1D400644006 /* ZGoDeskPeripheral.swift */,
+				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 			);
-			path = Bluetooth;
+			path = "Bluetooth APIs";
 			sourceTree = "<group>";
 		};
 		41EF1EFC2529019600AEE90F /* Bluetooth Views */ = {
@@ -647,7 +669,6 @@
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				4150F0AF252906080047389A /* BTConnectView.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
-				41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */,
 				982F181E24D54865003FF080 /* EditPreset.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
 				412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */,
@@ -672,6 +693,7 @@
 				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,
 				41EF1EFE252901D300AEE90F /* DiscoveredDevicesView.swift in Sources */,
 				982F181024D37536003FF080 /* Setting.swift in Sources */,
+				41166146252BAC900063A68D /* ZGoBluetoothController.swift in Sources */,
 				1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */,
 				4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
@@ -681,8 +703,10 @@
 				4150F0C22529071C0047389A /* iMovR.xcdatamodeld in Sources */,
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
 				982F181C24D386FF003FF080 /* PresetSettingView.swift in Sources */,
+				4116613C252BAA570063A68D /* DeviceRowView.swift in Sources */,
 				982F180A24D36FFC003FF080 /* SettingView.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
+				41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */,
 				1E94E1E024BF9DB300155123 /* HomeView.swift in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
 				1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */,
@@ -855,14 +879,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iMovR/Preview Content\"";
-				DEVELOPMENT_TEAM = P6AZA7SNK6;
+				DEVELOPMENT_TEAM = M25MU7D9NY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iMovR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR;
+				PRODUCT_BUNDLE_IDENTIFIER = iMovR.Mike;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -877,14 +901,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iMovR/Preview Content\"";
-				DEVELOPMENT_TEAM = P6AZA7SNK6;
+				DEVELOPMENT_TEAM = M25MU7D9NY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iMovR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR;
+				PRODUCT_BUNDLE_IDENTIFIER = iMovR.Mike;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

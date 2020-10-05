@@ -30,6 +30,16 @@ struct ContentView: View {
             /*Text("Settings View")
                 .font(.title) */
                 
+            DeviceManagerView()
+                
+                .tabItem {
+                    VStack {
+                        Image(systemName: "")
+                        Text("Devices")
+                    }
+                }
+            
+            
             SettingView()
                 
                 .tabItem {
@@ -38,7 +48,7 @@ struct ContentView: View {
                         Text("Settings")
                     }
                 }
-                .tag(1)
+                .tag(2)
         }
     }
 }
