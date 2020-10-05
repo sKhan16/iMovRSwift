@@ -9,8 +9,29 @@
 import SwiftUI
 
 struct HomeViewV2: View {
+    
+    @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: ZGoBluetoothController
+
+    @State var showAddPreset: Bool = false
+    @State var showBTConnect: Bool = false
+    @State var isTouchGo: Bool = false
+    
+    @State var presetName: String = ""
+    @State var presetHeight: Float = 0.0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geo in
+            VStack {
+                Image("imovrLogo")
+                    .resizable()
+                    .frame(width: geo.size.width * 0.719, height: geo.size.height * 0.8)
+                HStack {
+                    
+                }
+            }
+        }
+        
     }
 }
 

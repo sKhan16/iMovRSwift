@@ -17,7 +17,11 @@ struct ContentView: View {
         
         TabView(selection: $selection){
             
-            HomeView()
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                //HomeView()
+                HomeViewV2()
+            }
                     
                 .tabItem {
                     VStack {
