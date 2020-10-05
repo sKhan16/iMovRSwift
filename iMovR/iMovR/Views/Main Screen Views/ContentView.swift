@@ -17,7 +17,12 @@ struct ContentView: View {
         
         TabView(selection: $selection){
             
-            HomeView()
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                
+                //HomeView()
+                HomeViewV2()
+            }
                 .tabItem {
                     VStack {
                         Image(systemName: "house.fill")
@@ -26,9 +31,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            /*Text("Settings View")
-                .font(.title) */
-                
+            
             DeviceManagerView()
                 
                 .tabItem {
@@ -36,8 +39,10 @@ struct ContentView: View {
                         Image(systemName: "studentdesk")
                         //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
                         Text("Devices")
+                            //.font(.title)
                     }
                 }
+                .tag(1)
             
             
             SettingView()

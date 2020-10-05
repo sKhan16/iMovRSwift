@@ -1,0 +1,16 @@
+//
+//  ColorManager.swift
+//  iMovR
+//
+//  Created by Shakeel Khan on 10/5/20.
+//  Copyright © 2020 iMovR. All rights reserved.
+//
+
+import SwiftUI
+
+struct ColorManager {
+    // create static variables for custom colors
+    static let bgColor = Color("BackgroundColor")
+
+    //... add the rest of your colors here
+}
