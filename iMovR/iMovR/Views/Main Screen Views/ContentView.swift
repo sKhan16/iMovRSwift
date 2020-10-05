@@ -18,10 +18,9 @@ struct ContentView: View {
         TabView(selection: $selection){
             
             HomeView()
-                    
                 .tabItem {
                     VStack {
-                        Image(systemName: "house")
+                        Image(systemName: "house.fill")
                         Text("Home")
                     }
                 }
@@ -34,7 +33,8 @@ struct ContentView: View {
                 
                 .tabItem {
                     VStack {
-                        Image(systemName: "")
+                        Image(systemName: "studentdesk")
+                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
                         Text("Devices")
                     }
                 }
@@ -44,7 +44,7 @@ struct ContentView: View {
                 
                 .tabItem {
                     VStack {
-                        Image(systemName: "gear")
+                        Image(systemName: "gearshape.2.fill")
                         Text("Settings")
                     }
                 }
