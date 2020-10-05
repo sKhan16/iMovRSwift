@@ -19,30 +19,41 @@ struct ContentView: View {
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                
                 //HomeView()
                 HomeViewV2()
             }
-                    
                 .tabItem {
                     VStack {
-                        Image(systemName: "house")
+                        Image(systemName: "house.fill")
                         Text("Home")
                     }
                 }
                 .tag(0)
             
-            /*Text("Settings View")
-                .font(.title) */
+            
+            DeviceManagerView()
                 
+                .tabItem {
+                    VStack {
+                        Image(systemName: "studentdesk")
+                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
+                        Text("Devices")
+                            //.font(.title)
+                    }
+                }
+                .tag(1)
+            
+            
             SettingView()
                 
                 .tabItem {
                     VStack {
-                        Image(systemName: "gear")
+                        Image(systemName: "gearshape.2.fill")
                         Text("Settings")
                     }
                 }
-                .tag(1)
+                .tag(2)
         }
     }
 }
