@@ -35,6 +35,7 @@
 		1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */; };
 		1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C77252B90E300A471E2 /* StartGoButton.swift */; };
 		1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */; };
+		1EAA5C82252BADD200A471E2 /* HomeViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
 		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
@@ -114,6 +115,7 @@
 		1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchGoButton.swift; sourceTree = "<group>"; };
 		1EAA5C77252B90E300A471E2 /* StartGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGoButton.swift; sourceTree = "<group>"; };
 		1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopGoButton.swift; sourceTree = "<group>"; };
+		1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewV2.swift; sourceTree = "<group>"; };
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,6 +320,7 @@
 			children = (
 				1E94E1F024C241A400155123 /* MotherView.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
+				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
 				1E94E1DF24BF9DB300155123 /* HomeView.swift */,
 			);
 			path = "Main Screen";
@@ -650,6 +653,7 @@
 				41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */,
 				982F181E24D54865003FF080 /* EditPreset.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
+				1EAA5C82252BADD200A471E2 /* HomeViewV2.swift in Sources */,
 				412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */,
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
 				41AED7AE24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift in Sources */,
