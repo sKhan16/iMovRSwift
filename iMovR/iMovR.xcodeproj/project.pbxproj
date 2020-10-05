@@ -32,6 +32,9 @@
 		1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F624C3B8C500155123 /* ViewRouter.swift */; };
 		1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F824C3E06F00155123 /* HeightSlider.swift */; };
 		1E94E1FD24C61CD300155123 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1FC24C61CD300155123 /* AddPresetView.swift */; };
+		1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */; };
+		1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C77252B90E300A471E2 /* StartGoButton.swift */; };
+		1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
 		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
@@ -108,6 +111,9 @@
 		1E94E1F624C3B8C500155123 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		1E94E1F824C3E06F00155123 /* HeightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightSlider.swift; sourceTree = "<group>"; };
 		1E94E1FC24C61CD300155123 /* AddPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetView.swift; sourceTree = "<group>"; };
+		1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchGoButton.swift; sourceTree = "<group>"; };
+		1EAA5C77252B90E300A471E2 /* StartGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGoButton.swift; sourceTree = "<group>"; };
+		1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopGoButton.swift; sourceTree = "<group>"; };
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,6 +263,9 @@
 				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
+				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
+				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
+				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -640,6 +649,7 @@
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
 				41D079C024C226210047FD48 /* ZGoBluetoothController.swift in Sources */,
 				982F181E24D54865003FF080 /* EditPreset.swift in Sources */,
+				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
 				412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */,
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
 				41AED7AE24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift in Sources */,
@@ -662,8 +672,10 @@
 				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,
 				41EF1EFE252901D300AEE90F /* DiscoveredDevicesView.swift in Sources */,
 				982F181024D37536003FF080 /* Setting.swift in Sources */,
+				1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */,
 				4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
+				1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
 				4150F0C22529071C0047389A /* iMovR.xcdatamodeld in Sources */,
