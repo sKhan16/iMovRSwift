@@ -10,7 +10,13 @@ import SwiftUI
 
 struct DeviceRowView: View {
     var body: some View {
-        Text("generic device row")
+        Text("DeviceRowView")
+/*
+        Button("generic device row") {
+            
+        }
+        Button
+ */
     }
 }
 
