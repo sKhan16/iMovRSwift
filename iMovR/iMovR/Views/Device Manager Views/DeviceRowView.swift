@@ -10,13 +10,45 @@ import SwiftUI
 
 struct DeviceRowView: View {
     var body: some View {
-        Text("DeviceRowView")
-/*
-        Button("generic device row") {
+        
+        HStack {
             
+            Button(
+                action:{
+                    print("clicked device row")
+                }
+            ) { Image(systemName: "dot.radiowaves.left.and.right")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 20, idealWidth: 30, maxWidth: 50)
+                .padding(15)
+            }
+            
+            //Spacer()
+            Text("Device Name\nDevice ID")
+                .frame(minWidth: 100, idealWidth: 150, maxWidth: 200)
+            //Spacer()
+            Button(
+                action:{
+                    print("edit device popup activates")
+                }
+            ) { Image(systemName: "pencil.circle.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 20, idealWidth: 30, maxWidth: 50)
+                .padding(15)
+                
+            }
+                
         }
-        Button
- */
+        .background(Color.white)
+        .cornerRadius(20)
+        //.border(Color.black, width: 3)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.black, lineWidth: 2)
+        )
+        
     }
 }
 

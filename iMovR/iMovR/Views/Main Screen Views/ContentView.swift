@@ -35,6 +35,7 @@ struct ContentView: View {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 DeviceManagerView()
+                    //.padding(20)
             }
                 .tabItem {
                     VStack {

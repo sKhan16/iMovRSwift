@@ -16,6 +16,26 @@ struct DeviceManagerView: View {
         VStack {
             Text("Device Manager")
                 .font(Font.title.bold())
+            Text("Saved Devices")
+            ScrollView {
+                ForEach(Range(1...10)) {_ in
+                    VStack {
+                        DeviceRowView()
+                        //.cornerRadius(10.0)
+                        .padding(2)
+                        //Divider()
+                    }
+                    
+                }
+                .border(Color.yellow, width: 3)
+                .background(Color.blue)
+                .cornerRadius(15.0)
+                .frame(maxWidth: .infinity)
+            }
+            .padding(2)
+            .border(Color.red, width: 3)
+            
+            
             ScrollView {
                 ForEach(Range(1...10)) {_ in
                     VStack {
