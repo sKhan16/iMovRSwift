@@ -8,68 +8,89 @@
 
 import SwiftUI
 
-//use z stack popup stuff to get edit device menu(s)
-
-
 struct DeviceManagerView: View {
+    
+    //use z stack popup stuff to get edit device menu(s)
+    
     var body: some View {
         VStack {
             Text("Device Manager")
-                .font(Font.title.bold())
-            Text("Saved Devices")
+                .font(Font.largeTitle.bold())
+                .foregroundColor(Color.white)
+                .padding()
             ScrollView {
-                ForEach(Range(1...10)) {_ in
+                Text("Saved Devices")
+                    .foregroundColor(Color.white)
+                    .font(Font.title2)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                ForEach(Range(0...6)) { index in
                     VStack {
-                        DeviceRowView()
+                        DeviceRowView(deviceIndex: index)
                         //.cornerRadius(10.0)
                         .padding(2)
-                        //Divider()
+                    }
+                }
+                    //.border(Color.blue, width: 3)
+                    .background(ColorManager.bgColor)
+                    .cornerRadius(20.0)
+                    //.padding(5)
+                    .frame(maxWidth: .infinity)
+                
+                Text("DiscoveredDevices")
+                    .foregroundColor(Color.white)
+                    .font(Font.title2)
+                    .padding([.leading,.top])
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                ForEach(Range(6...8)) { index in
+                    VStack {
+                        DeviceRowView(deviceIndex: index)
+                            .padding(2)
                     }
                     
                 }
-                .border(Color.yellow, width: 3)
-                .background(Color.blue)
+                //.border(Color.yellow, width: 3)
+                .background(ColorManager.bgColor)
                 .cornerRadius(15.0)
                 .frame(maxWidth: .infinity)
             }
             .padding(2)
-            .border(Color.red, width: 3)
+            //.border(Color.red, width: 3)
             
-            
-            ScrollView {
-                ForEach(Range(1...10)) {_ in
-                    VStack {
-                        DeviceRowView()
-                            .cornerRadius(15.0)
-                            .padding()
-                        Divider()
-                    }
-                    
-                }
-                .border(Color.yellow, width: 3)
-                .background(Color.blue)
-                .cornerRadius(15.0)
-            }
-            .padding(10)
-            .border(Color.red, width: 3)
-/*
-            List {
-                DeviceRowView()
-            }
-            List {
-                DeviceRowView()
-            }
-            /* test
-            Text("device manager")
-            DeviceRowView()
-            */
- */
-        }
+        }//end VStack
     }
 }
 
 struct DeviceManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceManagerView()
+        Group {
+            Group {
+                ZStack {
+                    ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                    
+                    DeviceManagerView()
+                }
+                ZStack {
+                    ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                    
+                    DeviceManagerView()
+                }
+                .previewDevice("iPhone 6s")
+            }
+            Group {
+                ZStack {
+                    ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                    
+                    DeviceManagerView()
+                }
+                ZStack {
+                    ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                    
+                    DeviceManagerView()
+                }
+            }
+        }
     }
 }
