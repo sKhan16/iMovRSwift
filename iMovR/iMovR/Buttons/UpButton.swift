@@ -19,9 +19,10 @@ struct UpButton: View {
             print("Moving up")
         }) {
             // How the button looks like
-            Image(systemName: "arrow.up.square")
+            Image(systemName: "chevron.up")
                 .resizable()
-                .frame(width: 75, height: 75)
+                .frame(width: 100, height: 75)
+                .foregroundColor(Color.white)
                 
                 .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
                     withAnimation(.easeInOut(duration: 1.0)) {
@@ -47,6 +48,7 @@ struct UpButton: View {
                     }
                 )
         }
+        .padding()
     }
 }
 

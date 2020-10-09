@@ -27,9 +27,10 @@ struct DownButton: View {
             
         }) {
             // How the button looks like
-            Image(systemName: "arrow.down.square")
+            Image(systemName: "chevron.down")
                 .resizable()
-                .frame(width: 75, height: 75)
+                .frame(width: 100, height: 75)
+                .foregroundColor(Color.white)
                 
                 .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
                     withAnimation(.easeInOut(duration: 1.0)) {
@@ -55,6 +56,7 @@ struct DownButton: View {
                     }
                 )
         }
+        .padding()
     }
 }
 
