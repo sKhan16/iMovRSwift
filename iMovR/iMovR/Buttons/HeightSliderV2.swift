@@ -12,7 +12,7 @@ struct HeightSliderV2: View {
     @EnvironmentObject var bt: ZGoBluetoothController
     
     //curr - min / max - min
-    @Binding var barPosition: Float
+    @Binding var barProgress: Float
     
     var body: some View {
         GeometryReader { geometry in
@@ -46,7 +46,7 @@ struct HeightSliderV2_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            HeightSliderV2(barPosition: .constant(Float(0.6)))//this value doesnt matter unless we remove the BT height... default BTController returned height is 0.0/1
+            HeightSliderV2(barProgress: .constant(Float(0.6)))//this value doesnt matter unless we remove the BT height... default BTController returned height is 0.0/1
                 .environmentObject(ZGoBluetoothController())
                 .frame(width: 20)// By default slider size is undefined
                 .padding([.top,.bottom], 20)

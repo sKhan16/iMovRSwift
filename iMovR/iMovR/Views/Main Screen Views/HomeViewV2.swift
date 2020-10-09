@@ -46,7 +46,7 @@ struct HomeViewV2: View {
                 VStack {
                     
                     DevicePicker()
-                    BTConnectButton(showBTConnect: self.$showBTConnect)
+                    //BTConnectButton(showBTConnect: self.$showBTConnect)
                         .padding(.bottom, 20)
                     
                     HStack {
@@ -54,19 +54,19 @@ struct HomeViewV2: View {
                         //Or build height indicators into the HeightSlider and remove the Spacer()
                         Spacer()
                         
-                        VStack(alignment: .leading) { // this alignment doesnt seem to change anything
-                            HStack(alignment: .top) {
-                                HeightSliderV2(barPosition: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)// By default slider size is undefined, fills container
+                        //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
+                            //HStack(alignment: .top) {
+                                HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)// By default slider size is undefined, fills container
                                     //.padding([.top,.bottom], 20)
-                            }
-                        }
+                            //}
+                        //}
                         
                         VStack {
                             //Spacer()
                             UpButton(testHeight: self.$testHeight)
-                                //.padding(.bottom, 5)
+                                .padding(.bottom, 10)
                             DownButton(testHeight: self.$testHeight)
-                                //.padding(.top, 5)
+                                .padding(.top, 10)
                             //Spacer()
                         }
                         .padding()

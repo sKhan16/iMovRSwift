@@ -21,7 +21,7 @@ struct UpButton: View {
             // How the button looks like
             Image(systemName: "chevron.up")
                 .resizable()
-                .frame(width: 100, height: 75)
+                .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
                 .foregroundColor(Color.white)
                 
                 .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
@@ -54,6 +54,10 @@ struct UpButton: View {
 
 struct UpButton_Previews: PreviewProvider {
     static var previews: some View {
-        UpButton(testHeight: .constant(23.0)).environmentObject(ZGoBluetoothController())
+        ZStack {
+            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+            UpButton(testHeight: .constant(23))
+                .environmentObject(ZGoBluetoothController())
+        }
     }
 }
