@@ -39,6 +39,7 @@
 		1EAA5C87252BC4D200A471E2 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA5C86252BC4D200A471E2 /* Colors.xcassets */; };
 		1EAA5C8F252BC66300A471E2 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5C8E252BC66300A471E2 /* ColorManager.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
+		4103FF95252FD03B004C3E09 /* DeviceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103FF94252FD03B004C3E09 /* DeviceEditView.swift */; };
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		4116613C252BAA570063A68D /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4116613B252BAA570063A68D /* DeviceRowView.swift */; };
 		41166146252BAC900063A68D /* ZGoBluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166145252BAC900063A68D /* ZGoBluetoothController.swift */; };
@@ -125,6 +126,7 @@
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4103FF94252FD03B004C3E09 /* DeviceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditView.swift; sourceTree = "<group>"; };
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
 		4116613B252BAA570063A68D /* DeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRowView.swift; sourceTree = "<group>"; };
 		41166145252BAC900063A68D /* ZGoBluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGoBluetoothController.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				41166133252BA9F80063A68D /* DeviceManagerView.swift */,
 				4116613B252BAA570063A68D /* DeviceRowView.swift */,
+				4103FF94252FD03B004C3E09 /* DeviceEditView.swift */,
 			);
 			path = "Device Manager Views";
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				1EAA5C8F252BC66300A471E2 /* ColorManager.swift in Sources */,
 				4150F0C22529071C0047389A /* iMovR.xcdatamodeld in Sources */,
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
+				4103FF95252FD03B004C3E09 /* DeviceEditView.swift in Sources */,
 				982F181C24D386FF003FF080 /* PresetSettingView.swift in Sources */,
 				4116613C252BAA570063A68D /* DeviceRowView.swift in Sources */,
 				982F180A24D36FFC003FF080 /* SettingView.swift in Sources */,
