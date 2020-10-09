@@ -16,17 +16,17 @@ struct HeightSliderV2: View {
         GeometryReader { geometry in
             
             ZStack(alignment: .leading) {
-                        Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
+                        Rectangle().frame(width: geometry.size.height , height: geometry.size.width)
                             .opacity(0.3)
                             .foregroundColor(Color.white)
                             
-                        Rectangle().frame(width: min(CGFloat((self.bt.currentHeight - self.bt.minHeight) / (self.bt.maxHeight - self.bt.minHeight))*geometry.size.width, geometry.size.width), height: geometry.size.height)
+                        Rectangle().frame(width: min(CGFloat((self.bt.currentHeight - self.bt.minHeight) / (self.bt.maxHeight - self.bt.minHeight))*geometry.size.height, geometry.size.height), height: geometry.size.width)
                             .foregroundColor(Color(UIColor.systemGreen))
                             .animation(.linear)
                     }.cornerRadius(45.0)
-            .rotationEffect(.degrees(90))
+            //.rotationEffect(.degrees(90))
             
-    }
+        }
 }
 }
 
