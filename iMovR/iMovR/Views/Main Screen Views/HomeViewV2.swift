@@ -22,6 +22,8 @@ struct HomeViewV2: View {
     @State var presetName: String = ""
     @State var presetHeight: Float = 0.0
     
+    @State var progressValue: Float = 0.7
+    
     var body: some View {
         GeometryReader { geo in
         
@@ -52,9 +54,8 @@ struct HomeViewV2: View {
                 Spacer()
                 VStack(alignment: .leading) {
                     HStack() {
-                    HeightSliderV2()
-                        .frame(height: 20)
-                        .padding()
+                        HeightSliderV2(barPosition: self.$progressValue).frame(width: 20)// By default slider size is undefined
+                            .padding([.top,.bottom], 100)
                 }
                     
 //                    VStack (){

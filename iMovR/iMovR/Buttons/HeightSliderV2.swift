@@ -9,29 +9,35 @@
 import SwiftUI
 
 struct HeightSliderV2: View {
-    @EnvironmentObject var bt: ZGoBluetoothController
+    //@EnvironmentObject var bt: ZGoBluetoothController
     
     //curr - min / max - min
+    @Binding var barPosition: Float
+    
     var body: some View {
         GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
+                    .opacity(1.0)
+                    .foregroundColor(Color.white)
+                    
+                Rectangle().frame(
+                    width: geometry.size.width,
+                    height: min(CGFloat(self.barPosition)*geometry.size.height, geometry.size.height))
+                    .foregroundColor(Color(UIColor.systemBlue))
+                    .animation(.linear)
+            }//end ZStack
+            .cornerRadius(45.0)
             
-            ZStack(alignment: .leading) {
-                        Rectangle().frame(width: geometry.size.height , height: geometry.size.width)
-                            .opacity(0.3)
-                            .foregroundColor(Color.white)
-                            
-                        Rectangle().frame(width: min(CGFloat((self.bt.currentHeight - self.bt.minHeight) / (self.bt.maxHeight - self.bt.minHeight))*geometry.size.height, geometry.size.height), height: geometry.size.width)
-                            .foregroundColor(Color(UIColor.systemGreen))
-                            .animation(.linear)
-                    }.cornerRadius(45.0)
-            //.rotationEffect(.degrees(90))
-            
-        }
+        }//end GeoReader
+    }//end body
 }
-}
-
+/*
 struct HeightSliderV2_Previews: PreviewProvider {
+    @State var barPosition: Float = 0.7
     static var previews: some View {
-        HeightSliderV2()
+        HeightSliderV2().frame(width: 20, height: 300)
+            //.environmentObject(ZGoBluetoothController())
     }
 }
+ */
