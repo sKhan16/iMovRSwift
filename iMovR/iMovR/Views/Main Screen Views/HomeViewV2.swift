@@ -47,7 +47,7 @@ struct HomeViewV2: View {
             
             VStack {
                 DevicePicker()
-                //BTConnectButton(showBTConnect: self.$showBTConnect)
+                BTConnectButton(showBTConnect: self.$showBTConnect)
                 //.padding()
             Spacer()
             HStack {
@@ -55,7 +55,7 @@ struct HomeViewV2: View {
                 VStack(alignment: .leading) {
                     HStack() {
                         HeightSliderV2(barPosition: self.$progressValue).frame(width: 20)// By default slider size is undefined
-                            .padding([.top,.bottom], 100)
+                            .padding([.top,.bottom], 70)
                 }
                     
 //                    VStack (){

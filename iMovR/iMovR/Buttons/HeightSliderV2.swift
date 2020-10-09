@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HeightSliderV2: View {
-    //@EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: ZGoBluetoothController
     
     //curr - min / max - min
     @Binding var barPosition: Float
@@ -23,8 +23,8 @@ struct HeightSliderV2: View {
                     
                 Rectangle().frame(
                     width: geometry.size.width,
-                    height: min(CGFloat(self.barPosition)*geometry.size.height, geometry.size.height))
-                    .foregroundColor(Color(UIColor.systemBlue))
+                    height: min(CGFloat((self.bt.currentHeight - self.bt.minHeight) / (self.bt.maxHeight - self.bt.minHeight))*geometry.size.height, geometry.size.height))
+                    .foregroundColor(Color(UIColor.systemGreen))
                     .animation(.linear)
             }//end ZStack
             .cornerRadius(45.0)
