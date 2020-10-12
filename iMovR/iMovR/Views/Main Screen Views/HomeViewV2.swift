@@ -52,6 +52,14 @@ struct HomeViewV2: View {
                     HStack {
                         //Height indicator goes here,,
                         //Or build height indicators into the HeightSlider and remove the Spacer()
+                        //HStack {
+                            Text(String(format: "%.1f", self.bt.currentHeight))
+                                .font(.system(size: 86))
+                                .padding(.leading)
+                            Text("in")
+                                .foregroundColor(ColorManager.textColor)
+                                .font(.system(size: 64))
+                        //}
                         Spacer()
                         
                         //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
@@ -75,6 +83,12 @@ struct HomeViewV2: View {
                     Spacer(minLength: 150)//test spacer for preview (accounts for tabView squishing)
                     
                 }//end 2nd level VStack
+                
+//                VStack {
+//                    HStack {
+//                        AddPresetButton(showAddPreset: self.$showAddPreset)
+//                    }
+//                }
                 
                 /* dont need touch & go slider/stuff on home page anymore...
                 VStack (alignment: .center) {

@@ -51,12 +51,12 @@ struct PresetButton: View {
                 Text(String(format: "%.1f", presetVal))
                     
                     .padding(13)
-                    .overlay(Circle().stroke(Color.gray, lineWidth: 3))
+                    //.overlay(Circle().stroke(Color.gray, lineWidth: 3))
                     .padding(6)
                 Text(name)
             }
-            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-            .frame(width: 80, height: 50)
+            .foregroundColor(ColorManager.preset)
+            .frame(width: 200, height: 200)
             //.onTapGesture {}
             //            .gesture(LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
             //

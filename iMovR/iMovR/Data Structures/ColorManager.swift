@@ -13,4 +13,6 @@ struct ColorManager {
     static let bgColor = Color("BackgroundColor")
 
     static let textColor = Color("TextColor")
+    
+    static let preset = Color("Preset")
 }

@@ -26,15 +26,19 @@ struct AddPresetButton: View {
                 ZStack {
                     Circle()
                         //.resizable()
-                        .stroke(Color.gray, lineWidth: 3)
-                        .frame(width: 45.0, height: 45)
+                        //.stroke(Color.black, lineWidth: 3)
+                        //.background(Circle().foregroundColor(ColorManager.preset))
+                        .frame(width: 80.0, height: 80)
                     Image(systemName: "plus")
                         .resizable()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(Color.white)
                 }
-                Text("Add Preset")
+                
         }
-        .accentColor(colorScheme == .dark ? Color.white : Color.black)
+        .foregroundColor(ColorManager.preset)
+        .accentColor(Color.white)
+        
             
         }
             .sheet(isPresented: self.$showAddPreset) {
