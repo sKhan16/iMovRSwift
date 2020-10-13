@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DeviceRowView: View {
-    
+
     @Binding var edit: Int
     let deviceIndex: Int
     

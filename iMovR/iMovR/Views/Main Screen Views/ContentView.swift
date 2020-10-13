@@ -19,9 +19,8 @@ struct ContentView: View {
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                
-                HomeView()
-                //HomeViewV2()
+                //HomeView()
+                HomeViewV2()
             }
                 .tabItem {
                     VStack {

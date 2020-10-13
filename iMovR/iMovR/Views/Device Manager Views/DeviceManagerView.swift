@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DeviceManagerView: View {
-    
+  
     @EnvironmentObject var bt: ZGoBluetoothController
     @EnvironmentObject var user: UserObservable
     
@@ -88,7 +88,6 @@ struct DeviceManagerView: View {
             }
         }/*end ZStack*/.animation(.easeInOut)
     } //end Body
-    
 }
 
 struct DeviceManagerView_Previews: PreviewProvider {

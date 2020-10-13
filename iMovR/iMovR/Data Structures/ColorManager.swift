@@ -12,5 +12,9 @@ struct ColorManager {
     // create static variables for custom colors
     static let bgColor = Color("BackgroundColor")
 
-    //... add the rest of your colors here
+    static let textColor = Color("TextColor")
+    
+    static let preset = Color("Preset")
+    
+    static let morePreset = Color("MorePreset")
 }

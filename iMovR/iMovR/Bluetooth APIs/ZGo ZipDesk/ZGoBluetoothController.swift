@@ -95,6 +95,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         if self.isConnected {
             print("disconnecting from connected desk")
             self.isConnected = false
+          
             if self.deskWrap != nil {
                 centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
             } else {
@@ -309,3 +310,4 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     }
 
 }// end ZGoBluetoothController
+

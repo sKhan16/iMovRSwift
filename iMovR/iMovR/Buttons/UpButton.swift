@@ -19,9 +19,10 @@ struct UpButton: View {
             print("Moving up")
         }) {
             // How the button looks like
-            Image(systemName: "arrow.up.square")
+            Image(systemName: "chevron.up")
                 .resizable()
-                .frame(width: 75, height: 75)
+                .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                .foregroundColor(Color.white)
                 
                 .onLongPressGesture(minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
                     withAnimation(.easeInOut(duration: 1.0)) {
@@ -47,11 +48,16 @@ struct UpButton: View {
                     }
                 )
         }
+        .padding()
     }
 }
 
 struct UpButton_Previews: PreviewProvider {
     static var previews: some View {
-        UpButton(testHeight: .constant(23.0)).environmentObject(ZGoBluetoothController())
+        ZStack {
+            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+            UpButton(testHeight: .constant(23))
+                .environmentObject(ZGoBluetoothController())
+        }
     }
 }
