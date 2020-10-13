@@ -25,7 +25,6 @@ struct HomeViewV2: View {
     @State private var progressValue: Float = 0.7
     
     var body: some View {
-        
         GeometryReader { geo in
             VStack {
                 Image("imovrLogo")

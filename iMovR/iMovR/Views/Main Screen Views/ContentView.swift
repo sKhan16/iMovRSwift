@@ -19,7 +19,6 @@ struct ContentView: View {
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                
                 //HomeView()
                 HomeViewV2()
             }
@@ -32,8 +31,11 @@ struct ContentView: View {
                 .tag(0)
             
             
-            DeviceManagerView()
-                
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                DeviceManagerView()
+                    //.padding(20)
+            }
                 .tabItem {
                     VStack {
                         Image(systemName: "studentdesk")

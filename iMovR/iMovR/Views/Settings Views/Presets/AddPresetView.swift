@@ -16,8 +16,9 @@ struct AddPresetView: View {
     @State private var presetHeight: String = ""
     @Binding var showAddPreset: Bool
     @State var isInvalidInput: Bool = false
+
     let index: Int
-    
+
     var body: some View {
         NavigationView {
         //ZStack {
@@ -59,6 +60,7 @@ struct doneButton: View {
     @Binding  var presetHeight: String
     @Binding var showAddPreset: Bool
     @Binding var isInvalidInput: Bool
+
     let index: Int
     
     var body: some View {
@@ -72,6 +74,7 @@ struct doneButton: View {
                 if self.user.addPreset(name: self.presetName, height: height, index: self.index) {
                     //print("index in addPresetView \(index)")
                     print(self.user.testPresets)
+
                     print("preset successfully added")
                 } else {
                     print("user.addPreset failed")
