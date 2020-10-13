@@ -37,27 +37,37 @@ struct DeviceEditView: View {
             VStack {
                 
                 VStack {
-                    Text("Edit Device:")
-                        .font(Font.title2.bold())
+                    Text("Edit Device")
+                        .font(Font.title.weight(.medium))
                         .padding(5)
-                    Text(selectedDevice.name)
-                        .font(Font.title3)
-                    Text("ZipDesk: " + String(selectedDevice.id))
-                        .offset(y: 3)
+                    VStack {
+                        Text(selectedDevice.name)
+                            .font(Font.title3.weight(.medium))
+                        Text("ZipDesk ID: " + String(selectedDevice.id))
+                            .font(Font.body.monospacedDigit().weight(.regular))
+                            .padding(.top,1)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 10)
+                    //.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                    //.padding([.leading,.trailing])
                 }
+                .frame(maxWidth: .infinity)
                 .foregroundColor(Color.white)
-                .padding()
+                .padding(.top)
                 
                 VStack(alignment: .leading) {
-                    Text("Device Name:")
+                    Text("Device Name")
                         .foregroundColor(Color.white)
-                    TextField("Change Device Name", text: $editName)
+                        .offset(y:9)
+                    TextField("Change Device Name:", text: $editName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    Text("Device ID:")
+                    Text("Device ID")
                         .foregroundColor(Color.white)
                         .padding(.top, 10)
-                    TextField("Change Device ID", text: $editID)
+                        .offset(y:9)
+                    TextField("Change Device ID:", text: $editID)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         
                 }
@@ -75,7 +85,8 @@ struct DeviceEditView: View {
                         .background(Color.init(red: 0.25, green: 0.85, blue: 0.2))
                         .cornerRadius(27)
                 })
-                .padding(20)
+                .frame(width:200,height:100)
+                
                 
             }
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
