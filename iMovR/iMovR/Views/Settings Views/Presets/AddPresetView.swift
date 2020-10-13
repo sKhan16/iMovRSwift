@@ -16,7 +16,7 @@ struct AddPresetView: View {
     @State private var presetHeight: String = ""
     @Binding var showAddPreset: Bool
     @State var isInvalidInput: Bool = false
-    @State var index: Int
+    @Binding var index: Int
     
     var body: some View {
         NavigationView {
@@ -45,7 +45,7 @@ struct AddPresetView: View {
                 }
             }
             .navigationBarTitle(Text("New Preset"), displayMode: .inline)
-            .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset, isInvalidInput: self.$isInvalidInput, index: self.index))
+            .navigationBarItems(leading: CloseButton(showSheet: self.$showAddPreset), trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset, isInvalidInput: self.$isInvalidInput, index: self.$index))
         }
     }
 }
@@ -57,7 +57,7 @@ struct doneButton: View {
     @Binding  var presetHeight: String
     @Binding var showAddPreset: Bool
     @Binding var isInvalidInput: Bool
-    @State var index: Int
+    @Binding var index: Int
     
     var body: some View {
         Button(action: {
@@ -66,6 +66,8 @@ struct doneButton: View {
             if height <= 48.00 && height >= 23.00 {
                 self.isInvalidInput = false
                 if self.user.addPreset(name: self.presetName, height: height, index: self.index) {
+                    print("index in addView \(index)")
+                    print(self.user.testPresets)
                     print("preset successfully added")
                 } else {
                     print("user.addPreset failed")
@@ -86,6 +88,6 @@ struct doneButton: View {
 
 struct AddPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetView(showAddPreset: .constant(true), index: 0).environmentObject(UserObservable())
+        AddPresetView(showAddPreset: .constant(true), index: .constant(0)).environmentObject(UserObservable())
     }
 }

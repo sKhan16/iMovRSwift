@@ -17,23 +17,31 @@ struct PresetModule: View {
     var body: some View {
         HStack {
             if self.isPaged {
-                ForEach((0...2), id: \.self) { index in
-                    if self.user.testPresets[index] > -1 {
-                        LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
-                            .padding()
-                    } else {
-                    AddPresetButton(index: index, showAddPreset: self.$showAddPreset).padding()
-                    }
-                }
+                
+                PresetButton(index: .constant(3), showAddPreset: self.$showAddPreset)
+                PresetButton(index: .constant(4), showAddPreset: self.$showAddPreset)
+                PresetButton(index: .constant(5), showAddPreset: self.$showAddPreset)
+//                ForEach((0...2), id: \.self) { index in
+//                    if self.user.testPresets[index] > -1 {
+//                        LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
+//                            .padding()
+//                    } else {
+//                    AddPresetButton(index: index, showAddPreset: self.$showAddPreset).padding()
+//
+//                    }
+//                }
             } else {
-                    ForEach((3...5), id: \.self) { index in
-                        if self.user.testPresets[index] > -1 {
-                            LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
-                                .padding()
-                        } else {
-                            AddPresetButton(index: index, showAddPreset: self.$showAddPreset).padding()
-                        }
-                    }
+                PresetButton(index: .constant(0), showAddPreset: self.$showAddPreset)
+                PresetButton(index: .constant(1), showAddPreset: self.$showAddPreset)
+                PresetButton(index: .constant(2), showAddPreset: self.$showAddPreset)
+//                    ForEach((3...5), id: \.self) { index in
+//                        if self.user.testPresets[index] > -1 {
+//                            LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
+//                                .padding()
+//                        } else {
+//                            AddPresetButton(index: index, showAddPreset: self.$showAddPreset).padding()
+//                        }
+//                    }
                 }
             MorePresetButton(isPaged: self.$isPaged)
                 .padding(.trailing)

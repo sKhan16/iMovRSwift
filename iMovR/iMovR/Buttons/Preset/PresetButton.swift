@@ -10,17 +10,22 @@ import SwiftUI
 
 struct PresetButton: View {
     @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var user: UserObservable
     @Environment(\.colorScheme) var colorScheme
     
     @State private var pressed: Bool = false
     
-    @State var name: String
-    @State var presetVal: Float
+    //@State var name: String
+    //@State var presetVal: Float
     
     //@State var tapped = false
     
-    @Binding var presetName: String
-    @Binding var presetHeight: Float
+    //@Binding var presetName: String
+    //@Binding var presetHeight: Float
+    //@Binding var isLoaded: Bool
+    @Binding var index: Int
+    @Binding var showAddPreset: Bool
+    
     //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
     //        print("Moving")
     //    }).onEnded({
@@ -39,66 +44,11 @@ struct PresetButton: View {
     //        })
     
     var body: some View {
-        Button(action: {
-            //self.moveToPreset()
-            print("Moved to \(self.presetVal)")
-            
-            self.presetName = self.name
-            self.presetHeight = self.presetVal
-            
-        }) {
-            VStack {
-                Text(String(format: "%.1f", presetVal))
-                    
-                    .padding(13)
-                    .overlay(Circle().stroke(Color.gray, lineWidth: 3))
-                    .padding(6)
-                Text(name)
-            }
-            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-            .frame(width: 80, height: 50)
-            //.onTapGesture {}
-            //            .gesture(LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
-            //
-            //            .sequenced(before: LongPressGesture(minimumDuration: 0.0)
-            //            .onChanged({ (touch) in
-            //                //self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
-            //                print("Preset \(self.presetVal) touchdown")
-            //            })
-            //            .onEnded({ (touch) in
-            //                //self.bt.deskWrap?.releaseDesk()
-            //                print("Preset \(self.presetVal) released")
-            //            })
-            //)
-            //            )
-            
-            
-            //.sequenced(before: LongPressGesture())
-            //            .onLongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50), pressing: { pressing in
-            //                withAnimation(.easeInOut(duration: 1.0)) {
-            //                    self.pressed = pressing
-            //                }
-            //                if pressing {
-            //                    print("My long pressed starts")
-            //                    //print("     I can initiate any action on start")
-            //                } else {
-            //                    print("My long pressed ends")
-            //                    print("     Desk stops moving")
-            //                }
-            //            }, perform: {
-            //                print("Desk starts moving")
-            //            })
-            //            .gesture(
-            //                DragGesture(minimumDistance: 0)
-            //                    .onChanged({ (touch) in
-            //                        self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetVal)
-            //                        print("Preset \(self.presetVal) touchdown")
-            //                    })
-            //                    .onEnded({ (touch) in
-            //                        self.bt.deskWrap?.releaseDesk()
-            //                        print("Preset \(self.presetVal) released")
-            //                    })
-            //            )
+        if self.user.testPresets[self.index] > -1 {
+            LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
+                .padding()
+        } else {
+            AddPresetButton(index: self.$index, showAddPreset: self.$showAddPreset).padding()
         }
     }
     
@@ -141,12 +91,12 @@ struct PresetButton: View {
 
 
 
-struct PresetButton_Previews: PreviewProvider {
-    static var previews: some View {
-        PresetButton(name: "Sitting", presetVal: 32.2, presetName: .constant("Sitting"), presetHeight: .constant(32.2))
-            .environmentObject(ZGoBluetoothController())
-    }
-}
+//struct PresetButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PresetButton(name: "Sitting", presetVal: 32.2)
+//            .environmentObject(ZGoBluetoothController())
+//    }
+//}
 
 
 //You can create a custom view modifier:
