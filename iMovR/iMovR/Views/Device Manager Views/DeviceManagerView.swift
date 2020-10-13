@@ -22,23 +22,28 @@ struct DeviceManagerView: View {
     
     var body: some View {
         let testDevices = testSavedDevices + testDiscoveredDevices
-        ZStack {
+        ZStack(alignment: .center) {
             VStack {
                 Text("Device Manager")
                     .font(Font.largeTitle.bold())
                     .foregroundColor(Color.white)
                     .padding()
                 ScrollView {
-                    Text("Saved Devices")
-                        .foregroundColor(Color.white)
-                        .font(Font.title2)
-                        .padding(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    VStack {
+                        Text("SAVED")
+                            .foregroundColor(Color.white)
+                            .font(Font.title2)
+                            .padding(.leading, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .offset(y: 8)
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(height: 2)
+                    }
                     
                     ForEach(Range(0...6)) { index in
                         VStack {
                             DeviceRowView(edit: $deviceEditIndex, deviceIndex: index)
-                            //.cornerRadius(10.0)
                             .padding(2)
                         }
                     }
@@ -48,11 +53,17 @@ struct DeviceManagerView: View {
                         //.padding(5)
                         .frame(maxWidth: .infinity)
                     
-                    Text("DiscoveredDevices")
-                        .foregroundColor(Color.white)
-                        .font(Font.title2)
-                        .padding([.leading,.top])
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    VStack {
+                        Text("DISCOVERED")
+                            .foregroundColor(Color.white)
+                            .font(Font.title2)
+                            .padding([.leading], 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .offset(y: 8)
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(height: 2)
+                    }
                     
                     ForEach(Range(6...8)) { index in
                         VStack {

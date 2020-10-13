@@ -37,7 +37,7 @@ struct DeviceRowView: View {
             ) { Image(systemName: "dot.radiowaves.left.and.right")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(minWidth: 30, idealWidth: 50, maxWidth: 50)
+                .frame(minWidth: 30, idealWidth: 50, maxWidth: 50, minHeight: 40)
                 //.frame(width: 40)
                 .padding(.leading, 10)
             }
@@ -63,7 +63,7 @@ struct DeviceRowView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .rotationEffect(.degrees(90))
-                .frame(minWidth: 20, idealWidth: 30, maxWidth: 30)
+                .frame(minWidth: 20, idealWidth: 30, maxWidth: 30, minHeight: 40)
                 .padding([.trailing], 10)
 
                 

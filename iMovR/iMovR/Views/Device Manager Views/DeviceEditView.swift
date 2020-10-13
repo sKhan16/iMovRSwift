@@ -15,28 +15,76 @@ struct DeviceEditView: View {
     
     @Binding var deviceIndex: Int
     var selectedDevice: Desk
-
+    
+//    init(deviceIndex: Binding<Int>, selectedDevice: Desk){
+//        self._deviceIndex = deviceIndex
+//        self.selectedDevice = selectedDevice
+//        UITableView.appearance().backgroundColor = .clear
+//    }
+    
+    @State var editName: String = ""
+    @State var editID: String = ""
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .fill(Color.gray)
-                .opacity(0.5)
-
+            // Background color filter & back button
+            Button(action: {self.deviceIndex = -1}, label: {
+                Rectangle()
+                    .fill(Color.gray)
+                    .opacity(0.5)
+                    //.blur(radius: 3.0)
+            })
             VStack {
+                
                 VStack {
+                    Text("Edit Device:")
+                        .font(Font.title2.bold())
+                        .padding(5)
                     Text(selectedDevice.name)
-                    Text(String(selectedDevice.id))
+                        .font(Font.title3)
+                    Text("ZipDesk: " + String(selectedDevice.id))
+                        .offset(y: 3)
                 }
-                .font(Font.largeTitle.bold())
                 .foregroundColor(Color.white)
+                .padding()
+                
+                VStack(alignment: .leading) {
+                    Text("Device Name:")
+                        .foregroundColor(Color.white)
+                    TextField("Change Device Name", text: $editName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Text("Device ID:")
+                        .foregroundColor(Color.white)
+                        .padding(.top, 10)
+                    TextField("Change Device ID", text: $editID)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                }
+                .padding()
+                
+                Button(action: {
+                    
+                    self.deviceIndex = -1
+                    print("saving 'edit device' changes")
+                    
+                }, label: {
+                    Text("Save Changes")
+                        .font(Font.title3.bold())
+                        .padding()
+                        .background(Color.init(red: 0.25, green: 0.85, blue: 0.2))
+                        .cornerRadius(27)
+                })
+                .padding(20)
+                
             }
-            .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 250, idealHeight: 100, maxHeight: 250, alignment: .top).fixedSize(horizontal: true, vertical: true)
-            .background(RoundedRectangle(cornerRadius: 27).fill(Color.blue.opacity(1)))
-            .overlay(RoundedRectangle(cornerRadius: 27).stroke(Color.black, lineWidth: 1))
+            .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
+            .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
+            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
+            .padding()
 
         }//end ZStack
-        .onTapGesture { self.deviceIndex = -1 }
+        //.onTapGesture { self.deviceIndex = -1 }
         // Goes back when tapped outside of edit window
     }//end Body
 }
