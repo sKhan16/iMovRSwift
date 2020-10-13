@@ -42,7 +42,7 @@ struct HomeViewV2: View {
                 } //end ZStack
                 */
                 
-                VStack {
+                VStack(alignment: .center) {
                     
                     DevicePicker()
                     //BTConnectButton(showBTConnect: self.$showBTConnect)
@@ -82,6 +82,7 @@ struct HomeViewV2: View {
                 }//end 2nd level VStack
                 
                 PresetModule(isPaged: false, showAddPreset: self.$showAddPreset)
+                    .padding()
 //                VStack {
 //                    HStack {
 //                        AddPresetButton(showAddPreset: self.$showAddPreset)
