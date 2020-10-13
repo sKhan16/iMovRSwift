@@ -23,7 +23,7 @@ struct PresetButton: View {
     //@Binding var presetName: String
     //@Binding var presetHeight: Float
     //@Binding var isLoaded: Bool
-    @Binding var index: Int
+    let index: Int
     @Binding var showAddPreset: Bool
     
     //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
@@ -48,7 +48,8 @@ struct PresetButton: View {
             LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
                 .padding()
         } else {
-            AddPresetButton(index: self.$index, showAddPreset: self.$showAddPreset).padding()
+            AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
+                .padding()
         }
     }
     

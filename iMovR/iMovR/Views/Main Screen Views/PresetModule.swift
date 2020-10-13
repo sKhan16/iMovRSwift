@@ -12,15 +12,15 @@ struct PresetModule: View {
     @EnvironmentObject var user: UserObservable
     
     @State var isPaged: Bool = false
-    @Binding var showAddPreset: Bool
+    @Binding var showAddPreset: [Bool]
     
     var body: some View {
         HStack {
             if self.isPaged {
                 
-                PresetButton(index: .constant(3), showAddPreset: self.$showAddPreset)
-                PresetButton(index: .constant(4), showAddPreset: self.$showAddPreset)
-                PresetButton(index: .constant(5), showAddPreset: self.$showAddPreset)
+                PresetButton(index: 3, showAddPreset: self.$showAddPreset[3])
+                PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
+                PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
 //                ForEach((0...2), id: \.self) { index in
 //                    if self.user.testPresets[index] > -1 {
 //                        LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
@@ -31,9 +31,9 @@ struct PresetModule: View {
 //                    }
 //                }
             } else {
-                PresetButton(index: .constant(0), showAddPreset: self.$showAddPreset)
-                PresetButton(index: .constant(1), showAddPreset: self.$showAddPreset)
-                PresetButton(index: .constant(2), showAddPreset: self.$showAddPreset)
+                PresetButton(index: 0, showAddPreset: self.$showAddPreset[0])
+                PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
+                PresetButton(index: 2, showAddPreset: self.$showAddPreset[2])
 //                    ForEach((3...5), id: \.self) { index in
 //                        if self.user.testPresets[index] > -1 {
 //                            LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
@@ -54,6 +54,6 @@ struct PresetModule: View {
 
 struct PresetModule_Previews: PreviewProvider {
     static var previews: some View {
-        PresetModule(isPaged: false, showAddPreset: .constant(true))
+        PresetModule(isPaged: false, showAddPreset: .constant([Bool](repeating: true, count: 6)))
     }
 }

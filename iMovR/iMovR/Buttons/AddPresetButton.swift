@@ -14,7 +14,7 @@ struct AddPresetButton: View {
     @EnvironmentObject var user: UserObservable
     @State private var testCount: Float = 0.0
     
-    @Binding var index: Int
+    let index: Int
 
     @Binding var showAddPreset: Bool
     
@@ -22,7 +22,7 @@ struct AddPresetButton: View {
         
             Button(action: {
                 self.showAddPreset = true
-                print("accessing index \(self.index)")
+                print("addPresetButton index \(self.index)")
             }) {
            
         VStack {
@@ -45,7 +45,7 @@ struct AddPresetButton: View {
             
         }
             .sheet(isPresented: self.$showAddPreset) {
-                AddPresetView(showAddPreset: self.$showAddPreset, index: self.$index).environmentObject(self.user)
+                AddPresetView(showAddPreset: self.$showAddPreset, index: self.index).environmentObject(self.user)
         }
     }
 
@@ -64,6 +64,6 @@ struct AddPresetButton: View {
 
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetButton(index: .constant(0), showAddPreset: .constant(true)).environmentObject(UserObservable())
+        AddPresetButton(index: 0, showAddPreset: .constant(true)).environmentObject(UserObservable())
     }
 }

@@ -13,14 +13,14 @@ struct HomeViewV2: View {
     @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: ZGoBluetoothController
     
-    @State var showAddPreset: Bool = false
+    @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
 
-    @State var isTouchGo: Bool = false
+//    @State var isTouchGo: Bool = false
     
-    @State var presetName: String = ""
-    @State var presetHeight: Float = 0.0
+//    @State var presetName: String = ""
+//    @State var presetHeight: Float = 0.0
     
-    @State private var showBTConnect: Bool = false
+//    @State private var showBTConnect: Bool = false
     @State private var testHeight: Float = 35.0
     @State private var progressValue: Float = 0.7
     
@@ -60,7 +60,7 @@ struct HomeViewV2: View {
                                 .foregroundColor(ColorManager.textColor)
                                 .font(.system(size: 64))
                         //}
-                        Spacer()
+                        //Spacer()
                         
                         //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
                             //HStack(alignment: .top) {
@@ -69,7 +69,7 @@ struct HomeViewV2: View {
                             //}
                         //}
                         
-                        VStack {
+                        VStack(alignment: .leading) {
                             //Spacer()
                             UpButton(testHeight: self.$testHeight)
                                 .padding(.bottom, 10)
@@ -79,9 +79,7 @@ struct HomeViewV2: View {
                         }
                         .padding()
                     }//end HStack
-                    
-                    Spacer(minLength: 150)//test spacer for preview (accounts for tabView squishing)
-                    
+                    //.alignmentGuide(.leading, computeValue: { d in d[.leading] })
                 }//end 2nd level VStack
                 
                 PresetModule(isPaged: false, showAddPreset: self.$showAddPreset)

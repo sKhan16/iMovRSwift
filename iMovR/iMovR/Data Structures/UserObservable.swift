@@ -162,7 +162,7 @@ public class UserObservable: ObservableObject {
         var isSuccess: Bool = false
         
         //To test new UI design for presets
-        print("AHH index: \(index)")
+        print("self.user.addPreset(...) index: \(index)")
         self.testPresets.insert(height, at: index)
         self.testPresets.remove(at: index + 1)
         
