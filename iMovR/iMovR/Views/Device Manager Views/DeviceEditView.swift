@@ -40,6 +40,9 @@ struct DeviceEditView: View {
                     Text("Edit Device")
                         .font(Font.title.weight(.medium))
                         .padding(5)
+                    Rectangle()
+                        .foregroundColor(Color.black)
+                        .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
                     VStack {
                         Text(selectedDevice.name)
                             .font(Font.title3.weight(.medium))
@@ -57,17 +60,19 @@ struct DeviceEditView: View {
                 .padding(.top)
                 
                 VStack(alignment: .leading) {
-                    Text("Device Name")
+                    Text("Device Name:")
                         .foregroundColor(Color.white)
-                        .offset(y:9)
-                    TextField("Change Device Name:", text: $editName)
+                        .font(Font.body.weight(.medium))
+                        .offset(y:8)
+                    TextField("change name?", text: $editName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    Text("Device ID")
+                    Text("Device ID:")
                         .foregroundColor(Color.white)
+                        .font(Font.body.weight(.medium))
                         .padding(.top, 10)
-                        .offset(y:9)
-                    TextField("Change Device ID:", text: $editID)
+                        .offset(y:8)
+                    TextField("change id?", text: $editID)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         
                 }
