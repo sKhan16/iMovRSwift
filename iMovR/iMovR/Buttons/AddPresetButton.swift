@@ -13,6 +13,8 @@ struct AddPresetButton: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var user: UserObservable
     @State private var testCount: Float = 0.0
+    
+    @State var index: Int
 
     @Binding var showAddPreset: Bool
     
@@ -42,25 +44,25 @@ struct AddPresetButton: View {
             
         }
             .sheet(isPresented: self.$showAddPreset) {
-                AddPresetView(showAddPreset: self.$showAddPreset).environmentObject(self.user)
+                AddPresetView(showAddPreset: self.$showAddPreset, index: self.index).environmentObject(self.user)
         }
     }
 
 }
 
-func addPreset(user: UserObservable, name: String, height: Float) {
-    //Test code. Replace when neccessary. Can mutate observable object.
-    if user.addPreset(name: name, height: height) {
-        print("preset successfully added")
-    } else {
-        print("user.addPreset failed")
-    }
-    // Replace with functionality to switch to AddPreset screen.
-    print("Moving to the add preset screen!")
-}
+//func addPreset(user: UserObservable, name: String, height: Float) {
+//    //Test code. Replace when neccessary. Can mutate observable object.
+//    if user.addPr, index: <#Int#>eset(name: name, height: height, index: 0) {
+//        print("preset successfully added")
+//    } else {
+//        print("user.addPreset failed")
+//    }
+//    // Replace with functionality to switch to AddPreset screen.
+//    print("Moving to the add preset screen!")
+//}
 
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetButton(showAddPreset: .constant(true)).environmentObject(UserObservable())
+        AddPresetButton(index: 0, showAddPreset: .constant(true)).environmentObject(UserObservable())
     }
 }

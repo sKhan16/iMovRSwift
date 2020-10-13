@@ -25,6 +25,8 @@ public class UserObservable: ObservableObject {
     
     @Published var presets : [Preset] = []
     @Published var desks: [Desk] = []
+    
+    @Published var testPresets: [Float] = [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
 
     @Published var currentDesk: Desk = Desk(name: "Please add or select a desk.", deskID: 0)
     
@@ -156,8 +158,11 @@ public class UserObservable: ObservableObject {
     }
     
     
-    func addPreset (name: String, height: Float) -> Bool {
+    func addPreset (name: String, height: Float, index: Int) -> Bool {
         var isSuccess: Bool = false
+        
+        //To test new UI design for presets
+        self.testPresets[index] = height
         
         let newPreset = Preset(name: name, height: height, deskID: self.currentDesk.id)
         

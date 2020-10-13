@@ -41,7 +41,7 @@ struct HomeView: View {
                 ScrollView(.horizontal) {
                     
                     HStack  {
-                        AddPresetButton(showAddPreset: self.$showAddPreset)
+                        AddPresetButton(index: 0, showAddPreset: self.$showAddPreset)
                             .padding()
                         //Might want to make presets a struct that is identifiable
                         ForEach (0..<self.user.presets.count, id: \.self) { index in

@@ -19,16 +19,16 @@ struct LoadedPreset: View {
     
     //@State var tapped = false
     
-    @Binding var presetName: String
-    @Binding var presetHeight: Float
+    //@Binding var presetName: String
+    //@Binding var presetHeight: Float
     
     var body: some View {
         Button(action: {
             //self.moveToPreset()
             print("Moved to \(self.presetVal)")
             
-            self.presetName = self.name
-            self.presetHeight = self.presetVal
+            //self.presetName = self.name
+            //self.presetHeight = self.presetVal
             
         }) {
             VStack {
@@ -38,8 +38,9 @@ struct LoadedPreset: View {
                         //.stroke(Color.black, lineWidth: 3)
                         //.background(Circle().foregroundColor(ColorManager.preset))
                         .frame(width: 80.0, height: 80)
-                    Text("\(self.presetHeight)")
-                        .frame(width: 40, height: 40)
+                    Text(String(format: "%.1f", presetVal))
+                        .frame(width: 75, height: 75)
+                        .font(.largeTitle)
                         .foregroundColor(Color.white)
                 }
             }
@@ -48,7 +49,7 @@ struct LoadedPreset: View {
     }
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        LoadedPreset(name: "test", presetVal: 33.3, presetName: .constant("test"), presetHeight: .constant(33.3))
+        LoadedPreset(name: "test", presetVal: 33.3)
     }
 }
 }

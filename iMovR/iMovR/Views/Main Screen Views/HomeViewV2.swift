@@ -84,6 +84,7 @@ struct HomeViewV2: View {
                     
                 }//end 2nd level VStack
                 
+                PresetModule(isPaged: false, showAddPreset: self.$showAddPreset)
 //                VStack {
 //                    HStack {
 //                        AddPresetButton(showAddPreset: self.$showAddPreset)
