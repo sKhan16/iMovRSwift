@@ -55,6 +55,7 @@ struct HomeViewV2: View {
                             Text(String(format: "%.1f", self.bt.currentHeight))
                                 .font(.system(size: 86))
                                 .padding(.leading)
+                                .foregroundColor(Color.white)
                             Text("in")
                                 .foregroundColor(ColorManager.textColor)
                                 .font(.system(size: 64))

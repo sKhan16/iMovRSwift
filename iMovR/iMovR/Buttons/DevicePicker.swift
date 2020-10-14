@@ -22,6 +22,7 @@ struct DevicePicker: View {
                 PickerLeft(index: $index, devices: $testDevices)
                 ZStack {
                     Text(testDevices[index]).font(.system(size: 24))
+                        .foregroundColor(Color.white)
                 }
                 PickerRight(index: $index, devices: $testDevices)
             }
