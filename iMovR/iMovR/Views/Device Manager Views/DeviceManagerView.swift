@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+//use z stack popup stuff to get edit device menu(s)
+
+
 struct DeviceManagerView: View {
   
     @EnvironmentObject var bt: ZGoBluetoothController

@@ -17,10 +17,10 @@ struct HeightSlider: View {
       
         
         VStack {
-            Text(String(format: "%.1f", self.bt.currentHeight))
+            Text(String(format: "%.1f", self.bt.deskHeight))
                 .rotationEffect(.degrees(90))
                 .font(.largeTitle)
-            Slider(value: self.$bt.currentHeight, in: self.bt.minHeight...self.bt.maxHeight, step: 1)
+            Slider(value: self.$bt.deskHeight, in: self.bt.minHeight...self.bt.maxHeight, step: 1)
             }
             .rotationEffect(.degrees(270))
             .disabled(true)

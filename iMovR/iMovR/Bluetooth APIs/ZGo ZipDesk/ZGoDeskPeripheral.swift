@@ -19,7 +19,7 @@ let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
 
 ///# ZGoDeskPeripheral Wrapper: Contains controls for ZGo desk
 
-class ZGoDeskPeripheral:ObservableObject {
+class ZGoDeskPeripheral:Device {
     
     let deskPeripheral: CBPeripheral
     let writeCharacteristic, readCharacteristic: CBCharacteristic

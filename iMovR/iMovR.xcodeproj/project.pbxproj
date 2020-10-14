@@ -60,6 +60,7 @@
 		41AED7AC24DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A824DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift */; };
 		41AED7AD24DA5BD3007C68E2 /* DeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A924DA5BD3007C68E2 /* DeskData+CoreDataClass.swift */; };
 		41AED7AE24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7AA24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift */; };
+		41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C2EFE4252E371D006D6BF2 /* Device.swift */; };
 		41EF1EFE252901D300AEE90F /* DiscoveredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF1EFD252901D300AEE90F /* DiscoveredDevicesView.swift */; };
 		63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */; };
 		982F180A24D36FFC003FF080 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F180924D36FFC003FF080 /* SettingView.swift */; };
@@ -152,6 +153,7 @@
 		41AED7A824DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		41AED7A924DA5BD3007C68E2 /* DeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeskData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		41AED7AA24DA5BD3007C68E2 /* DeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeskData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		41C2EFE4252E371D006D6BF2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		41EF1EFD252901D300AEE90F /* DiscoveredDevicesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredDevicesView.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovRTests.release.xcconfig"; path = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				1E31FFD424DA4A6100E9913F /* Desk.swift */,
 				41A3096D24C399D300644006 /* Preset.swift */,
 				1EAA5C8E252BC66300A471E2 /* ColorManager.swift */,
+				41C2EFE4252E371D006D6BF2 /* Device.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -727,6 +730,7 @@
 				415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */,
 				1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */,
 				982F181924D37F4E003FF080 /* SettingDetail.swift in Sources */,
+				41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
 				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,
 				41EF1EFE252901D300AEE90F /* DiscoveredDevicesView.swift in Sources */,
