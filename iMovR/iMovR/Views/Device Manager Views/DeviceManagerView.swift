@@ -19,6 +19,7 @@ struct DeviceManagerView: View {
     
     @State var deviceEditIndex: Int = -1
     @State private var safetyDummyIndex: Int = -1
+    @State private var editBackgroundBlur: CGFloat = 0
     
     var body: some View {
         let testDevices = testSavedDevices + testDiscoveredDevices
@@ -81,12 +82,24 @@ struct DeviceManagerView: View {
                 //.border(Color.red, width: 3)
                 
             }//end VStack
+            .blur(radius: editBackgroundBlur)
             
             // Popup for editing saved device properties
             if (deviceEditIndex != -1) {
                 DeviceEditView(deviceIndex: $deviceEditIndex, selectedDevice: testDevices[deviceEditIndex])
+                    .onAppear() {
+                        self.editBackgroundBlur = 5
+                        withAnimation(.easeIn(duration: 5),{})
+                    }
+                    .onDisappear() {
+                        self.editBackgroundBlur = 0
+                        withAnimation(.easeOut(duration: 5),{})
+                    }
             }
-        }/*end ZStack*/.animation(.easeInOut)
+        }/*end ZStack*/.onAppear() {
+            withAnimation(.easeInOut(duration: 10),{})
+        }
+        //.animation(.easeInOut)
     } //end Body
 }
 
