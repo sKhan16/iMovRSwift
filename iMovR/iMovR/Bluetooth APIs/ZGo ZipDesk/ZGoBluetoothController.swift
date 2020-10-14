@@ -102,8 +102,13 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         // disconnect if needed to connect to a different desk
         if self.isDeskConnected {
             print("disconnecting from connected desk")
-            self.isDeskConnected = false
-            centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
+            self.isConnected = false
+          
+            if self.deskWrap != nil {
+                centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
+            } else {
+                print("error: bt.isConnected was true, but bt.deskWrap not initialized yet")
+            }
         }
         
         print("Scanning for peripherals with service: \(ZGoServiceUUID)")
@@ -323,5 +328,4 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     }
 
 }// end ZGoBluetoothController
-    
 

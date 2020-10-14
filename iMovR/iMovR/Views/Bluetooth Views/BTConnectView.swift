@@ -46,7 +46,7 @@ struct BTConnectView: View {
                                     self.bt.connectToDevice(peripheral: self.bt.discoveredDevices[index].peripheral)
                                     
                                 }) {
-                                    Text("Device #\(self.bt.discoveredDevices[index].id)")
+                                    Text("Device #" + String(self.bt.discoveredDevices[index].id))
                                 }
                                     /*
                                      DeskSettingDetail(currIndex: index) ) {

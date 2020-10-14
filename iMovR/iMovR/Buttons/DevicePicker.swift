@@ -1,0 +1,72 @@
+//
+//  DevicePicker.swift
+//  iMovR
+//
+//  Created by Shakeel Khan on 10/5/20.
+//  Copyright © 2020 iMovR. All rights reserved.
+//
+
+import SwiftUI
+
+
+
+struct DevicePicker: View {
+    @State var index: Int = 0
+    
+    @State var testDevices = ["desk 1", "arm 1", "desk 2"]
+    
+    var body: some View {
+        VStack {
+            Text("Workstation").foregroundColor(ColorManager.textColor)
+            HStack {
+                PickerLeft(index: $index, devices: $testDevices)
+                ZStack {
+                    Text(testDevices[index]).font(.system(size: 24))
+                }
+                PickerRight(index: $index, devices: $testDevices)
+            }
+            
+        }
+        .padding()
+    }
+}
+
+struct PickerLeft: View {
+    @Binding var index: Int
+    @Binding var devices: Array<String>
+    
+    var body: some View {
+    Button(action: {
+        if index == 0 {
+            index = devices.count - 1
+        } else {
+            index -= 1
+        }
+            }) {
+                Image(systemName: "chevron.left").foregroundColor(Color.white)
+            }
+    }
+}
+
+struct PickerRight: View {
+    @Binding var index: Int
+    @Binding var devices: Array<String>
+    
+    var body: some View {
+    Button(action: {
+        if index == devices.count - 1 {
+            index = 0
+        } else {
+            index += 1
+        }
+            }) {
+        Image(systemName: "chevron.right").foregroundColor(Color.white)
+            }
+    }
+}
+
+struct DevicePicker_Previews: PreviewProvider {
+    static var previews: some View {
+        DevicePicker()
+    }
+}
