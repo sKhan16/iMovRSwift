@@ -52,9 +52,10 @@ struct DeviceRowView: View {
             
             EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
                 .frame(width:75, height:75)
+                .accentColor(.red)
         }
         .frame(minHeight: 75, idealHeight: 75, maxHeight: 75)
-        .background(Color.white)
+        .background(ColorManager.textColor)
         .cornerRadius(20)
         //.border(Color.black, width: 3)
         .overlay(
