@@ -19,7 +19,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     
     // Current Desk Information
     @Published var deskWrap: ZGoDeskPeripheral?
-    @Published var currentDesk: Desk?// = Desk(name: "desk not yet initialized", deskID: 0)
+    private var currentDesk: Desk?
     @Published var isDeskConnected: Bool = false
     @Published var deskHeight: Float = 0
     @Published var maxHeight: Float = 1
@@ -102,12 +102,12 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         // disconnect if needed to connect to a different desk
         if self.isDeskConnected {
             print("disconnecting from connected desk")
-            self.isConnected = false
+            self.isDeskConnected = false
           
             if self.deskWrap != nil {
                 centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
             } else {
-                print("error: bt.isConnected was true, but bt.deskWrap not initialized yet")
+                print("error: bt.isDeskConnected was true, but bt.deskWrap not initialized yet")
             }
         }
         
@@ -213,16 +213,17 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the code after this guard into a different method only called with the currentDesk ID check.
         // Alternatively, put in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
         
-        guard self.currentDesk.id > 0 else {
+        guard (self.currentDesk != nil) else {
             // peripheral was discovered during the scan process, exit code now
+            print("*bt* no curr desk, skip manufac. ID chk")
             return
         }
         
         // scan is stopped after the guard statement. If first scanned desk happens to be the searched for currentDesk it won't discover any more desks, but this functionality must change
 
         // Begin connection if current discovered desk matches stored user selection
-        guard manufacturerDeskID == self.currentDesk.id else {
-            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currentDesk.id))")
+        guard manufacturerDeskID == self.currentDesk!.id else {
+            print("Desk id \(String(manufacturerDeskID)) did not match selected desk id \(String(self.currentDesk!.id))")
             DispatchQueue.main.async { () -> Void in
                 self.connectionStatus = "ID Didn't Match Discovered Desk(s)"
                 self.connectionColor = Color.red

@@ -52,7 +52,7 @@ struct HomeViewV2: View {
                         //Height indicator goes here,,
                         //Or build height indicators into the HeightSlider and remove the Spacer()
                         //HStack {
-                            Text(String(format: "%.1f", self.bt.currentHeight))
+                            Text(String(format: "%.1f", self.bt.deskHeight))
                                 .font(.system(size: 86))
                                 .padding(.leading)
                             Text("in")

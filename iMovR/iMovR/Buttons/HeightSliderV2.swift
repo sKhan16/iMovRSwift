@@ -23,7 +23,7 @@ struct HeightSliderV2: View {
                     
                 Rectangle().frame(
                     width: geometry.size.width,
-                    height: min(CGFloat((self.bt.currentHeight - self.bt.minHeight) / (self.bt.maxHeight - self.bt.minHeight))*geometry.size.height, geometry.size.height))
+                    height: min(CGFloat((self.bt.deskHeight - self.bt.minHeight) / (self.bt.maxHeight - self.bt.minHeight))*geometry.size.height, geometry.size.height))
                     .foregroundColor(Color(UIColor.systemGreen))
                     .animation(.linear)
             }//end ZStack
