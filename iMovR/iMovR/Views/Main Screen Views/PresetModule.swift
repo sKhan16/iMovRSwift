@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PresetModule: View {
     @EnvironmentObject var user: UserObservable
-    
+
     @State var isPaged: Bool = false
     @Binding var showAddPreset: [Bool]
     
@@ -19,7 +19,12 @@ struct PresetModule: View {
             if self.isPaged {
                 
                 PresetButton(index: 3, showAddPreset: self.$showAddPreset[3])
+                    .offset(y: -80)
+                    .padding(.top)
+                
                 PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
+                    .padding(.trailing)
+                
                 PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
 //                ForEach((0...2), id: \.self) { index in
 //                    if self.user.testPresets[index] > -1 {
@@ -32,7 +37,12 @@ struct PresetModule: View {
 //                }
             } else {
                 PresetButton(index: 0, showAddPreset: self.$showAddPreset[0])
+                    .offset(y: -80)
+                    .padding(.top)
+                
                 PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
+                    .padding(.trailing)
+                
                 PresetButton(index: 2, showAddPreset: self.$showAddPreset[2])
 //                    ForEach((3...5), id: \.self) { index in
 //                        if self.user.testPresets[index] > -1 {
@@ -44,7 +54,8 @@ struct PresetModule: View {
 //                    }
                 }
             MorePresetButton(isPaged: self.$isPaged)
-                .padding(.trailing)
+                .offset(y: -80)
+                .padding([.trailing, .top])
             }
 //            AddPresetButton(index: 0, showAddPreset: self.$showAddPreset)
 //            AddPresetButton(index: 1, showAddPreset: self.$showAddPreset)
