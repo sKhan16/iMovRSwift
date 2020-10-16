@@ -15,7 +15,7 @@ struct HomeViewV2: View {
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
 
-//    @State var isTouchGo: Bool = false
+    @State var isTouchGo: Bool = false
     
 //    @State var presetName: String = ""
 //    @State var presetHeight: Float = 0.0
@@ -47,7 +47,7 @@ struct HomeViewV2: View {
                     DevicePicker()
                     //BTConnectButton(showBTConnect: self.$showBTConnect)
                         .padding(.bottom, 20)
-                    
+    
                     HStack {
                         //Height indicator goes here,,
                         //Or build height indicators into the HeightSlider and remove the Spacer()
@@ -82,8 +82,8 @@ struct HomeViewV2: View {
                     //.alignmentGuide(.leading, computeValue: { d in d[.leading] })
                 }//end 2nd level VStack
                 
-                PresetModule(isPaged: false, showAddPreset: self.$showAddPreset)
-                    .padding()
+                PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo)
+                    //.padding()
 //                VStack {
 //                    HStack {
 //                        AddPresetButton(showAddPreset: self.$showAddPreset)

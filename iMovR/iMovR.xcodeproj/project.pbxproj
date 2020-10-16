@@ -44,6 +44,8 @@
 		1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5CE6253579E400A471E2 /* PresetModule.swift */; };
 		1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
+		1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60ED7253A310000B564F8 /* MovementButton.swift */; };
+		1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */; };
 		4103FF95252FD03B004C3E09 /* DeviceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103FF94252FD03B004C3E09 /* DeviceEditView.swift */; };
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		4116613C252BAA570063A68D /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4116613B252BAA570063A68D /* DeviceRowView.swift */; };
@@ -135,6 +137,8 @@
 		1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePresetButton.swift; sourceTree = "<group>"; };
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1EE60ED7253A310000B564F8 /* MovementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementButton.swift; sourceTree = "<group>"; };
+		1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditButton.swift; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4103FF94252FD03B004C3E09 /* DeviceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditView.swift; sourceTree = "<group>"; };
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
+				1EE60ED7253A310000B564F8 /* MovementButton.swift */,
 				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
 				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
 				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
@@ -312,6 +317,7 @@
 				1E94E1E424C0F72800155123 /* PresetButton.swift */,
 				1EAA5CBB2534ED6C00A471E2 /* LoadedPreset.swift */,
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
+				1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */,
 			);
 			path = Preset;
 			sourceTree = "<group>";
@@ -705,6 +711,7 @@
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				4150F0AF252906080047389A /* BTConnectView.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
+				1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */,
 				982F181E24D54865003FF080 /* EditPreset.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
 				1EAA5C82252BADD200A471E2 /* HomeViewV2.swift in Sources */,
@@ -737,6 +744,7 @@
 				4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */,
 				1EAA5CAB252FC97800A471E2 /* HeightSliderV2.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
+				1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */,
 				1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoDeskPeripheral.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
