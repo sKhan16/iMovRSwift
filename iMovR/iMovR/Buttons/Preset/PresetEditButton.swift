@@ -16,9 +16,14 @@ struct PresetEditButton: View {
             ZStack {
                 Circle()
                     .foregroundColor(Color.gray)
-                    .frame(width: 25, height: 25, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 45, height: 45)
                 Image(systemName: "gear")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .rotationEffect(.degrees(90))
                     .accentColor(Color.black)
+                    .frame(width: 40, height: 40)
+                    
             }
         }
         .padding(.bottom)

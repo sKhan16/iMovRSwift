@@ -25,7 +25,6 @@
 		1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */; };
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
 		1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E724C12C1A00155123 /* UserObservable.swift */; };
-		1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E924C2254E00155123 /* EditPresetButton.swift */; };
 		1E94E1F124C241A400155123 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F024C241A400155123 /* MotherView.swift */; };
 		1E94E1F324C27ED400155123 /* UpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F224C27ED400155123 /* UpButton.swift */; };
 		1E94E1F524C2801E00155123 /* DownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F424C2801E00155123 /* DownButton.swift */; };
@@ -117,7 +116,6 @@
 		1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E724C12C1A00155123 /* UserObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObservable.swift; sourceTree = "<group>"; };
-		1E94E1E924C2254E00155123 /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
 		1E94E1F024C241A400155123 /* MotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotherView.swift; sourceTree = "<group>"; };
 		1E94E1F224C27ED400155123 /* UpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButton.swift; sourceTree = "<group>"; };
 		1E94E1F424C2801E00155123 /* DownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButton.swift; sourceTree = "<group>"; };
@@ -284,13 +282,11 @@
 				1EAA5CB22534ED2D00A471E2 /* Preset */,
 				412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */,
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
-				1E94E1E924C2254E00155123 /* EditPresetButton.swift */,
 				1E21EFCD24D25595008BDE9A /* HoldButton.swift */,
 				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
 				1E94E1F824C3E06F00155123 /* HeightSlider.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
-				1EE60ED7253A310000B564F8 /* MovementButton.swift */,
 				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
 				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
 				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
@@ -318,6 +314,7 @@
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
 				1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */,
 				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
+				1EE60ED7253A310000B564F8 /* MovementButton.swift */,
 			);
 			path = Preset;
 			sourceTree = "<group>";
@@ -732,7 +729,6 @@
 				1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */,
 				4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */,
 				415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */,
-				1E94E1EA24C2254E00155123 /* EditPresetButton.swift in Sources */,
 				982F181924D37F4E003FF080 /* SettingDetail.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
 				1E94E1F924C3E06F00155123 /* HeightSlider.swift in Sources */,

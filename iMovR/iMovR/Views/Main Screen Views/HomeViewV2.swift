@@ -81,6 +81,7 @@ struct HomeViewV2: View {
                     }//end HStack
                     //.alignmentGuide(.leading, computeValue: { d in d[.leading] })
                 }//end 2nd level VStack
+                .frame(maxWidth: .infinity)
                 
                 PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo)
                     //.padding()
