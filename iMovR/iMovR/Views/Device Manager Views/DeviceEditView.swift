@@ -31,7 +31,8 @@ struct DeviceEditView: View {
             Button(action: {self.deviceIndex = -1}, label: {
                 Rectangle()
                     .fill(Color.gray)
-                    .opacity(0.5)
+                    .opacity(0.2)
+                    .edgesIgnoringSafeArea(.top)
                     //.blur(radius: 3.0)
             })
             VStack {
@@ -60,13 +61,13 @@ struct DeviceEditView: View {
                 .padding(.top)
                 
                 VStack(alignment: .leading) {
-                    Text("Device Name:")
+                    Text("Change Device Name?")
                         .foregroundColor(Color.white)
                         .font(Font.body.weight(.medium))
                         .offset(y:8)
-                    TextField("change name?", text: $editName)
+                    TextField(" new name", text: $editName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+                    /*
                     Text("Device ID:")
                         .foregroundColor(Color.white)
                         .font(Font.body.weight(.medium))
@@ -74,7 +75,7 @@ struct DeviceEditView: View {
                         .offset(y:8)
                     TextField("change id?", text: $editID)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
+                    */
                 }
                 .padding()
                 

@@ -29,48 +29,33 @@ struct DeviceRowView: View {
         let currDevice = testDevices[deviceIndex]
         
         HStack {
-            Button(
-                action:{
-                    print("clicked device row \(deviceIndex) connect button")
-                    //bt.connect(...to current device...)
-                }
-            ) { Image(systemName: "dot.radiowaves.left.and.right")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(minWidth: 30, idealWidth: 50, maxWidth: 50, minHeight: 40)
-                //.frame(width: 40)
-                .padding(.leading, 10)
-            }
+            
+            ConnectButton(deviceIndex: self.deviceIndex)
+                .frame(width:75, height:75)
+            
+//            Rectangle()
+//                .fill(Color.black)
+//                .frame(width: 2)
             
             //Spacer()
             VStack {
                 Text(currDevice.name)
-                    .bold()
+                    .font(Font.title3.bold())
                     .truncationMode(.tail)
                 Text(String(currDevice.id))
-                    .font(Font.body)
+                    .font(Font.body.weight(.medium))
             }
                 .font(Font.title3)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity)
             .padding([.top,.bottom], 15)
-            Button(
-                action:{
-                    print("edit device menu activated")
-                    self.edit = self.deviceIndex
-                }
-            ) { Image(systemName: "ellipsis")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .rotationEffect(.degrees(90))
-                .frame(minWidth: 20, idealWidth: 30, maxWidth: 30, minHeight: 40)
-                .padding([.trailing], 10)
-
-                
-            }
-                
+            
+            EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
+                .frame(width:75, height:75)
+                .accentColor(.red)
         }
-        .background(Color.white)
+        .frame(minHeight: 75, idealHeight: 75, maxHeight: 75)
+        .background(ColorManager.textColor)
         .cornerRadius(20)
         //.border(Color.black, width: 3)
         .overlay(
@@ -80,6 +65,57 @@ struct DeviceRowView: View {
         
     }
 }
+
+
+private struct ConnectButton: View {
+    let deviceIndex: Int
+    
+    var body: some View {
+        Button(
+            action:{
+                print("clicked device row \(deviceIndex) connect button")
+                //bt.connect(...to current device...)
+            }
+        ) {
+            ZStack {
+                Image(systemName: "dot.radiowaves.right")//"dot.radiowaves.left.and.right")
+                    .resizable()
+                    .rotationEffect(.degrees(-90))
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40)
+                
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.black, lineWidth: 2)
+            }
+        }
+    }//end body
+}//end ConnectButton
+
+
+private struct EditButton: View {
+    let deviceIndex: Int
+    @Binding var editIndex: Int
+    
+    var body: some View {
+        Button(
+            action:{
+                print("edit device menu activated")
+                self.editIndex = self.deviceIndex
+            }
+        ) {
+            ZStack {
+                Image(systemName: "gearshape.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                //.rotationEffect(.degrees(90))
+                .frame(minWidth: 30, idealWidth: 40, maxWidth: 40)
+                
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.black, lineWidth: 2)
+            }
+        }
+    }//end body
+}//end EditButton
 
 struct DeviceRowView_Previews: PreviewProvider {
     static var previews: some View {

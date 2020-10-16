@@ -26,7 +26,7 @@ struct HomeViewV2: View {
     
     var body: some View {
         GeometryReader { geo in
-            VStack {
+            VStack(alignment: .center) {
                 Image("imovrLogo")
                     .resizable()
                     .frame(width: geo.size.width / 6, height: geo.size.height / 10)
@@ -116,11 +116,20 @@ struct HomeViewV2: View {
 
 struct HomeViewV2_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            HomeViewV2()
-                .environmentObject(UserObservable())
-                .environmentObject(ZGoBluetoothController())
+        Group {
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                HomeViewV2()
+                    .environmentObject(UserObservable())
+                    .environmentObject(ZGoBluetoothController())
+            }
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                HomeViewV2()
+                    .environmentObject(UserObservable())
+                    .environmentObject(ZGoBluetoothController())
+            }
+            .previewDevice("iPhone 6s")
         }
     }
 }
