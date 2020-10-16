@@ -9,8 +9,11 @@
 import SwiftUI
 
 struct PresetEditButton: View {
+    @Binding var show: Bool
+    
     var body: some View {
         Button(action: {
+            self.show = true
             print("Open preset edit popup")
         }) {
             ZStack {
@@ -31,6 +34,6 @@ struct PresetEditButton: View {
 
 struct PresetEditButton_Previews: PreviewProvider {
     static var previews: some View {
-        PresetEditButton()
+        PresetEditButton(show: .constant(false))
     }
 }

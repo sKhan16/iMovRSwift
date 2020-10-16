@@ -14,6 +14,8 @@ struct HomeViewV2: View {
     @EnvironmentObject var bt: ZGoBluetoothController
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
+    @State private var showPresetPopup: Bool = false
+    @State private var popupBackgroundBlur: CGFloat = 0
 
     @State var isTouchGo: Bool = false
     
@@ -26,91 +28,109 @@ struct HomeViewV2: View {
     
     var body: some View {
         GeometryReader { geo in
-            VStack {
-                Image("imovrLogo")
-                    .resizable()
-                    .frame(width: geo.size.width / 6, height: geo.size.height / 10)
-                    //.padding(.top)
-                
-                /* why use ZStack? curious. device picker works in the below VStack
-                Spacer().frame(height: 70)
-                ZStack {
-                    HStack {
-                        DevicePicker()
-                 
-                    } //end HStack
-                } //end ZStack
-                */
-                
-                VStack(alignment: .center) {
-                    
-                    DevicePicker()
-                    //BTConnectButton(showBTConnect: self.$showBTConnect)
-                        .padding(.bottom, 20)
-    
-                    HStack {
-                        //Height indicator goes here,,
-                        //Or build height indicators into the HeightSlider and remove the Spacer()
-                        //HStack {
-                            Text(String(format: "%.1f", self.bt.currentHeight))
-                                .font(.system(size: 86))
-                                .padding(.leading)
-                                .foregroundColor(Color.white)
-                            Text("in")
-                                .foregroundColor(ColorManager.textColor)
-                                .font(.system(size: 64))
-                        //}
-                        //Spacer()
-                        
-                        //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
-                            //HStack(alignment: .top) {
-                                HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)// By default slider size is undefined, fills container
-                                    //.padding([.top,.bottom], 20)
-                            //}
-                        //}
-                        
-                        VStack(alignment: .leading) {
-                            //Spacer()
-                            UpButton(testHeight: self.$testHeight)
-                                .padding(.bottom, 10)
-                            DownButton(testHeight: self.$testHeight)
-                                .padding(.top, 10)
-                            //Spacer()
-                        }
-                        .padding()
-                    }//end HStack
-                    //.alignmentGuide(.leading, computeValue: { d in d[.leading] })
-                }//end 2nd level VStack
-                .frame(maxWidth: .infinity)
-                
-                PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo)
-                    //.padding()
-//                VStack {
-//                    HStack {
-//                        AddPresetButton(showAddPreset: self.$showAddPreset)
-//                    }
-//                }
-                
-                /* dont need touch & go slider/stuff on home page anymore...
-                VStack (alignment: .center) {
-                Text("Touch & Go")
-                    Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
-                }
-                
+            ZStack(alignment: .center) {
                 VStack {
-                    if self.isTouchGo {
-                        TouchGoButton(isTouchGo: self.$isTouchGo,
-                            presetHeight:
-                            self.$presetHeight)
-                    } else {
-                    HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+                    Image("imovrLogo")
+                        .resizable()
+                        .frame(width: geo.size.width / 6, height: geo.size.height / 10)
+                        //.padding(.top)
+                    
+                    /* why use ZStack? curious. device picker works in the below VStack
+                    Spacer().frame(height: 70)
+                    ZStack {
+                        HStack {
+                            DevicePicker()
+                     
+                        } //end HStack
+                    } //end ZStack
+                    */
+                    
+                    VStack(alignment: .center) {
+                        
+                        DevicePicker()
+                        //BTConnectButton(showBTConnect: self.$showBTConnect)
+                            .padding(.bottom, 20)
+        
+                        HStack {
+                            //Height indicator goes here,,
+                            //Or build height indicators into the HeightSlider and remove the Spacer()
+                            //HStack {
+                                Text(String(format: "%.1f", self.bt.currentHeight))
+                                    .font(.system(size: 86))
+                                    .padding(.leading)
+                                    .foregroundColor(Color.white)
+                                Text("in")
+                                    .foregroundColor(ColorManager.textColor)
+                                    .font(.system(size: 64))
+                            //}
+                            //Spacer()
+                            
+                            //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
+                                //HStack(alignment: .top) {
+                                    HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)// By default slider size is undefined, fills container
+                                        //.padding([.top,.bottom], 20)
+                                //}
+                            //}
+                            
+                            VStack(alignment: .leading) {
+                                //Spacer()
+                                UpButton(testHeight: self.$testHeight)
+                                    .padding(.bottom, 10)
+                                DownButton(testHeight: self.$testHeight)
+                                    .padding(.top, 10)
+                                //Spacer()
+                            }
+                            .padding()
+                        }//end HStack
+                        //.alignmentGuide(.leading, computeValue: { d in d[.leading] })
+                    }//end 2nd level VStack
+                    .frame(maxWidth: .infinity)
+                    
+                    PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup)
+                        //.padding()
+    //                VStack {
+    //                    HStack {
+    //                        AddPresetButton(showAddPreset: self.$showAddPreset)
+    //                    }
+    //                }
+                    
+                    /* dont need touch & go slider/stuff on home page anymore...
+                    VStack (alignment: .center) {
+                    Text("Touch & Go")
+                        Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
                     }
-                }
-                //.padding(.bottom)
-                //Spacer()
-                */
+                    
+                    VStack {
+                        if self.isTouchGo {
+                            TouchGoButton(isTouchGo: self.$isTouchGo,
+                                presetHeight:
+                                self.$presetHeight)
+                        } else {
+                        HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
+                        }
+                    }
+                    //.padding(.bottom)
+                    //Spacer()
+                    */
+                    
+                }//end 1st level VStack
+                .blur(radius: popupBackgroundBlur)
                 
-            }//end 1st level VStack
+                // Popup for editing saved device properties
+                if (showPresetPopup) {
+                    PresetEditPopup(show: $showPresetPopup)
+                        .onAppear() {
+                            self.popupBackgroundBlur = 5
+                            withAnimation(.easeIn(duration: 5),{})
+                        }
+                        .onDisappear() {
+                            self.popupBackgroundBlur = 0
+                            withAnimation(.easeOut(duration: 5),{})
+                        }
+                }
+            }/*end ZStack*/.onAppear() {
+            withAnimation(.easeInOut(duration: 10),{})
+        }
         }//end GeoReader
         
     }//end body

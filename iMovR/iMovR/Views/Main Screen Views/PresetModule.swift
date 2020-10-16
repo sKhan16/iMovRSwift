@@ -14,6 +14,7 @@ struct PresetModule: View {
     @State var isPaged: Bool = false
     @Binding var showAddPreset: [Bool]
     @Binding var isTouchGo: Bool
+    @Binding var showPresetPopup: Bool
     
     var body: some View {
         HStack {
@@ -26,7 +27,7 @@ struct PresetModule: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
-                    PresetEditButton()
+                    PresetEditButton(show: $showPresetPopup)
                     MovementButton(isTouchGo: self.$isTouchGo)
                     HStack(alignment: .bottom) {
                         PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
@@ -44,7 +45,7 @@ struct PresetModule: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
-                    PresetEditButton()
+                    PresetEditButton(show: $showPresetPopup)
                     MovementButton(isTouchGo: self.$isTouchGo)
                     HStack(alignment: .bottom) {
                         PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
@@ -76,7 +77,8 @@ struct PresetModule_Previews: PreviewProvider {
             PresetModule(
                 isPaged: false,
                 showAddPreset: .constant([Bool](repeating: true, count: 6)),
-                isTouchGo: .constant(true)
+                isTouchGo: .constant(true),
+                showPresetPopup: .constant(false)
             )
                 .environmentObject(UserObservable())
         }
