@@ -53,6 +53,11 @@ struct PresetModule: View {
 
 struct PresetModule_Previews: PreviewProvider {
     static var previews: some View {
-        PresetModule(isPaged: false, showAddPreset: .constant([Bool](repeating: true, count: 6)), isTouchGo: .constant(true))
+        PresetModule(
+            isPaged: false,
+            showAddPreset: .constant([Bool](repeating: true, count: 6)),
+            isTouchGo: .constant(true)
+        )
+            .environmentObject(UserObservable())
     }
 }
