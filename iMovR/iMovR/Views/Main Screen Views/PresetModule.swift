@@ -30,10 +30,9 @@ struct PresetModule: View {
                     MovementButton(isTouchGo: self.$isTouchGo)
                     HStack(alignment: .bottom) {
                         PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
-                            .padding(5)
-                        
+                            .padding(.trailing, 10)
                         PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
-                            .padding(5)
+                            .padding(.leading, 10)
                     }
                 }
             } else {// first 3 presets
@@ -49,10 +48,10 @@ struct PresetModule: View {
                     MovementButton(isTouchGo: self.$isTouchGo)
                     HStack(alignment: .bottom) {
                         PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
-                            .padding(5)
+                            .padding(.trailing, 10)
                         
                         PresetButton(index: 2, showAddPreset: self.$showAddPreset[2])
-                            .padding(5)
+                            .padding(.leading, 10)
                     }
                 }
             }
