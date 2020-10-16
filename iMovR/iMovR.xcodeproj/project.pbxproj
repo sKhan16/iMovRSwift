@@ -283,7 +283,6 @@
 			children = (
 				1EAA5CB22534ED2D00A471E2 /* Preset */,
 				412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */,
-				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
 				1E94E1E924C2254E00155123 /* EditPresetButton.swift */,
 				1E21EFCD24D25595008BDE9A /* HoldButton.swift */,
@@ -318,6 +317,7 @@
 				1EAA5CBB2534ED6C00A471E2 /* LoadedPreset.swift */,
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
 				1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */,
+				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
 			);
 			path = Preset;
 			sourceTree = "<group>";

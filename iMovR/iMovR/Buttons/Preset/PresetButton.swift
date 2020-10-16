@@ -46,10 +46,8 @@ struct PresetButton: View {
     var body: some View {
         if self.user.testPresets[self.index] > -1 {
             LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
-                .padding(5)
         } else {
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
-                .padding(5)
         }
     }
     

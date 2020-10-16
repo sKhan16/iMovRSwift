@@ -37,9 +37,9 @@ struct LoadedPreset: View {
                         //.resizable()
                         //.stroke(Color.black, lineWidth: 3)
                         //.background(Circle().foregroundColor(ColorManager.preset))
-                        .frame(width: 80.0, height: 80)
+                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
                     Text(String(format: "%.1f", presetVal))
-                        .frame(width: 75, height: 75)
+                        .frame(minWidth: 70, idealWidth: 75, maxWidth: 75, minHeight: 70, idealHeight: 75, maxHeight: 75)
                         .font(.largeTitle)
                         .foregroundColor(Color.white)
                 }

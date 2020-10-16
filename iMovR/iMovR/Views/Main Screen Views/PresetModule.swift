@@ -16,48 +16,62 @@ struct PresetModule: View {
     @Binding var isTouchGo: Bool
     
     var body: some View {
-        
-        VStack {
-            PresetEditButton()
-            MovementButton(isTouchGo: self.$isTouchGo)
         HStack {
-            if self.isPaged {
+            if self.isPaged {//last 3 presets
                 
                 PresetButton(index: 3, showAddPreset: self.$showAddPreset[3])
                     .offset(y: -80)
-                    .padding(.top)
+                    .padding(5)
                 
                 PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
                     .padding(.trailing)
                 
                 PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
 
-            } else {
+            } else {// first 3 presets
+                HStack {
                 PresetButton(index: 0, showAddPreset: self.$showAddPreset[0])
-                    .offset(y: -80)
-                    .padding(.top)
-                
-                PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
-                    .padding(.trailing)
-                
-                PresetButton(index: 2, showAddPreset: self.$showAddPreset[2])
-
+                    //.offset(y: -80)
+                    .padding(.trailing, 5)
+                    .padding(.top, 20)
                 }
-            MorePresetButton(isPaged: self.$isPaged)
-                .offset(y: -80)
-                .padding([.trailing, .top])
+                .frame(maxHeight: .infinity, alignment: .top)
+                VStack {
+                    PresetEditButton()
+                    MovementButton(isTouchGo: self.$isTouchGo)
+                    HStack(alignment: .bottom) {
+                        PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
+                            .padding(5)
+                        
+                        PresetButton(index: 2, showAddPreset: self.$showAddPreset[2])
+                            .padding(5)
+                    }
+                }
             }
-        }
-    }
-    }
+            HStack {
+            MorePresetButton(isPaged: self.$isPaged)
+                //.offset(y: -80)
+                .padding(.leading, 5)
+                .padding(.top, 20)
+            }
+            .frame(maxHeight: .infinity, alignment: .top)
+        }//end 1st-level HStack
+        .frame(minHeight: 180, idealHeight: 180, maxHeight: 180)
+    }//end body
+
+}
+
 
 struct PresetModule_Previews: PreviewProvider {
     static var previews: some View {
-        PresetModule(
-            isPaged: false,
-            showAddPreset: .constant([Bool](repeating: true, count: 6)),
-            isTouchGo: .constant(true)
-        )
-            .environmentObject(UserObservable())
+        ZStack {
+            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+            PresetModule(
+                isPaged: false,
+                showAddPreset: .constant([Bool](repeating: true, count: 6)),
+                isTouchGo: .constant(true)
+            )
+                .environmentObject(UserObservable())
+        }
     }
 }
