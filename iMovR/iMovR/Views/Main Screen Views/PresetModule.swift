@@ -18,16 +18,24 @@ struct PresetModule: View {
     var body: some View {
         HStack {
             if self.isPaged {//last 3 presets
-                
-                PresetButton(index: 3, showAddPreset: self.$showAddPreset[3])
-                    .offset(y: -80)
-                    .padding(5)
-                
-                PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
-                    .padding(.trailing)
-                
-                PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
-
+                HStack {
+                    PresetButton(index: 3, showAddPreset: self.$showAddPreset[3])
+                        //.offset(y: -80)
+                        .padding(.trailing, 5)
+                        .padding(.top, 20)
+                }
+                .frame(maxHeight: .infinity, alignment: .top)
+                VStack {
+                    PresetEditButton()
+                    MovementButton(isTouchGo: self.$isTouchGo)
+                    HStack(alignment: .bottom) {
+                        PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
+                            .padding(5)
+                        
+                        PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
+                            .padding(5)
+                    }
+                }
             } else {// first 3 presets
                 HStack {
                 PresetButton(index: 0, showAddPreset: self.$showAddPreset[0])

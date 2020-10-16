@@ -26,7 +26,6 @@ struct PresetEditButton: View {
                     
             }
         }
-        .padding(.bottom)
     }
 }
 
