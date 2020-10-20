@@ -44,6 +44,7 @@ struct PresetEditPopup: View {
                 if self.editIndex == -1  {
                     VStack {
                         Text("List of presets")
+                            .foregroundColor(Color.white)
                         ForEach(Range(0...5)) { index in
                             VStack {
                                 Button(action: { self.editIndex = index }, label: {
@@ -52,7 +53,7 @@ struct PresetEditPopup: View {
                                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
                                         HStack {
                                             Text("Edit Preset \(index+1):")
-                                            Text(String(self.user.testPresets[index]))
+                                            Text(self.user.testPresets[index] > -1 ? String(self.user.testPresets[index]) : "Empty")
                                         }
                                         
                                     }
