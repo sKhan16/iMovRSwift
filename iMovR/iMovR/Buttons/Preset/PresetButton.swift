@@ -25,6 +25,7 @@ struct PresetButton: View {
     //@Binding var isLoaded: Bool
     let index: Int
     @Binding var showAddPreset: Bool
+    @Binding var isTouchGo: Bool
     
     //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
     //        print("Moving")
@@ -45,7 +46,8 @@ struct PresetButton: View {
     
     var body: some View {
         if self.user.testPresets[self.index] > -1 {
-            LoadedPreset(name: "pset \(index)", presetVal: self.user.testPresets[index])
+            LoadedPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index],
+                         isTouchGo: self.$isTouchGo)
         } else {
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
         }

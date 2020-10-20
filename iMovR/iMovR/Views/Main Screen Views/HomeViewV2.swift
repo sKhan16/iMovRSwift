@@ -118,7 +118,8 @@ struct HomeViewV2: View {
                 
                 // Popup for editing saved device properties
                 if (showPresetPopup) {
-                    PresetEditPopup(show: $showPresetPopup)
+                    PresetEditPopup(show: $showPresetPopup,
+                                    isTouchGo: self.$isTouchGo)
                         .onAppear() {
                             self.popupBackgroundBlur = 5
                             withAnimation(.easeIn(duration: 5),{})

@@ -12,6 +12,7 @@ struct PresetEditPopup: View {
     @EnvironmentObject var user: UserObservable
     
     @Binding var show: Bool
+    @Binding var isTouchGo: Bool
     
     @State var editIndex: Int = -1
     @State var editPresetName: String = ""
@@ -28,23 +29,21 @@ struct PresetEditPopup: View {
             })
             VStack {
                 
-                VStack {
-                    Text("Preset Settings")
-                        .font(Font.title.weight(.medium))
-                        .padding(5)
-                    Rectangle()
-                        .foregroundColor(Color.black)
-                        .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
-                }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(Color.white)
-                .padding(.top)
+//                VStack {
+//                    Text("Preset Settings")
+//                        .font(Font.title.weight(.medium))
+//                        .padding(5)
+//                    Rectangle()
+//                        .foregroundColor(Color.black)
+//                        .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
+//                }
+//                .frame(maxWidth: .infinity)
+//                .foregroundColor(Color.white)
+//                .padding(.top)
                 
                // Display Presets List
                 if self.editIndex == -1  {
                     VStack {
-                        Text("List of presets")
-                            .foregroundColor(Color.white)
                         ForEach(Range(0...5)) { index in
                             VStack {
                                 Button(action: { self.editIndex = index }, label: {
@@ -64,6 +63,9 @@ struct PresetEditPopup: View {
                             }
                         }
                     }
+                    .padding(.top, 5)
+                    MovementButton(isTouchGo: self.$isTouchGo)
+                        .padding(.bottom)
                 } else {
                     VStack(alignment: .leading) {
                         Text("Change Preset Name?")
@@ -138,7 +140,7 @@ struct PresetEditPopup_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            PresetEditPopup(show: .constant(true))
+            PresetEditPopup(show: .constant(true), isTouchGo: .constant(true))
                 .environmentObject(UserObservable())
         }
     }

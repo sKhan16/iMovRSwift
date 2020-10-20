@@ -20,7 +20,7 @@ struct PresetModule: View {
         HStack {
             if self.isPaged {//last 3 presets
                 HStack {
-                    PresetButton(index: 3, showAddPreset: self.$showAddPreset[3])
+                    PresetButton(index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo)
                         //.offset(y: -80)
                         .padding(.trailing, 5)
                         .padding(.top, 20)
@@ -28,17 +28,19 @@ struct PresetModule: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
-                    MovementButton(isTouchGo: self.$isTouchGo)
+                    if self.isTouchGo {
+                        StopGoButton()
+                    }
                     HStack(alignment: .bottom) {
-                        PresetButton(index: 4, showAddPreset: self.$showAddPreset[4])
+                        PresetButton(index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo)
                             .padding(.trailing, 10)
-                        PresetButton(index: 5, showAddPreset: self.$showAddPreset[5])
+                        PresetButton(index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo)
                             .padding(.leading, 10)
                     }
                 }
             } else {// first 3 presets
                 HStack {
-                PresetButton(index: 0, showAddPreset: self.$showAddPreset[0])
+                    PresetButton(index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo)
                     //.offset(y: -80)
                     .padding(.trailing, 5)
                     .padding(.top, 20)
@@ -46,12 +48,14 @@ struct PresetModule: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
-                    MovementButton(isTouchGo: self.$isTouchGo)
+                    if self.isTouchGo {
+                        StopGoButton()
+                    }
                     HStack(alignment: .bottom) {
-                        PresetButton(index: 1, showAddPreset: self.$showAddPreset[1])
+                        PresetButton(index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo)
                             .padding(.trailing, 10)
                         
-                        PresetButton(index: 2, showAddPreset: self.$showAddPreset[2])
+                        PresetButton(index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo)
                             .padding(.leading, 10)
                     }
                 }

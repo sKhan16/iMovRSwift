@@ -11,20 +11,12 @@ import SwiftUI
 struct MovementButton: View {
     @Binding var isTouchGo: Bool
     var body: some View {
-        Button(action: {
-            if self.isTouchGo {
-                self.isTouchGo = false
-            } else {
-                self.isTouchGo = true
-            }
-        }) {
-            if isTouchGo {
-                Text("Touch and Go")
-                    .foregroundColor(Color.white)
-            } else {
-                Text("Push and Hold")
-                    .foregroundColor(Color.white)
-            }
+        HStack (alignment: .center) {
+        Text("Push & Hold")
+            .foregroundColor(Color.white)
+            Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
+        Text("Touch & Go")
+            .foregroundColor(Color.white)
         }
         
     }
