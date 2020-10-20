@@ -15,7 +15,7 @@ struct PresetEditPopup: View {
     
     @State var editIndex: Int = -1
     @State var editPresetName: String = ""
-    @State var editPresetHeight: Float = 0.0
+    @State var editPresetHeight: String = ""
     
     var body: some View {
         ZStack{
@@ -83,8 +83,9 @@ struct PresetEditPopup: View {
                                 .foregroundColor(Color.white)
                                 .font(Font.body.weight(.medium))
                                 .offset(y:8)
-                            //Fix textfield to work with Float
-                            TextField(" new height", text: $editPresetHeight)
+                            /// Fix textfield to work with Float
+                            TextField(" new height", text: self.$editPresetHeight)
+                                .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                         .padding()
