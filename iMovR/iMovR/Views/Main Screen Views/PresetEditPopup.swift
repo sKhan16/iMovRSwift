@@ -13,10 +13,9 @@ struct PresetEditPopup: View {
     
     @Binding var show: Bool
     
-    @State var showEdit: Bool = false
-    
-//    @State var editName: String = ""
-//    @State var editID: String = ""
+    @State var editIndex: Int = -1
+    @State var editPresetName: String = ""
+    @State var editPresetHeight: Float = 0.0
     
     var body: some View {
         ZStack{
@@ -26,7 +25,6 @@ struct PresetEditPopup: View {
                     .fill(Color.gray)
                     .opacity(0.2)
                     .edgesIgnoringSafeArea(.top)
-                //.blur(radius: 3.0)
             })
             VStack {
                 
@@ -37,19 +35,59 @@ struct PresetEditPopup: View {
                     Rectangle()
                         .foregroundColor(Color.black)
                         .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
-
                 }
                 .frame(maxWidth: .infinity)
                 .foregroundColor(Color.white)
                 .padding(.top)
                 
-               
-                if self.showEdit {
+               // Display Presets List
+                if self.editIndex == -1  {
+                    VStack {
+                        Text("List of presets")
+                        ForEach(Range(0...5)) { index in
+                            VStack {
+                                Button(action: { self.editIndex = index }, label: {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor)
+                                            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
+                                        HStack {
+                                            Text("Edit Preset \(index+1):")
+                                            Text(String(self.user.testPresets[index]))
+                                        }
+                                        
+                                    }
+                                })
+                                .accentColor(.white)
+                                .padding([.leading, .trailing], 30)
+                                .padding([.top, .bottom], 5)
+                            }
+                        }
+                    }
+                } else {
                     VStack(alignment: .leading) {
                         Text("Change Preset Name?")
                             .foregroundColor(Color.white)
                             .font(Font.body.weight(.medium))
                             .offset(y:8)
+                        
+                        VStack(alignment: .leading) {
+                            
+                            Text("Change Preset \(self.editIndex+1) Name?")
+                                .foregroundColor(Color.white)
+                                .font(Font.body.weight(.medium))
+                                .offset(y:8)
+                            TextField(" new name", text: $editPresetName)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Text("Change Preset \(self.editIndex+1) Height?")
+                                .foregroundColor(Color.white)
+                                .font(Font.body.weight(.medium))
+                                .offset(y:8)
+                            //Fix textfield to work with Float
+                            TextField(" new height", text: $editPresetHeight)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        .padding()
                         
                         //PresetSettingView()
                         //                    TextField(" new name", text: $editName)
@@ -79,10 +117,6 @@ struct PresetEditPopup: View {
                             .cornerRadius(27)
                     })
                     .frame(width:200,height:100)
-                } else {
-                    VStack {
-                        Text("List of presets")
-                    }
                 }
                 
             }
@@ -103,6 +137,7 @@ struct PresetEditPopup_Previews: PreviewProvider {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             PresetEditPopup(show: .constant(true))
+                .environmentObject(UserObservable())
         }
     }
 }
