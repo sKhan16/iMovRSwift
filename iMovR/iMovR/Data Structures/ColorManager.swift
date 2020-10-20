@@ -17,4 +17,6 @@ struct ColorManager {
     static let preset = Color("Preset")
     
     static let morePreset = Color("MorePreset")
+    
+    static let gray = Color("Gray")
 }

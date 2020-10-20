@@ -13,6 +13,8 @@ struct PresetEditPopup: View {
     
     @Binding var show: Bool
     
+    @State var showEdit: Bool = false
+    
 //    @State var editName: String = ""
 //    @State var editID: String = ""
     
@@ -41,39 +43,47 @@ struct PresetEditPopup: View {
                 .foregroundColor(Color.white)
                 .padding(.top)
                 
-                VStack(alignment: .leading) {
-                    Text("Change Preset Name?")
-                        .foregroundColor(Color.white)
-                        .font(Font.body.weight(.medium))
-                        .offset(y:8)
-//                    TextField(" new name", text: $editName)
-//                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    /*
-                     Text("Device ID:")
-                     .foregroundColor(Color.white)
-                     .font(Font.body.weight(.medium))
-                     .padding(.top, 10)
-                     .offset(y:8)
-                     TextField("change id?", text: $editID)
-                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                     */
+               
+                if self.showEdit {
+                    VStack(alignment: .leading) {
+                        Text("Change Preset Name?")
+                            .foregroundColor(Color.white)
+                            .font(Font.body.weight(.medium))
+                            .offset(y:8)
+                        
+                        //PresetSettingView()
+                        //                    TextField(" new name", text: $editName)
+    //                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        /*
+                         Text("Device ID:")
+                         .foregroundColor(Color.white)
+                         .font(Font.body.weight(.medium))
+                         .padding(.top, 10)
+                         .offset(y:8)
+                         TextField("change id?", text: $editID)
+                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                         */
+                    }
+                    .padding()
+                    
+                    Button(action: {
+                        
+                        self.show = false
+                        print("saving 'preset menu' changes")//add functionality here
+                        
+                    }, label: {
+                        Text("Save Changes")
+                            .font(Font.title3.bold())
+                            .padding()
+                            .background(Color.init(red: 0.25, green: 0.85, blue: 0.2))
+                            .cornerRadius(27)
+                    })
+                    .frame(width:200,height:100)
+                } else {
+                    VStack {
+                        text("List of presets")
+                    }
                 }
-                .padding()
-                
-                Button(action: {
-                    
-                    self.show = false
-                    print("saving 'preset menu' changes")//add functionality here
-                    
-                }, label: {
-                    Text("Save Changes")
-                        .font(Font.title3.bold())
-                        .padding()
-                        .background(Color.init(red: 0.25, green: 0.85, blue: 0.2))
-                        .cornerRadius(27)
-                })
-                .frame(width:200,height:100)
-                
                 
             }
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)

@@ -29,13 +29,14 @@ struct EditPreset: View {
             Form {
                 if currIndex < self.user.presets.count {
                     Section(header:
-                        Text(self.user.presets[self.currIndex].getName())
+                    Text("Preset \(currIndex)")
+                    //Text(self.user.presets[self.currIndex].getName())
                     ) {
                         
-                        TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                       // TextField("\(self.user.presets[self.currIndex].getName())", text: $presetName)
+                       //     .textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        TextField("\(self.user.presets[self.currIndex].heightToStringf())", text: $presetHeight)
+                        TextField("\(self.user.testPresets[self.currIndex])", text: $presetHeight)
                             .keyboardType(.decimalPad)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
