@@ -81,7 +81,7 @@ struct PresetEditPopup: View {
                     .frame(width:200,height:100)
                 } else {
                     VStack {
-                        text("List of presets")
+                        Text("List of presets")
                     }
                 }
                 
