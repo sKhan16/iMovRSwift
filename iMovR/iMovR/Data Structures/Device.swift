@@ -19,7 +19,15 @@
 */
 
 import Foundation
+import CoreBluetooth
 
 class Device {
     
+    // what properties do all devices need to test connection status, etc?
+    
+    let peripheral: CBPeripheral?
+    
+    init(devicePeripheral: CBPeripheral?) {
+        self.peripheral = devicePeripheral
+    }
 }

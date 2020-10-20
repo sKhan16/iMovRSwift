@@ -13,7 +13,7 @@ struct DeskSettingDetail: View {
     //TODO: Get needed variables
     // var name: String
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
 
     var currIndex: Int
     //var name: String
@@ -59,9 +59,8 @@ struct DeskSettingDetail: View {
                     }
                     if self.canConnect {
                         print("connection to desk \(selectedDesk.name) started")
-                        self.bt.currentDesk = selectedDesk
                         self.user.currentDesk = selectedDesk
-                        self.bt.startConnection()
+                        self.bt.connectToDevice(device: selectedDesk)
                         self.canConnect = false
                     }
                     },  secondaryButton: .destructive(Text("Cancel")))

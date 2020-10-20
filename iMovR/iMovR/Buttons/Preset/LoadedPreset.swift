@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoadedPreset: View {
     
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @State private var pressed: Bool = false
     

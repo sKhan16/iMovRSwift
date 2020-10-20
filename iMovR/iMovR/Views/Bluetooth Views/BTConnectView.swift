@@ -15,7 +15,7 @@ struct BTConnectView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @State private var inputDeskName: String = ""
     @State private var inputDeskID: String = ""
@@ -43,7 +43,7 @@ struct BTConnectView: View {
                         if bt.discoveredDevices.count > 0 {
                             ForEach(bt.discoveredDevices.indices, id: \.self) { index in
                                 Button(action: {
-                                    self.bt.connectToDevice(peripheral: self.bt.discoveredDevices[index].peripheral)
+                                    self.bt.connectToDevice(device: self.bt.discoveredDevices[index])
                                     
                                 }) {
                                     Text("Device #" + String(self.bt.discoveredDevices[index].id))
@@ -121,7 +121,7 @@ struct BTConnectView: View {
 // Bluetooth connection starts in BTDoneButton
 struct BTDoneButton: View {
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @Binding var inputDeskName: String
     @Binding var inputDeskID: String
@@ -138,14 +138,13 @@ struct BTDoneButton: View {
                 //Try to store user input, connect and exit connect view
                 let currDesk = Desk(name: self.inputDeskName, deskID: deskID)
                 self.user.currentDesk = currDesk
-                self.bt.currentDesk = currDesk
                 // Save the desk to persistent data
                 guard self.user.addDesk() else {
                     print("addDesk error, staying in BTConnectView")
                     return
                 }
                 // Begin searching for the desk
-                self.bt.startConnection()
+                self.bt.connectToDevice(device: currDesk)
                 
                 self.notifyWrongInput = false
                 self.showBTConnect = false

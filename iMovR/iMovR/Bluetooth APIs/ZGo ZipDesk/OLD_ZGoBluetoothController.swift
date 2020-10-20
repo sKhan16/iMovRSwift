@@ -1,5 +1,5 @@
 //
-//  ZGoBluetoothController.swift
+//  DeviceBluetoothController.swift
 //  iMovR
 //
 //  Created by Michael Humphrey on 7/15/20.
@@ -11,14 +11,15 @@ import SwiftUI
 import CoreBluetooth
 
 
-class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
+class DeviceBluetoothController: NSObject, ObservableObject,
+                                 CBCentralManagerDelegate, CBPeripheralDelegate {
     
 
     
     ///# Externally modified variables
     
     // Current Desk Information
-    @Published var deskWrap: ZGoDeskPeripheral?
+    @Published var deskWrap: ZGoZipDeskController?
     private var currentDesk: Desk?
     @Published var isDeskConnected: Bool = false
     @Published var deskHeight: Float = 0
@@ -27,7 +28,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
     @Published var connectionStatus: String = "No Devices Connected"
     @Published var connectionColor: Color = Color.primary
 
-    
+    //old
+    private var deskPeripheral: CBPeripheral?
     
     // For desk scan feature in BTConnectView
     @Published var discoveredDevices: [Desk] = []
@@ -105,7 +107,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             self.isDeskConnected = false
           
             if self.deskWrap != nil {
-                centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
+                centralManager?.cancelPeripheralConnection(self.deskWrap!.peripheral)
             } else {
                 print("error: bt.isDeskConnected was true, but bt.deskWrap not initialized yet")
             }
@@ -203,7 +205,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             // remember that it needs to allow manual connection to happen (if discovered desk is the one we are searching for)
             // can use this feature to bypass saving the peripheral reference and to make sure desk is in range when connecting...
             for (index, device) in discoveredDevices.enumerated() {
-                fix me
+                //fix me
             }
         }
         DispatchQueue.main.async { () -> Void in
@@ -256,7 +258,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             self.connectionColor = Color.green
             self.isDeskConnected = true
         }
-        print("successfully connected to desk \(self.currentDesk.id)")
+        print("successfully connected to desk \(String(describing: self.currentDesk?.id))")
 
         deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
@@ -306,7 +308,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         
         // Initialize deskWrap to interact with desk later
         DispatchQueue.main.async { () -> Void in
-            self.deskWrap = ZGoDeskPeripheral(peripheral: self.deskPeripheral!, write: self.writeCharacteristic!, read: self.readCharacteristic!)
+            self.deskWrap = ZGoZipDeskController(peripheral: self.deskPeripheral!, id: -1, write: self.writeCharacteristic!, read: self.readCharacteristic!)
         }
         
     } // END func peripheral(... didDiscoverCharacteristicsFor service

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HeightSliderV2: View {
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     //curr - min / max - min
     @Binding var barProgress: Float
@@ -47,7 +47,7 @@ struct HeightSliderV2_Previews: PreviewProvider {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             HeightSliderV2(barProgress: .constant(Float(0.6)))//this value doesnt matter unless we remove the BT height... default BTController returned height is 0.0/1
-                .environmentObject(ZGoBluetoothController())
+                .environmentObject(DeviceBluetoothManager())
                 .frame(width: 20)// By default slider size is undefined
                 .padding([.top,.bottom], 20)
         }

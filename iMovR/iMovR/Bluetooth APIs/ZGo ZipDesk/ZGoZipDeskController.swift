@@ -19,18 +19,32 @@ let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
 
 ///# ZGoDeskPeripheral Wrapper: Contains controls for ZGo desk
 
-class ZGoDeskPeripheral:Device {
+class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
     
-    let deskPeripheral: CBPeripheral
+    // reinitialize the class when connecting to a new zgo desk
+    // how will I verify the desk peripheral is still available every time a movement command is accessed?
+    let peripheral: CBPeripheral
+    var desk: Desk
     let writeCharacteristic, readCharacteristic: CBCharacteristic
     
     private var deskHeight, deskMinHeight, deskMaxHeight: [UInt8]?
     
-    init(peripheral: CBPeripheral, write: CBCharacteristic, read: CBCharacteristic) {
-        self.deskPeripheral = peripheral
+    init?(desk: Desk, write: CBCharacteristic, read: CBCharacteristic) {
+        if desk.peripheral != nil {
+            self.peripheral = desk.peripheral!
+            self.desk = desk
+        } else {
+            return nil
+        }
         self.writeCharacteristic = write
         self.readCharacteristic = read
-        self.requestHeightFromDesk()
+    }
+    
+    init(peripheral: CBPeripheral, id: Int, write: CBCharacteristic, read: CBCharacteristic) {
+        self.peripheral = peripheral
+        self.desk = Desk(deskID: id, deskPeripheral: peripheral, rssi: nil)
+        self.writeCharacteristic = write
+        self.readCharacteristic = read
     }
     
     let raiseCMD : [UInt8] = [0xA5, 0x03, 0x12, 0x15]
@@ -50,7 +64,7 @@ class ZGoDeskPeripheral:Device {
     
     
     func writeToDesk(data:NSData, type:CBCharacteristicWriteType) {
-        self.deskPeripheral.writeValue(data as Data, for: self.writeCharacteristic, type: type)
+        self.peripheral.writeValue(data as Data, for: self.writeCharacteristic, type: type)
     }
     
     func raiseDesk() {
@@ -168,4 +182,4 @@ class ZGoDeskPeripheral:Device {
         return [(UInt8)(Height & 0xFF), (UInt8)((Height>>8) & 0xFF)]
     }
     
-} // end DeskPeripheralWrapper
+} // end ZGoDeskPeripheral

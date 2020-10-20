@@ -11,23 +11,27 @@
 import Foundation
 import CoreBluetooth
 
-struct Desk: Identifiable {
+struct Desk: Identifiable { // inherit from Device, make Desk a class, in DeviceBluetoothManager compare&discover Devices instead of Desks
     
     var name: String
     var id: Int
     var peripheral: CBPeripheral?
     var rssi: NSNumber?
     
+    // Save desk info from CoreData before discovering...
     init(name: String, deskID: Int) {
         self.name = name
         self.id = deskID
     }
     
-    init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber) {
+    // Save discovered desk before user chooses a name
+    init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber?) {
         self.id = deskID
         self.peripheral = deskPeripheral
         self.rssi = rssi
         
-        self.name = "Discovered ZipDesk"
+        if rssi != nil { self.name = "Discovered ZipDesk" }
+        else { self.name = "desk manually connected with no rssi" }
     }
+    
 }

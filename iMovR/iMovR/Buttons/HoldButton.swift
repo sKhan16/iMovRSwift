@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HoldButton: View {
     
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothController
     
     @State private var pressed: Bool = false
     

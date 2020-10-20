@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PresetButton: View {
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     @EnvironmentObject var user: UserObservable
     @Environment(\.colorScheme) var colorScheme
     

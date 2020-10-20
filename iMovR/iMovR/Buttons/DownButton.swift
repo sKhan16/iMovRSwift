@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DownButton: View {
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothController
     
     @State private var pressed: Bool = false
     @Binding var testHeight: Float
@@ -65,7 +65,7 @@ struct DownButton_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-        DownButton(testHeight: .constant(23.0)).environmentObject(ZGoBluetoothController())
+        DownButton(testHeight: .constant(23.0)).environmentObject(DeviceBluetoothManager())
         }
     }
 }

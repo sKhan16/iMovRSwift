@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HeightSlider: View {
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothController
     //@Binding var testHeight: Float
     
     var body: some View {
@@ -30,6 +30,6 @@ struct HeightSlider: View {
 
 struct HeightSlider_Previews: PreviewProvider {
     static var previews: some View {
-        HeightSlider().environmentObject(ZGoBluetoothController())
+        HeightSlider().environmentObject(DeviceBluetoothController())
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DeviceEditView: View {
     
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothController
     @EnvironmentObject var user: UserObservable
     
     @Binding var deviceIndex: Int

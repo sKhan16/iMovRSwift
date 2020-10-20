@@ -13,7 +13,7 @@ import SwiftUI
 
 struct DeviceManagerView: View {
   
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothController
     @EnvironmentObject var user: UserObservable
     
     // In final build, this array is type [Device] & comes from BTController or UserObservable

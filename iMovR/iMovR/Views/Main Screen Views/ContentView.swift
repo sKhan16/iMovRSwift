@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var BTController: ZGoBluetoothController
+    @EnvironmentObject var BTController: DeviceBluetoothController
  
     var body: some View {
         
@@ -56,6 +56,15 @@ struct ContentView: View {
                     }
                 }
                 .tag(2)
+            
+            BTConnectView(showBTConnect: .constant(true))
+                .tabItem {
+                    VStack {
+                        Image(systemName: "bolt.horizontal.fill")
+                        Text("BT TEST")
+                    }
+                }
+                .tag(3)
         }
     }
 }
@@ -67,6 +76,6 @@ struct ContentView_Previews: PreviewProvider {
         
         return ContentView().environment(\.managedObjectContext, context)
                 .environmentObject(UserObservable())
-                .environmentObject(ZGoBluetoothController())
+                .environmentObject(DeviceBluetoothController())
     }
 }
