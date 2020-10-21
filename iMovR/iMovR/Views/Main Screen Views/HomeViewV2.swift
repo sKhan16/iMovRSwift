@@ -56,7 +56,7 @@ struct HomeViewV2: View {
                             //Or build height indicators into the HeightSlider and remove the Spacer()
                             //HStack {
                             HStack {
-                            Text(String(format: "%.1f", self.bt.currentHeight))
+                                Text(String(format: "%.1f", (self.bt.zipdesk?.deskHeight) ?? 0.0))
                                     .font(.system(size: 75))
                                     .padding(.leading)
                                     .foregroundColor(Color.white)
@@ -140,7 +140,6 @@ struct HomeViewV2: View {
         }//end GeoReader
         
     }//end body
-}
 
 struct HomeViewV2_Previews: PreviewProvider {
     static var previews: some View {
