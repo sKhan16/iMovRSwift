@@ -63,8 +63,7 @@ struct HomeViewV2: View {
                                 Text("in")
                                     .foregroundColor(ColorManager.textColor)
                                     .font(.system(size: 52))
-                                    
-                        }
+                            }
                             .padding(.trailing)
                             //}
                             //Spacer()
