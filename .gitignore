@@ -88,7 +88,3 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-*.pbxproj
-*.pbxproj
-iMovR/iMovR.xcodeproj/project.pbxproj
-iMovR/iMovR.xcodeproj/project.pbxproj
