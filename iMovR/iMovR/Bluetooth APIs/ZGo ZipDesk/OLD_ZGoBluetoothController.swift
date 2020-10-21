@@ -1,5 +1,5 @@
 //
-//  ZGoBluetoothController.swift
+//  DeviceBluetoothController.swift
 //  iMovR
 //
 //  Created by Michael Humphrey on 7/15/20.
@@ -11,32 +11,37 @@ import SwiftUI
 import CoreBluetooth
 
 
-class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
+class DeviceBluetoothController: NSObject, ObservableObject,
+                                 CBCentralManagerDelegate, CBPeripheralDelegate {
     
 
     
     ///# Externally modified variables
-    @Published var currentHeight: Float = 0
+    
+    // Current Desk Information
+    @Published var deskWrap: ZGoZipDeskController?
+    private var currentDesk: Desk?
+    @Published var isDeskConnected: Bool = false
+    @Published var deskHeight: Float = 0
     @Published var maxHeight: Float = 1
     @Published var minHeight: Float = 0
-    
-    @Published var currentDesk: Desk = Desk(name: "desk not yet initialized", deskID: 0)
-    
-    @Published var connectionStatus: String = "Connect to a Desk"
+    @Published var connectionStatus: String = "No Devices Connected"
     @Published var connectionColor: Color = Color.primary
-    @Published var isConnected = false
-    
-    @Published var deskWrap: ZGoDeskPeripheral?
+
+    //old
+    private var deskPeripheral: CBPeripheral?
     
     // For desk scan feature in BTConnectView
     @Published var discoveredDevices: [Desk] = []
     
+    
+    ///#dont remember what this is for *****************************
     @State var deskUpdatedHeight = false
     
     
     ///# Local Bluetooth Objects
     private var centralManager: CBCentralManager?
-    private var deskPeripheral: CBPeripheral?
+    private var tempDeskPeripheral: CBPeripheral?
     
     private var writeCharacteristic, readCharacteristic: CBCharacteristic?
     private var bluetoothReadyFlag = false
@@ -48,6 +53,16 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
         // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
+    }
+    
+    
+    func connectToDevice(peripheral: CBPeripheral?) {
+        guard peripheral != nil else {
+            print("error: attempted to connect to nil peripheral\nperipheral expired or wasn't initialized")
+            return
+        }
+        
+        centralManager?.connect(peripheral!)
     }
     
     
@@ -63,23 +78,18 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         // later only clear devices if their connection cannot be validated
         self.discoveredDevices = []
         // reset current desk for proper behavior in 'didDiscover peripheral' CoreBluetooth function
-        self.currentDesk = Desk(name: "desk not yet initialized", deskID: 0)
         
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
-    func connectToDevice(peripheral: CBPeripheral?) {
-        guard peripheral != nil else {
-            print("error: attempted to connect to nil peripheral\nperipheral expired or wasn't initialized")
-            return
-        }
-        
-        centralManager?.connect(peripheral!)
-    }
     
     func startConnection() {
-        print("attempting to find and connect to current selected desk \(self.currentDesk.name)")
-        guard self.currentDesk.id > 0 else {
+        guard self.currentDesk != nil else {
+            print("bt.startConnection() error *** currentDesk undefined")
+            return
+        }
+        print("attempting to find and connect to current selected desk \(self.currentDesk!.name)")
+        guard self.currentDesk!.id > 0 else {
             print("invalid deskID stored, or user hasn't input deskID yet")
             connectionStatus = "Invalid Desk ID\nPlease Change"
             connectionColor = Color.red
@@ -92,14 +102,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
             return
         }
         // disconnect if needed to connect to a different desk
-        if self.isConnected {
+        if self.isDeskConnected {
             print("disconnecting from connected desk")
-            self.isConnected = false
+            self.isDeskConnected = false
           
             if self.deskWrap != nil {
-                centralManager?.cancelPeripheralConnection(self.deskWrap!.deskPeripheral)
+                centralManager?.cancelPeripheralConnection(self.deskWrap!.peripheral)
             } else {
-                print("error: bt.isConnected was true, but bt.deskWrap not initialized yet")
+                print("error: bt.isDeskConnected was true, but bt.deskWrap not initialized yet")
             }
         }
         
@@ -107,13 +117,14 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         connectionStatus = "Scanning For Desks"
         connectionColor = Color.primary
         // BT is on, targeted current desk is set, now scan for peripherals that match the CBUUID
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID]);
+        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
+    
     
     func updateDeskHeights() {
         if let temp = deskWrap?.getHeightInches() {
             DispatchQueue.main.async { () -> Void in
-                self.currentHeight = temp
+                self.deskHeight = temp
             }
         }
         if let temp = deskWrap?.getMaxHeightInches() {
@@ -128,7 +139,8 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     
-
+    
+    
     //MARK: CoreBluetooth Delegated Connection Functions
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -183,30 +195,37 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         // 0x30 = 3 * 2^4 = 48
         var manufacturerDeskID : Int = 0
         for (index, digit) in rawData.enumerated() {
-            manufacturerDeskID += Int(digit - 0x30) * Int(pow(10,Double(7-index)))
+            manufacturerDeskID += Int(digit - 48) * Int(pow(10,Double(7-index)))
         }
         
-        print("discovered device with ID#\(manufacturerDeskID)")
+        print("iOS discovered device w/ id# \(manufacturerDeskID)")
         
-        // scanForDesks feature: save discovered peripheral for later use/connection
-        // Before saving desk in discovered peripherals, need to see if it is contained in saved desks first.
-        // Or know what function led to the desk being discovered. Hmmm
+        
+        if discoveredDevices.count > 0 {
+            // remember that it needs to allow manual connection to happen (if discovered desk is the one we are searching for)
+            // can use this feature to bypass saving the peripheral reference and to make sure desk is in range when connecting...
+            for (index, device) in discoveredDevices.enumerated() {
+                //fix me
+            }
+        }
         DispatchQueue.main.async { () -> Void in
             self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
         }
+        
         // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the code after this guard into a different method only called with the currentDesk ID check.
         // Alternatively, put in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
         
-        guard self.currentDesk.id > 0 else {
+        guard (self.currentDesk != nil) else {
             // peripheral was discovered during the scan process, exit code now
+            print("*bt* no curr desk, skip manufac. ID chk")
             return
         }
         
         // scan is stopped after the guard statement. If first scanned desk happens to be the searched for currentDesk it won't discover any more desks, but this functionality must change
 
         // Begin connection if current discovered desk matches stored user selection
-        guard manufacturerDeskID == self.currentDesk.id else {
-            print("Desk \(String(manufacturerDeskID)) did not match user-stored value \(String(self.currentDesk.id))")
+        guard manufacturerDeskID == self.currentDesk!.id else {
+            print("Desk id \(String(manufacturerDeskID)) did not match selected desk id \(String(self.currentDesk!.id))")
             DispatchQueue.main.async { () -> Void in
                 self.connectionStatus = "ID Didn't Match Discovered Desk(s)"
                 self.connectionColor = Color.red
@@ -237,9 +256,9 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         DispatchQueue.main.async { () -> Void in
             self.connectionStatus = "Connected To Desk"
             self.connectionColor = Color.green
-            self.isConnected = true
+            self.isDeskConnected = true
         }
-        print("successfully connected to desk \(self.currentDesk.name)")
+        print("successfully connected to desk \(String(describing: self.currentDesk?.id))")
 
         deskPeripheral?.discoverServices([ZGoServiceUUID])
     }
@@ -250,7 +269,7 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
         print("Peripheral disconnected; now scanning")
         //catch error here?
         
-        self.isConnected = false
+        self.isDeskConnected = false
         DispatchQueue.main.async { () -> Void in
             self.connectionStatus = "Desk Disconnected"
             self.connectionColor = Color.primary
@@ -285,19 +304,21 @@ class ZGoBluetoothController: NSObject, CBCentralManagerDelegate, CBPeripheralDe
                 peripheral.setNotifyValue(true, for: readCharacteristic!)
             }
             
-        } // END for - characteristic search
+        }
         
         // Initialize deskWrap to interact with desk later
         DispatchQueue.main.async { () -> Void in
-            self.deskWrap = ZGoDeskPeripheral(peripheral: self.deskPeripheral!, write: self.writeCharacteristic!, read: self.readCharacteristic!)
+            self.deskWrap = ZGoZipDeskController(peripheral: self.deskPeripheral!, id: -1, write: self.writeCharacteristic!, read: self.readCharacteristic!)
         }
+        
     } // END func peripheral(... didDiscoverCharacteristicsFor service
     
     
     // Called when readCharacteristic value is updated by the peripheral
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error:Error?) {
         guard error == nil else {
-            print("didUpdateValueFor error: characteristic value update threw error - from notify or readValue(...)"); return
+            print("didUpdateValueFor error: characteristic value update threw error - from notify or readValue(...)")
+            return
         }
         guard characteristic.uuid == ZGoNotifyCharacteristicUUID else {
             print("didUpdateValueFor error: updated characteristic is not ZGoNotifyCharacteristic")

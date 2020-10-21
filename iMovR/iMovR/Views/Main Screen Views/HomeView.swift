@@ -12,7 +12,7 @@ struct HomeView: View {
     let minHeight: Float = 23.0
     
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     //a
     @State private var testHeight: Float = 35.0
     @State var showAddPreset: Bool = false
@@ -118,6 +118,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView().environmentObject(UserObservable()).environmentObject(ZGoBluetoothController())
+        HomeView().environmentObject(UserObservable()).environmentObject(DeviceBluetoothManager())
     }
 }

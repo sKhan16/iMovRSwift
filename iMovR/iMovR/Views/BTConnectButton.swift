@@ -11,7 +11,7 @@ import SwiftUI
 struct BTConnectButton: View {
     
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var showBTConnect: Bool
     
     var body: some View {
@@ -42,6 +42,6 @@ struct BTConnectButton: View {
 
 struct BTConnectButton_Previews: PreviewProvider {
     static var previews: some View {
-        BTConnectButton(showBTConnect: .constant(false)).environmentObject(ZGoBluetoothController())
+        BTConnectButton(showBTConnect: .constant(false)).environmentObject(DeviceBluetoothManager())
     }
 }

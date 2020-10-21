@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DiscoveredDevicesView: View {
     
-    @EnvironmentObject var bt: ZGoBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothController
     
     var body: some View {
         List {
