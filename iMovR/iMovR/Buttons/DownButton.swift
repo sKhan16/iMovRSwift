@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DownButton: View {
-    @EnvironmentObject var bt: DeviceBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @State private var pressed: Bool = false
     @Binding var testHeight: Float

@@ -11,7 +11,7 @@ import SwiftUI
 struct BTConnectButton: View {
     
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: DeviceBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var showBTConnect: Bool
     
     var body: some View {

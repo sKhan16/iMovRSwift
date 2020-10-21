@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HeightSlider: View {
-    @EnvironmentObject var bt: DeviceBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     //@Binding var testHeight: Float
     
     var body: some View {

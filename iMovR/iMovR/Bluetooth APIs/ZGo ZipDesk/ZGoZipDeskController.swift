@@ -23,29 +23,104 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
     
     // reinitialize the class when connecting to a new zgo desk
     // how will I verify the desk peripheral is still available every time a movement command is accessed?
-    let peripheral: CBPeripheral
-    var desk: Desk
-    let writeCharacteristic, readCharacteristic: CBCharacteristic
+    private var peripheral: CBPeripheral
+    private var desk: Desk
+    private var writeCharacteristic, readCharacteristic: CBCharacteristic?
     
-    private var deskHeight, deskMinHeight, deskMaxHeight: [UInt8]?
+    private var deskCurrHeight, deskMinHeight, deskMaxHeight: [UInt8]?
+    @Published var deskHeight: Float = 0
+    @Published var maxHeight: Float = 1
+    @Published var minHeight: Float = 0
     
-    init?(desk: Desk, write: CBCharacteristic, read: CBCharacteristic) {
-        if desk.peripheral != nil {
-            self.peripheral = desk.peripheral!
-            self.desk = desk
-        } else {
+    init?(desk: Desk) {
+        guard self.setDesk(desk: desk) else {
             return nil
         }
-        self.writeCharacteristic = write
-        self.readCharacteristic = read
+        //make
+        self.setCharacteristics()//give desk as parameter? could cause init error (trying to use self.desk inside setCharacteristics() before init finishes
     }
     
-    init(peripheral: CBPeripheral, id: Int, write: CBCharacteristic, read: CBCharacteristic) {
-        self.peripheral = peripheral
-        self.desk = Desk(deskID: id, deskPeripheral: peripheral, rssi: nil)
-        self.writeCharacteristic = write
-        self.readCharacteristic = read
+    func setDesk(desk: Desk) -> Bool {
+        guard desk.peripheral != nil else {
+            print("ZGoZipDeskController:setDesk(..) error- desk peripheral is nil")
+            return false
+        }
+        guard desk.peripheral!.state == .connected else {
+            print("ZGoZipDeskController:setDesk(..) error- desk peripheral not connected\n(state: \(desk.peripheral!.state))")
+            return false
+        }
+        self.peripheral = desk.peripheral!
+        self.desk = desk
+        self.peripheral.delegate = self
+        return true
     }
+    
+    func getDesk() -> Desk {
+        return self.desk
+    }
+    
+    
+///# CoreBluetooth Peripheral Delegate functions
+    ///# didDiscoverServices
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        for service in peripheral.services! {
+            if service.uuid == ZGoServiceUUID {
+                peripheral.discoverCharacteristics(nil, for: service)
+            }
+        }
+    }
+    
+    ///# didDiscoverCharacteristicsFor service
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        for characteristic in service.characteristics! {
+            //print(characteristic)
+            if characteristic.uuid == ZGoWriteCharacteristicUUID {
+                writeCharacteristic = characteristic
+            } else if characteristic.uuid == ZGoNotifyCharacteristicUUID {
+                readCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: readCharacteristic)
+            }
+        }
+    }
+    
+    
+    ///# didUpdateValueFor characteristic
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error:Error?) {
+        guard error == nil else {
+            print("didUpdateValueFor error: characteristic value update threw error - from notify or readValue(...)")
+            return
+        }
+        guard characteristic.uuid == ZGoNotifyCharacteristicUUID else {
+            print("didUpdateValueFor error: updated characteristic is not ZGoNotifyCharacteristic")
+            return
+        }
+        self.updateHeightInfo()
+        self.updateDeskHeights()
+    }
+
+    //MARK: Move this to self.zipdesk if possible
+    func updateDeskHeights() {
+        if let temp = self.getHeightInches() {
+            self.deskHeight = temp
+        }
+        if let temp = self.getMaxHeightInches() {
+            DispatchQueue.main.async { () -> Void in
+                self.maxHeight = temp
+            }
+        }
+        if let temp = self.getMinHeightInches() {
+            DispatchQueue.main.async { () -> Void in
+                self.minHeight = temp
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     let raiseCMD : [UInt8] = [0xA5, 0x03, 0x12, 0x15]
     let lowerCMD : [UInt8] = [0xA5, 0x03, 0x14, 0x17]
@@ -132,7 +207,7 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
                 return
             }
             //print("successfully detected message: Table Height Information")
-            self.deskHeight = [readByteData[4],readByteData[3]]
+            self.deskCurrHeight = [readByteData[4],readByteData[3]]
             self.deskMinHeight = [readByteData[6],readByteData[5]]
             self.deskMaxHeight = [readByteData[8],readByteData[7]]
             
@@ -142,7 +217,7 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
                 return
             }
             //print("successfully detected message: Movement/Status Change Update")
-            self.deskHeight = [readByteData[4],readByteData[3]]
+            self.deskCurrHeight = [readByteData[4],readByteData[3]]
             
         } else {
             print("readData message unidentified in updateHeightInfo()")
@@ -153,7 +228,7 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
     func getHeightInches() -> Float? {
         // fix ZGo desk rounding error
         
-        guard let height = self.mmBits2inch(HeightBits: self.deskHeight) else {
+        guard let height = self.mmBits2inch(HeightBits: self.deskCurrHeight) else {
             return nil
         }
         // Attempted fix: Rounding height because of ZGo height units conversion bug on desk

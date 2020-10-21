@@ -47,7 +47,6 @@
 		4103FF95252FD03B004C3E09 /* DeviceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103FF94252FD03B004C3E09 /* DeviceEditView.swift */; };
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		4116613C252BAA570063A68D /* DeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4116613B252BAA570063A68D /* DeviceRowView.swift */; };
-		41166146252BAC900063A68D /* OLD_ZGoBluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166145252BAC900063A68D /* OLD_ZGoBluetoothController.swift */; };
 		412C9C2E24C8CDEE00415D6C /* BTConnectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
 		4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AC24DE237800BF9B64 /* EditDesk.swift */; };
@@ -141,7 +140,6 @@
 		4103FF94252FD03B004C3E09 /* DeviceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditView.swift; sourceTree = "<group>"; };
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
 		4116613B252BAA570063A68D /* DeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRowView.swift; sourceTree = "<group>"; };
-		41166145252BAC900063A68D /* OLD_ZGoBluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OLD_ZGoBluetoothController.swift; sourceTree = "<group>"; };
 		412C9C2D24C8CDEE00415D6C /* BTConnectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BTConnectButton.swift; path = iMovR/Views/BTConnectButton.swift; sourceTree = SOURCE_ROOT; };
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
 		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
@@ -356,7 +354,6 @@
 		41166141252BABFD0063A68D /* ZGo ZipDesk */ = {
 			isa = PBXGroup;
 			children = (
-				41166145252BAC900063A68D /* OLD_ZGoBluetoothController.swift */,
 				41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */,
 			);
 			path = "ZGo ZipDesk";
@@ -740,7 +737,6 @@
 				41EF1EFE252901D300AEE90F /* DiscoveredDevicesView.swift in Sources */,
 				1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */,
 				982F181024D37536003FF080 /* Setting.swift in Sources */,
-				41166146252BAC900063A68D /* OLD_ZGoBluetoothController.swift in Sources */,
 				1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */,
 				4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */,
 				1EAA5CAB252FC97800A471E2 /* HeightSliderV2.swift in Sources */,

@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var BTController: DeviceBluetoothController
+    @EnvironmentObject var BTController: DeviceBluetoothManager
  
     var body: some View {
         
@@ -76,6 +76,6 @@ struct ContentView_Previews: PreviewProvider {
         
         return ContentView().environment(\.managedObjectContext, context)
                 .environmentObject(UserObservable())
-                .environmentObject(DeviceBluetoothController())
+                .environmentObject(DeviceBluetoothManager())
     }
 }

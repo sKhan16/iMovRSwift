@@ -57,7 +57,7 @@ struct UpButton_Previews: PreviewProvider {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             UpButton(testHeight: .constant(23))
-                .environmentObject(DeviceBluetoothController())
+                .environmentObject(DeviceBluetoothManager())
         }
     }
 }
