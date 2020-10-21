@@ -16,14 +16,16 @@ struct PresetSettingView: View {
     
     var body: some View {
         
+        ZStack {
+            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
         List {
             // Need to id with self or else it crashes and can't read the index on delete
             
             if user.presets.count > 0 {
-                ForEach(self.user.presets.indices, id: \.self) { index in
+                ForEach(self.user.testPresets.indices, id: \.self) { index in
                     NavigationLink(destination: EditPreset(currIndex: index)) {
-                        SettingRow(name: self.user.presets[index].getName(), id:
-                            self.user.presets[index].heightToStringf())
+                        SettingRow(name: "\(self.user.testPresets[index])", id:
+                            "\(self.user.testPresets[index])")
                     }
                     
                 }
@@ -32,6 +34,7 @@ struct PresetSettingView: View {
             
         }
         .navigationBarTitle(Text("Presets"))
+    }
         
     }
     //TODO: Make a seperate file to store desk info
