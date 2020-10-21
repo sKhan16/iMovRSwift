@@ -29,7 +29,6 @@ struct SettingRow: View {
             if(self.id != "") { //should add id on bottom if id isn't 0
                 Text("\(self.id)")
                     .font(.subheadline)
-                
             }
             //TODO: change font
         }
