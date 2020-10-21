@@ -55,19 +55,25 @@ struct HomeViewV2: View {
                             //Height indicator goes here,,
                             //Or build height indicators into the HeightSlider and remove the Spacer()
                             //HStack {
-                                Text(String(format: "%.1f", self.bt.currentHeight))
-                                    .font(.system(size: 86))
+                            HStack {
+                            Text(String(format: "%.1f", self.bt.currentHeight))
+                                    .font(.system(size: 75))
                                     .padding(.leading)
                                     .foregroundColor(Color.white)
                                 Text("in")
                                     .foregroundColor(ColorManager.textColor)
-                                    .font(.system(size: 64))
+                                    .font(.system(size: 52))
+                                    
+                        }
+                            .padding(.trailing)
                             //}
                             //Spacer()
                             
                             //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
                                 //HStack(alignment: .top) {
-                                    HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)// By default slider size is undefined, fills container
+                                    HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
+                                        .padding(.trailing)
+                            // By default slider size is undefined, fills container
                                         //.padding([.top,.bottom], 20)
                                 //}
                             //}

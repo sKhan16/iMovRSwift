@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LoadedPreset: View {
+struct TouchPreset: View {
     
     @EnvironmentObject var bt: ZGoBluetoothController
     
@@ -16,8 +16,6 @@ struct LoadedPreset: View {
     
     @State var name: String
     @State var presetHeight: Float
-    
-    @Binding var isTouchGo: Bool
     
     //@State var tapped = false
     
@@ -28,8 +26,7 @@ struct LoadedPreset: View {
         Button(action: {
             //self.moveToPreset()
             //print("Moved to \(self.presetVal)")
-            
-            if isTouchGo {
+
                 print("TG moved")
                 self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
                 print("Start Timer fired b4 interval")
@@ -38,7 +35,6 @@ struct LoadedPreset: View {
                     self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
                     timer.invalidate()
                 }
-            }
             
         }) {
             VStack {
@@ -56,10 +52,13 @@ struct LoadedPreset: View {
             }
             .foregroundColor(ColorManager.preset)
 }
+
     }
+        
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        LoadedPreset(name: "test", presetHeight: 33.3, isTouchGo: .constant(true))
+        TouchPreset(name: "test", presetHeight: 33.3)
     }
 }
 }
+

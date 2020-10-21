@@ -46,8 +46,13 @@ struct PresetButton: View {
     
     var body: some View {
         if self.user.testPresets[self.index] > -1 {
-            LoadedPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index],
-                         isTouchGo: self.$isTouchGo)
+            if isTouchGo {
+                TouchPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index])
+            } else {
+                HoldPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index])
+            }
+            //LoadedPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index],
+              //           isTouchGo: self.$isTouchGo)
         } else {
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
         }
