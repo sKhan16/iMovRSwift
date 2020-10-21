@@ -36,17 +36,12 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
         guard self.setDesk(desk: desk) else {
             return nil
         }
-        //make
-        self.setCharacteristics()//give desk as parameter? could cause init error (trying to use self.desk inside setCharacteristics() before init finishes
+        // characteristics will be set 'automatically' after device connects and calls peripheral.discoverServices, -> peripheral.discoverCharacteristics
     }
     
     func setDesk(desk: Desk) -> Bool {
         guard desk.peripheral != nil else {
             print("ZGoZipDeskController:setDesk(..) error- desk peripheral is nil")
-            return false
-        }
-        guard desk.peripheral!.state == .connected else {
-            print("ZGoZipDeskController:setDesk(..) error- desk peripheral not connected\n(state: \(desk.peripheral!.state))")
             return false
         }
         self.peripheral = desk.peripheral!

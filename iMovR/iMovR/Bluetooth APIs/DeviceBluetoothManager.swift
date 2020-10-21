@@ -65,22 +65,25 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
-    func connectToDevice(device: Desk) {
+    func connectToDevice(device: Desk) -> Bool {
         guard device.peripheral != nil else {
             print("connectToDevice(..) error: attempted to connect to nil peripheral,\nperipheral expired or not initialized")
-            return
+            return false
         }
         self.zipdesk = ZGoZipDeskController(desk: device)
-        
+        //check result of zipdesk.init->zipdesk.setDesk
+        if self.zipdesk == nil {
+            return false
+        }
         centralManager?.connect(device.peripheral!)
-        //MARK: check if connection failed...
-            // use timer for time out of connection.
+        //MARK: check if connection times out... use timer
 
         // calls centralManager:didConnectPeripheral: on success
             // continue connection process by initializing ZGoZipDeskController
 
         // calls centralManager:didFailToConnectPeripheral:error: on failure
         // continue connection process by scanning for the desk again
+        return true
     }
     
     func rediscoverDevice(device: Desk) {
