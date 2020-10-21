@@ -24,7 +24,7 @@ struct StopGoButton: View {
             .fontWeight(.bold)
             .font(.title)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .padding()
+                .padding(5)
             .background(Color.red)
             .cornerRadius(40)
             .foregroundColor(.white)

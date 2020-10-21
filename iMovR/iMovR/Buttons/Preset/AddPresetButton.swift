@@ -31,7 +31,7 @@ struct AddPresetButton: View {
                         //.resizable()
                         //.stroke(Color.black, lineWidth: 3)
                         //.background(Circle().foregroundColor(ColorManager.preset))
-                        .frame(width: 80.0, height: 80)
+                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
                     Image(systemName: "plus")
                         .resizable()
                         .frame(width: 40, height: 40)

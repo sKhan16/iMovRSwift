@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct LoadedPreset: View {
+struct TouchPreset: View {
     
     @EnvironmentObject var bt: ZGoBluetoothController
     
     @State private var pressed: Bool = false
     
     @State var name: String
-    @State var presetVal: Float
+    @State var presetHeight: Float
     
     //@State var tapped = false
     
@@ -25,10 +25,16 @@ struct LoadedPreset: View {
     var body: some View {
         Button(action: {
             //self.moveToPreset()
-            print("Moved to \(self.presetVal)")
-            
-            //self.presetName = self.name
-            //self.presetHeight = self.presetVal
+            //print("Moved to \(self.presetVal)")
+
+                print("TG moved")
+                self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
+                print("Start Timer fired b4 interval")
+                let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                    print("Start Timer fired after interval!")
+                    self.bt.deskWrap?.moveToHeight(PresetHeight: self.presetHeight)
+                    timer.invalidate()
+                }
             
         }) {
             VStack {
@@ -37,19 +43,22 @@ struct LoadedPreset: View {
                         //.resizable()
                         //.stroke(Color.black, lineWidth: 3)
                         //.background(Circle().foregroundColor(ColorManager.preset))
-                        .frame(width: 80.0, height: 80)
-                    Text(String(format: "%.1f", presetVal))
-                        .frame(width: 75, height: 75)
+                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                    Text(String(format: "%.1f", presetHeight))
+                        .frame(minWidth: 70, idealWidth: 75, maxWidth: 75, minHeight: 70, idealHeight: 75, maxHeight: 75)
                         .font(.largeTitle)
                         .foregroundColor(Color.white)
                 }
             }
             .foregroundColor(ColorManager.preset)
 }
+
     }
+        
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        LoadedPreset(name: "test", presetVal: 33.3)
+        TouchPreset(name: "test", presetHeight: 33.3)
     }
 }
 }
+
