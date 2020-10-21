@@ -54,6 +54,11 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
         return self.desk
     }
     
+    func getPeripheral() -> CBPeripheral {
+        return self.peripheral
+    }
+    
+    
     
 ///# CoreBluetooth Peripheral Delegate functions
     ///# didDiscoverServices
@@ -93,7 +98,10 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
         self.updateDeskHeights()
     }
 
-    //MARK: Move this to self.zipdesk if possible
+    
+    
+    
+    
     func updateDeskHeights() {
         if let temp = self.getHeightInches() {
             self.deskHeight = temp
@@ -109,13 +117,6 @@ class ZGoZipDeskController: NSObject, CBPeripheralDelegate {
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
     
     let raiseCMD : [UInt8] = [0xA5, 0x03, 0x12, 0x15]
     let lowerCMD : [UInt8] = [0xA5, 0x03, 0x14, 0x17]

@@ -89,8 +89,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     func rediscoverDevice(device: Desk) {
 //MARK: initialize self.zipdesk here
 
-        print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk!.desk.name))")
-        guard self.zipdesk!.desk.id > 0 else {//fixxxxxxxxx
+        print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk!.getDesk().name))")
+        guard self.zipdesk!.getDesk().id > 0 else {//fixxxxxxxxx
             print("invalid deskID stored, or user hasn't input deskID yet")
             self.connStatus = .error
             return
@@ -106,7 +106,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             self.isDeskConnected = false
             
             if self.zipdesk != nil {
-                centralManager?.cancelPeripheralConnection(self.zipdesk!.peripheral)
+                centralManager?.cancelPeripheralConnection(self.zipdesk!.getPeripheral())
             } else {
                 print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
             }
@@ -212,15 +212,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             
         }
         
-        
-        // I think we need to return here if scanForDesks is what lead to the desk being discovered... Or put the code after this guard into a different method only called with the currentDesk ID check.
-        // Alternatively, put in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
-        
-        guard (self.zipdesk?.peripheral != nil) else {
-            // peripheral was discovered during the scan process, exit code now
-            print("*bt* no curr desk, skip manufac. ID chk")
-            return
-        }
+
+        // Put below code in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
         
         // scan is stopped after the guard statement. If first scanned desk happens to be the searched for current desk it won't discover any more desks, but this functionality must change
         
