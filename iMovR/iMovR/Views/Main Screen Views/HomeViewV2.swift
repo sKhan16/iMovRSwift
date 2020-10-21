@@ -34,6 +34,7 @@ struct HomeViewV2: View {
                         .resizable()
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                         //.padding(.top)
+
                     
                     /* why use ZStack? curious. device picker works in the below VStack
                     Spacer().frame(height: 70)
@@ -145,11 +146,20 @@ struct HomeViewV2: View {
 
 struct HomeViewV2_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            HomeViewV2()
-                .environmentObject(UserObservable())
-                .environmentObject(ZGoBluetoothController())
+        Group {
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                HomeViewV2()
+                    .environmentObject(UserObservable())
+                    .environmentObject(ZGoBluetoothController())
+            }
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                HomeViewV2()
+                    .environmentObject(UserObservable())
+                    .environmentObject(ZGoBluetoothController())
+            }
+            .previewDevice("iPhone 6s")
         }
     }
 }
