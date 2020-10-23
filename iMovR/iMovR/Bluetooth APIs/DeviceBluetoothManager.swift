@@ -42,12 +42,14 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
     
+    
 ///# Connection Status
     enum ConnectionStatus { case disabled, ready, scanning, error, connected, disconnected }
     private var connStatus: ConnectionStatus = .disconnected
     func status() -> ConnectionStatus {
         return self.connStatus
     }
+    
     
 ///# Device Connection & Discovery
     func scanForDevices() {
@@ -57,37 +59,34 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             self.connStatus = .disabled
             return
         }
-        // clear previously discovered devices
-// later only clear devices if their connection cannot be validated
-        self.discoveredDevices = []
-        // reset current self.zipdesk for proper behavior in 'didDiscover peripheral' CoreBluetooth function
-        
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
+    
     
     func connectToDevice(device: Desk) -> Bool {
         guard device.peripheral != nil else {
             print("connectToDevice(..) error: attempted to connect to nil peripheral,\nperipheral expired or not initialized")
             return false
         }
-        self.zipdesk = ZGoZipDeskController(desk: device)
-        //check result of zipdesk.init->zipdesk.setDesk
-        if self.zipdesk == nil {
-            return false
+//messy...
+        if self.zipdesk != nil {
+            guard self.zipdesk!.setDesk(desk: device) else { return false }
+        } else {
+            self.zipdesk = ZGoZipDeskController(connectedDesk: device)
+            guard self.zipdesk != nil else { return false }
         }
         centralManager?.connect(device.peripheral!)
-        //MARK: check if connection times out... use timer
-
+    //MARK: check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
             // continue connection process by initializing ZGoZipDeskController
-
         // calls centralManager:didFailToConnectPeripheral:error: on failure
         // continue connection process by scanning for the desk again
         return true
     }
     
+    
     func rediscoverDevice(device: Desk) {
-//MARK: initialize self.zipdesk here
+    //MARK: initialize self.zipdesk here
 
         print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk!.getDesk().name))")
         guard self.zipdesk!.getDesk().id > 0 else {//fixxxxxxxxx
@@ -119,29 +118,9 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
-////MARK: Move this to self.zipdesk if possible
-//    func updateDeskHeights() {
-//        if let temp = zipdesk?.getHeightInches() {
-//            DispatchQueue.main.async { () -> Void in
-//                self.deskHeight = temp
-//            }
-//        }
-//        if let temp = zipdesk?.getMaxHeightInches() {
-//            DispatchQueue.main.async { () -> Void in
-//                self.maxHeight = temp
-//            }
-//        }
-//        if let temp = zipdesk?.getMinHeightInches() {
-//            DispatchQueue.main.async { () -> Void in
-//                self.minHeight = temp
-//            }
-//        }
-//    }
-    
     
     
 ///# CoreBluetooth CentralManager Delegate functions
-    
     
     ///# centralManagerDidUpdateState
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -184,7 +163,9 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     ///# didDiscover peripheral
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager,
+                        didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        
 //MARK: ZIPDESK ID IMPLEMENTATION (delegate this to self.zipdesk)
         // Make unique manufacturer ID readable
         let rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
@@ -197,26 +178,27 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         
         print("iOS discovered device w/ id# \(manufacturerDeskID)")
         
-//MARK: verify device is not already discovered (before adding it to array)
+        // update saved device with peripheral, or;
+        // check that device is not discovered yet before adding it to discoveredDevices[]
         if discoveredDevices.count > 0 {
-            // remember that it needs to allow manual connection to happen (if discovered desk is the one we are searching for)
-            // can use this feature to bypass saving the peripheral reference and to make sure desk is in range when connecting...
-            var elementPos = array.map(function(x) {return x.id; }).indexOf(idYourAreLookingFor);
-            var objectFound = array[elementPos];
-//            for (index, device) in discoveredDevices.enumerated() {
-//            }
-            if elementPos != nil { return } // if found in discoveredDevices
+            let matchingIndex: Int? = discoveredDevices.firstIndex(where: { (device) -> Bool in
+                device.id == manufacturerDeskID
+            })
+            if matchingIndex != nil {
+                discoveredDevices[matchingIndex!].peripheral = peripheral
+            } else {
+                self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
+            }
+/*
             DispatchQueue.main.async { () -> Void in
                 self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
             }
-            
+ */
         }
+//MARK: already updated or added the device to discoveredDevices
+// Put below code in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered. For now, no automatic connections. Must happen from device manager.
         
-
-        // Put below code in a better check to see what function led to didDiscover. Then use it to connect or just save it in discovered.
-        
-        // scan is stopped after the guard statement. If first scanned desk happens to be the searched for current desk it won't discover any more desks, but this functionality must change
-        
+/*
         // Begin connection if current discovered desk matches stored user selection
         guard manufacturerDeskID == self.zipdesk?.getDesk().id else {
             print("Desk id \(String(manufacturerDeskID)) did not match selected desk id \(String((self.zipdesk?.getDesk().id)!))")
@@ -234,24 +216,35 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // Connect to the discovered peripheral
         //print("Connecting to peripheral")
         centralManager?.connect(desiredPeripheral!)
+*/
     } // end didDiscover peripheral
     
     
     ///# didConnect peripheral
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        peripheral.delegate = self.zipdesk
+    func centralManager(_ central: CBCentralManager,
+                        didConnect peripheral: CBPeripheral) {
+        centralManager?.stopScan()
+        peripheral.delegate = self//.zipdesk
         DispatchQueue.main.async { () -> Void in
             self.connStatus = .connected
             self.isDeskConnected = true
         }
-        print("successfully connected to desk \(String(describing: self.zipdesk?.desk.id))")
+        print("successfully connected to desk \(String(describing: self.zipdesk?.getDesk().id))")
         
-        self.zipdesk?.peripheral.discoverServices([ZGoServiceUUID])
+        
+        self.zipdesk?.getPeripheral().discoverServices([ZGoServiceUUID])
     }
     
+    ///# didFailToConnect peripheral
+    func centralManager(_ central: CBCentralManager,
+                        didFailToConnect peripheral: CBPeripheral,
+                        error: Error?) {
+        print(String(describing: error))
+    }
     
     ///# didDisconnectPeripheral peripheral
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+    func centralManager(_ central: CBCentralManager,
+                        didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         self.isDeskConnected = false
         DispatchQueue.main.async { () -> Void in
             self.connStatus = .disconnected
@@ -263,47 +256,49 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
     }
     
+
     
     
-/////# CoreBluetooth Peripheral Delegate functions
-//
-//
-//    ///# didDiscoverServices
-//    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-//        for service in peripheral.services! {
-//            if service.uuid == ZGoServiceUUID {
-//                peripheral.discoverCharacteristics(nil, for: service)
-//            }
-//        }
-//    }
-//    
-//    ///# didDiscoverCharacteristicsFor service
-//    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-//        for characteristic in service.characteristics! {
-//            //print(characteristic)
-//            if characteristic.uuid == ZGoWriteCharacteristicUUID {
-//                writeCharacteristic = characteristic
-//            } else if characteristic.uuid == ZGoNotifyCharacteristicUUID {
-//                readCharacteristic = characteristic
-//                peripheral.setNotifyValue(true, for: readCharacteristic!)
-//            }
-//        }
-//    }
-//
-//
-//    ///# didUpdateValueFor characteristic
-//    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error:Error?) {
-//        guard error == nil else {
-//            print("didUpdateValueFor error: characteristic value update threw error - from notify or readValue(...)")
-//            return
-//        }
-//        guard characteristic.uuid == ZGoNotifyCharacteristicUUID else {
-//            print("didUpdateValueFor error: updated characteristic is not ZGoNotifyCharacteristic")
-//            return
-//        }
-//        zipdesk?.updateHeightInfo()
-//        self.updateDeskHeights()
-//    }
+    
+///# CoreBluetooth Peripheral Delegate functions
+
+
+    ///# didDiscoverServices
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        for service in peripheral.services! {
+            if service.uuid == ZGoServiceUUID {
+                peripheral.discoverCharacteristics(nil, for: service)
+            }
+        }
+    }
+    
+    ///# didDiscoverCharacteristicsFor service
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        for characteristic in service.characteristics! {
+            //print(characteristic)
+            if characteristic.uuid == ZGoWriteCharacteristicUUID {
+                self.zipdesk!.writeCharacteristic = characteristic
+            } else if characteristic.uuid == ZGoNotifyCharacteristicUUID {
+                self.zipdesk!.readCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: readCharacteristic!)
+            }
+        }
+    }
+
+
+    ///# didUpdateValueFor characteristic
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error:Error?) {
+        guard error == nil else {
+            print("didUpdateValueFor error: characteristic value update threw error - from notify or readValue(...)")
+            return
+        }
+        guard characteristic.uuid == ZGoNotifyCharacteristicUUID else {
+            print("didUpdateValueFor error: updated characteristic is not ZGoNotifyCharacteristic")
+            return
+        }
+        self.zipdesk!.updateHeightInfo()
+        self.zipdesk!.updateDeskHeights()
+    }
     
 }// end ZGoBluetoothController
 

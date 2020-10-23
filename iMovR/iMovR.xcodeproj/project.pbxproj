@@ -425,8 +425,8 @@
 		41D079BF24C220E00047FD48 /* Bluetooth APIs */ = {
 			isa = PBXGroup;
 			children = (
-				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 				41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */,
+				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 			);
 			path = "Bluetooth APIs";
 			sourceTree = "<group>";

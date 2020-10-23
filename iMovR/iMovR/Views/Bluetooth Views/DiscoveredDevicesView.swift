@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DiscoveredDevicesView: View {
     
-    @EnvironmentObject var bt: DeviceBluetoothController
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     var body: some View {
         List {
@@ -19,7 +19,7 @@ struct DiscoveredDevicesView: View {
             if bt.discoveredDevices.count > 0 {
                 ForEach(bt.discoveredDevices.indices, id: \.self) { index in
                     Button(action: {
-                        self.bt.connectToDevice(peripheral: self.bt.discoveredDevices[index].peripheral)
+                        self.bt.connectToDevice(device: self.bt.discoveredDevices[index])
                         
                     }) {
                         Text("Device #\(self.bt.discoveredDevices[index].id)")
