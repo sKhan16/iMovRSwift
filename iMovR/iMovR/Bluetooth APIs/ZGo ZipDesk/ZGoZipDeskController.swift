@@ -97,6 +97,10 @@ class ZGoZipDeskController: ObservableObject {
     
     
     private func writeToDesk(data:NSData, type:CBCharacteristicWriteType) {
+        guard self.isDeskConnected() else {
+            print("writeToDesk error: desk peripheral is not connected")
+            return
+        }
         guard self.writeCharacteristic != nil else {
             print("writeToDesk error: zipdesk writeCharacteristic not assigned")
             return
@@ -141,7 +145,7 @@ class ZGoZipDeskController: ObservableObject {
             return
         }
         guard readData.count > 4 else {
-            print("read characteristic count too small")
+            print("read characteristic data length too small")
             return
         }
         let readByteData: [UInt8] = [UInt8](readData)
