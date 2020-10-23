@@ -87,8 +87,8 @@ private struct ConnectButton: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 40)
                 
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.black, lineWidth: 2)
+                //RoundedRectangle(cornerRadius: 20)
+                  //  .stroke(Color.black, lineWidth: 2)
             }
         }
     }//end body
@@ -113,8 +113,8 @@ private struct EditButton: View {
                 //.rotationEffect(.degrees(90))
                 .frame(minWidth: 30, idealWidth: 40, maxWidth: 40)
                 
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.black, lineWidth: 2)
+                //RoundedRectangle(cornerRadius: 20)
+                  //  .stroke(Color.black, lineWidth: 2)
             }
         }
     }//end body
