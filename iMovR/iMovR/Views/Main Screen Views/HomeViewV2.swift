@@ -19,8 +19,6 @@ struct HomeViewV2: View {
 
     @State var isTouchGo: Bool = false
     
-//    @State var presetName: String = ""
-//    @State var presetHeight: Float = 0.0
     
 //    @State private var showBTConnect: Bool = false
     @State private var testHeight: Float = 35.0
@@ -33,9 +31,7 @@ struct HomeViewV2: View {
                     Image("imovrLogo")
                         .resizable()
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
-                        //.padding(.top)
-
-                    
+              
                     /* why use ZStack? curious. device picker works in the below VStack
                     Spacer().frame(height: 70)
                     ZStack {
@@ -48,13 +44,10 @@ struct HomeViewV2: View {
                     
                         
                         DevicePicker()
-                        //BTConnectButton(showBTConnect: self.$showBTConnect)
                             .padding(.bottom, 20)
         
                         HStack {
-                            //Height indicator goes here,,
-                            //Or build height indicators into the HeightSlider and remove the Spacer()
-                            //HStack {
+
                             HStack {
                                 Text(String(format: "%.1f", (self.bt.zipdesk?.deskHeight) ?? 0.0))
                                     .font(.system(size: 75))
@@ -65,59 +58,28 @@ struct HomeViewV2: View {
                                     .font(.system(size: 52))
                             }
                             .padding(.trailing)
-                            //}
-                            //Spacer()
-                            
-                            //VStack(alignment: .leading) { // this alignment doesnt seem to change anything
-                                //HStack(alignment: .top) {
+ 
                                     HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
                                         .padding(.trailing)
+                            
                             // By default slider size is undefined, fills container
                                         //.padding([.top,.bottom], 20)
-                                //}
-                            //}
+
                             
                             VStack(alignment: .leading) {
-                                //Spacer()
                                 UpButton(testHeight: self.$testHeight)
                                     .padding(.bottom, 10)
                                 DownButton(testHeight: self.$testHeight)
                                     .padding(.top, 10)
-                                //Spacer()
                             }
                             .padding()
-                        }//end HStack
-                        //.alignmentGuide(.leading, computeValue: { d in d[.leading] })
-                    }//end 2nd level VStack
-                    .frame(maxWidth: .infinity)
+                        }
+                    
+                        .frame(maxWidth: .infinity)
                     
                     PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup)
-                        //.padding()
-    //                VStack {
-    //                    HStack {
-    //                        AddPresetButton(showAddPreset: self.$showAddPreset)
-    //                    }
-    //                }
-                    
-                    /* dont need touch & go slider/stuff on home page anymore...
-                    VStack (alignment: .center) {
-                    Text("Touch & Go")
-                        Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
-                    }
-                    
-                    VStack {
-                        if self.isTouchGo {
-                            TouchGoButton(isTouchGo: self.$isTouchGo,
-                                presetHeight:
-                                self.$presetHeight)
-                        } else {
-                        HoldButton(presetName: self.$presetName, presetHeight: self.$presetHeight)
-                        }
-                    }
-                    //.padding(.bottom)
-                    //Spacer()
-                    */
-                    
+
+                } // end vstack with homepage main components
                 }//end 1st level VStack
                 .blur(radius: popupBackgroundBlur)
                 
