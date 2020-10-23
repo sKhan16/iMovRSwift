@@ -65,7 +65,7 @@ struct DeviceRowView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.black, lineWidth: 2)
         )
-        
+        .shadow(radius: 5)
     }
 }
 
