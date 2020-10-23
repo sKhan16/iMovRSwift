@@ -19,4 +19,6 @@ struct ColorManager {
     static let morePreset = Color("MorePreset")
     
     static let gray = Color("gray")
+    
+    static let deviceBG = Color("DeviceBackground")
 }

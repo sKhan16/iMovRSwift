@@ -32,6 +32,7 @@ struct DeviceRowView: View {
             
             ConnectButton(deviceIndex: self.deviceIndex)
                 .frame(width:75, height:75)
+                .accentColor(ColorManager.morePreset)
             
 //            Rectangle()
 //                .fill(Color.black)
@@ -42,8 +43,10 @@ struct DeviceRowView: View {
                 Text(currDevice.name)
                     .font(Font.title3.bold())
                     .truncationMode(.tail)
+                    .foregroundColor(Color.white)
                 Text(String(currDevice.id))
                     .font(Font.body.weight(.medium))
+                    .foregroundColor(Color.white)
             }
                 .font(Font.title3)
                 .lineLimit(1)
@@ -52,10 +55,10 @@ struct DeviceRowView: View {
             
             EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
                 .frame(width:75, height:75)
-                .accentColor(.red)
+                .accentColor(ColorManager.gray)
         }
         .frame(minHeight: 75, idealHeight: 75, maxHeight: 75)
-        .background(ColorManager.textColor)
+        .background(ColorManager.deviceBG)
         .cornerRadius(20)
         //.border(Color.black, width: 3)
         .overlay(
