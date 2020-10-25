@@ -61,11 +61,11 @@ struct DeviceRowView: View {
         .background(ColorManager.deviceBG)
         .cornerRadius(20)
         //.border(Color.black, width: 3)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.black, lineWidth: 2)
-        )
-        .shadow(color: .black, radius: 5, x: 0.0, y: 5)
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 20)
+//                .stroke(Color.black, lineWidth: 2)
+//        )
+        .shadow(color: .black, radius: 3, x: 0, y: 5)
     }
 }
 
