@@ -126,8 +126,9 @@ struct PresetEditPopup: View {
                     }, label: {
                         Text("Save Changes")
                             .font(Font.title3.bold())
+                            .foregroundColor(Color.white)
                             .padding()
-                            .background(Color.init(red: 0.25, green: 0.85, blue: 0.2))
+                            .background(ColorManager.preset)
                             .cornerRadius(27)
                     })
                     .frame(width:200,height:100)
