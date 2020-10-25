@@ -48,13 +48,8 @@ struct DeviceManagerView: View {
                     ForEach(Range(0...6)) { index in
                         VStack {
                             DeviceRowView(edit: $deviceEditIndex, deviceIndex: index)
-                            .padding(2)
                         }
                     }
-                        //.border(Color.blue, width: 3)
-                        .background(ColorManager.bgColor)
-                        .cornerRadius(20.0)
-                        //.padding(5)
                         .frame(maxWidth: .infinity)
                     
                     VStack {
@@ -74,15 +69,11 @@ struct DeviceManagerView: View {
                             DeviceRowView(edit: $safetyDummyIndex, deviceIndex: index)
                                 .padding(2)
                         }
-                        
                     }
-                    //.border(Color.yellow, width: 3)
-                    .background(ColorManager.bgColor)
-                    .cornerRadius(15.0)
                     .frame(maxWidth: .infinity)
                 }
                 .padding(2)
-                //.border(Color.red, width: 3)
+
                 
             }//end VStack
             .blur(radius: editBackgroundBlur)

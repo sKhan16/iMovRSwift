@@ -44,7 +44,7 @@ struct PresetEditPopup: View {
                // Display Presets List
                 if self.editIndex == -1  {
                     VStack {
-                        Text("Edit Presets")
+                        Text("Preset Settings")
                             .font(Font.title2)
                             .foregroundColor(.white)
                             .padding(.top, 5)
