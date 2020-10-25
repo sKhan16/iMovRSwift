@@ -24,6 +24,7 @@ struct DevicePicker: View {
                 }
                 PickerRight(index: $index, devices: $testDevices)
             }
+            .padding()
     }
 }
 

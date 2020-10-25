@@ -44,12 +44,22 @@ struct PresetEditPopup: View {
                // Display Presets List
                 if self.editIndex == -1  {
                     VStack {
+                        Text("Edit Presets")
+                            .font(Font.title2)
+                            .foregroundColor(.white)
+                            .padding(.top, 5)
                         ForEach(Range(0...5)) { index in
                             VStack {
                                 Button(action: { self.editIndex = index }, label: {
                                     ZStack {
-                                        RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor)
-                                            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
+                                        RoundedRectangle(cornerRadius: 12).fill(ColorManager.deviceBG)
+                                            .frame(height: 40)
+                                            //.border(Color.black, width: 3)
+                                            //        .overlay(
+                                            //            RoundedRectangle(cornerRadius: 20)
+                                            //                .stroke(Color.black, lineWidth: 2)
+                                            //        )
+                                            .shadow(color: .black, radius: 3, x: 0, y: 3)
                                         HStack {
                                             Text("Edit Preset \(index+1):")
                                             Text(self.user.testPresets[index] > -1 ? String(self.user.testPresets[index]) : "Empty")
