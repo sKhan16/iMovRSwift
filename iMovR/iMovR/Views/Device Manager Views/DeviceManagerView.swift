@@ -17,7 +17,7 @@ struct DeviceManagerView: View {
     @EnvironmentObject var user: UserObservable
     
     // In final build, this array is type [Device] & comes from BTController or UserObservable
-    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234), Desk(name: "Home Monitor Arm", deskID: 881004)]
+    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
     let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
     
     @State var deviceEditIndex: Int = -1
@@ -45,7 +45,7 @@ struct DeviceManagerView: View {
                             .frame(height: 2)
                     }
                     
-                    ForEach(Range(0...6)) { index in
+                    ForEach(Range(0...2)) { index in
                         VStack {
                             DeviceRowView(edit: $deviceEditIndex, deviceIndex: index)
                         }
@@ -64,7 +64,7 @@ struct DeviceManagerView: View {
                             .frame(height: 2)
                     }
                     
-                    ForEach(Range(6...8)) { index in
+                    ForEach(Range(3...5)) { index in
                         VStack {
                             DeviceRowView(edit: $safetyDummyIndex, deviceIndex: index)
                                 .padding(2)
