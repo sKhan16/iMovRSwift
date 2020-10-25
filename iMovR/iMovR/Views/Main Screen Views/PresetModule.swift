@@ -28,6 +28,7 @@ struct PresetModule: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
+                        .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
                     if self.isTouchGo {
                         StopGoButton()
                     }
@@ -38,6 +39,8 @@ struct PresetModule: View {
                             .padding(.leading, 10)
                     }
                 }
+                .frame(maxHeight: .infinity)
+                
             } else {// first 3 presets
                 HStack {
                     PresetButton(index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo)
@@ -48,6 +51,7 @@ struct PresetModule: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
+                        .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
                     if self.isTouchGo {
                         StopGoButton()
                     }
@@ -59,6 +63,7 @@ struct PresetModule: View {
                             .padding(.leading, 10)
                     }
                 }
+                .frame(maxHeight: .infinity)
             }
             HStack {
             MorePresetButton(isPaged: self.$isPaged)
@@ -80,7 +85,7 @@ struct PresetModule_Previews: PreviewProvider {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             PresetModule(
                 isPaged: false,
-                showAddPreset: .constant([Bool](repeating: true, count: 6)),
+                showAddPreset: .constant([Bool](repeating: false, count: 6)),
                 isTouchGo: .constant(true),
                 showPresetPopup: .constant(false)
             )
