@@ -16,19 +16,14 @@ struct DevicePicker: View {
     @State var testDevices = ["desk 1", "arm 1", "desk 2"]
     
     var body: some View {
-        VStack {
-            Text("Workstation").foregroundColor(ColorManager.textColor)
             HStack {
                 PickerLeft(index: $index, devices: $testDevices)
                 ZStack {
-                    Text(testDevices[index]).font(.system(size: 24))
+                    Text(testDevices[index]).font(.system(size: 30))
                         .foregroundColor(Color.white)
                 }
                 PickerRight(index: $index, devices: $testDevices)
             }
-            
-        }
-        .padding()
     }
 }
 
@@ -44,7 +39,11 @@ struct PickerLeft: View {
             index -= 1
         }
             }) {
-                Image(systemName: "chevron.left").foregroundColor(Color.white)
+                Image(systemName: "chevron.left")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(Color.white)
+                    .frame(width: 15)
             }
     }
 }
@@ -61,13 +60,20 @@ struct PickerRight: View {
             index += 1
         }
             }) {
-        Image(systemName: "chevron.right").foregroundColor(Color.white)
+        Image(systemName: "chevron.right")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .foregroundColor(Color.white)
+            .frame(width: 15)
             }
     }
 }
 
 struct DevicePicker_Previews: PreviewProvider {
     static var previews: some View {
-        DevicePicker()
+        ZStack {
+            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+            DevicePicker()
+        }
     }
 }
