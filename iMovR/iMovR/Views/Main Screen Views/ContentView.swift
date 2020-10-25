@@ -57,14 +57,14 @@ struct ContentView: View {
                 }
                 .tag(2)
             
-            BTConnectView(showBTConnect: .constant(true))
-                .tabItem {
-                    VStack {
-                        Image(systemName: "bolt.horizontal.fill")
-                        Text("BT TEST")
-                    }
-                }
-                .tag(3)
+//            BTConnectView(showBTConnect: .constant(true))
+//                .tabItem {
+//                    VStack {
+//                        Image(systemName: "bolt.horizontal.fill")
+//                        Text("BT TEST")
+//                    }
+//                }
+//                .tag(3)
         }
     }
 }
