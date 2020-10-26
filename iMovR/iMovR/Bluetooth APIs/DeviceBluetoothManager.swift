@@ -44,8 +44,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
 ///# Connection Status
-    enum ConnectionStatus { case disabled, ready, scanning, error, connected, disconnected }
+    enum ConnectionStatus {
+        case disabled, ready, scanning, error, connected, disconnected
+    }
     private var connStatus: ConnectionStatus = .disconnected
+    
     func status() -> ConnectionStatus {
         return self.connStatus
     }
@@ -230,8 +233,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             self.isDeskConnected = true
         }
         print("successfully connected to desk \(String(describing: self.zipdesk?.getDesk().id))")
-        
-        
         self.zipdesk?.getPeripheral().discoverServices([ZGoServiceUUID])
     }
     
@@ -239,7 +240,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
-        print(String(describing: error))
+        print("didFailToConnect peripheral, error:" + String(describing: error))
     }
     
     ///# didDisconnectPeripheral peripheral

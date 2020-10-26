@@ -19,10 +19,7 @@ struct HomeViewV2: View {
 
     @State var isTouchGo: Bool = false
     
-    
-//    @State private var showBTConnect: Bool = false
     @State private var testHeight: Float = 35.0
-    @State private var progressValue: Float = 0.7
     
     var body: some View {
         GeometryReader { geo in
@@ -59,7 +56,7 @@ struct HomeViewV2: View {
                             }
                             .padding(.trailing)
  
-                                    HeightSliderV2(barProgress: self.$progressValue).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
+                                    HeightSliderV2().frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
                                         .padding(.trailing)
                             
                             // By default slider size is undefined, fills container
@@ -112,6 +109,7 @@ struct HomeViewV2_Previews: PreviewProvider {
                     .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }
+            .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 HomeViewV2()
