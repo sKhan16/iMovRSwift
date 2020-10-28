@@ -1,5 +1,5 @@
 //
-//  DeviceEditView.swift
+//  EditDeviceView.swift
 //  iMovR
 //
 //  Created by Michael Humphrey on 10/8/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DeviceEditView: View {
+struct EditDeviceView: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     @EnvironmentObject var user: UserObservable
@@ -23,7 +23,7 @@ struct DeviceEditView: View {
 //    }
     
     @State var editName: String = ""
-    @State var editID: String = ""
+//    @State var editID: String = ""
     
     var body: some View {
         ZStack{
@@ -38,9 +38,23 @@ struct DeviceEditView: View {
             VStack {
                 
                 VStack {
+                    ZStack {
                     Text("Edit Device")
                         .font(Font.title.weight(.medium))
                         .padding(5)
+                        Button(action: {self.deviceIndex = -1}, label: {
+                            Text("Back")
+                                .font(Font.caption)
+                                .frame(width: 50, height: 28)
+                                .offset(x:-1)
+                                .background(Color.red)
+                                .cornerRadius(13)
+                                .shadow(radius: 3)
+                                
+                            
+                        })
+                        .offset(x: -116, y: -14)
+                    }
                     Rectangle()
                         .foregroundColor(Color.black)
                         .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
@@ -78,11 +92,20 @@ struct DeviceEditView: View {
                     */
                 }
                 .padding()
+                Spacer()
                 
                 Button(action: {
-                    
-                    self.deviceIndex = -1
                     print("saving 'edit device' changes")
+                    var changedDevice = self.selectedDevice
+                    changedDevice.name = editName
+//                    guard let changedID = Int(editID) else {
+//                        print("edit device save error: invalid desk ID")
+//                        return
+//                    }
+//                    changedDevice.id = changedID
+                    self.bt.savedDevices[deviceIndex] = changedDevice
+                    // perform userObservable save function here for coreData
+                    self.deviceIndex = -1
                     
                 }, label: {
                     Text("Save Changes")
@@ -90,7 +113,8 @@ struct DeviceEditView: View {
                         .foregroundColor(Color.white)
                         .padding()
                         .background(ColorManager.preset)
-                        .cornerRadius(27)
+                        .cornerRadius(20)
+                        .shadow(radius: 8)
                 })
                 .frame(width:200,height:100)
                 
@@ -107,7 +131,7 @@ struct DeviceEditView: View {
     }//end Body
 }
 
-struct DeviceEditView_Previews: PreviewProvider {
+struct EditDeviceView_Previews: PreviewProvider {
 
     static var previews: some View {
         
@@ -116,7 +140,7 @@ struct DeviceEditView_Previews: PreviewProvider {
             
             //DeviceManagerView()
         
-            DeviceEditView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678))
+            EditDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678))
         }
     }
 }

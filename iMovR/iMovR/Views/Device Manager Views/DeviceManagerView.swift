@@ -16,16 +16,12 @@ struct DeviceManagerView: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @EnvironmentObject var user: UserObservable
     
-    // In final build, this array is type [Device] & comes from BTController or UserObservable
-    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
-    let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
-    
-    @State var deviceEditIndex: Int = -1
-    @State private var safetyDummyIndex: Int = -1
-    @State private var editBackgroundBlur: CGFloat = 0
+    @State var editDeviceIndex: Int = -1
+    @State var saveDeviceIndex: Int = -1
+    @State private var popupBackgroundBlur: CGFloat = 0
     
     var body: some View {
-        let testDevices = testSavedDevices + testDiscoveredDevices
+        //let testDevices = testSavedDevices + testDiscoveredDevices
         ZStack(alignment: .center) {
             VStack {
                 Text("Device Manager")
@@ -33,6 +29,13 @@ struct DeviceManagerView: View {
                     .foregroundColor(Color.white)
                     .padding()
                 ScrollView {
+                    Button(action: {
+                        self.bt.scanForDevices()
+                    }) {
+                        Text("Scan for Desks")
+                            .font(Font.title)
+                            .background(Color.yellow)
+                    }
                     VStack {
                         Text("SAVED")
                             .foregroundColor(Color.white)
@@ -45,12 +48,16 @@ struct DeviceManagerView: View {
                             .frame(height: 2)
                     }
                     
-                    ForEach(Range(0...2)) { index in
-                        VStack {
-                            DeviceRowView(edit: $deviceEditIndex, deviceIndex: index)
+                    ForEach(bt.savedDevices, id:\.self.id) { device -> SavedDeviceRowView? in
+                        guard let index: Int = bt.savedDevices.firstIndex(
+                                where: { (getidDevice) -> Bool in
+                                    getidDevice.id == device.id
+                                }) else {
+                            return nil// device not found even though should be in array
                         }
+                        return SavedDeviceRowView(edit: $editDeviceIndex, deviceIndex: index)
                     }
-                        .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity)
                     
                     VStack {
                         Text("DISCOVERED")
@@ -64,11 +71,14 @@ struct DeviceManagerView: View {
                             .frame(height: 2)
                     }
                     
-                    ForEach(Range(3...5)) { index in
-                        VStack {
-                            DeviceRowView(edit: $safetyDummyIndex, deviceIndex: index)
-                                .padding(2)
+                    ForEach(bt.discoveredDevices, id:\.self.id) { device -> DiscoveredDeviceRowView? in
+                        guard let index: Int = bt.discoveredDevices.firstIndex(
+                                                where: { (getidDevice) -> Bool in
+                                                    getidDevice.id == device.id
+                                                }) else {
+                            return nil// device not found even though should be in array
                         }
+                        return DiscoveredDeviceRowView(save: $saveDeviceIndex, deviceIndex: index)
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -76,17 +86,28 @@ struct DeviceManagerView: View {
 
                 
             }//end VStack
-            .blur(radius: editBackgroundBlur)
+            .blur(radius: popupBackgroundBlur)
             
-            // Popup for editing saved device properties
-            if (deviceEditIndex != -1) {
-                DeviceEditView(deviceIndex: $deviceEditIndex, selectedDevice: testDevices[deviceEditIndex])
+            // pop up for editing saved device properties
+            if (editDeviceIndex != -1) {
+                EditDeviceView(deviceIndex: $editDeviceIndex, selectedDevice: self.bt.savedDevices[editDeviceIndex])
                     .onAppear() {
-                        self.editBackgroundBlur = 5
+                        self.popupBackgroundBlur = 5
                         withAnimation(.easeIn(duration: 5),{})
                     }
                     .onDisappear() {
-                        self.editBackgroundBlur = 0
+                        self.popupBackgroundBlur = 0
+                        withAnimation(.easeOut(duration: 5),{})
+                    }
+            // pop up for saving a new discovered device
+            } else if (saveDeviceIndex != -1) {
+                SaveDeviceView(deviceIndex: $saveDeviceIndex, selectedDevice: self.bt.discoveredDevices[saveDeviceIndex])
+                    .onAppear() {
+                        self.popupBackgroundBlur = 5
+                        withAnimation(.easeIn(duration: 5),{})
+                    }
+                    .onDisappear() {
+                        self.popupBackgroundBlur = 0
                         withAnimation(.easeOut(duration: 5),{})
                     }
             }
@@ -104,11 +125,14 @@ struct DeviceManagerView_Previews: PreviewProvider {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
                 DeviceManagerView()
+                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
+            .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
                 DeviceManagerView()
+                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")
         }

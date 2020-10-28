@@ -63,7 +63,7 @@ class ZGoZipDeskController: ObservableObject {
     
     
     
-    func updateDeskHeights() {
+    func updateDisplayedHeights() {
         if let temp = self.getMaxHeightInches() {
             DispatchQueue.main.async { () -> Void in
                 self.maxHeight = temp
@@ -176,10 +176,11 @@ class ZGoZipDeskController: ObservableObject {
                 print("readData count invalid")
                 return
             }
-            //print("successfully detected message: Table Height Information")
+            print("successfully detected message: Table Height Information")
             self.deskCurrHeight = [readByteData[4],readByteData[3]]
             self.deskMinHeight = [readByteData[6],readByteData[5]]
             self.deskMaxHeight = [readByteData[8],readByteData[7]]
+            self.updateDisplayedHeights()
             
         } else if readByteData[0...1] == [0x5A,0x06] {
             guard readByteData.count == 7 else {
@@ -188,6 +189,7 @@ class ZGoZipDeskController: ObservableObject {
             }
             //print("successfully detected message: Movement/Status Change Update")
             self.deskCurrHeight = [readByteData[4],readByteData[3]]
+            self.updateDisplayedHeights()
             
         } else {
             print("readData message unidentified in updateHeightInfo()")
@@ -213,8 +215,12 @@ class ZGoZipDeskController: ObservableObject {
     
     // Convert height in millimeters to inches
     private func mmBits2inch(HeightBits: [UInt8]?)->Float? {
-        guard (HeightBits != nil) && (HeightBits?.count == 2) else {
-            print("mmToInch error")
+        guard (HeightBits != nil) else {
+            print("zipdesk.mmBits2Inch error: nil HeightBits")
+            return nil
+        }
+        guard (HeightBits?.count == 2) else {
+            print("zipdesk.mmBits2Inch error: HeightBits is not 2 bytes long")
             return nil
         }
         return Float(Int(HeightBits![1])<<8 + Int(HeightBits![0])) / 25.4
