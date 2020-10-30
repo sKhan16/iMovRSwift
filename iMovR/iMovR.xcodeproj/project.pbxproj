@@ -56,6 +56,7 @@
 		415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415B9CE624EB46B700A2EF28 /* DeskSettingDetail.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
+		41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD0F0C254CD54400B828BA /* PresetNew.swift */; };
 		41AED7AB24DA5BD3007C68E2 /* PresetData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A724DA5BD3007C68E2 /* PresetData+CoreDataClass.swift */; };
 		41AED7AC24DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A824DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift */; };
 		41AED7AD24DA5BD3007C68E2 /* DeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AED7A924DA5BD3007C68E2 /* DeskData+CoreDataClass.swift */; };
@@ -150,6 +151,7 @@
 		415B9CE624EB46B700A2EF28 /* DeskSettingDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingDetail.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
+		41AD0F0C254CD54400B828BA /* PresetNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetNew.swift; sourceTree = "<group>"; };
 		41AED7A724DA5BD3007C68E2 /* PresetData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		41AED7A824DA5BD3007C68E2 /* PresetData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		41AED7A924DA5BD3007C68E2 /* DeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeskData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -302,6 +304,7 @@
 				41A3096D24C399D300644006 /* Preset.swift */,
 				1EAA5C8E252BC66300A471E2 /* ColorManager.swift */,
 				41C2EFE4252E371D006D6BF2 /* Device.swift */,
+				41AD0F0C254CD54400B828BA /* PresetNew.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				982F180A24D36FFC003FF080 /* SettingView.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
 				1EAA5CA6252BE1A600A471E2 /* DevicePicker.swift in Sources */,
+				41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */,
 				41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
 				1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */,
