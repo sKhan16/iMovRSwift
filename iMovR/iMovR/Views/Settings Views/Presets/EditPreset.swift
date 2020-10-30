@@ -68,7 +68,7 @@ struct EditPreset: View {
     }
 }
 
-struct editSaveButton: View {
+private struct editSaveButton: View {
     
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     

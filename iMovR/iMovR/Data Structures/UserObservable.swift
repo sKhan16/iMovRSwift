@@ -252,48 +252,66 @@ public class UserObservable: ObservableObject {
         
         return nil
     }
-    
+
     func editPreset (index: Int, name: String = "", height: Float = 0.0) {
         
         var isChanged: Bool = false
         
         if (name != "") {
-            self.presets[index].name = name
+            self.testPresetNames.insert(name, at: index)
+            self.testPresetNames.remove(at: index + 1)
             isChanged = true
         }
         if (height != 0.0) {
-            self.presets[index].height = height
+            self.testPresets.insert(height, at: index)
+            self.testPresets.remove(at: index + 1)
             isChanged = true
         }
         
-        if (isChanged) {
-            let preset: Preset = self.presets[index]
-            
-            /*
-             Edit the preset from CoreData here if isChanged is true
-             */
-            guard let presetData: PresetData = findPresetData(preset: preset) else {
-                print("Error retrieving presetData to edit")
-                return
-            }
-            
-            presetData.name = preset.name
-            presetData.height = preset.height
-            
-            do {
-                try self.context.save()
-                print("Preset edit saved.")
-                
-            } catch {
-                print(error.localizedDescription)
-                print("Error saving edited preset")
-            }
-            
-            if !self.pullPresetData() {
-                print("editPreset(..) data fetch error")
-            }
-        }
     }
+
+/// OLD core data implementation for presets
+//    func editPreset (index: Int, name: String = "", height: Float = 0.0) {
+//
+//        var isChanged: Bool = false
+//
+//        if (name != "") {
+//            self.presets[index].name = name
+//            isChanged = true
+//        }
+//        if (height != 0.0) {
+//            self.presets[index].height = height
+//            isChanged = true
+//        }
+//
+//        if (isChanged) {
+//            let preset: Preset = self.presets[index]
+//
+//            /*
+//             Edit the preset from CoreData here if isChanged is true
+//             */
+//            guard let presetData: PresetData = findPresetData(preset: preset) else {
+//                print("Error retrieving presetData to edit")
+//                return
+//            }
+//
+//            presetData.name = preset.name
+//            presetData.height = preset.height
+//
+//            do {
+//                try self.context.save()
+//                print("Preset edit saved.")
+//
+//            } catch {
+//                print(error.localizedDescription)
+//                print("Error saving edited preset")
+//            }
+//
+//            if !self.pullPresetData() {
+//                print("editPreset(..) data fetch error")
+//            }
+//        }
+//    }
     
     
     func addDesk() -> Bool {
