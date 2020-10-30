@@ -61,7 +61,7 @@ struct PresetEditPopup: View {
                                             //        )
                                             .shadow(color: .black, radius: 3, x: 0, y: 3)
                                         HStack {
-                                            Text("Edit Preset \(index+1):")
+                                            Text("Edit \(self.user.testPresetNames[index]):")
                                             Text(self.user.testPresets[index] > -1 ? String(self.user.testPresets[index]) : "Empty")
                                         }
                                         
@@ -140,11 +140,15 @@ struct PresetEditPopup: View {
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             
+            
         }//end ZStack
         //.onTapGesture { self.deviceIndex = -1 }
         // Goes back when tapped outside of edit window
     }//end Body
 }
+
+
+
 
 
 struct PresetEditPopup_Previews: PreviewProvider {
