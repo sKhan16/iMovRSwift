@@ -17,6 +17,8 @@ struct PresetEditPopup: View {
     @State var editIndex: Int = -1
     @State var editPresetName: String = ""
     @State var editPresetHeight: String = ""
+    @State var isInvalidInput: Bool = false
+    @State var isSaved: Bool = false
     
     var body: some View {
         ZStack{
@@ -118,20 +120,21 @@ struct PresetEditPopup: View {
                     }
                     .padding()
                     
-                    Button(action: {
-                        
-                        self.show = false
-                        print("saving 'preset menu' changes")//add functionality here
-                        
-                    }, label: {
-                        Text("Save Changes")
-                            .font(Font.title3.bold())
-                            .foregroundColor(Color.white)
-                            .padding()
-                            .background(ColorManager.preset)
-                            .cornerRadius(27)
-                    })
-                    .frame(width:200,height:100)
+                    editSaveButton(presetName: self.$editPresetName, presetHeight: self.$editPresetHeight, isInvalidInput: self.$isInvalidInput, isSaved: self.$isSaved, currIndex: self.editIndex)
+//                    Button(action: {
+//
+//                        self.show = false
+//                        print("saving 'preset menu' changes")//add functionality here
+//
+//                    }, label: {
+//                        Text("Save Changes")
+//                            .font(Font.title3.bold())
+//                            .foregroundColor(Color.white)
+//                            .padding()
+//                            .background(ColorManager.preset)
+//                            .cornerRadius(27)
+//                    })
+//                    .frame(width:200,height:100)
                 }
                 
             }
@@ -147,6 +150,67 @@ struct PresetEditPopup: View {
     }//end Body
 }
 
+
+private struct editSaveButton: View {
+    
+    //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    @EnvironmentObject var user: UserObservable
+    
+    @Binding  var presetName: String
+    @Binding  var presetHeight: String
+    @Binding var isInvalidInput: Bool
+    @Binding var isSaved: Bool
+    
+    var currIndex: Int
+    
+    var body: some View {
+        Button(action: {
+            if (self.presetHeight != "") {
+                
+                //Converts presetHeight to a float
+                let height: Float = (self.presetHeight as NSString).floatValue
+                
+                //TODO: Change min and max to read values from desk
+                if height <= 48.00 && height >= 23.00 {
+                    
+                    self.isInvalidInput = false
+                    self.isSaved = true
+                    
+                    if (self.presetName != "") {
+                        //self.user.presets[self.currIndex].name = self.presetName
+                        self.user.editPreset(index: self.currIndex, name: self.presetName)
+                    }
+                    
+                    //self.user.presets[self.currIndex].height = height
+                    self.user.editPreset(index: self.currIndex, height: height)
+                    
+                    ///TODO: Fix bug where you have to click Done twice to return
+                    //self.mode.wrappedValue.dismiss()
+                    
+                    print("Edited Name is \(self.presetHeight)")
+                    print("Edited Height is \(height)")
+                } else {
+                    self.isInvalidInput = true
+                    self.isSaved = false
+                    print("height out of bounds!")
+                }
+                //self.showAddPreset = false
+            } else if (self.presetName != "") {
+                //self.user.presets[self.currIndex].name = self.presetName
+                self.user.editPreset(index: self.currIndex, name: self.presetName)
+                self.isSaved = true
+            }
+        }, label: {
+            Text("Save Changes")
+                .font(Font.title3.bold())
+                .foregroundColor(Color.white)
+                .padding()
+                .background(ColorManager.preset)
+                .cornerRadius(27)
+        })
+        .frame(width:200,height:100)}
+    }
 
 
 
