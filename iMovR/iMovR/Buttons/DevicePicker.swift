@@ -13,18 +13,24 @@ import SwiftUI
 struct DevicePicker: View {
     @State var index: Int = 0
     
-    @State var testDevices = ["desk 1", "arm 1", "desk 2"]
+    @State var testDevices = ["office desk", "arm 1", "desk 2"]
     
     var body: some View {
             HStack {
                 PickerLeft(index: $index, devices: $testDevices)
+                    .frame(width: 50, height: 80)
+                Spacer()
                 ZStack {
-                    Text(testDevices[index]).font(.system(size: 30))
+                    Text(testDevices[index]).font(.system(size: 45))
                         .foregroundColor(Color.white)
                 }
+                Spacer()
                 PickerRight(index: $index, devices: $testDevices)
+                    .frame(width: 50, height: 80)
             }
-            .padding()
+            .frame(width: .infinity, height: 80)
+            .padding([.top, .bottom], 20)
+            .padding([.leading, .trailing], 30)
     }
 }
 
@@ -44,7 +50,7 @@ struct PickerLeft: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
-                    .frame(width: 15)
+                    .frame(width: 25)
             }
     }
 }
@@ -60,12 +66,12 @@ struct PickerRight: View {
         } else {
             index += 1
         }
-            }) {
+    }) {
         Image(systemName: "chevron.right")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .foregroundColor(Color.white)
-            .frame(width: 15)
+            .frame(width: 25)
             }
     }
 }

@@ -41,7 +41,6 @@ struct HomeViewV2: View {
                     
                         
                         DevicePicker()
-                            .padding(.bottom, 20)
         
                         HStack {
 
