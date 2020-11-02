@@ -23,7 +23,12 @@ struct PresetNew: Identifiable {
         self.id = UUID()
     }
     
-    func heightToString() -> String {
-        return String(format: "%.\(2)f", self.height)
+    func heightToStringf(_ point: Int = 2) -> String {
+        var dPoint: Int = point
+        if (point < 0) {
+            dPoint = 2
+            print("!!!Invalid point Parameter! Please give a value greater than or equal to zero!!!")
+        }
+        return String(format: "%.\(dPoint)f", self.height)
     }
 }
