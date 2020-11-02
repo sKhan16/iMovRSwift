@@ -20,6 +20,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Current Desk
     @Published var zipdesk: ZGoZipDeskController?
     @Published var isDeskConnected: Bool = false
+    //TODO: IMPLEMENT isDeskMoving with differential of height over time (put this in characteristicDidUpdate)
+    @Published var isDeskMoving: Bool = false
 
     
 ///# Current Monitor Arm

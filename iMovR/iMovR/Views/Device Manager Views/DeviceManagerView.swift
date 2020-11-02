@@ -76,7 +76,7 @@ struct DeviceManagerView: View {
                                                 where: { (getidDevice) -> Bool in
                                                     getidDevice.id == device.id
                                                 }) else {
-                            return nil// device not found even though should be in array
+                            return nil
                         }
                         return DiscoveredDeviceRowView(save: $saveDeviceIndex, deviceIndex: index)
                     }
