@@ -1,9 +1,8 @@
 //
 //  PresetData+CoreDataProperties.swift
-//  iMovR
+//  
 //
-//  Created by Michael Humphrey on 8/4/20.
-//  Copyright © 2020 iMovR. All rights reserved.
+//  Created by Shakeel Khan on 11/2/20.
 //
 //
 
@@ -19,7 +18,7 @@ extension PresetData {
 
     @NSManaged public var deskID: Int64
     @NSManaged public var height: Float
-    @NSManaged public var name: String
-    @NSManaged public var uuid: UUID
-    
+    @NSManaged public var name: String?
+    @NSManaged public var uuid: UUID?
+
 }
