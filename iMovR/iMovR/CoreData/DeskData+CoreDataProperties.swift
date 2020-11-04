@@ -19,7 +19,7 @@ extension DeskData {
     @NSManaged public var deskID: Int64
     @NSManaged public var isLastConnectedTo: Bool
     @NSManaged public var name: String?
-    @NSManaged public var presetHeights: NSObject?
-    @NSManaged public var presetNames: NSObject?
+    @NSManaged public var presetHeights: [Float]
+    @NSManaged public var presetNames: [String]
 
 }
