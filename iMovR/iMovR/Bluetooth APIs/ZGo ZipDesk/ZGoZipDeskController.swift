@@ -64,18 +64,21 @@ class ZGoZipDeskController: ObservableObject {
     
     
     func updateDisplayedHeights() {
-        if let temp = self.getMaxHeightInches() {
+        if var tempMax: Float = self.mmBits2inch(HeightBits: self.deskMaxHeight) {
+            // Attempted fix: Rounding height because of ZGo height units conversion bug on desk
+            tempMax = (tempMax * 10.0).rounded(.down)/10.0
             DispatchQueue.main.async { () -> Void in
-                self.maxHeight = temp
+                self.maxHeight = tempMax
             }
         }
-        if let temp = self.getMinHeightInches() {
+        if let tempMin: Float = self.mmBits2inch(HeightBits: self.deskMinHeight) {
             DispatchQueue.main.async { () -> Void in
-                self.minHeight = temp
+                self.minHeight = tempMin
             }
         }
-        if let temp = self.getHeightInches() {
-            self.deskHeight = temp
+        if let tempCurr: Float = self.mmBits2inch(HeightBits: self.deskCurrHeight) {
+            // fix zipdesk rounding error here
+            self.deskHeight = tempCurr
             self.normalizedHeight = (self.deskHeight-self.minHeight)/(self.maxHeight-self.minHeight)
         }
     }
@@ -130,22 +133,22 @@ class ZGoZipDeskController: ObservableObject {
     }
     
     // Called when desk initializes
-    private func requestHeightFromDesk() {
+    func requestHeightsFromDesk() {
         self.writeToDesk(data: Data(_:tableHeightInfo) as NSData, type: .withResponse)
     }
     
-    // Called after desk notifies that the height info has been updated
-    func updateHeightInfo() {
+    // Called after desk notifies that the read characteristic has been updated
+    func identifyMessage() {
         guard self.readCharacteristic != nil else {
-            print("updateHeightInfo() error: zipdesk readCharacteristic not assigned")
+            print("zipdesk.identifyMessage(): zipdesk readCharacteristic not assigned")
             return
         }
         guard let readData: Data = self.readCharacteristic?.value else {
-            print("invalid read characteristic value (nil)")
+            print("zipdesk.identifyMessage(): invalid read characteristic value (nil)")
             return
         }
-        guard readData.count > 4 else {
-            print("read characteristic data length too small")
+        guard readData.count > 3 else {
+            print("zipdesk.identifyMessage(): read characteristic data length too small")
             return
         }
         let readByteData: [UInt8] = [UInt8](readData)
@@ -170,7 +173,7 @@ class ZGoZipDeskController: ObservableObject {
         }
         
         //MARK: Identifying the received message
-        
+    
         if readByteData[0...2] == [0x5A,0x09,0x21] {
             guard readByteData.count == 10 else {
                 print("readData count invalid")
@@ -193,25 +196,11 @@ class ZGoZipDeskController: ObservableObject {
             
         } else {
             print("readData message unidentified in updateHeightInfo()")
+            print(readData.map { String(format: "%02x", $0) }.joined())
             return
         }
     }// end updateHeightInfo()
     
-    private func getHeightInches() -> Float? {
-        // fix ZGo desk rounding error
-        
-        guard let height = self.mmBits2inch(HeightBits: self.deskCurrHeight) else {
-            return nil
-        }
-        // Attempted fix: Rounding height because of ZGo height units conversion bug on desk
-        return (height * 10.0).rounded(.down)/10.0
-    }
-    private func getMinHeightInches() -> Float? {
-        return self.mmBits2inch(HeightBits: self.deskMinHeight)
-    }
-    private func getMaxHeightInches() -> Float? {
-        return self.mmBits2inch(HeightBits: self.deskMaxHeight)
-    }
     
     // Convert height in millimeters to inches
     private func mmBits2inch(HeightBits: [UInt8]?)->Float? {

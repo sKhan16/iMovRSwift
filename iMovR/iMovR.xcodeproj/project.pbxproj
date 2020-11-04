@@ -339,10 +339,10 @@
 		41166132252BA9A80063A68D /* Device Manager Views */ = {
 			isa = PBXGroup;
 			children = (
-				414E7F442548D29200AA00AD /* EditDeviceView.swift */,
 				41166133252BA9F80063A68D /* DeviceManagerView.swift */,
 				414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */,
 				414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */,
+				414E7F442548D29200AA00AD /* EditDeviceView.swift */,
 				414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */,
 			);
 			path = "Device Manager Views";

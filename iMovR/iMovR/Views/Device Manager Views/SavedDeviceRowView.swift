@@ -32,8 +32,9 @@ struct SavedDeviceRowView: View {
         HStack {
             
             ConnectButton(deviceIndex: self.deviceIndex, showConnected: $showConnected)
-                .frame(width:75, height:75)
+                .frame(width:70, height:75)
                 .accentColor(ColorManager.morePreset)
+                .offset(x: 5)
             
             //            Rectangle()
             //                .fill(Color.black)
@@ -55,8 +56,9 @@ struct SavedDeviceRowView: View {
             .padding([.top,.bottom], 15)
             
             EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
-                .frame(width:75, height:75)
+                .frame(width:70, height:75)
                 .accentColor(ColorManager.gray)
+                .offset(x: 5)
         }
         .frame(minHeight: 75, idealHeight: 75, maxHeight: 75)
         .background(ColorManager.deviceBG)
@@ -92,11 +94,11 @@ private struct ConnectButton: View {
             }
         ) {
             ZStack {
-                Image(systemName: "dot.radiowaves.right")//"dot.radiowaves.left.and.right")
+                Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.right")//"dot.radiowaves.left.and.right")
                     .resizable()
-                    .rotationEffect(.degrees(-90))
+                    //.rotationEffect(.degrees(-90))
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 40)
+                    .frame(height: 40)
                 
                 //RoundedRectangle(cornerRadius: 20)
                 //  .stroke(Color.black, lineWidth: 2)
@@ -118,11 +120,11 @@ private struct EditButton: View {
             }
         ) {
             ZStack {
-                Image(systemName: "gearshape.fill")
+                Image(systemName: "wrench.and.screwdriver")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     //.rotationEffect(.degrees(90))
-                    .frame(minWidth: 30, idealWidth: 40, maxWidth: 40)
+                    .frame(height: 40)
                 
                 //RoundedRectangle(cornerRadius: 20)
                 //  .stroke(Color.black, lineWidth: 2)
