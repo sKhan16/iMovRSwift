@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct UpButton: View {
-    @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdesk: ZGoZipDeskController
     
     @State private var pressed: Bool = false
     @Binding var testHeight: Float
@@ -29,11 +29,11 @@ struct UpButton: View {
                         self.pressed = pressing
                     }
                     if pressing {
-                        self.bt.zipdesk?.raiseDesk()
+                        self.zipdesk.raiseDesk()
                         print("My long press starts")
                         //print("     I can initiate any action on start")
                     } else {
-                        self.bt.zipdesk?.releaseDesk()
+                        self.zipdesk.releaseDesk()
                         print("My long press ends")
                         //print("     I can initiate any action on end")
                     }
@@ -43,7 +43,7 @@ struct UpButton: View {
                     // sends additional command for case when desk is asleep
                     LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
                         .onEnded() { _ in
-                            self.bt.zipdesk?.raiseDesk()
+                            self.zipdesk.raiseDesk()
                             print("simultaneous long press upButton")
                     }
                 )
@@ -56,7 +56,7 @@ struct UpButton_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            UpButton(testHeight: .constant(23))
+            UpButton(zipdesk: ZGoZipDeskController(), testHeight: .constant(23))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

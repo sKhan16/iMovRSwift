@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var BTController: DeviceBluetoothManager
+    @EnvironmentObject var bt: DeviceBluetoothManager
  
     var body: some View {
         
@@ -20,7 +20,7 @@ struct ContentView: View {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 //HomeView()
-                HomeViewV2()
+                HomeViewV2(zipdesk: bt.zipdesk)
             }
                 .tabItem {
                     VStack {

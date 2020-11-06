@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct StartGoButton: View {
-    @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdesk: ZGoZipDeskController
     
     @Binding var presetHeight: Float
     
     var body: some View {
         Button(action: {
-            self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+            self.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
             print("Start Timer fired b4 interval")
             let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                 print("Start Timer fired after interval!")
-                self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+                self.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                 timer.invalidate()
             }
         }) {
@@ -41,6 +41,6 @@ struct StartGoButton: View {
 
 struct StartGoButton_Previews: PreviewProvider {
     static var previews: some View {
-        StartGoButton(presetHeight: .constant(32.0))
+        StartGoButton(zipdesk: ZGoZipDeskController(), presetHeight: .constant(32.0))
     }
 }

@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct TouchGoButton: View {
+    @ObservedObject var zipdesk: ZGoZipDeskController
     @Binding var isTouchGo: Bool
     @Binding var presetHeight: Float
     
     var body: some View {
         HStack {
-            StartGoButton(presetHeight: self.$presetHeight)
-            StopGoButton()
+            StartGoButton(zipdesk: self.zipdesk, presetHeight: self.$presetHeight)
+            StopGoButton(zipdesk: self.zipdesk)
         }
         
     .padding()
@@ -23,6 +24,6 @@ struct TouchGoButton: View {
 
 struct TouchGoButton_Previews: PreviewProvider {
     static var previews: some View {
-        TouchGoButton(isTouchGo: .constant(false), presetHeight: .constant(32.0))
+        TouchGoButton(zipdesk: ZGoZipDeskController(), isTouchGo: .constant(false), presetHeight: .constant(32.0))
     }
 }

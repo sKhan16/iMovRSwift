@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PresetModule: View {
     @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: DeviceBluetoothManager
 
     @State var isPaged: Bool = false
     @Binding var showAddPreset: [Bool]
@@ -30,7 +31,7 @@ struct PresetModule: View {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
                     if self.isTouchGo {
-                        StopGoButton()
+                        StopGoButton(zipdesk: bt.zipdesk)
                     }
                     HStack(alignment: .bottom) {
                         PresetButton(index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo)
@@ -53,7 +54,7 @@ struct PresetModule: View {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
                     if self.isTouchGo {
-                        StopGoButton()
+                        StopGoButton(zipdesk: bt.zipdesk)
                     }
                     HStack(alignment: .bottom) {
                         PresetButton(index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo)

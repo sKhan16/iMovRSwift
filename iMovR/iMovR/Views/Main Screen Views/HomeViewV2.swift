@@ -11,7 +11,7 @@ import SwiftUI
 struct HomeViewV2: View {
     
     @EnvironmentObject var user: UserObservable
-    @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdesk: ZGoZipDeskController
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     @State private var showPresetPopup: Bool = false
@@ -45,7 +45,7 @@ struct HomeViewV2: View {
                         HStack {
 
                             HStack {
-                                Text(String(format: "%.1f", (self.bt.zipdesk?.deskHeight) ?? 0.0))
+                                Text(String(format: "%.1f", (self.zipdesk.deskHeight)))
                                     .font(.system(size: 75))
                                     .padding(.leading)
                                     .foregroundColor(Color.white)
@@ -55,7 +55,7 @@ struct HomeViewV2: View {
                             }
                             .padding(.trailing)
  
-                                    HeightSliderV2().frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
+                            HeightSliderV2(zipdesk: self.zipdesk).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
                                         .padding(.trailing)
                             
                             // By default slider size is undefined, fills container
@@ -63,9 +63,9 @@ struct HomeViewV2: View {
 
                             
                             VStack(alignment: .leading) {
-                                UpButton(testHeight: self.$testHeight)
+                                UpButton(zipdesk: self.zipdesk, testHeight: self.$testHeight)
                                     .padding(.bottom, 10)
-                                DownButton(testHeight: self.$testHeight)
+                                DownButton(zipdesk: self.zipdesk, testHeight: self.$testHeight)
                                     .padding(.top, 10)
                             }
                             .padding()
@@ -104,14 +104,14 @@ struct HomeViewV2_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2()
+                HomeViewV2(zipdesk: ZGoZipDeskController())
                     .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2()
+                HomeViewV2(zipdesk: ZGoZipDeskController())
                     .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }

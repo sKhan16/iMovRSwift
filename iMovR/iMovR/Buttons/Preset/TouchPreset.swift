@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TouchPreset: View {
     
-    @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdesk: ZGoZipDeskController
     
     @State private var pressed: Bool = false
     
@@ -28,11 +28,11 @@ struct TouchPreset: View {
             //print("Moved to \(self.presetVal)")
 
                 print("TG moved")
-                self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+            self.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                 print("Start Timer fired b4 interval")
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                     print("Start Timer fired after interval!")
-                    self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+                    self.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                     timer.invalidate()
                 }
             
@@ -57,7 +57,7 @@ struct TouchPreset: View {
         
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        TouchPreset(name: "test", presetHeight: 33.3)
+        TouchPreset(zipdesk: ZGoZipDeskController(), name: "test", presetHeight: 33.3)
     }
 }
 }
