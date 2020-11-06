@@ -10,6 +10,8 @@ import SwiftUI
 struct StopGoButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     
+    @Binding var isMoving: Bool
+    
     var body: some View {
         Button(action: {
             self.bt.zipdesk.releaseDesk()
@@ -19,6 +21,7 @@ struct StopGoButton: View {
                 self.bt.zipdesk.releaseDesk()
                     timer.invalidate()
                 }
+            self.isMoving = false
             }) {
             Text("Stop")
             .fontWeight(.bold)
@@ -39,6 +42,6 @@ struct StopGoButton: View {
 
 struct StopGoButton_Previews: PreviewProvider {
     static var previews: some View {
-        StopGoButton()
+        StopGoButton(isMoving: .constant(true))
     }
 }

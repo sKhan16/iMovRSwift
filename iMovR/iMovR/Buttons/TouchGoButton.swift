@@ -14,7 +14,7 @@ struct TouchGoButton: View {
     var body: some View {
         HStack {
             StartGoButton(presetHeight: self.$presetHeight)
-            StopGoButton()
+            //StopGoButton()
         }
         
     .padding()

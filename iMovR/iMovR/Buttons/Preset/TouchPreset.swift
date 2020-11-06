@@ -38,14 +38,14 @@ struct TouchPreset: View {
                     self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                     timer.invalidate()
                 }
-            /// Timer to test the onChange method to see if the desk is moving or not.
-            let movingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
-                    print("desk move Timer fired after interval!")
-                if self.isMoving {
-                    self.isMoving = false
-                }
-                timer.invalidate()
-                }
+            /// Timer to test the onChange method to see if the desk is moving or not. TEST
+//            let movingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+//                    print("desk move Timer fired after interval!")
+//                if self.isMoving {
+//                    self.isMoving = false
+//                }
+//                timer.invalidate()
+//                }
             
             
         }) {
