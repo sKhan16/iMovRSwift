@@ -60,7 +60,7 @@ struct DeskSettingDetail: View {
                     if self.canConnect {
                         print("connection to desk \(selectedDesk.name) started")
                         self.user.currentDesk = selectedDesk
-                        self.bt.connectToDevice(device: selectedDesk)
+                        self.bt.connectToDevice(device: selectedDesk, indexSavedDevices: -1)
                         self.canConnect = false
                     }
                     },  secondaryButton: .destructive(Text("Cancel")))

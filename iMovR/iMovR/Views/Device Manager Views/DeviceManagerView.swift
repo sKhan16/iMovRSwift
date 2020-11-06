@@ -29,13 +29,7 @@ struct DeviceManagerView: View {
                     .foregroundColor(Color.white)
                     .padding()
                 ScrollView {
-                    Button(action: {
-                        self.bt.scanForDevices()
-                    }) {
-                        Text("Scan for Desks")
-                            .font(Font.title)
-                            .background(Color.yellow)
-                    }
+                    
                     VStack {
                         Text("SAVED")
                             .foregroundColor(Color.white)

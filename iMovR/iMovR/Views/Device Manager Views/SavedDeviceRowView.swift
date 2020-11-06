@@ -12,7 +12,6 @@ struct SavedDeviceRowView: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var edit: Int
-    @State var showConnected: Bool = false
     let deviceIndex: Int
     
     // In final build, this array is type [Device] & comes from BTController or UserObservable
@@ -31,9 +30,8 @@ struct SavedDeviceRowView: View {
         
         HStack {
             
-            ConnectButton(deviceIndex: self.deviceIndex, showConnected: $showConnected)
+            ConnectButton(deviceIndex: self.deviceIndex)
                 .frame(width:70, height:75)
-                .accentColor(ColorManager.morePreset)
                 .offset(x: 5)
             
             //            Rectangle()
@@ -71,31 +69,30 @@ struct SavedDeviceRowView: View {
         .shadow(color: .black, radius: 3, x: 0, y: 4)
         .padding([.leading, .trailing, .top], 2)
         .padding(.bottom, 8)
-    }
-}
+    }// end Body
+}// end SavedDeviceRowView
+
 
 
 private struct ConnectButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     let deviceIndex: Int
-    @Binding var showConnected: Bool
     
     var body: some View {
         Button(
             action:{
                 let thisDevice: Desk = self.bt.savedDevices[deviceIndex]
-                if self.bt.connectToDevice(device: thisDevice) {
+                if self.bt.connectToDevice(device: thisDevice, indexSavedDevices: deviceIndex) {
                     print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
-                    self.showConnected = true
                 } else {
                     print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
-                    self.showConnected = false
                 }
             }
         ) {
             ZStack {
                 Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.right")//"dot.radiowaves.left.and.right")
                     .resizable()
+                    .accentColor((deviceIndex == bt.connectedDeskIndex) ? ColorManager.preset : ColorManager.morePreset)
                     //.rotationEffect(.degrees(-90))
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 40)
