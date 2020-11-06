@@ -12,6 +12,7 @@ struct HomeViewV2: View {
     
     @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdeskUI: ZGoZipDeskController
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     @State private var showPresetPopup: Bool = false
@@ -45,7 +46,7 @@ struct HomeViewV2: View {
                         HStack {
 
                             HStack {
-                                Text(String(format: "%.1f", (self.bt.zipdesk?.deskHeight) ?? 0.0))
+                                Text(String(format: "%.1f", self.zipdeskUI.deskHeight))
                                     .font(.system(size: 75))
                                     .padding(.leading)
                                     .foregroundColor(Color.white)
@@ -55,7 +56,7 @@ struct HomeViewV2: View {
                             }
                             .padding(.trailing)
  
-                                    HeightSliderV2().frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
+                            HeightSliderV2(zipdeskUI: self.zipdeskUI).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
                                         .padding(.trailing)
                             
                             // By default slider size is undefined, fills container
@@ -104,16 +105,16 @@ struct HomeViewV2_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2()
-                    .environmentObject(UserObservable())
-                    .environmentObject(DeviceBluetoothManager())
+//                HomeViewV2(zipdeskUI: )
+//                    .environmentObject(UserObservable())
+//                    .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2()
-                    .environmentObject(UserObservable())
-                    .environmentObject(DeviceBluetoothManager())
+//                HomeViewV2(zipdeskUI: )
+//                    .environmentObject(UserObservable())
+//                    .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 6s")
         }

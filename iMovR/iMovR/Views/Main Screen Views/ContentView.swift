@@ -20,7 +20,7 @@ struct ContentView: View {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 //HomeView()
-                HomeViewV2()
+                HomeViewV2(zipdeskUI: BTController.zipdesk)
             }
                 .tabItem {
                     VStack {

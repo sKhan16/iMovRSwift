@@ -37,11 +37,11 @@ struct DownButton: View {
                         self.pressed = pressing
                     }
                     if pressing {
-                        self.bt.zipdesk?.lowerDesk()
+                        self.bt.zipdesk.lowerDesk()
                         print("My long press starts")
                         //print("     I can initiate any action on start")
                     } else {
-                        self.bt.zipdesk?.releaseDesk()
+                        self.bt.zipdesk.releaseDesk()
                         print("My long press ends")
                         //print("     I can initiate any action on end")
                     }
@@ -51,7 +51,7 @@ struct DownButton: View {
                     // sends additional command for case when desk is asleep
                     LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
                         .onEnded() { _ in
-                            self.bt.zipdesk?.lowerDesk()
+                            self.bt.zipdesk.lowerDesk()
                             print("simultaneous long press upButton")
                     }
                 )

@@ -14,11 +14,11 @@ struct StartGoButton: View {
     
     var body: some View {
         Button(action: {
-            self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+            self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
             print("Start Timer fired b4 interval")
             let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                 print("Start Timer fired after interval!")
-                self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+                self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                 timer.invalidate()
             }
         }) {

@@ -34,20 +34,22 @@ class ZGoZipDeskController: ObservableObject {
     private var deskCurrHeight, deskMinHeight, deskMaxHeight: [UInt8]?
     
     
-    init?(connectedDesk: Desk) {
-        guard connectedDesk.peripheral != nil else {
-            print("ZGoZipDeskController.init(..) error: desk peripheral is nil")
-            return nil
-        }
-        self.desk = connectedDesk
-        self.peripheral = connectedDesk.peripheral!
-    }
+//    init?(connectedDesk: Desk) {
+//        guard connectedDesk.peripheral != nil else {
+//            print("ZGoZipDeskController.init(..) error: desk peripheral is nil")
+//            return nil
+//        }
+//        self.desk = connectedDesk
+//        self.peripheral = connectedDesk.peripheral!
+//    }
     
     func setDesk(desk: Desk) -> Bool {
         guard desk.peripheral != nil else {
             print("ZGoZipDeskController:setDesk(..) error- desk peripheral is nil")
             return false
         }
+        self.readCharacteristic = nil
+        self.writeCharacteristic = nil
         self.peripheral = desk.peripheral!
         self.desk = desk
         return true
@@ -57,8 +59,8 @@ class ZGoZipDeskController: ObservableObject {
         return self.desk
     }
     
-    func getPeripheral() -> CBPeripheral {
-        return self.peripheral!
+    func getPeripheral() -> CBPeripheral? {
+        return self.peripheral
     }
     
     
@@ -67,19 +69,21 @@ class ZGoZipDeskController: ObservableObject {
         if var tempMax: Float = self.mmBits2inch(HeightBits: self.deskMaxHeight) {
             // Attempted fix: Rounding height because of ZGo height units conversion bug on desk
             tempMax = (tempMax * 10.0).rounded(.down)/10.0
-            DispatchQueue.main.async { () -> Void in
+            DispatchQueue.main.sync { () -> Void in
                 self.maxHeight = tempMax
             }
         }
         if let tempMin: Float = self.mmBits2inch(HeightBits: self.deskMinHeight) {
-            DispatchQueue.main.async { () -> Void in
+            DispatchQueue.main.sync { () -> Void in
                 self.minHeight = tempMin
             }
         }
         if let tempCurr: Float = self.mmBits2inch(HeightBits: self.deskCurrHeight) {
-            // fix zipdesk rounding error here
-            self.deskHeight = tempCurr
-            self.normalizedHeight = (self.deskHeight-self.minHeight)/(self.maxHeight-self.minHeight)
+            DispatchQueue.main.sync { () -> Void in
+                // fix zipdesk rounding error here
+                self.deskHeight = tempCurr
+                self.normalizedHeight = (self.deskHeight-self.minHeight)/(self.maxHeight-self.minHeight)
+            }
         }
     }
     
