@@ -15,12 +15,12 @@ struct PresetModule: View {
     @Binding var showAddPreset: [Bool]
     @Binding var isTouchGo: Bool
     @Binding var showPresetPopup: Bool
-    
+    @Binding var isMoving: Bool
     var body: some View {
         HStack {
             if self.isPaged {//last 3 presets
                 HStack {
-                    PresetButton(index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo)
+                    PresetButton(index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                         //.offset(y: -80)
                         .padding(.trailing, 5)
                         .padding(.top, 20)
@@ -33,9 +33,9 @@ struct PresetModule: View {
                         StopGoButton()
                     }
                     HStack(alignment: .bottom) {
-                        PresetButton(index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo)
+                        PresetButton(index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .padding(.trailing, 10)
-                        PresetButton(index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo)
+                        PresetButton(index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .padding(.leading, 10)
                     }
                 }
@@ -43,7 +43,7 @@ struct PresetModule: View {
                 
             } else {// first 3 presets
                 HStack {
-                    PresetButton(index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo)
+                    PresetButton(index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                     //.offset(y: -80)
                     .padding(.trailing, 5)
                     .padding(.top, 20)
@@ -52,14 +52,16 @@ struct PresetModule: View {
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
-                    if self.isTouchGo {
+                    
+                    ///Change THIS to self.isMoving to see the stop button appear when desk is moving. ELSE change to self.isTouchGo to see the button appear when in Touch and go mode
+                    if self.isMoving {
                         StopGoButton()
                     }
                     HStack(alignment: .bottom) {
-                        PresetButton(index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo)
+                        PresetButton(index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .padding(.trailing, 10)
                         
-                        PresetButton(index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo)
+                        PresetButton(index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .padding(.leading, 10)
                     }
                 }
@@ -87,7 +89,7 @@ struct PresetModule_Previews: PreviewProvider {
                 isPaged: false,
                 showAddPreset: .constant([Bool](repeating: false, count: 6)),
                 isTouchGo: .constant(true),
-                showPresetPopup: .constant(false)
+                showPresetPopup: .constant(false), isMoving: .constant(true)
             )
                 .environmentObject(UserObservable())
         }

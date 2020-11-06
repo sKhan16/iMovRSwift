@@ -17,6 +17,8 @@ struct TouchPreset: View {
     @State var name: String
     @State var presetHeight: Float
     
+    @Binding var isMoving: Bool
+    
     //@State var tapped = false
     
     //@Binding var presetName: String
@@ -30,11 +32,21 @@ struct TouchPreset: View {
                 print("TG moved")
             self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                 print("Start Timer fired b4 interval")
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                     print("Start Timer fired after interval!")
                     self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                     timer.invalidate()
                 }
+            /// Timer to test the onChange method to see if the desk is moving or not.
+            let movingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+                    print("desk move Timer fired after interval!")
+                if self.isMoving {
+                    self.isMoving = false
+                }
+                timer.invalidate()
+                }
+            
             
         }) {
             VStack {
@@ -52,12 +64,15 @@ struct TouchPreset: View {
             }
             .foregroundColor(ColorManager.preset)
 }
-
+        .onChange(of: bt.zipdesk.deskHeight, perform: { value in
+            self.isMoving = true
+        })
+        
     }
         
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        TouchPreset(name: "test", presetHeight: 33.3)
+        TouchPreset(name: "test", presetHeight: 33.3, isMoving: .constant(false))
     }
 }
 }

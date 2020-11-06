@@ -19,6 +19,7 @@ struct HomeViewV2: View {
     @State private var popupBackgroundBlur: CGFloat = 0
 
     @State var isTouchGo: Bool = false
+    @State var isMoving: Bool = false
     
     @State private var testHeight: Float = 35.0
     
@@ -74,7 +75,7 @@ struct HomeViewV2: View {
                     
                         .frame(maxWidth: .infinity)
                     
-                    PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup)
+                    PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
 
                 } // end vstack with homepage main components
                 }//end 1st level VStack
