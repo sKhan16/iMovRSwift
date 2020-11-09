@@ -11,6 +11,7 @@ import SwiftUI
 struct TouchPreset: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdeskUI: ZGoZipDeskController
     
     @State private var pressed: Bool = false
     
@@ -46,8 +47,6 @@ struct TouchPreset: View {
 //                }
 //                timer.invalidate()
 //                }
-            
-            
         }) {
             VStack {
                 ZStack {
@@ -63,8 +62,8 @@ struct TouchPreset: View {
                 }
             }
             .foregroundColor(ColorManager.preset)
-}
-        .onChange(of: bt.zipdesk.deskHeight, perform: { value in
+        }//end Button
+        .onChange(of: zipdeskUI.deskHeight, perform: { value in
             self.isMoving = true
         })
         
@@ -72,7 +71,7 @@ struct TouchPreset: View {
         
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        TouchPreset(name: "test", presetHeight: 33.3, isMoving: .constant(false))
+        TouchPreset(zipdeskUI: ZGoZipDeskController(), name: "test", presetHeight: 33.3, isMoving: .constant(false))
     }
 }
 }

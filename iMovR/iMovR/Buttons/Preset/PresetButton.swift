@@ -48,7 +48,7 @@ struct PresetButton: View {
     var body: some View {
         if self.user.testPresets[self.index] > -1 {
             if isTouchGo {
-                TouchPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index], isMoving: self.$isMoving)
+                TouchPreset(zipdeskUI: self.bt.zipdesk, name: "pset \(index)", presetHeight: self.user.testPresets[index], isMoving: self.$isMoving)
             } else {
                 HoldPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index])
             }

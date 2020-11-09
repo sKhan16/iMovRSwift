@@ -18,19 +18,21 @@ struct SavedDeviceRowView: View {
     let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
     let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
     
-    /*
-     @State var isConnected: Bool = false
-     @State var favorited: Bool = false
-     */
+    @State private var isConnected: Bool = false
+     //@State var favorited: Bool = false
     
     var body: some View {
+//        let isConnectedLink = Binding(
+//            get: { bt.connectedDeskIndex == self.deviceIndex },
+//            set: { self.isConnected = $0 }
+//        )
         let currDevice = self.bt.savedDevices[deviceIndex]
         //keep for preview testing
         //let currDevice = testSavedDevices[deviceIndex]
         
         HStack {
             
-            ConnectButton(deviceIndex: self.deviceIndex)
+            ConnectButton(deviceIndex: self.deviceIndex, isConnected: self.$isConnected)
                 .frame(width:70, height:75)
                 .offset(x: 5)
             
@@ -77,6 +79,7 @@ struct SavedDeviceRowView: View {
 private struct ConnectButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     let deviceIndex: Int
+    @Binding var isConnected: Bool
     
     var body: some View {
         Button(
@@ -92,7 +95,7 @@ private struct ConnectButton: View {
             ZStack {
                 Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.right")//"dot.radiowaves.left.and.right")
                     .resizable()
-                    .accentColor((deviceIndex == bt.connectedDeskIndex) ? ColorManager.preset : ColorManager.morePreset)
+                    .accentColor(isConnected ? ColorManager.preset : ColorManager.morePreset)
                     //.rotationEffect(.degrees(-90))
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 40)
