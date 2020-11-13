@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:iMovR/CoreData/PresetData+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:iMovR/CoreData/PresetData+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:iMovR/CoreData/DeskData+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:iMovR/CoreData/DeskData+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:iMovR.xcodeproj">
    </FileRef>
    <FileRef

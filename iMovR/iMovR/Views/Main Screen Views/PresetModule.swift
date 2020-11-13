@@ -33,7 +33,7 @@ struct PresetModule: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
-                        .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
+                        .padding(.bottom)
                     ///Change to self.isTouchGo for old functionality
                     if self.isMoving {
                         StopGoButton(isMoving: self.$isMoving)
@@ -57,7 +57,7 @@ struct PresetModule: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
-                        .padding(.bottom, (self.isTouchGo ? 0.0 : 20.0))
+                        .padding(.bottom)
                     
                     ///Change THIS to self.isMoving to see the stop button appear when desk is moving. ELSE change to self.isTouchGo to see the button appear when in Touch and go mode
                     if self.isMoving {
