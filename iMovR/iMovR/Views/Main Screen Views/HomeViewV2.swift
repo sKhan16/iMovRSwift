@@ -29,74 +29,67 @@ struct HomeViewV2: View {
                 VStack {
                     Image("imovrLogo")
                         .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
-              
-                    /* why use ZStack? curious. device picker works in the below VStack
-                    Spacer().frame(height: 70)
+                    DevicePicker()
+                        .padding([.leading, .trailing])
                     ZStack {
-                        HStack {
-                            DevicePicker()
-                     
-                        } //end HStack
-                    } //end ZStack
-                    */
-                    
-                        
-                        DevicePicker()
-        
-                        HStack {
-
-                            HStack {
-                                Text(String(format: "%.1f", self.zipdeskUI.deskHeight))
-                                    .font(.system(size: 75))
-                                    .padding(.leading)
-                                    .foregroundColor(Color.white)
-                                Text("in")
-                                    .foregroundColor(ColorManager.textColor)
-                                    .font(.system(size: 52))
-                            }
-                            .padding(.trailing)
- 
-                            HeightSliderV2(zipdeskUI: self.zipdeskUI).frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
-                                        .padding(.trailing)
-                            
-                            // By default slider size is undefined, fills container
-                                        //.padding([.top,.bottom], 20)
-
-                            
-                            VStack(alignment: .leading) {
-                                UpButton(testHeight: self.$testHeight)
-                                    .padding(.bottom, 10)
-                                DownButton(testHeight: self.$testHeight)
-                                    .padding(.top, 10)
-                            }
+                        HeightSliderV2(zipdeskUI: self.zipdeskUI)
+                            .frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
                             .padding()
+                        HStack {
+                            
+                            VStack() {
+                                HStack() {
+                                    Spacer()
+                                    Text(String(format: "%.1f", self.zipdeskUI.deskHeight))
+                                        .font(.system(size: 55))
+                                        .lineLimit(1)
+                                        .foregroundColor(Color.white)
+                                    Text("in")
+                                        .foregroundColor(ColorManager.textColor)
+                                        .font(.system(size: 42))
+                                        .offset(y: 4)
+                                }
+                            }
+                            .padding(.trailing, 25)
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    UpButton(testHeight: self.$testHeight)
+                                        .padding(.bottom, 10)
+                                    DownButton(testHeight: self.$testHeight)
+                                        .padding(.top, 10)
+                                }
+                                .padding(.trailing, 15)
+                            }
                         }
-                    
-                        .frame(maxWidth: .infinity)
-                    
-                    PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
-
-                } // end vstack with homepage main components
-                }//end 1st level VStack
-                .blur(radius: popupBackgroundBlur)
+                    }
                 
-                // Popup for editing saved device properties
-                if (showPresetPopup) {
-                    PresetEditPopup(show: $showPresetPopup,
-                                    isTouchGo: self.$isTouchGo)
-                        .onAppear() {
-                            self.popupBackgroundBlur = 5
-                            withAnimation(.easeIn(duration: 5),{})
-                        }
-                        .onDisappear() {
-                            self.popupBackgroundBlur = 0
-                            withAnimation(.easeOut(duration: 5),{})
-                        }
-                }
+                    .frame(maxWidth: .infinity)
+                
+                PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
+
+            } // end vstack with homepage main components
+            }//end 1st level VStack
+            .blur(radius: popupBackgroundBlur)
+            
+            // Popup for editing saved device properties
+            if (showPresetPopup) {
+                PresetEditPopup(show: $showPresetPopup,
+                                isTouchGo: self.$isTouchGo)
+                    .onAppear() {
+                        self.popupBackgroundBlur = 5
+                        withAnimation(.easeIn(duration: 5),{})
+                    }
+                    .onDisappear() {
+                        self.popupBackgroundBlur = 0
+                        withAnimation(.easeOut(duration: 5),{})
+                    }
+            }
             }/*end ZStack*/.onAppear() {
             withAnimation(.easeInOut(duration: 10),{})
-        }
+            }
         }//end GeoReader
         
     }//end body
@@ -106,16 +99,16 @@ struct HomeViewV2_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-//                HomeViewV2(zipdeskUI: )
-//                    .environmentObject(UserObservable())
-//                    .environmentObject(DeviceBluetoothManager())
+                HomeViewV2(zipdeskUI: ZGoZipDeskController())
+                    .environmentObject(UserObservable())
+                    .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-//                HomeViewV2(zipdeskUI: )
-//                    .environmentObject(UserObservable())
-//                    .environmentObject(DeviceBluetoothManager())
+                HomeViewV2(zipdeskUI: ZGoZipDeskController())
+                    .environmentObject(UserObservable())
+                    .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 6s")
         }

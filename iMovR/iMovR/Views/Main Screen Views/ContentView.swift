@@ -78,8 +78,15 @@ struct ContentView_Previews: PreviewProvider {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        return ContentView().environment(\.managedObjectContext, context)
+        return Group {
+            ContentView().environment(\.managedObjectContext, context)
+                    .environmentObject(UserObservable())
+                .environmentObject(DeviceBluetoothManager())
+                .previewDevice("iPhone 11")
+            ContentView().environment(\.managedObjectContext, context)
                 .environmentObject(UserObservable())
                 .environmentObject(DeviceBluetoothManager())
+                .previewDevice("iPhone 6s")
+        }
     }
 }

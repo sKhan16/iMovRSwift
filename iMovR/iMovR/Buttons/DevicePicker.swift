@@ -21,7 +21,8 @@ struct DevicePicker: View {
                     .frame(width: 50, height: 80)
                 Spacer()
                 ZStack {
-                    Text(testDevices[index]).font(.system(size: 45))
+                    Text(testDevices[index])
+                        .font(.system(size: 40))
                         .foregroundColor(Color.white)
                 }
                 Spacer()
@@ -29,8 +30,6 @@ struct DevicePicker: View {
                     .frame(width: 50, height: 80)
             }
             .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)
-            .padding([.top, .bottom], 20)
-            .padding([.leading, .trailing], 30)
     }
 }
 
