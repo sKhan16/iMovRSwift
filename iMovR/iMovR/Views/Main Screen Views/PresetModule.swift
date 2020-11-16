@@ -21,6 +21,8 @@ struct PresetModule: View {
             HStack {
                 StopGoButton(isMoving: self.$isMoving)
             }
+                .onAppear() { withAnimation(.easeIn(duration: 5),{}) }
+                .onDisappear() { withAnimation(.easeOut(duration: 5),{}) }
         } else {
         HStack {
             if self.isPaged {//last 3 presets
@@ -35,7 +37,7 @@ struct PresetModule: View {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom)
                     ///Change to self.isTouchGo for old functionality
-                    if self.isMoving {
+                    if self.isMoving && self.isTouchGo {
                         StopGoButton(isMoving: self.$isMoving)
                     }
                     HStack(alignment: .bottom) {
@@ -82,6 +84,8 @@ struct PresetModule: View {
             .frame(maxHeight: .infinity, alignment: .top)
         }//end 1st-level HStack
         .frame(minHeight: 180, idealHeight: 180, maxHeight: 180)
+        .onAppear() { withAnimation(.easeIn(duration: 5),{}) }
+        .onDisappear() { withAnimation(.easeOut(duration: 5),{}) }
     }//end body
     }
 }

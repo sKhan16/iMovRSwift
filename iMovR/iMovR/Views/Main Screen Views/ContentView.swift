@@ -17,20 +17,22 @@ struct ContentView: View {
         
         TabView(selection: $selection){
             
+            // Home Page Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                //HomeView()
                 HomeViewV2(zipdeskUI: BTController.zipdesk)
-            }
-                .tabItem {
-                    VStack {
-                        Image(systemName: "house.fill")
-                        Text("Home")
+                    .onDisappear() {
+                        self.BTController.zipdesk.releaseDesk()
                     }
+            }.tabItem {
+                VStack {
+                    Image(systemName: "house.fill")
+                    Text("Home")
                 }
-                .tag(0)
+            }.tag(0)
             
             
+            // Device Manager Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 DeviceManagerView()
@@ -39,38 +41,26 @@ struct ContentView: View {
                     }.onDisappear() {
                         self.BTController.stopScan()
                     }
-            }
-                .tabItem {
-                    VStack {
-                        Image(systemName: "studentdesk")
-                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
-                        Text("Devices")
-                            //.font(.title)
-                    }
+            }.tabItem {
+                VStack {
+                    Image(systemName: "studentdesk")
+                    //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
+                    Text("Devices")
+                        //.font(.title)
                 }
-                .tag(1)
+            }.tag(1)
             
             
-            SettingView()
-                
-                .tabItem {
-                    VStack {
-                        Image(systemName: "gearshape.2.fill")
-                        Text("Settings")
-                    }
+            // Settings Page Tab
+            SettingView().tabItem {
+                VStack {
+                    Image(systemName: "gearshape.2.fill")
+                    Text("Settings")
                 }
-                .tag(2)
+            }.tag(2)
             
-//            BTConnectView(showBTConnect: .constant(true))
-//                .tabItem {
-//                    VStack {
-//                        Image(systemName: "bolt.horizontal.fill")
-//                        Text("BT TEST")
-//                    }
-//                }
-//                .tag(3)
-        }
-    }
+        }//end TabView
+    }//end body
 }
 
 struct ContentView_Previews: PreviewProvider {
