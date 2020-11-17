@@ -34,7 +34,7 @@ struct SavedDeviceRowView: View {
             
             ConnectButton(deviceIndex: self.deviceIndex, isConnected: self.$isConnected)
                 .frame(width:70, height:75)
-                .offset(x: 5)
+                .offset(x: 3)
             
             //            Rectangle()
             //                .fill(Color.black)
@@ -60,9 +60,9 @@ struct SavedDeviceRowView: View {
                 .accentColor(ColorManager.gray)
                 .offset(x: 5)
         }
-        .frame(minHeight: 75, idealHeight: 75, maxHeight: 75)
+        .frame(height: 75)
         .background(ColorManager.deviceBG)
-        .cornerRadius(20)
+        .cornerRadius(75/2.0)
         //.border(Color.black, width: 3)
         //        .overlay(
         //            RoundedRectangle(cornerRadius: 20)
@@ -82,8 +82,7 @@ private struct ConnectButton: View {
     @Binding var isConnected: Bool
     
     var body: some View {
-        Button(
-            action:{
+        Button( action:{
                 let thisDevice: Desk = self.bt.savedDevices[deviceIndex]
                 if self.bt.connectToDevice(device: thisDevice, indexSavedDevices: deviceIndex) {
                     print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
@@ -91,8 +90,11 @@ private struct ConnectButton: View {
                     print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
                 }
             }
-        ) {
+        ) { // Button label View
             ZStack {
+                Circle()
+                    .foregroundColor(Color.blue)
+                    .aspectRatio(contentMode: .fit)
                 Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.right")//"dot.radiowaves.left.and.right")
                     .resizable()
                     .accentColor(isConnected ? ColorManager.preset : ColorManager.morePreset)
