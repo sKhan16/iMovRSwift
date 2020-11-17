@@ -69,6 +69,7 @@ struct HomeViewV2: View {
                     .frame(maxWidth: .infinity)
                 
                 PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
+                    .padding(.bottom, 10)
 
             } // end vstack with homepage main components
             }//end 1st level VStack

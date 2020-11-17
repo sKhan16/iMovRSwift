@@ -29,7 +29,8 @@ struct PresetModule: View {
                 HStack {
                     PresetButton(index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                         //.offset(y: -80)
-                        .padding(.trailing, 5)
+                        .fixedSize()
+                        .padding(.leading, 5)
                         .padding(.top, 20)
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
@@ -42,8 +43,10 @@ struct PresetModule: View {
                     }
                     HStack(alignment: .bottom) {
                         PresetButton(index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                            .fixedSize()
                             .padding(.trailing, 10)
                         PresetButton(index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                            .fixedSize()
                             .padding(.leading, 10)
                     }
                 }
@@ -53,8 +56,9 @@ struct PresetModule: View {
                 HStack {
                     PresetButton(index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                     //.offset(y: -80)
-                    .padding(.trailing, 5)
-                    .padding(.top, 20)
+                        .fixedSize()
+                        .padding(.leading, 5)
+                        .padding(.top, 20)
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
                 VStack {
@@ -67,18 +71,19 @@ struct PresetModule: View {
                     }
                     HStack(alignment: .bottom) {
                         PresetButton(index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                            .fixedSize()
                             .padding(.trailing, 10)
-                        
                         PresetButton(index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                            .fixedSize()
                             .padding(.leading, 10)
                     }
                 }
                 .frame(maxHeight: .infinity)
-            }
+            }//end of isPaged preset logic
             HStack {
             MorePresetButton(isPaged: self.$isPaged)
                 //.offset(y: -80)
-                .padding(.leading, 5)
+                .padding(.trailing, 5)
                 .padding(.top, 20)
             }
             .frame(maxHeight: .infinity, alignment: .top)
@@ -93,15 +98,31 @@ struct PresetModule: View {
 
 struct PresetModule_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            PresetModule(
-                isPaged: false,
-                showAddPreset: .constant([Bool](repeating: false, count: 6)),
-                isTouchGo: .constant(true),
-                showPresetPopup: .constant(false), isMoving: .constant(true)
-            )
+        
+        Group {
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                PresetModule(
+                    isPaged: false,
+                    showAddPreset: .constant([Bool](repeating: false, count: 6)),
+                    isTouchGo: .constant(true),
+                    showPresetPopup: .constant(false), isMoving: .constant(false)
+                )
                 .environmentObject(UserObservable())
+            }
+            .previewDevice("iPhone 11")
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                PresetModule(
+                    isPaged: false,
+                    showAddPreset: .constant([Bool](repeating: false, count: 6)),
+                    isTouchGo: .constant(true),
+                    showPresetPopup: .constant(false), isMoving: .constant(false)
+                )
+                .environmentObject(UserObservable())
+            }
+            .previewLayout(.device)
+            .previewDevice("iPhone 6s")
         }
     }
 }
