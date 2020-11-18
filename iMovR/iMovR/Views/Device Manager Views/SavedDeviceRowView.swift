@@ -10,16 +10,17 @@ import SwiftUI
 
 struct SavedDeviceRowView: View {
     
+    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
+    let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
+    
+    
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var edit: Int
     let deviceIndex: Int
     
-    // In final build, this array is type [Device] & comes from BTController or UserObservable
-    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
-    let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
+    //@Binding var isConnected: Bool
+    @State var isConnected: Bool = true
     
-    @State private var isConnected: Bool = false
-     //@State var favorited: Bool = false
     
     var body: some View {
 //        let isConnectedLink = Binding(
@@ -27,47 +28,37 @@ struct SavedDeviceRowView: View {
 //            set: { self.isConnected = $0 }
 //        )
         let currDevice = self.bt.savedDevices[deviceIndex]
-        //keep for preview testing
-        //let currDevice = testSavedDevices[deviceIndex]
         
         HStack {
-            
             ConnectButton(deviceIndex: self.deviceIndex, isConnected: self.$isConnected)
-                .frame(width:70, height:75)
-                .offset(x: 3)
+                .padding(.leading, 5)
+                .frame(width:70, height:65)
             
-            //            Rectangle()
-            //                .fill(Color.black)
-            //                .frame(width: 2)
-            
-            //Spacer()
             VStack {
                 Text(currDevice.name)
                     .font(Font.title3.bold())
                     .truncationMode(.tail)
                     .foregroundColor(Color.white)
                 Text(String(currDevice.id))
-                    .font(Font.body.weight(.medium))
+                    .font(Font.caption)//.weight(.medium))
                     .foregroundColor(Color.white)
+                if isConnected {
+                Text("Connected")
+                    .font(Font.body.weight(.medium))
+                    .foregroundColor(ColorManager.connected)
+                }
             }
-            .font(Font.title3)
-            .lineLimit(1)
-            .frame(maxWidth: .infinity)
-            .padding([.top,.bottom], 15)
+                .lineLimit(1)
+                .frame(idealWidth: .infinity, maxWidth: .infinity)
             
             EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
-                .frame(width:70, height:75)
-                .accentColor(ColorManager.gray)
-                .offset(x: 5)
+                .padding(.trailing, 5)
+                .frame(width:70, height:65)
         }
         .frame(height: 75)
         .background(ColorManager.deviceBG)
         .cornerRadius(75/2.0)
-        //.border(Color.black, width: 3)
-        //        .overlay(
-        //            RoundedRectangle(cornerRadius: 20)
-        //                .stroke(Color.black, lineWidth: 2)
-        //        )
+
         .shadow(color: .black, radius: 3, x: 0, y: 4)
         .padding([.leading, .trailing, .top], 2)
         .padding(.bottom, 8)
@@ -77,6 +68,7 @@ struct SavedDeviceRowView: View {
 
 
 private struct ConnectButton: View {
+    
     @EnvironmentObject var bt: DeviceBluetoothManager
     let deviceIndex: Int
     @Binding var isConnected: Bool
@@ -93,19 +85,33 @@ private struct ConnectButton: View {
         ) { // Button label View
             ZStack {
                 Circle()
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
                     .aspectRatio(contentMode: .fit)
-                Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.right")//"dot.radiowaves.left.and.right")
-                    .resizable()
-                    .accentColor(isConnected ? ColorManager.preset : ColorManager.morePreset)
-                    //.rotationEffect(.degrees(-90))
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 40)
+                    .shadow(color: .black, radius: 2)
+                if isConnected {
+                    Image(systemName: "iphone.homebutton.slash")
+                        .resizable()
+                        .accentColor(ColorManager.deviceBG)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 40)
+                    Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .accentColor(Color.red)
+                        .aspectRatio(contentMode: .fit)
+                        .background(ColorManager.connected.cornerRadius(20).frame(width: 18, height: 18))
+                        .frame(height: 20)
+                        .offset(x: 25, y: -20)
+                        .shadow(color: ColorManager.connected, radius: 1)
+                } else {
+                    Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.left.and.right")
+                        .resizable()
+                        .accentColor(ColorManager.morePreset)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 40)
+                }
                 
-                //RoundedRectangle(cornerRadius: 20)
-                //  .stroke(Color.black, lineWidth: 2)
             }
-        }
+        } //end button
     }//end body
 }//end ConnectButton
 
@@ -122,14 +128,16 @@ private struct EditButton: View {
             }
         ) {
             ZStack {
+                Circle()
+                    .foregroundColor(ColorManager.bgColor)
+                    .aspectRatio(contentMode: .fit)
+                    .shadow(color: .black, radius: 2)
                 Image(systemName: "wrench.and.screwdriver")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     //.rotationEffect(.degrees(90))
                     .frame(height: 40)
-                
-                //RoundedRectangle(cornerRadius: 20)
-                //  .stroke(Color.black, lineWidth: 2)
+                    .foregroundColor(ColorManager.morePreset)
             }
         }
     }//end body

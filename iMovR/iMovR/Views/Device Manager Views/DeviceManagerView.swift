@@ -21,7 +21,6 @@ struct DeviceManagerView: View {
     @State private var popupBackgroundBlur: CGFloat = 0
     
     var body: some View {
-        //let testDevices = testSavedDevices + testDiscoveredDevices
         ZStack(alignment: .center) {
             VStack {
                 Text("Device Manager")
