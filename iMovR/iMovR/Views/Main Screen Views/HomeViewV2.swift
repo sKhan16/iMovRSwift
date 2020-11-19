@@ -65,20 +65,17 @@ struct HomeViewV2: View {
                             }
                         }
                     }
-                
                     .frame(maxWidth: .infinity)
-                
-                PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
-                    .padding(.bottom, 10)
+                    PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
+                        .frame(height: 180)
+                        .padding(.bottom, 10)
 
-            } // end vstack with homepage main components
-            }//end 1st level VStack
-            .blur(radius: popupBackgroundBlur)
+                } // end vstack with homepage main components
+                .blur(radius: popupBackgroundBlur)
             
-            // Popup for editing saved device properties
-            if (showPresetPopup) {
-                PresetEditPopup(show: $showPresetPopup,
-                                isTouchGo: self.$isTouchGo)
+                // Popup for editing saved device properties
+                if (showPresetPopup) {
+                    PresetEditPopup(show: $showPresetPopup, isTouchGo: self.$isTouchGo)
                     .onAppear() {
                         self.popupBackgroundBlur = 5
                         withAnimation(.easeIn(duration: 5),{})
@@ -87,13 +84,14 @@ struct HomeViewV2: View {
                         self.popupBackgroundBlur = 0
                         withAnimation(.easeOut(duration: 5),{})
                     }
-            }
-            }/*end ZStack*/.onAppear() {
+                }
+            }/*end ZStack*/
+            .onAppear() {
             withAnimation(.easeInOut(duration: 10),{})
             }
         }//end GeoReader
-        
     }//end body
+}
 
 struct HomeViewV2_Previews: PreviewProvider {
     static var previews: some View {

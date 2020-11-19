@@ -88,7 +88,7 @@ struct PresetModule: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
         }//end 1st-level HStack
-        .frame(minHeight: 180, idealHeight: 180, maxHeight: 180)
+        .frame(height: 180)
         .onAppear() { withAnimation(.easeIn(duration: 5),{}) }
         .onDisappear() { withAnimation(.easeOut(duration: 5),{}) }
     }//end body
