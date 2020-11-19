@@ -16,21 +16,20 @@ struct SavedDeviceRowView: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var edit: Int
+    @Binding var isConnected: Bool
     let deviceIndex: Int
-    
-    //@Binding var isConnected: Bool
-    @State var isConnected: Bool = true
-    
-    
     var body: some View {
-//        let isConnectedLink = Binding(
-//            get: { bt.connectedDeskIndex == self.deviceIndex },
-//            set: { self.isConnected = $0 }
+//        var computeIsConnected: Binding<Bool> = Binding(
+//            get: { return (bt.connectedDeskIndex == self.deviceIndex) },
+//            //set: { self.isConnected = (bt.connectedDeskIndex == self.deviceIndex) }
+//
 //        )
         let currDevice = self.bt.savedDevices[deviceIndex]
         
         HStack {
-            ConnectButton(deviceIndex: self.deviceIndex, isConnected: self.$isConnected)
+            ConnectButton( deviceIndex: self.deviceIndex,
+                           isConnected: self.$isConnected
+            )// end ConnectButton initializer
                 .padding(.leading, 5)
                 .frame(width:70, height:65)
             
@@ -39,14 +38,14 @@ struct SavedDeviceRowView: View {
                     .font(Font.title3.bold())
                     .truncationMode(.tail)
                     .foregroundColor(Color.white)
+                if self.isConnected {
+                    Text("Connected")
+                        .font(Font.body.weight(.medium))
+                        .foregroundColor(ColorManager.connected)
+                }
                 Text(String(currDevice.id))
                     .font(Font.caption)//.weight(.medium))
                     .foregroundColor(Color.white)
-                if isConnected {
-                Text("Connected")
-                    .font(Font.body.weight(.medium))
-                    .foregroundColor(ColorManager.connected)
-                }
             }
                 .lineLimit(1)
                 .frame(idealWidth: .infinity, maxWidth: .infinity)
@@ -75,13 +74,20 @@ private struct ConnectButton: View {
     
     var body: some View {
         Button( action:{
-                let thisDevice: Desk = self.bt.savedDevices[deviceIndex]
-                if self.bt.connectToDevice(device: thisDevice, indexSavedDevices: deviceIndex) {
+            let thisDevice: Desk = self.bt.savedDevices[deviceIndex]
+            if isConnected {
+                print("Device Manager View: disconnect from device \(thisDevice.name) - " +
+                        ( bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex) ? "success" : "fail" )
+                )
+            }
+            else {
+                if self.bt.connectToDevice(device: thisDevice, savedIndex: deviceIndex) {
                     print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
                 } else {
                     print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
                 }
             }
+        }
         ) { // Button label View
             ZStack {
                 Circle()
@@ -144,19 +150,20 @@ private struct EditButton: View {
 }//end EditButton
 
 struct SavedDeviceRowView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
-                SavedDeviceRowView(edit: .constant(0), deviceIndex: 0)
+                SavedDeviceRowView(edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
-                SavedDeviceRowView(edit: .constant(0), deviceIndex: 0)
+                SavedDeviceRowView(edit: .constant(0), isConnected: .constant(false), deviceIndex: 0)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

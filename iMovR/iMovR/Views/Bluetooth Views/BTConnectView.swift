@@ -43,7 +43,7 @@ struct BTConnectView: View {
                         if bt.discoveredDevices.count > 0 {
                             ForEach(bt.discoveredDevices.indices, id: \.self) { index in
                                 Button(action: {
-                                    self.bt.connectToDevice(device: self.bt.discoveredDevices[index], indexSavedDevices: -1)
+                                    self.bt.connectToDevice(device: self.bt.discoveredDevices[index], savedIndex: -1)
                                     
                                 }) {
                                     Text("Device #" + String(self.bt.discoveredDevices[index].id))
@@ -144,7 +144,7 @@ struct BTDoneButton: View {
                     return
                 }
                 // Begin searching for the desk
-                self.bt.connectToDevice(device: currDesk, indexSavedDevices: -1)
+                self.bt.connectToDevice(device: currDesk, savedIndex: -1)
                 
                 self.notifyWrongInput = false
                 self.showBTConnect = false

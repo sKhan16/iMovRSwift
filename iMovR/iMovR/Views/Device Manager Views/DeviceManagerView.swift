@@ -48,7 +48,11 @@ struct DeviceManagerView: View {
                                 }) else {
                             return nil// device not found even though should be in array
                         }
-                        return SavedDeviceRowView(edit: $editDeviceIndex, deviceIndex: index)
+                        //let isConnected: Binding<Bool> = (bt.connectedDeskIndex == index)
+                        return SavedDeviceRowView(edit: $editDeviceIndex, isConnected: Binding<Bool> (
+                            get: { return (self.bt.connectedDeskIndex == index) },
+                            set: { $0 }
+                        ), deviceIndex: index)
                     }
                     .frame(maxWidth: .infinity)
                     

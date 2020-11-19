@@ -19,7 +19,7 @@ struct DiscoveredDevicesView: View {
             if bt.discoveredDevices.count > 0 {
                 ForEach(bt.discoveredDevices.indices, id: \.self) { index in
                     Button(action: {
-                        self.bt.connectToDevice(device: self.bt.discoveredDevices[index], indexSavedDevices: index)
+                        self.bt.connectToDevice(device: self.bt.discoveredDevices[index], savedIndex: index)
                         
                     }) {
                         Text("Device #\(self.bt.discoveredDevices[index].id)")

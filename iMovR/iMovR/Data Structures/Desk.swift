@@ -17,6 +17,7 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
     var id: Int
     var peripheral: CBPeripheral?
     var rssi: NSNumber?
+    var connectionStatus: Bool?
     
     // Save desk info from CoreData before discovering...
     init(name: String, deskID: Int) {

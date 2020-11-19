@@ -95,7 +95,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
-    func connectToDevice(device: Desk, indexSavedDevices: Int) -> Bool {
+    func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
         guard device.peripheral != nil else {
             print("connectToDevice(..) error: attempted to connect to nil peripheral,\nperipheral expired or not initialized")
             return false
@@ -110,7 +110,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             return false
         }
         print("connecting to device: \(device.name), id:\(device.id)")
-        self.connectedDeskIndex = indexSavedDevices
+        self.connectedDeskIndex = savedIndex
         centralManager?.connect(device.peripheral!)
     //MARK: check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
@@ -120,6 +120,25 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         return true
     }
     
+    func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool {
+        guard self.isDeskConnected else {
+            print("bt.disconnectFromDevice error: no desk device connected")
+            return false
+        }
+        guard let peripheral: CBPeripheral = self.zipdesk.getPeripheral() else {
+            print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
+            return false
+        }
+        guard (device.peripheral == peripheral) && (savedIndex == self.connectedDeskIndex) else {
+            print("bt.disconnectFromDevice error: desk device does not match connectedDeskIndex & zipdesk peripheral")
+            return false
+        }
+        print("disconnecting from connected desk")
+        centralManager?.cancelPeripheralConnection(peripheral)
+        self.isDeskConnected = false
+        //self.connectedDeskIndex = -1    //leave old index for easy reconnection
+        return true
+    }
     
     func rediscoverDevice(device: Desk) {
     //MARK: initialize self.zipdesk here
@@ -282,7 +301,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // Unintentional disconnection: attempt to reestablish connection with current desk
         if error != nil {
             print("desk disconnected with error\nattempting reconnection with current desk")
-            print( "didDisconnect: reconnection successful? - " + String(self.connectToDevice(device: self.zipdesk.getDesk(), indexSavedDevices: self.connectedDeskIndex)) )
+            print( "didDisconnect: reconnection successful? - " + String(self.connectToDevice(device: self.zipdesk.getDesk(), savedIndex: self.connectedDeskIndex)) )
         } else {
             DispatchQueue.main.async { () -> Void in
                 self.connectedDeskIndex = -1
@@ -338,7 +357,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     private func setTestMode() {
         self.savedDevices = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234), Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
         self.discoveredDevices = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
-        self.connectedDeskIndex = 2
+        self.connectedDeskIndex = 0
     }
     
     
