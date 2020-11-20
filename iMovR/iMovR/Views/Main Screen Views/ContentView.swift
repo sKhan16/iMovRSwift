@@ -21,6 +21,7 @@ struct ContentView: View {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 HomeViewV2(zipdeskUI: BTController.zipdesk)
+                    // Desk safety use case: user switches tabs
                     .onDisappear() {
                         self.BTController.zipdesk.releaseDesk()
                     }
@@ -60,6 +61,16 @@ struct ContentView: View {
             }.tag(2)
             
         }//end TabView
+        // Desk safety use cases: user sends app to background or reopens app.
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
+            print("app moving to background; stopping desk")
+            self.BTController.zipdesk.releaseDesk()
+        })
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
+            print("app returning to foreground; request current heights")
+            self.BTController.zipdesk.releaseDesk()
+            self.BTController.zipdesk.requestHeightsFromDesk()
+        })
     }//end body
 }
 
