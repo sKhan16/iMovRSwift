@@ -15,125 +15,34 @@ public class UserObservable: ObservableObject {
     
     // Access CoreData persistent storage for desks and presets
     @Environment(\.managedObjectContext) var managedObjectContext
-    // Fetches persistent presets automatically
-    //- just use fetchedPresets
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var fetchedPresets: [PresetData]?
     var fetchedDesks: [DeskData]?
     
     @Published var presets : [Preset] = []
     @Published var desks: [Desk] = []
     
     @Published var testPresets: [Float] = [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
-    
     @Published var testPresetNames: [String] = ["Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5", "Preset 6"]
 
     @Published var currentDesk: Desk = Desk(name: "Please add or select a desk.", deskID: 0)
     
     @Published var loginState: LoginState = .firstTime
     
+    
     init() {
-        
-        
-        //self.fetchedPresets = FetchRequest<PresetData>(entity: PresetData.entity(), sortDescriptors: [], predicate: NSPredicate(format: "deskID == %@", 0))
-        
-        //self.fetchedDesks = FetchRequest<DeskData>(entity: DeskData.entity(), sortDescriptors: [])
-        
-        // Populate desks and presets from CoreData on startup
         guard self.pullPersistentData() else {
             print("error retrieving stored desks and presets")
             return
         }
-        
-        
-        print("presets and desks successfully retrieved")
+        print("ZipDeskData successfully retrieved")
     }
+    
     
     func pullPersistentData() -> Bool {
         return self.pullPresetData() && self.pullDeskData()
-        //        var fPresets: [Preset] = []
-        //        var fDesks: [Desk] = []
-        //
-        //        do {
-        //            self.fetchedPresets = try context.fetch(PresetData.fetchRequest())
-        //        } catch {
-        //
-        //        }
-        //
-        //        do {
-        //            self.fetchedDesks = try context.fetch(DeskData.fetchRequest())
-        //        } catch {
-        //
-        //        }
-        //
-        //        guard (self.fetchedPresets != nil || self.fetchedDesks != nil) else {
-        //            print("error fetching data")
-        //            return false
-        //        }
-        //
-        //        if !self.fetchedPresets!.isEmpty {
-        //            for presetData in self.fetchedPresets!  {
-        //
-        //            var preset: Preset = Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID))
-        //
-        //            preset.setId(id: presetData.uuid)
-        //
-        //            fPresets.append(preset)
-        //        }
-        //    }
-        //        if !self.fetchedDesks!.isEmpty {
-        //            for deskData in self.fetchedDesks! {
-        //                fDesks.append(Desk(name: deskData.name, deskID: Int(deskData.deskID)))
-        //            }
-        //        }
-        //
-        //
-        //        self.presets = fPresets
-        //        self.desks = fDesks
-        //
-        //
-        //        return true
     }
     
-    func pullPresetData () -> Bool {
-        var fPresets: [Preset] = []
-        
-        do {
-            let request = PresetData.fetchRequest() as NSFetchRequest<PresetData>
-            
-//            print("desk ID = \(self.currentDesk.id)")
-            ///Filters desk based off of deskID
-            let pred = NSPredicate(format: "deskID == %@", "\(self.currentDesk.id)")
-
-            request.predicate = pred
-            
-            self.fetchedPresets = try context.fetch(request)
-
-        } catch {
-            print("Failed to fetch PresetData")
-            return false
-        }
-        guard (self.fetchedPresets != nil) else {
-            print("error fetching PresetData")
-            return false
-        }
-        
-        ///Populate tmp array with correct ordering
-        if !self.fetchedPresets!.isEmpty {
-            for presetData in self.fetchedPresets!  {
-                var preset: Preset = Preset(name: presetData.name, height: presetData.height, deskID: Int(presetData.deskID))
-                //print("presetData(\(presetData.name))'s deskID: \(presetData.deskID)")
-                preset.setId(id: presetData.uuid)
-                
-                fPresets.append(preset)
-            }
-        }
-        
-        self.presets = fPresets
-        return true
-    }
     
     func pullDeskData () -> Bool {
         var fDesks: [Desk] = []
@@ -417,6 +326,14 @@ public class UserObservable: ObservableObject {
     }
     
     func findDeskData (desk: Desk) -> DeskData? {
+        guard let index: Int = self.fetchedDesks!.firstIndex(
+                where: { (fetchedDeskData) -> Bool in
+                    fetchedDeskData.id == desk.id
+                }) else {
+            return nil
+        }
+        return fetchedDesks![index]
+        /*
         for deskData in self.fetchedDesks! {
             
             //            print("~~~")
@@ -427,8 +344,8 @@ public class UserObservable: ObservableObject {
                 return deskData
             }
         }
-        
-        return nil
+         return nil
+        */
     }
     
     
