@@ -20,7 +20,7 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
     var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
     var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
     
-    // Saved desk info from CoreData before discovering...
+    // DeviceData Manager/CoreData Saved Desk Constructor
     init(name: String, deskID: Int, presetHeights: [Float], presetNames: [String]) {
         self.name = name
         self.id = deskID
@@ -29,8 +29,14 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
         self.presetNames = presetNames
         
     }
+    init(zipdeskData: ZipDeskData) {
+        self.name = zipdeskData.name
+        self.id = Int(zipdeskData.deskID)
+        self.presetHeights = zipdeskData.presetHeights
+        self.presetNames = zipdeskData.presetNames
+    }
     
-    // Discovered desk info before user chooses a name
+    // DeviceBTManager Discovered Desk Constructor
     init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber?) {
         self.name = "Discovered ZipDesk"
         self.id = deskID

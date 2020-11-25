@@ -45,8 +45,8 @@
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
 		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
-		4136706B256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367069256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift */; };
-		4136706C256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136706A256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift */; };
+		41367082256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367080256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift */; };
+		41367083256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367081256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
 		4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AC24DE237800BF9B64 /* EditDesk.swift */; };
 		41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */; };
@@ -139,8 +139,8 @@
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
 		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
-		41367069256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		4136706A256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41367080256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		41367081256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
 		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
 		41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditPopup.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 				1E21EFC424C8E845008BDE9A /* Onboarding */,
 				982F181A24D37F63003FF080 /* Settings */,
 				41A3096C24C28F9C00644006 /* Views */,
-				41D079BF24C220E00047FD48 /* Bluetooth APIs */,
+				41D079BF24C220E00047FD48 /* Devices */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E23016124BCEB39009A0B3C /* Preview Content */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
@@ -366,8 +366,8 @@
 		41367058256DB6040051ED8C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				41367069256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift */,
-				4136706A256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift */,
+				41367080256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift */,
+				41367081256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift */,
 				4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */,
 			);
 			name = CoreData;
@@ -429,14 +429,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		41D079BF24C220E00047FD48 /* Bluetooth APIs */ = {
+		41D079BF24C220E00047FD48 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
 				41367031256DA78A0051ED8C /* DeviceDataManager.swift */,
 				41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */,
 				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 			);
-			path = "Bluetooth APIs";
+			path = Devices;
 			sourceTree = "<group>";
 		};
 		41EF1EFC2529019600AEE90F /* Bluetooth Views */ = {
@@ -730,7 +730,7 @@
 				41A3096E24C399D300644006 /* Preset.swift in Sources */,
 				1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */,
 				1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */,
-				4136706C256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */,
+				41367083256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */,
 				4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */,
 				415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */,
 				982F181924D37F4E003FF080 /* SettingDetail.swift in Sources */,
@@ -756,7 +756,7 @@
 				1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */,
 				982F181C24D386FF003FF080 /* PresetSettingView.swift in Sources */,
 				982F180A24D36FFC003FF080 /* SettingView.swift in Sources */,
-				4136706B256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */,
+				41367082256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
 				1EAA5CA6252BE1A600A471E2 /* DevicePicker.swift in Sources */,
 				41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */,
