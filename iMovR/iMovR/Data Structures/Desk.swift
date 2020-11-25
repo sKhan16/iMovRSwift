@@ -17,21 +17,25 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
     var id: Int
     var peripheral: CBPeripheral?
     var rssi: NSNumber?
+    var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
+    var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
     
-    // Save desk info from CoreData before discovering...
-    init(name: String, deskID: Int) {
+    // Saved desk info from CoreData before discovering...
+    init(name: String, deskID: Int, presetHeights: [Float], presetNames: [String]) {
         self.name = name
         self.id = deskID
+        // override default preset values
+        self.presetHeights = presetHeights
+        self.presetNames = presetNames
+        
     }
     
-    // Save discovered desk before user chooses a name
+    // Discovered desk info before user chooses a name
     init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber?) {
+        self.name = "Discovered ZipDesk"
         self.id = deskID
         self.peripheral = deskPeripheral
         self.rssi = rssi
-        
-        if rssi != nil { self.name = "Discovered ZipDesk" }
-        else { self.name = "desk manually connected with no rssi" }
     }
     
 }

@@ -43,6 +43,10 @@
 		1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */; };
 		1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60F06253FB57200B564F8 /* HoldPreset.swift */; };
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
+		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
+		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
+		4136706B256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367069256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift */; };
+		4136706C256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136706A256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift */; };
 		4138A3AB24DD036100BF9B64 /* DeskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */; };
 		4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138A3AC24DE237800BF9B64 /* EditDesk.swift */; };
 		41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */; };
@@ -52,7 +56,6 @@
 		414E7F332548D0EC00AA00AD /* SaveDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */; };
 		414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F442548D29200AA00AD /* EditDeviceView.swift */; };
 		4150F0AF252906080047389A /* BTConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4150F0AE252906080047389A /* BTConnectView.swift */; };
-		4150F0C22529071C0047389A /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4150F0C02529071C0047389A /* iMovR.xcdatamodeld */; };
 		415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415B9CE624EB46B700A2EF28 /* DeskSettingDetail.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
@@ -134,6 +137,10 @@
 		1EE60F06253FB57200B564F8 /* HoldPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldPreset.swift; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
+		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
+		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
+		41367069256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4136706A256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4138A3AA24DD036100BF9B64 /* DeskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingView.swift; sourceTree = "<group>"; };
 		4138A3AC24DE237800BF9B64 /* EditDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDesk.swift; sourceTree = "<group>"; };
 		41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditPopup.swift; sourceTree = "<group>"; };
@@ -143,7 +150,6 @@
 		414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeviceView.swift; sourceTree = "<group>"; };
 		414E7F442548D29200AA00AD /* EditDeviceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDeviceView.swift; sourceTree = "<group>"; };
 		4150F0AE252906080047389A /* BTConnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTConnectView.swift; sourceTree = "<group>"; };
-		4150F0C12529071C0047389A /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
 		415B9CE624EB46B700A2EF28 /* DeskSettingDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskSettingDetail.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
@@ -211,6 +217,7 @@
 				1E23016F24BCEB3A009A0B3C /* iMovRTests */,
 				1E23017A24BCEB3A009A0B3C /* iMovRUITests */,
 				1E23015424BCEB35009A0B3C /* Products */,
+				41367058256DB6040051ED8C /* CoreData */,
 				28B22DFC3619A951708A72C1 /* Pods */,
 				7F07244DFABD274366A726AB /* Frameworks */,
 			);
@@ -234,7 +241,6 @@
 				982F181A24D37F63003FF080 /* Settings */,
 				41A3096C24C28F9C00644006 /* Views */,
 				41D079BF24C220E00047FD48 /* Bluetooth APIs */,
-				41AED79E24D9FAA5007C68E2 /* CoreData */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E23016124BCEB39009A0B3C /* Preview Content */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
@@ -357,6 +363,17 @@
 			path = "ZGo ZipDesk";
 			sourceTree = "<group>";
 		};
+		41367058256DB6040051ED8C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				41367069256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift */,
+				4136706A256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift */,
+				4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */,
+			);
+			name = CoreData;
+			path = iMovR/CoreData;
+			sourceTree = "<group>";
+		};
 		4138A3A124DCFF7800BF9B64 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,17 +429,10 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		41AED79E24D9FAA5007C68E2 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				4150F0C02529071C0047389A /* iMovR.xcdatamodeld */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		41D079BF24C220E00047FD48 /* Bluetooth APIs */ = {
 			isa = PBXGroup;
 			children = (
+				41367031256DA78A0051ED8C /* DeviceDataManager.swift */,
 				41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */,
 				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 			);
@@ -698,6 +708,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */,
 				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				4150F0AF252906080047389A /* BTConnectView.swift in Sources */,
@@ -719,6 +730,7 @@
 				41A3096E24C399D300644006 /* Preset.swift in Sources */,
 				1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */,
 				1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */,
+				4136706C256DB6410051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */,
 				4138A3AD24DE237800BF9B64 /* EditDesk.swift in Sources */,
 				415B9CE724EB46B700A2EF28 /* DeskSettingDetail.swift in Sources */,
 				982F181924D37F4E003FF080 /* SettingDetail.swift in Sources */,
@@ -738,17 +750,18 @@
 				41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
 				1EAA5C8F252BC66300A471E2 /* ColorManager.swift in Sources */,
-				4150F0C22529071C0047389A /* iMovR.xcdatamodeld in Sources */,
 				414E7F1F2547A66C00AA00AD /* SavedDeviceRowView.swift in Sources */,
 				41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */,
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
 				1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */,
 				982F181C24D386FF003FF080 /* PresetSettingView.swift in Sources */,
 				982F180A24D36FFC003FF080 /* SettingView.swift in Sources */,
+				4136706B256DB6410051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
 				1EAA5CA6252BE1A600A471E2 /* DevicePicker.swift in Sources */,
 				41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */,
 				41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */,
+				4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
 				1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */,
 			);
@@ -1087,12 +1100,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4150F0C02529071C0047389A /* iMovR.xcdatamodeld */ = {
+		4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				4150F0C12529071C0047389A /* iMovR.xcdatamodel */,
+				4136705B256DB6040051ED8C /* iMovR.xcdatamodel */,
 			);
-			currentVersion = 4150F0C12529071C0047389A /* iMovR.xcdatamodel */;
+			currentVersion = 4136705B256DB6040051ED8C /* iMovR.xcdatamodel */;
 			path = iMovR.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

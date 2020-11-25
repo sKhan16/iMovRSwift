@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="DeskData" representedClassName=".DeskData" syncable="YES">
+    <entity name="ZipDeskData" representedClassName=".ZipDeskData" syncable="YES">
         <attribute name="deskID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isLastConnectedTo" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
@@ -8,6 +8,6 @@
         <attribute name="presetNames" optional="YES" attributeType="Transformable"/>
     </entity>
     <elements>
-        <element name="DeskData" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="ZipDeskData" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

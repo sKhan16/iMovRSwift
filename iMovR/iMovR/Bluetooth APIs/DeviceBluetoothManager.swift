@@ -13,9 +13,13 @@ import CoreBluetooth
 
 class DeviceBluetoothManager: NSObject, ObservableObject,
                               CBCentralManagerDelegate, CBPeripheralDelegate {
+    
+    ///# Persistent Device Data Manager
+    private var dataManager: CoreDataManager = CoreDataManager()
+    
 ///# Discovered Devices
     @Published var discoveredDevices: [Desk] = []
-    @Published var savedDevices: [Desk] = []
+    @Published var savedDevices: [Desk]
     
 ///# Current Desk
     @Published var zipdesk: ZGoZipDeskController?
@@ -38,6 +42,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Initializer
     override init() {
         super.init()
+        self.savedDevices = dataManager.savedDevices
         // Create asynchronous queue for UI changes within Core Bluetooth methods
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
         // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
