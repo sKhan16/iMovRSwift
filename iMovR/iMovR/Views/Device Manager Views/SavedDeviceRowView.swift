@@ -16,8 +16,8 @@ struct SavedDeviceRowView: View {
     let deviceIndex: Int
     
     // In final build, this array is type [Device] & comes from BTController or UserObservable
-    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
-    let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
+    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810, presetHeights:[], presetNames: []), Desk(name: "Treadmill Home Office ", deskID: 54810, presetHeights:[], presetNames: []), Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [])]
+    //let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
     
     /*
      @State var isConnected: Bool = false

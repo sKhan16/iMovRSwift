@@ -22,7 +22,7 @@
 		1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E31FFD424DA4A6100E9913F /* Desk.swift */; };
 		1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */; };
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
-		1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E724C12C1A00155123 /* UserObservable.swift */; };
+		1E94E1E824C12C1A00155123 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E724C12C1A00155123 /* UserDataManager.swift */; };
 		1E94E1F124C241A400155123 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F024C241A400155123 /* MotherView.swift */; };
 		1E94E1F324C27ED400155123 /* UpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F224C27ED400155123 /* UpButton.swift */; };
 		1E94E1F524C2801E00155123 /* DownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1F424C2801E00155123 /* DownButton.swift */; };
@@ -114,7 +114,7 @@
 		1E31FFD424DA4A6100E9913F /* Desk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Desk.swift; sourceTree = "<group>"; };
 		1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
-		1E94E1E724C12C1A00155123 /* UserObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObservable.swift; sourceTree = "<group>"; };
+		1E94E1E724C12C1A00155123 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		1E94E1F024C241A400155123 /* MotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotherView.swift; sourceTree = "<group>"; };
 		1E94E1F224C27ED400155123 /* UpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButton.swift; sourceTree = "<group>"; };
 		1E94E1F424C2801E00155123 /* DownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButton.swift; sourceTree = "<group>"; };
@@ -241,6 +241,7 @@
 				982F181A24D37F63003FF080 /* Settings */,
 				41A3096C24C28F9C00644006 /* Views */,
 				41D079BF24C220E00047FD48 /* Devices */,
+				4190623525757EC800D80D57 /* User Profile */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				1E23016124BCEB39009A0B3C /* Preview Content */,
 				1E23015F24BCEB39009A0B3C /* Assets.xcassets */,
@@ -297,7 +298,6 @@
 		1E94E1E624C12B6E00155123 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
-				1E94E1E724C12C1A00155123 /* UserObservable.swift */,
 				1E31FFD424DA4A6100E9913F /* Desk.swift */,
 				41A3096D24C399D300644006 /* Preset.swift */,
 				1EAA5C8E252BC66300A471E2 /* ColorManager.swift */,
@@ -415,6 +415,14 @@
 				4138A3A124DCFF7800BF9B64 /* Presets */,
 			);
 			path = "Settings Views";
+			sourceTree = "<group>";
+		};
+		4190623525757EC800D80D57 /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1E94E1E724C12C1A00155123 /* UserDataManager.swift */,
+			);
+			path = "User Profile";
 			sourceTree = "<group>";
 		};
 		41A3096C24C28F9C00644006 /* Views */ = {
@@ -723,7 +731,7 @@
 				982F180C24D3707E003FF080 /* SettingRow.swift in Sources */,
 				1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */,
 				414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */,
-				1E94E1E824C12C1A00155123 /* UserObservable.swift in Sources */,
+				1E94E1E824C12C1A00155123 /* UserDataManager.swift in Sources */,
 				1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */,
 				1E94E1FD24C61CD300155123 /* AddPresetView.swift in Sources */,
 				414E7F242547A74B00AA00AD /* DiscoveredDeviceRowView.swift in Sources */,

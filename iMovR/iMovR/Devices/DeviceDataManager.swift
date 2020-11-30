@@ -12,7 +12,8 @@ import SwiftUI
 import CoreData
 
 public class DeviceDataManager: ObservableObject {
-    var savedDevices: [Desk] = []
+    //@Binding var savedDevices: Binding<[Desk]>
+    @Published var savedDevices: [Desk] = []
     private var fetchedDevices: [ZipDeskData]?
     
     // Access context for CoreData persistent storage
@@ -21,6 +22,8 @@ public class DeviceDataManager: ObservableObject {
     
     
     
+//    init(savedDevicesBinding: Binding<[Desk]>) {
+//        self.savedDevices = savedDevicesBinding
     init() {
         guard self.pullPersistentData() else {
             print("error retrieving stored desks and presets")

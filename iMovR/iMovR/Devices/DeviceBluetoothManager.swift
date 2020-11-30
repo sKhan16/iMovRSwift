@@ -15,11 +15,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                               CBCentralManagerDelegate, CBPeripheralDelegate {
     
     ///# Persistent Device Data Manager
-    private var dataManager: CoreDataManager = CoreDataManager()
+    private var data: DeviceDataManager = DeviceDataManager()//savedDevicesBinding: $savedDevices)
     
 ///# Discovered Devices
     @Published var discoveredDevices: [Desk] = []
-    @Published var savedDevices: [Desk]
+    @Published var savedDevices: [Desk]//Published<[Desk]>
     
 ///# Current Desk
     @Published var zipdesk: ZGoZipDeskController?
@@ -42,7 +42,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Initializer
     override init() {
         super.init()
-        self.savedDevices = dataManager.savedDevices
+        self.savedDevices = data.savedDevices//Published(wrappedValue: data.savedDevices)
         // Create asynchronous queue for UI changes within Core Bluetooth methods
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
         // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
@@ -322,8 +322,20 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     private func setTestMode() {
-        self.savedDevices = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234), Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
-        self.discoveredDevices = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
+        self.savedDevices =
+            [ Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+              Desk(name:"Treadmill Home Office",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+              Desk(name:"Home Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+              Desk(name:"Conference Room Third Floor Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+              Desk(name:"Office 38 Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+              Desk(name:"Home Monitor Arm",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+              ]
+        
+        self.discoveredDevices =
+            [ Desk(name: "Discovered ZipDesk", deskID: 10007189, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""]),
+              Desk(name: "Discovered ZipDesk", deskID: 10004955, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""]),
+              Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""])
+            ]
     }
     
     

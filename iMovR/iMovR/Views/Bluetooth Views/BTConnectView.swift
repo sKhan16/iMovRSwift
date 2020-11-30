@@ -136,7 +136,7 @@ struct BTDoneButton: View {
             if (self.inputDeskName != "") && (self.inputDeskID.count == 8) {
                 print("correct desk info submitted")
                 //Try to store user input, connect and exit connect view
-                let currDesk = Desk(name: self.inputDeskName, deskID: deskID)
+                let currDesk = Desk(name: self.inputDeskName, deskID: deskID, presetHeights:[], presetNames: [])
                 self.user.currentDesk = currDesk
                 // Save the desk to persistent data
                 guard self.user.addDesk() else {
