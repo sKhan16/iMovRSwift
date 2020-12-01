@@ -11,6 +11,7 @@ import SwiftUI
 struct DiscoveredDeviceRowView: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
+    
     @Binding var save: Int
     let deviceIndex: Int
     

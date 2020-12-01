@@ -11,7 +11,7 @@ import SwiftUI
 struct AddPresetButton: View {
 
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var user: UserObservable
+    
     @State private var testCount: Float = 0.0
     
     let index: Int
@@ -45,7 +45,7 @@ struct AddPresetButton: View {
             
         }
             .sheet(isPresented: self.$showAddPreset) {
-                AddPresetView(showAddPreset: self.$showAddPreset, index: self.index).environmentObject(self.user)
+                AddPresetView(showAddPreset: self.$showAddPreset, index: self.index)
         }
     }
 
@@ -64,6 +64,6 @@ struct AddPresetButton: View {
 
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetButton(index: 0, showAddPreset: .constant(true)).environmentObject(UserObservable())
+        AddPresetButton(index: 0, showAddPreset: .constant(true))
     }
 }

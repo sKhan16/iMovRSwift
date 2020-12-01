@@ -10,7 +10,8 @@ import SwiftUI
 
 struct SavedDeviceRowView: View {
     
-    @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var data: DeviceDataManager
+    
     @Binding var edit: Int
     @State var showConnected: Bool = false
     let deviceIndex: Int
@@ -25,7 +26,7 @@ struct SavedDeviceRowView: View {
      */
     
     var body: some View {
-        let currDevice = self.bt.savedDevices[deviceIndex]
+        let currDevice = self.data.savedDevices[deviceIndex]
         //keep for preview testing
         //let currDevice = testSavedDevices[deviceIndex]
         
@@ -81,7 +82,7 @@ private struct ConnectButton: View {
     var body: some View {
         Button(
             action:{
-                let thisDevice: Desk = self.bt.savedDevices[deviceIndex]
+                let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
                 if self.bt.connectToDevice(device: thisDevice) {
                     print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
                     self.showConnected = true
@@ -137,14 +138,14 @@ struct SavedDeviceRowView_Previews: PreviewProvider {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
-                SavedDeviceRowView(edit: .constant(0), deviceIndex: 0)
+                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), deviceIndex: 0)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
-                SavedDeviceRowView(edit: .constant(0), deviceIndex: 0)
+                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), deviceIndex: 0)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

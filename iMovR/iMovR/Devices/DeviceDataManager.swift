@@ -46,17 +46,29 @@ public class DeviceDataManager: ObservableObject {
             return false
         }
         
+        // iterate: convertedDevices(new) + savedDevices(old) -> savedDevices(current)
         if !self.fetchedDevices!.isEmpty {
             for zipdeskData in self.fetchedDevices! {
                 convertedDevices.append(Desk(zipdeskData: zipdeskData))
                 print("DeskData(\(zipdeskData.name)'s deskID = \(zipdeskData.deskID)")
             }
         }
-        
+        print("##warning##-- (attempted fix)-- \nDeviceDataManager.pullPersistentData(): overwriting local saved devices-\n-may lose peripheral references if left unchecked")
+        // must copy the in-range peripherals or they would be discarded
+        for device in self.savedDevices {
+            if(device.peripheral != nil) {
+                if let index: Int = convertedDevices.firstIndex (
+                        where: { (nextDevice: Desk) -> Bool in
+                            nextDevice.id == device.id
+                        }) {
+                    // store CBPeripheral in new reference to device
+                    convertedDevices[index].peripheral = device.peripheral
+                }
+            }
+        }
         self.savedDevices = convertedDevices
-        print("##warning##-- DeviceDataManager.pullPersistentData(): overwriting local saved devices-\n-may lose peripheral references if left unchecked")
         return true
-    }
+    } // end pullPersistentData()
     
     
     func findDeskData (desk: Desk) -> ZipDeskData? {
@@ -69,24 +81,11 @@ public class DeviceDataManager: ObservableObject {
         }
         return fetchedDevices![index]
     }
-//
-//         for deskData in self.fetchedDesks! {
-//
-//         //print("~~~")
-//         //print("deskData deskId: \(deskData.deskID)\n desk deskId: \(desk.id)\n~~~")
-//         if deskData.deskID == desk.id {
-//
-//         print("Found deskData!")
-//         return deskData
-//         }
-//         }
-//         return nil
-//    }
     
     
     // Add/Save a newly Discovered Device to Persistent Saved Devices
-    func addDesk(desk: Desk) -> Bool {
-        if let index: Int = self.fetchedDevices!.firstIndex(
+    func addDevice(desk: Desk) -> Bool {
+        if let _: Int = self.fetchedDevices!.firstIndex(
                 where: { (thisDeskData: ZipDeskData) -> Bool in
                     thisDeskData.deskID == desk.id
                 }) {
@@ -128,7 +127,7 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func removeDesk (desk: Desk) {
+    func removeDevice (desk: Desk) {
         guard let deskData: ZipDeskData = findDeskData(desk: desk) else {
             print("DeviceDataManager.removeDesk error: desk data not found")
             return
@@ -147,7 +146,7 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func editDesk (desk: Desk) {
+    func editDevice (desk: Desk) {
         guard let deskData: ZipDeskData = findDeskData(desk: desk) else {
             print("DeviceDataManager.editDesk error: desk data not found")
             return

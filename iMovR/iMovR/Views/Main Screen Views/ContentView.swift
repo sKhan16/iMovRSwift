@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection = 0
-    @EnvironmentObject var user: UserObservable
     @EnvironmentObject var BTController: DeviceBluetoothManager
+    
+    @State private var selection = 0
  
     var body: some View {
         
@@ -33,7 +33,7 @@ struct ContentView: View {
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                DeviceManagerView()
+                DeviceManagerView(data: BTController.data)
                     //.padding(20)
             }
                 .tabItem {
@@ -47,16 +47,16 @@ struct ContentView: View {
                 .tag(1)
             
             
-            SettingView()
-                
-                .tabItem {
-                    VStack {
-                        Image(systemName: "gearshape.2.fill")
-                        Text("Settings")
-                    }
-                }
-                .tag(2)
-            
+//            SettingView()
+//
+//                .tabItem {
+//                    VStack {
+//                        Image(systemName: "gearshape.2.fill")
+//                        Text("Settings")
+//                    }
+//                }
+//                .tag(2)
+//
 //            BTConnectView(showBTConnect: .constant(true))
 //                .tabItem {
 //                    VStack {
@@ -75,7 +75,6 @@ struct ContentView_Previews: PreviewProvider {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         return ContentView().environment(\.managedObjectContext, context)
-                .environmentObject(UserObservable())
                 .environmentObject(DeviceBluetoothManager())
     }
 }

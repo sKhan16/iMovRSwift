@@ -10,7 +10,6 @@ import SwiftUI
 
 struct HomeViewV2: View {
     
-    @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: DeviceBluetoothManager
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
@@ -105,14 +104,12 @@ struct HomeViewV2_Previews: PreviewProvider {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 HomeViewV2()
-                    .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 HomeViewV2()
-                    .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 6s")

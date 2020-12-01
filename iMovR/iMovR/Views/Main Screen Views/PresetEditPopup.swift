@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PresetEditPopup: View {
-    @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @Binding var show: Bool
     @Binding var isTouchGo: Bool
@@ -21,7 +21,8 @@ struct PresetEditPopup: View {
     @State var isSaved: Bool = false
     
     var body: some View {
-        ZStack{
+        let currDesk = self.bt.zipdesk!.getDesk()
+        ZStack {
             // Background color filter & back button
             Button(action: {self.show = false}, label: {
                 Rectangle()
@@ -30,19 +31,6 @@ struct PresetEditPopup: View {
                     .edgesIgnoringSafeArea(.top)
             })
             VStack {
-                
-//                VStack {
-//                    Text("Preset Settings")
-//                        .font(Font.title.weight(.medium))
-//                        .padding(5)
-//                    Rectangle()
-//                        .foregroundColor(Color.black)
-//                        .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
-//                }
-//                .frame(maxWidth: .infinity)
-//                .foregroundColor(Color.white)
-//                .padding(.top)
-                
                // Display Presets List
                 if self.editIndex == -1  {
                     VStack {
@@ -63,8 +51,8 @@ struct PresetEditPopup: View {
                                             //        )
                                             .shadow(color: .black, radius: 3, x: 0, y: 3)
                                         HStack {
-                                            Text("Edit \(self.user.testPresetNames[index]):")
-                                            Text(self.user.testPresets[index] > -1 ? String(self.user.testPresets[index]) : "Empty")
+                                            Text("Edit \(currDesk.presetNames[index]):")
+                                            Text( (currDesk.presetHeights[index] > -1) ? String(currDesk.presetHeights[index]) : "Empty")
                                         }
                                         
                                     }
@@ -154,8 +142,7 @@ struct PresetEditPopup: View {
 private struct editSaveButton: View {
     
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
-    @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @Binding  var presetName: String
     @Binding  var presetHeight: String
@@ -166,39 +153,28 @@ private struct editSaveButton: View {
     
     var body: some View {
         Button(action: {
+            var currDesk: Desk = (self.bt.zipdesk?.getDesk())!
             if (self.presetHeight != "") {
-                
                 //Converts presetHeight to a float
                 let height: Float = (self.presetHeight as NSString).floatValue
                 
                 //TODO: Change min and max to read values from desk
-                if height <= 48.00 && height >= 23.00 {
-                    
+                if height <= (self.bt.zipdesk?.maxHeight ?? 48.0) && height >= (self.bt.zipdesk?.minHeight ?? 24.0) {
+                    if (self.presetName != "") {
+                        currDesk.presetNames[self.currIndex] = self.presetName
+                    }
+                    currDesk.presetHeights[self.currIndex] = height
+                    self.bt.data.editDevice(desk: currDesk)
                     self.isInvalidInput = false
                     self.isSaved = true
-                    
-                    if (self.presetName != "") {
-                        //self.user.presets[self.currIndex].name = self.presetName
-                        self.user.editPreset(index: self.currIndex, name: self.presetName)
-                    }
-                    
-                    //self.user.presets[self.currIndex].height = height
-                    self.user.editPreset(index: self.currIndex, height: height)
-                    
-                    ///TODO: Fix bug where you have to click Done twice to return
-                    //self.mode.wrappedValue.dismiss()
-                    
-                    print("Edited Name is \(self.presetHeight)")
-                    print("Edited Height is \(height)")
                 } else {
                     self.isInvalidInput = true
                     self.isSaved = false
                     print("height out of bounds!")
                 }
-                //self.showAddPreset = false
             } else if (self.presetName != "") {
-                //self.user.presets[self.currIndex].name = self.presetName
-                self.user.editPreset(index: self.currIndex, name: self.presetName)
+                currDesk.presetNames[self.currIndex] = self.presetName
+                self.bt.data.editDevice(desk: currDesk)
                 self.isSaved = true
             }
         }, label: {
@@ -220,7 +196,7 @@ struct PresetEditPopup_Previews: PreviewProvider {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             PresetEditPopup(show: .constant(true), isTouchGo: .constant(true))
-                .environmentObject(UserObservable())
+                .environmentObject(DeviceBluetoothManager())
         }
     }
 }

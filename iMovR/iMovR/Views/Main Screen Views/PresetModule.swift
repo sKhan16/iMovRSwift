@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct PresetModule: View {
-    @EnvironmentObject var user: UserObservable
 
     @State var isPaged: Bool = false
     @Binding var showAddPreset: [Bool]
@@ -89,7 +88,6 @@ struct PresetModule_Previews: PreviewProvider {
                 isTouchGo: .constant(true),
                 showPresetPopup: .constant(false)
             )
-                .environmentObject(UserObservable())
         }
     }
 }

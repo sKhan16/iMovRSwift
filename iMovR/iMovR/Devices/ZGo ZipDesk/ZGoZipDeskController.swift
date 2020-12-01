@@ -27,7 +27,7 @@ class ZGoZipDeskController: ObservableObject {
     @Published var normalizedHeight: Float = 0.5
     
     private var peripheral: CBPeripheral?
-    private var desk: Desk = Desk(name: "uninitialized_desk", deskID: -1)
+    private var desk: Desk 
     
     var writeCharacteristic, readCharacteristic: CBCharacteristic?
     
