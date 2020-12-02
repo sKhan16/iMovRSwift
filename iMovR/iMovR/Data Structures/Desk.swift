@@ -29,12 +29,12 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
         self.presetNames = presetNames
         
     }
-    init(zipdeskData: ZipDeskData) {
-        self.name = zipdeskData.name
-        self.id = Int(zipdeskData.deskID)
-        self.presetHeights = zipdeskData.presetHeights
-        self.presetNames = zipdeskData.presetNames
-    }
+//    init(zipdeskData: ZipDeskData) {
+//        self.name = zipdeskData.name
+//        self.id = Int(zipdeskData.deskID)
+//        self.presetHeights = zipdeskData.presetHeights
+//        self.presetNames = zipdeskData.presetNames
+//    }
     
     // DeviceBTManager Discovered Desk Constructor
     init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber?) {

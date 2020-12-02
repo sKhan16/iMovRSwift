@@ -2,7 +2,7 @@
 //  ZipDeskData+CoreDataProperties.swift
 //  iMovR
 //
-//  Created by Michael Humphrey on 11/25/20.
+//  Created by Michael Humphrey on 12/1/20.
 //  Copyright © 2020 iMovR. All rights reserved.
 //
 //
@@ -20,8 +20,8 @@ extension ZipDeskData {
     @NSManaged public var deskID: Int64
     @NSManaged public var isLastConnectedTo: Bool
     @NSManaged public var name: String
-    @NSManaged public var presetHeights: [Float]
-    @NSManaged public var presetNames: [String]
+    @NSManaged public var presetHeights: Data
+    @NSManaged public var presetNames: Data
 
 }
 

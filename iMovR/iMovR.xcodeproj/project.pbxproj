@@ -44,8 +44,6 @@
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
 		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
-		41367082256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367080256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift */; };
-		41367083256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367081256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift */; };
 		41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */; };
 		41462FAE253A571E006C96C9 /* DeviceBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */; };
 		414E7F1F2547A66C00AA00AD /* SavedDeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */; };
@@ -57,6 +55,8 @@
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
 		41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD0F0C254CD54400B828BA /* PresetNew.swift */; };
 		41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C2EFE4252E371D006D6BF2 /* Device.swift */; };
+		41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */; };
+		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
 		63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
@@ -127,8 +127,6 @@
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
 		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
-		41367080256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		41367081256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditPopup.swift; sourceTree = "<group>"; };
 		41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBluetoothManager.swift; sourceTree = "<group>"; };
 		414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDeviceRowView.swift; sourceTree = "<group>"; };
@@ -140,6 +138,8 @@
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
 		41AD0F0C254CD54400B828BA /* PresetNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetNew.swift; sourceTree = "<group>"; };
 		41C2EFE4252E371D006D6BF2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovRTests.release.xcconfig"; path = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 				4138A3A224DCFFDC00BF9B64 /* Startup */,
 				1E21EFC424C8E845008BDE9A /* Onboarding */,
 				41A3096C24C28F9C00644006 /* Views */,
-				41D079BF24C220E00047FD48 /* Devices */,
+				41D079BF24C220E00047FD48 /* Device Management */,
 				4190623525757EC800D80D57 /* User Profile */,
 				1E94E1E624C12B6E00155123 /* Data Structures */,
 				41367058256DB6040051ED8C /* CoreData */,
@@ -334,8 +334,8 @@
 		41367058256DB6040051ED8C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				41367080256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift */,
-				41367081256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift */,
+				41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */,
+				41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */,
 				4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -382,14 +382,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		41D079BF24C220E00047FD48 /* Devices */ = {
+		41D079BF24C220E00047FD48 /* Device Management */ = {
 			isa = PBXGroup;
 			children = (
 				41367031256DA78A0051ED8C /* DeviceDataManager.swift */,
 				41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */,
 				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 			);
-			path = Devices;
+			path = "Device Management";
 			sourceTree = "<group>";
 		};
 		7F07244DFABD274366A726AB /* Frameworks */ = {
@@ -645,6 +645,7 @@
 				41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */,
 				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
+				41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
 				1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
@@ -656,11 +657,11 @@
 				414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserDataManager.swift in Sources */,
 				1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */,
+				41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */,
 				414E7F242547A74B00AA00AD /* DiscoveredDeviceRowView.swift in Sources */,
 				41A3096E24C399D300644006 /* Preset.swift in Sources */,
 				1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */,
 				1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */,
-				41367083256EF41B0051ED8C /* ZipDeskData+CoreDataProperties.swift in Sources */,
 				41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
 				1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */,
@@ -678,7 +679,6 @@
 				41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */,
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
 				1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */,
-				41367082256EF41B0051ED8C /* ZipDeskData+CoreDataClass.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
 				1EAA5CA6252BE1A600A471E2 /* DevicePicker.swift in Sources */,
 				41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */,

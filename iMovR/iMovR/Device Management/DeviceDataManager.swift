@@ -12,8 +12,8 @@ import SwiftUI
 import CoreData
 
 public class DeviceDataManager: ObservableObject {
-    //@Binding var savedDevices: Binding<[Desk]>
     @Published var savedDevices: [Desk] = []
+    
     private var fetchedDevices: [ZipDeskData]?
     
     // Access context for CoreData persistent storage
@@ -48,9 +48,13 @@ public class DeviceDataManager: ObservableObject {
         
         // iterate: convertedDevices(new) + savedDevices(old) -> savedDevices(current)
         if !self.fetchedDevices!.isEmpty {
-            for zipdeskData in self.fetchedDevices! {
-                convertedDevices.append(Desk(zipdeskData: zipdeskData))
-                print("DeskData(\(zipdeskData.name)'s deskID = \(zipdeskData.deskID)")
+            for deviceData in self.fetchedDevices! {
+                convertedDevices.append (
+                    Desk(name: deviceData.name,
+                         deskID: Int(deviceData.deskID),
+                         presetHeights: self.dearchiveFloatArray(data: deviceData.presetHeights),
+                         presetNames: self.dearchiveStringArray(data: deviceData.presetNames)) )
+                print("Found Saved ZipDeskData(\(deviceData.name) - id: \(deviceData.deskID)")
             }
         }
         print("##warning##-- (attempted fix)-- \nDeviceDataManager.pullPersistentData(): overwriting local saved devices-\n-may lose peripheral references if left unchecked")
@@ -97,8 +101,10 @@ public class DeviceDataManager: ObservableObject {
         newDeskData.name = desk.name
         newDeskData.deskID = Int64(desk.id)
         newDeskData.isLastConnectedTo = true // Initialize to true when auto connecting on save of new device
-        newDeskData.presetHeights = desk.presetHeights
-        newDeskData.presetNames = desk.presetNames
+//MARK: Convert presets to NSData before storing in ZipDeskData properties
+        
+        newDeskData.presetHeights = self.archiveFloatArray(array: desk.presetHeights)
+        newDeskData.presetNames = self.archiveStringArray(array: desk.presetNames)
         
         // Turn off autoconnect on all other desk devices
         // Later this can be a user adjusted feature, if we prioritize by most recently connected device
@@ -154,8 +160,8 @@ public class DeviceDataManager: ObservableObject {
         deskData.name = desk.name
         deskData.deskID = Int64(desk.id)
         deskData.isLastConnectedTo = true // Initialize to true when auto connecting on save of new device
-        deskData.presetHeights = desk.presetHeights
-        deskData.presetNames = desk.presetNames
+        deskData.presetHeights = self.archiveFloatArray(array: desk.presetHeights)
+        deskData.presetNames = self.archiveStringArray(array: desk.presetNames)
         do {
             try self.context.save()
             print("Desk edit saved.")
@@ -168,5 +174,46 @@ public class DeviceDataManager: ObservableObject {
         }
     }
     
+    
+    private func archiveStringArray(array: [String]) -> Data {
+        do {                                // this might be the wrong archive fx
+            let data = try NSKeyedArchiver.archivedData(withRootObject: array/*Array<String>.self---NSArray.self*/, requiringSecureCoding: false)
+            return data
+        } catch {
+            fatalError("Can't encode Array<String> for CoreData:\n\(error)")
+        }
+    }
+    
+    private func dearchiveStringArray(data: Data) -> [String] {
+        do {                                        // this might be the wrong unarchive fx
+            guard let array = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String] else {
+                fatalError("DeviceDataManager.dearchiveStringArray(data) - Can't get Array<String>")
+            }
+            return array
+        } catch {
+            fatalError("DeviceDataManager.dearchiveStringArray(data) - Can't encode data: \(error)")
+        }
+    }
+    
+    
+    private func archiveFloatArray(array: [Float]) -> Data {
+        do {                                // this might be the wrong archive fx
+            let data = try NSKeyedArchiver.archivedData(withRootObject: array/*NSArray.self*/, requiringSecureCoding: false)
+            return data
+        } catch {
+            fatalError("Can't encode Array<Float> for CoreData:\n\(error)")
+        }
+    }
+    
+    private func dearchiveFloatArray(data: Data) -> [Float] {
+        do {                                        // this might be the wrong unarchive fx
+            guard let array = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Float] else {
+                fatalError("DeviceDataManager.dearchiveFloatArray(data) - Can't get Array<Float>")
+            }
+            return array
+        } catch {
+            fatalError("DeviceDataManager.dearchiveFloatArray(data) - Can't encode data: \(error)")
+        }
+    }
     
 }
