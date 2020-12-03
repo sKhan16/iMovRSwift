@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct EditDesk: View {
-    @EnvironmentObject var user: UserObservable
+    @ObservedObject var data: DeviceDataManager
     
     @State private var deskNameBinding: String = ""
     @State private var deskIDBinding: String = ""

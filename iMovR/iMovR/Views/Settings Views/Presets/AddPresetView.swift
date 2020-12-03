@@ -10,8 +10,6 @@ import SwiftUI
 
 struct AddPresetView: View {
     
-    @EnvironmentObject var user: UserObservable
-    
     @State private var presetName: String = ""
     @State private var presetHeight: String = ""
     @Binding var showAddPreset: Bool
@@ -54,7 +52,7 @@ struct AddPresetView: View {
 }
 
 struct doneButton: View {
-    @EnvironmentObject var user: UserObservable
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     @Binding  var presetName: String
     @Binding  var presetHeight: String
@@ -71,14 +69,10 @@ struct doneButton: View {
             let height: Float = (self.presetHeight as NSString).floatValue
             if height <= 48.00 && height >= 23.00 {
                 self.isInvalidInput = false
-                if self.user.addPreset(name: self.presetName, height: height, index: self.index) {
-                    //print("index in addPresetView \(index)")
-                    print(self.user.testPresets)
-
-                    print("preset successfully added")
-                } else {
-                    print("user.addPreset failed")
-                }
+                var currDesk: Desk = (self.bt.zipdesk?.getDesk())!
+                currDesk.presetHeights[index] = height
+                currDesk.presetNames[index] = self.presetName
+                self.bt.data.editDevice(desk: currDesk)
                 print("Height is \(height)")
                 self.showAddPreset = false
             } else {
@@ -95,6 +89,6 @@ struct doneButton: View {
 
 struct AddPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetView(showAddPreset: .constant(true), index: 0).environmentObject(UserObservable())
+        AddPresetView(showAddPreset: .constant(true), index: 0)
     }
 }

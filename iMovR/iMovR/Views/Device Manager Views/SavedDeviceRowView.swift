@@ -10,22 +10,22 @@ import SwiftUI
 
 struct SavedDeviceRowView: View {
     
-    let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
-    let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189), Desk(name: "Discovered ZipDesk", deskID: 10004955), Desk(name: "Discovered ZipDesk", deskID: 10003210)]
-    
-    
-    @EnvironmentObject var bt: DeviceBluetoothManager
+    //@EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var data: DeviceDataManager
     @Binding var edit: Int
     @Binding var isConnected: Bool
     let deviceIndex: Int
+    
+    let testSavedDevices: [Desk] = [
+        Desk(name: "Main Office Desk", deskID: 10009810, presetHeights:[], presetNames: []),
+        Desk(name: "Treadmill Home Office ", deskID: 54810, presetHeights:[], presetNames: []),
+        Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [])
+    ]
+    
     var body: some View {
-//        var computeIsConnected: Binding<Bool> = Binding(
-//            get: { return (bt.connectedDeskIndex == self.deviceIndex) },
-//            //set: { self.isConnected = (bt.connectedDeskIndex == self.deviceIndex) }
-//
-//        )
-        let currDevice = self.bt.savedDevices[deviceIndex]
-        
+        let currDevice = self.data.savedDevices[deviceIndex]
+        //for preview testing
+        //let currDevice = testSavedDevices[deviceIndex]
         HStack {
             ConnectButton( deviceIndex: self.deviceIndex,
                            isConnected: self.$isConnected
@@ -74,11 +74,11 @@ private struct ConnectButton: View {
     
     var body: some View {
         Button( action:{
-            let thisDevice: Desk = self.bt.savedDevices[deviceIndex]
+            let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
             if isConnected {
+                let didDisconnect: Bool = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
                 print("Device Manager View: disconnect from device \(thisDevice.name) - " +
-                        ( bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex) ? "success" : "fail" )
-                )
+                        (didDisconnect ? "success" : "fail" ) )
             }
             else {
                 if self.bt.connectToDevice(device: thisDevice, savedIndex: deviceIndex) {
@@ -87,8 +87,7 @@ private struct ConnectButton: View {
                     print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
                 }
             }
-        }
-        ) { // Button label View
+        } ) { // Button 'label' View
             ZStack {
                 Circle()
                     .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
@@ -155,15 +154,14 @@ struct SavedDeviceRowView_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                
-                SavedDeviceRowView(edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
+                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
+            
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                
-                SavedDeviceRowView(edit: .constant(0), isConnected: .constant(false), deviceIndex: 0)
+                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

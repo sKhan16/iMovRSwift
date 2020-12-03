@@ -9,13 +9,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection = 0
-    @EnvironmentObject var user: UserObservable
     @EnvironmentObject var BTController: DeviceBluetoothManager
+    
+    @State private var selection = 0
  
     var body: some View {
         
         TabView(selection: $selection){
+            
             
             // Home Page Tab
             ZStack {
@@ -36,7 +37,7 @@ struct ContentView: View {
             // Device Manager Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                DeviceManagerView()
+                DeviceManagerView(data: BTController.data)
                     .onAppear() {
                         self.BTController.scanForDevices()
                     }.onDisappear() {
@@ -52,26 +53,27 @@ struct ContentView: View {
             }.tag(1)
             
             
-            // Settings Page Tab
-            SettingView().tabItem {
-                VStack {
-                    Image(systemName: "gearshape.2.fill")
-                    Text("Settings")
-                }
-            }.tag(2)
+//            // Settings Page Tab
+//            SettingView().tabItem {
+//                VStack {
+//                    Image(systemName: "gearshape.2.fill")
+//                    Text("Settings")
+//                }
+//            }.tag(2)
             
-        }//end TabView
-        // Desk safety use cases: user sends app to background or reopens app.
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
-            print("app moving to background; stopping desk")
-            self.BTController.zipdesk.releaseDesk()
-        })
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
-            print("app returning to foreground; request current heights")
-            self.BTController.zipdesk.releaseDesk()
-            self.BTController.zipdesk.requestHeightsFromDesk()
-        })
-    }//end body
+        }// end TabView
+            // Desk safety when user sends app to background or reopens app.
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
+                print("app moving to background; stopping desk")
+                self.BTController.zipdesk.releaseDesk()
+            })
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
+                print("app returning to foreground; request current heights")
+                self.BTController.zipdesk.releaseDesk()
+                self.BTController.zipdesk.requestHeightsFromDesk()
+            })
+        
+    }// end body
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -81,11 +83,9 @@ struct ContentView_Previews: PreviewProvider {
         
         return Group {
             ContentView().environment(\.managedObjectContext, context)
-                    .environmentObject(UserObservable())
                 .environmentObject(DeviceBluetoothManager())
                 .previewDevice("iPhone 11")
             ContentView().environment(\.managedObjectContext, context)
-                .environmentObject(UserObservable())
                 .environmentObject(DeviceBluetoothManager())
                 .previewDevice("iPhone 6s")
         }

@@ -10,7 +10,6 @@ import SwiftUI
 
 struct PresetButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
-    @EnvironmentObject var user: UserObservable
     @Environment(\.colorScheme) var colorScheme
     
     @State private var pressed: Bool = false
@@ -46,15 +45,21 @@ struct PresetButton: View {
     //        })
     
     var body: some View {
-        if self.user.testPresets[self.index] > -1 {
-            if isTouchGo {
-                TouchPreset(zipdeskUI: self.bt.zipdesk, name: "pset \(index)", presetHeight: self.user.testPresets[index], isMoving: self.$isMoving)
-            } else {
-                HoldPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index])
+        if let currDesk = self.bt.zipdesk?.getDesk() {
+            let height: Float = currDesk.presetHeights[self.index]
+            if height > -1 {
+                if isTouchGo {
+                    TouchPreset(zipdeskUI: self.bt.zipdesk,
+                                name: "pset \(index)",
+                                presetHeight: self.user.testPresets[index],
+                                isMoving: self.$isMoving)
+                }
+                else {
+                    HoldPreset(name: "pset \(index)", presetHeight: height)
+                }
             }
-            //LoadedPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index],
-              //           isTouchGo: self.$isTouchGo)
-        } else {
+        }
+        else {
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
         }
     }

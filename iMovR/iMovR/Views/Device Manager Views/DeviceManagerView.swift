@@ -14,11 +14,12 @@ import SwiftUI
 struct DeviceManagerView: View {
   
     @EnvironmentObject var bt: DeviceBluetoothManager
-    @EnvironmentObject var user: UserObservable
+    @ObservedObject var data: DeviceDataManager
     
     @State var editDeviceIndex: Int = -1
     @State var saveDeviceIndex: Int = -1
     @State private var popupBackgroundBlur: CGFloat = 0
+    
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -41,18 +42,23 @@ struct DeviceManagerView: View {
                             .frame(height: 2)
                     }
                     
-                    ForEach(bt.savedDevices, id:\.self.id) { device -> SavedDeviceRowView? in
-                        guard let index: Int = bt.savedDevices.firstIndex(
+                    ForEach(data.savedDevices, id:\.self.id) { device -> SavedDeviceRowView? in
+                        guard let index: Int = data.savedDevices.firstIndex(
                                 where: { (getidDevice) -> Bool in
                                     getidDevice.id == device.id
                                 }) else {
                             return nil// device not found even though should be in array
                         }
+
                         //let isConnected: Binding<Bool> = (bt.connectedDeskIndex == index)
-                        return SavedDeviceRowView(edit: $editDeviceIndex, isConnected: Binding<Bool> (
-                            get: { return (self.bt.connectedDeskIndex == index) },
-                            set: { $0 }
-                        ), deviceIndex: index)
+                        return SavedDeviceRowView (
+                            data: self.data,
+                            edit: $editDeviceIndex,
+                            isConnected: Binding<Bool> (
+                                    get: { return (self.bt.connectedDeskIndex == index) },
+                                    set: { $0 } ),
+                            deviceIndex: index
+                        )
                     }
                     .frame(maxWidth: .infinity)
                     
@@ -87,7 +93,7 @@ struct DeviceManagerView: View {
             
             // pop up for editing saved device properties
             if (editDeviceIndex != -1) {
-                EditDeviceView(deviceIndex: $editDeviceIndex, selectedDevice: self.bt.savedDevices[editDeviceIndex])
+                EditDeviceView(deviceIndex: $editDeviceIndex, selectedDevice: self.data.savedDevices[editDeviceIndex])
                     .onAppear() {
                         self.popupBackgroundBlur = 5
                         withAnimation(.easeIn(duration: 5),{})
@@ -120,15 +126,14 @@ struct DeviceManagerView_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                
-                DeviceManagerView()
+                DeviceManagerView(data: DeviceDataManager())
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
-                DeviceManagerView()
+                DeviceManagerView(data: DeviceDataManager())
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

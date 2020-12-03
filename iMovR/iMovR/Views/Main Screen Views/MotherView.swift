@@ -10,20 +10,20 @@ import SwiftUI
 
 struct MotherView: View {
     // Variables here
-    @EnvironmentObject var user: UserObservable
     
     var body: some View {
-        VStack {
-            if user.loginState == .Connected {
-                ContentView()
-            } else if user.loginState == .firstTime {
-                Text("Onboarding screen coming soon") 
-            } else if user.loginState == .Disconnected {
-                Text("User is disconnected")
-            }
-            //self.pickView()
-            
-        }
+        EmptyView()
+//        VStack {
+//            if user.loginState == .Connected {
+//                ContentView()
+//            } else if user.loginState == .firstTime {
+//                Text("Onboarding screen coming soon")
+//            } else if user.loginState == .Disconnected {
+//                Text("User is disconnected")
+//            }
+//            //self.pickView()
+//
+//        }
     }
 }
 
@@ -46,6 +46,6 @@ struct MotherView: View {
 
 struct MotherView_Previews: PreviewProvider {
     static var previews: some View {
-        MotherView().environmentObject(UserObservable())
+        MotherView()//.environmentObject(UserObservable())
     }
 }

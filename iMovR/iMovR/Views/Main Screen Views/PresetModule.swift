@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct PresetModule: View {
-    @EnvironmentObject var user: UserObservable
 
     @State var isPaged: Bool = false
     @Binding var showAddPreset: [Bool]
@@ -98,7 +97,6 @@ struct PresetModule: View {
 
 struct PresetModule_Previews: PreviewProvider {
     static var previews: some View {
-        
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
@@ -106,23 +104,25 @@ struct PresetModule_Previews: PreviewProvider {
                     isPaged: false,
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
                     isTouchGo: .constant(true),
-                    showPresetPopup: .constant(false), isMoving: .constant(false)
+                    showPresetPopup: .constant(false),
+                    isMoving: .constant(false)
                 )
-                .environmentObject(UserObservable())
             }
             .previewDevice("iPhone 11")
+            
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 PresetModule(
                     isPaged: false,
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
                     isTouchGo: .constant(true),
-                    showPresetPopup: .constant(false), isMoving: .constant(false)
+                    showPresetPopup: .constant(false),
+                    isMoving: .constant(false)
                 )
-                .environmentObject(UserObservable())
             }
             .previewLayout(.device)
             .previewDevice("iPhone 6s")
+
         }
     }
 }

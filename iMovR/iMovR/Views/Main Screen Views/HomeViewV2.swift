@@ -10,7 +10,6 @@ import SwiftUI
 
 struct HomeViewV2: View {
     
-    @EnvironmentObject var user: UserObservable
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var zipdeskUI: ZGoZipDeskController
     
@@ -98,15 +97,15 @@ struct HomeViewV2_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+
                 HomeViewV2(zipdeskUI: ZGoZipDeskController())
-                    .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 11")
+            
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 HomeViewV2(zipdeskUI: ZGoZipDeskController())
-                    .environmentObject(UserObservable())
                     .environmentObject(DeviceBluetoothManager())
             }
             .previewDevice("iPhone 6s")

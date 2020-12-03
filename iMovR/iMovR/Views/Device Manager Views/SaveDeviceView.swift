@@ -11,7 +11,6 @@ import SwiftUI
 struct SaveDeviceView: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
-    @EnvironmentObject var user: UserObservable
     
     @Binding var deviceIndex: Int
     var selectedDevice: Desk
@@ -116,9 +115,9 @@ struct SaveDeviceView: View {
                         return
                     }
                     newDevice.name = newName
-                    self.bt.savedDevices.append(newDevice)
-                    self.bt.discoveredDevices.remove(at: deviceIndex)
-                    // perform userObservable save function here for coreData
+                    if (self.bt.data.addDevice(desk: newDevice)) {
+                        self.bt.discoveredDevices.remove(at: deviceIndex)
+                    }
                     self.showWarning = false
                     self.deviceIndex = -1
                     
@@ -155,7 +154,7 @@ struct SaveDeviceView_Previews: PreviewProvider {
             
             //DeviceManagerView()
             
-            SaveDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Discovered ZipDesk", deskID: 12345678))
+            SaveDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]))
         }
     }
 }

@@ -11,7 +11,6 @@ import SwiftUI
 struct EditDeviceView: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
-    @EnvironmentObject var user: UserObservable
     
     @Binding var deviceIndex: Int
     var selectedDevice: Desk
@@ -98,13 +97,7 @@ struct EditDeviceView: View {
                     print("saving 'edit device' changes")
                     var changedDevice = self.selectedDevice
                     changedDevice.name = editName
-//                    guard let changedID = Int(editID) else {
-//                        print("edit device save error: invalid desk ID")
-//                        return
-//                    }
-//                    changedDevice.id = changedID
-                    self.bt.savedDevices[deviceIndex] = changedDevice
-                    // perform userObservable save function here for coreData
+                    self.bt.data.editDevice(desk: changedDevice)
                     self.deviceIndex = -1
                     
                 }, label: {
@@ -140,7 +133,7 @@ struct EditDeviceView_Previews: PreviewProvider {
             
             //DeviceManagerView()
         
-            EditDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678))
+            EditDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678, presetHeights:[], presetNames: []))
         }
     }
 }
