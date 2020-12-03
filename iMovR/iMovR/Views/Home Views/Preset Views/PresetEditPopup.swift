@@ -159,7 +159,7 @@ private struct editSaveButton: View {
                 let height: Float = (self.presetHeight as NSString).floatValue
                 
                 //TODO: Change min and max to read values from desk
-                if height <= (self.bt.zipdesk.maxHeight ?? 48.0) && height >= (self.bt.zipdesk.minHeight ?? 24.0) {
+                if height <= (self.bt.zipdesk.maxHeight) && height >= (self.bt.zipdesk.minHeight) {
                     if (self.presetName != "") {
                         currDesk.presetNames[self.currIndex] = self.presetName
                     }

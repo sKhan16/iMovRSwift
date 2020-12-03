@@ -30,7 +30,7 @@ struct HomeViewV2: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
-                    DevicePicker()
+                    DevicePicker(deviceData: bt.data)
                         .padding([.leading, .trailing])
                     ZStack {
                         HeightSliderV2(zipdeskUI: self.zipdeskUI)
@@ -99,14 +99,14 @@ struct HomeViewV2_Previews: PreviewProvider {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
 
                 HomeViewV2(zipdeskUI: ZGoZipDeskController())
-                    .environmentObject(DeviceBluetoothManager())
+                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 HomeViewV2(zipdeskUI: ZGoZipDeskController())
-                    .environmentObject(DeviceBluetoothManager())
+                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")
         }

@@ -10,8 +10,11 @@ import Foundation
 import Combine
 import SwiftUI
 import CoreData
+import CoreBluetooth
 
 public class DeviceDataManager: ObservableObject {
+    @EnvironmentObject var BTManager: DeviceBluetoothManager
+    
     @Published var savedDevices: [Desk] = []
     
     private var fetchedDevices: [ZipDeskData]?
@@ -157,9 +160,13 @@ public class DeviceDataManager: ObservableObject {
             print("DeviceDataManager.editDesk error: desk data not found")
             return
         }
+//        if ## desk.id == zipdesk.getDesk().id ## {
+//            deskData.isLastConnectedTo = true // Initialize to true when auto connecting on save of new device
+//            self.updateBTManagerConnectedDesk(connectedDesk: <#T##Desk#>)
+//        }
         deskData.name = desk.name
         deskData.deskID = Int64(desk.id)
-        deskData.isLastConnectedTo = true // Initialize to true when auto connecting on save of new device
+        
         deskData.presetHeights = self.archiveFloatArray(array: desk.presetHeights)
         deskData.presetNames = self.archiveStringArray(array: desk.presetNames)
         do {
@@ -171,6 +178,17 @@ public class DeviceDataManager: ObservableObject {
         }
         if !self.pullPersistentData() {
             print("DeviceDataManager.editDesk error pulling saved desks")
+        }
+    }
+    
+    // Called after currently connected device is edited
+    private func updateBTManagerConnectedDesk(connectedDesk: Desk) {
+        guard connectedDesk.peripheral?.state == .connected else {
+            print("DeviceDataManager: error - \"connectedDesk\" peripheral not connected")
+            return
+        }
+        if BTManager.zipdesk.setDesk(desk: connectedDesk) {
+            print("DeviceDataManager: successfully updated current desk")
         }
     }
     

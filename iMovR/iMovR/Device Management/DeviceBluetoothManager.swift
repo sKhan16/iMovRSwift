@@ -57,6 +57,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         guard previewMode else { return nil }
         super.init()
         self.setTestMode()
+        
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
