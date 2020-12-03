@@ -69,7 +69,7 @@ struct doneButton: View {
             let height: Float = (self.presetHeight as NSString).floatValue
             if height <= 48.00 && height >= 23.00 {
                 self.isInvalidInput = false
-                var currDesk: Desk = (self.bt.zipdesk?.getDesk())!
+                var currDesk: Desk = self.bt.zipdesk.getDesk()
                 currDesk.presetHeights[index] = height
                 currDesk.presetNames[index] = self.presetName
                 self.bt.data.editDevice(desk: currDesk)

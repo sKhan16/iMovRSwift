@@ -21,7 +21,7 @@ struct PresetEditPopup: View {
     @State var isSaved: Bool = false
     
     var body: some View {
-        let currDesk = self.bt.zipdesk!.getDesk()
+        let currDesk = self.bt.zipdesk.getDesk()
         ZStack {
             // Background color filter & back button
             Button(action: {self.show = false}, label: {
@@ -153,13 +153,13 @@ private struct editSaveButton: View {
     
     var body: some View {
         Button(action: {
-            var currDesk: Desk = (self.bt.zipdesk?.getDesk())!
+            var currDesk: Desk = self.bt.zipdesk.getDesk()
             if (self.presetHeight != "") {
                 //Converts presetHeight to a float
                 let height: Float = (self.presetHeight as NSString).floatValue
                 
                 //TODO: Change min and max to read values from desk
-                if height <= (self.bt.zipdesk?.maxHeight ?? 48.0) && height >= (self.bt.zipdesk?.minHeight ?? 24.0) {
+                if height <= (self.bt.zipdesk.maxHeight ?? 48.0) && height >= (self.bt.zipdesk.minHeight ?? 24.0) {
                     if (self.presetName != "") {
                         currDesk.presetNames[self.currIndex] = self.presetName
                     }

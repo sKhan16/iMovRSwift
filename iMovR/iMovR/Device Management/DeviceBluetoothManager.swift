@@ -15,7 +15,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                               CBCentralManagerDelegate, CBPeripheralDelegate {
     
     ///# Persistent Device Data Manager
-    @Published var data: DeviceDataManager = DeviceDataManager()//savedDevicesBinding: $savedDevices)
+    @Published var data: DeviceDataManager = DeviceDataManager()
+        // contains- savedDevices: [Desk]
     
 ///# Discovered Devices
     @Published var discoveredDevices: [Desk] = []
@@ -44,8 +45,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Initializer
     override init() {
         super.init()
-        
-        //self.savedDevices = data.savedDevices//Published(wrappedValue: data.savedDevices)
         
         // Create asynchronous queue for UI changes within Core Bluetooth methods
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)

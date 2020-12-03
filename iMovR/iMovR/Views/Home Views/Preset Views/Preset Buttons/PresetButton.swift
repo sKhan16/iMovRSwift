@@ -45,18 +45,17 @@ struct PresetButton: View {
     //        })
     
     var body: some View {
-        if let currDesk = self.bt.zipdesk?.getDesk() {
-            let height: Float = currDesk.presetHeights[self.index]
-            if height > -1 {
-                if isTouchGo {
-                    TouchPreset(zipdeskUI: self.bt.zipdesk,
-                                name: "pset \(index)",
-                                presetHeight: self.user.testPresets[index],
-                                isMoving: self.$isMoving)
-                }
-                else {
-                    HoldPreset(name: "pset \(index)", presetHeight: height)
-                }
+        let currDesk = self.bt.zipdesk.getDesk()
+        let height: Float = currDesk.presetHeights[self.index]
+        if height > -1 {
+            if isTouchGo {
+                TouchPreset(zipdeskUI: self.bt.zipdesk,
+                            name: "pset \(index)",
+                            presetHeight: height,
+                            isMoving: self.$isMoving)
+            }
+            else {
+                HoldPreset(name: "pset \(index)", presetHeight: height)
             }
         }
         else {

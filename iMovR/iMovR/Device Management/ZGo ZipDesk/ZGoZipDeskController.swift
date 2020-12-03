@@ -27,7 +27,7 @@ class ZGoZipDeskController: ObservableObject {
     @Published var normalizedHeight: Float = 0.5
     
     private var peripheral: CBPeripheral?
-    private var desk: Desk 
+    private var desk: Desk = Desk(name: "Please connect to a Desk", deskID: -1, presetHeights: [-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""])
     
     var writeCharacteristic, readCharacteristic: CBCharacteristic?
     

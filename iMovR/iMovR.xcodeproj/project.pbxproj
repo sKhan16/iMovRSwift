@@ -133,7 +133,7 @@
 		414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveredDeviceRowView.swift; sourceTree = "<group>"; };
 		414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeviceView.swift; sourceTree = "<group>"; };
 		414E7F442548D29200AA00AD /* EditDeviceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDeviceView.swift; sourceTree = "<group>"; };
-		419062482575C45F00D80D57 /* AddPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPresetView.swift; path = "Settings Views/Presets/AddPresetView.swift"; sourceTree = "<group>"; };
+		419062482575C45F00D80D57 /* AddPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPresetView.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
 		41AD0F0C254CD54400B828BA /* PresetNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetNew.swift; sourceTree = "<group>"; };
@@ -255,23 +255,6 @@
 			path = iMovRUITests;
 			sourceTree = "<group>";
 		};
-		1E94E1E124BF9F9900155123 /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				1EAA5CB22534ED2D00A471E2 /* Preset */,
-				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
-				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
-				1E94E1F224C27ED400155123 /* UpButton.swift */,
-				1E94E1F424C2801E00155123 /* DownButton.swift */,
-				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
-				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
-				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
-				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
-			);
-			name = Buttons;
-			path = ../Buttons;
-			sourceTree = "<group>";
-		};
 		1E94E1E624C12B6E00155123 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,9 +267,12 @@
 			path = "Data Structures";
 			sourceTree = "<group>";
 		};
-		1EAA5CB22534ED2D00A471E2 /* Preset */ = {
+		1EAA5CB22534ED2D00A471E2 /* Preset Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
+				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
+				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
 				41F306A025461A0B0008F62B /* TouchPreset.swift */,
 				1E94E1E424C0F72800155123 /* PresetButton.swift */,
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
@@ -295,7 +281,7 @@
 				1EE60ED7253A310000B564F8 /* MovementButton.swift */,
 				1EE60F06253FB57200B564F8 /* HoldPreset.swift */,
 			);
-			path = Preset;
+			path = "Preset Buttons";
 			sourceTree = "<group>";
 		};
 		28B22DFC3619A951708A72C1 /* Pods */ = {
@@ -351,16 +337,38 @@
 			path = Startup;
 			sourceTree = "<group>";
 		};
-		4138A3A324DD003E00BF9B64 /* Main Screen Views */ = {
+		4138A3A324DD003E00BF9B64 /* Setup Views */ = {
 			isa = PBXGroup;
 			children = (
 				1E94E1F024C241A400155123 /* MotherView.swift */,
 				1E23015D24BCEB35009A0B3C /* ContentView.swift */,
-				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
-				1EAA5CE6253579E400A471E2 /* PresetModule.swift */,
-				41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */,
 			);
-			path = "Main Screen Views";
+			path = "Setup Views";
+			sourceTree = "<group>";
+		};
+		416105FC2578714500D87A49 /* Home Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
+				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
+				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
+				1E94E1F224C27ED400155123 /* UpButton.swift */,
+				1E94E1F424C2801E00155123 /* DownButton.swift */,
+				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
+				416105FD2578726900D87A49 /* Preset Views */,
+			);
+			path = "Home Views";
+			sourceTree = "<group>";
+		};
+		416105FD2578726900D87A49 /* Preset Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EAA5CE6253579E400A471E2 /* PresetModule.swift */,
+				419062482575C45F00D80D57 /* AddPresetView.swift */,
+				41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */,
+				1EAA5CB22534ED2D00A471E2 /* Preset Buttons */,
+			);
+			path = "Preset Views";
 			sourceTree = "<group>";
 		};
 		4190623525757EC800D80D57 /* User Profile */ = {
@@ -374,9 +382,8 @@
 		41A3096C24C28F9C00644006 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				419062482575C45F00D80D57 /* AddPresetView.swift */,
-				1E94E1E124BF9F9900155123 /* Buttons */,
-				4138A3A324DD003E00BF9B64 /* Main Screen Views */,
+				4138A3A324DD003E00BF9B64 /* Setup Views */,
+				416105FC2578714500D87A49 /* Home Views */,
 				41166132252BA9A80063A68D /* Device Manager Views */,
 			);
 			path = Views;
