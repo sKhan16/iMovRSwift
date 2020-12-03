@@ -22,7 +22,6 @@ struct DeviceManagerView: View {
     
     
     var body: some View {
-        //let testDevices = testSavedDevices + testDiscoveredDevices
         ZStack(alignment: .center) {
             VStack {
                 Text("Device Manager")
@@ -30,13 +29,7 @@ struct DeviceManagerView: View {
                     .foregroundColor(Color.white)
                     .padding()
                 ScrollView {
-                    Button(action: {
-                        self.bt.scanForDevices()
-                    }) {
-                        Text("Scan for Desks")
-                            .font(Font.title)
-                            .background(Color.yellow)
-                    }
+                    
                     VStack {
                         Text("SAVED")
                             .foregroundColor(Color.white)
@@ -56,7 +49,16 @@ struct DeviceManagerView: View {
                                 }) else {
                             return nil// device not found even though should be in array
                         }
-                        return SavedDeviceRowView(data: self.data, edit: $editDeviceIndex, deviceIndex: index)
+
+                        //let isConnected: Binding<Bool> = (bt.connectedDeskIndex == index)
+                        return SavedDeviceRowView (
+                            data: self.data,
+                            edit: $editDeviceIndex,
+                            isConnected: Binding<Bool> (
+                                    get: { return (self.bt.connectedDeskIndex == index) },
+                                    set: { $0 } ),
+                            deviceIndex: index
+                        )
                     }
                     .frame(maxWidth: .infinity)
                     

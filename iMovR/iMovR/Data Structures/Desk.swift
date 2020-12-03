@@ -19,6 +19,7 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
     var rssi: NSNumber?
     var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
     var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
+    var connectionStatus: Bool?
     
     // DeviceData Manager/CoreData Saved Desk Constructor
     init(name: String, deskID: Int, presetHeights: [Float], presetNames: [String]) {

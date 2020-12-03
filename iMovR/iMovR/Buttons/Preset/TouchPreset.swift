@@ -11,11 +11,14 @@ import SwiftUI
 struct TouchPreset: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var zipdeskUI: ZGoZipDeskController
     
     @State private var pressed: Bool = false
     
     @State var name: String
     @State var presetHeight: Float
+    
+    @Binding var isMoving: Bool
     
     //@State var tapped = false
     
@@ -28,14 +31,22 @@ struct TouchPreset: View {
             //print("Moved to \(self.presetVal)")
 
                 print("TG moved")
-                self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+            self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                 print("Start Timer fired b4 interval")
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                     print("Start Timer fired after interval!")
-                    self.bt.zipdesk?.moveToHeight(PresetHeight: self.presetHeight)
+                    self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                     timer.invalidate()
                 }
-            
+            /// Timer to test the onChange method to see if the desk is moving or not. TEST
+//            let movingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+//                    print("desk move Timer fired after interval!")
+//                if self.isMoving {
+//                    self.isMoving = false
+//                }
+//                timer.invalidate()
+//                }
         }) {
             VStack {
                 ZStack {
@@ -51,13 +62,16 @@ struct TouchPreset: View {
                 }
             }
             .foregroundColor(ColorManager.preset)
-}
-
+        }//end Button
+        .onChange(of: zipdeskUI.deskHeight, perform: { value in
+            self.isMoving = true
+        })
+        
     }
         
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        TouchPreset(name: "test", presetHeight: 33.3)
+        TouchPreset(zipdeskUI: ZGoZipDeskController(), name: "test", presetHeight: 33.3, isMoving: .constant(false))
     }
 }
 }

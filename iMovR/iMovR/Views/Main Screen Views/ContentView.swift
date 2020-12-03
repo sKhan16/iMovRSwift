@@ -17,56 +17,63 @@ struct ContentView: View {
         
         TabView(selection: $selection){
             
+            
+            // Home Page Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                //HomeView()
-                HomeViewV2()
-            }
-                .tabItem {
-                    VStack {
-                        Image(systemName: "house.fill")
-                        Text("Home")
+                HomeViewV2(zipdeskUI: BTController.zipdesk)
+                    // Desk safety use case: user switches tabs
+                    .onDisappear() {
+                        self.BTController.zipdesk.releaseDesk()
                     }
+            }.tabItem {
+                VStack {
+                    Image(systemName: "house.fill")
+                    Text("Home")
                 }
-                .tag(0)
+            }.tag(0)
             
             
+            // Device Manager Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 DeviceManagerView(data: BTController.data)
-                    //.padding(20)
-            }
-                .tabItem {
-                    VStack {
-                        Image(systemName: "studentdesk")
-                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
-                        Text("Devices")
-                            //.font(.title)
+                    .onAppear() {
+                        self.BTController.scanForDevices()
+                    }.onDisappear() {
+                        self.BTController.stopScan()
                     }
+            }.tabItem {
+                VStack {
+                    Image(systemName: "studentdesk")
+                    //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
+                    Text("Devices")
+                        //.font(.title)
                 }
-                .tag(1)
+            }.tag(1)
             
             
-//            SettingView()
-//
-//                .tabItem {
-//                    VStack {
-//                        Image(systemName: "gearshape.2.fill")
-//                        Text("Settings")
-//                    }
+//            // Settings Page Tab
+//            SettingView().tabItem {
+//                VStack {
+//                    Image(systemName: "gearshape.2.fill")
+//                    Text("Settings")
 //                }
-//                .tag(2)
-//
-//            BTConnectView(showBTConnect: .constant(true))
-//                .tabItem {
-//                    VStack {
-//                        Image(systemName: "bolt.horizontal.fill")
-//                        Text("BT TEST")
-//                    }
-//                }
-//                .tag(3)
-        }
-    }
+//            }.tag(2)
+            
+        }// end TabView
+            // Desk safety when user sends app to background or reopens app.
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
+                print("app moving to background; stopping desk")
+                self.BTController.zipdesk.releaseDesk()
+            })
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
+                print("app returning to foreground; request current heights")
+                self.BTController.zipdesk.releaseDesk()
+                self.BTController.zipdesk.requestHeightsFromDesk()
+            })
+        
+    }// end body
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -74,7 +81,13 @@ struct ContentView_Previews: PreviewProvider {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        return ContentView().environment(\.managedObjectContext, context)
+        return Group {
+            ContentView().environment(\.managedObjectContext, context)
                 .environmentObject(DeviceBluetoothManager())
+                .previewDevice("iPhone 11")
+            ContentView().environment(\.managedObjectContext, context)
+                .environmentObject(DeviceBluetoothManager())
+                .previewDevice("iPhone 6s")
+        }
     }
 }

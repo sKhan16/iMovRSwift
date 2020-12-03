@@ -25,6 +25,7 @@ struct PresetButton: View {
     let index: Int
     @Binding var showAddPreset: Bool
     @Binding var isTouchGo: Bool
+    @Binding var isMoving: Bool
     
     //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
     //        print("Moving")
@@ -48,12 +49,14 @@ struct PresetButton: View {
             let height: Float = currDesk.presetHeights[self.index]
             if height > -1 {
                 if isTouchGo {
-                    TouchPreset(name: "pset \(index)", presetHeight: height)
-                } else {
+                    TouchPreset(zipdeskUI: self.bt.zipdesk,
+                                name: "pset \(index)",
+                                presetHeight: self.user.testPresets[index],
+                                isMoving: self.$isMoving)
+                }
+                else {
                     HoldPreset(name: "pset \(index)", presetHeight: height)
                 }
-                //LoadedPreset(name: "pset \(index)", presetHeight: self.user.testPresets[index],
-                  //           isTouchGo: self.$isTouchGo)
             }
         }
         else {

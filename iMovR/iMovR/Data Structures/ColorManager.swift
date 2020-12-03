@@ -21,4 +21,6 @@ struct ColorManager {
     static let gray = Color("gray")
     
     static let deviceBG = Color("DeviceBackground")
+    
+    static let connected = Color("ConnectYellow")
 }
