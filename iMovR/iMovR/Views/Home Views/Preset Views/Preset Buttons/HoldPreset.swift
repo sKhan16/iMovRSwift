@@ -11,11 +11,11 @@ import SwiftUI
 struct HoldPreset: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @Binding var presetHeight: Float
     
     @State private var pressed: Bool = false
     
-    @Binding var name: String
-    @Binding var presetHeight: Float
+
     
     
     //@State var tapped = false
@@ -76,6 +76,6 @@ struct HoldPreset: View {
 
 struct HoldPreset_Previews: PreviewProvider {
     static var previews: some View {
-        HoldPreset(name: .constant("test name"), presetHeight: .constant(32.0))
+        HoldPreset(presetHeight: .constant(32.0))
     }
 }

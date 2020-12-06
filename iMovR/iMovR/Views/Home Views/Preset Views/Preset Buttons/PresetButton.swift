@@ -33,19 +33,17 @@ struct PresetButton: View {
                     get: { height! },
                     set: /*Read-Only Binding*/{ $0 }
                 )
-                let nameBinding = Binding<String> (
-                    get: { currDesk!.presetNames[self.index] },
-                    set: /*Read-Only Binding*/{ $0 }
-                )
-                
-                if isTouchGo { // Touch n go
-                    TouchPreset(zipdeskUI: self.bt.zipdesk,
-                                name: nameBinding,
-                                presetHeight: heightBinding,
-                                isMoving: self.$isMoving)
-                } else { // Hold to go
-                    HoldPreset(name: nameBinding,
-                               presetHeight: heightBinding)
+                ZStack {
+                    if isTouchGo { // Touch n go
+                        TouchPreset(zipdeskUI: self.bt.zipdesk,
+                                    presetHeight: heightBinding,
+                                    isMoving: self.$isMoving)
+                    } else { // Hold to go
+                        HoldPreset(presetHeight: heightBinding)
+                    }
+                    Text(currDesk!.presetNames[self.index])
+                        .foregroundColor(ColorManager.gray)
+                        .offset(y: 53)
                 }
                 
             } else { // this preset is unassigned
@@ -97,8 +95,8 @@ struct PresetButton: View {
 
 //struct PresetButton_Previews: PreviewProvider {
 //    static var previews: some View {
-//        PresetButton(name: "Sitting", presetVal: 32.2)
-//            .environmentObject(ZGoBluetoothController())
+//        PresetButton(data: DeviceDataManager(), index: , showAddPreset: , isTouchGo: , isMoving: )
+//            .environmentObject(DeviceBluetoothManager(previewMode: true))
 //    }
 //}
 

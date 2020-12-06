@@ -87,7 +87,7 @@ struct PresetModule: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
         }//end 1st-level HStack
-        .frame(height: 180)
+        .frame(height: 190)
         .onAppear() { withAnimation(.easeIn(duration: 5),{}) }
         .onDisappear() { withAnimation(.easeOut(duration: 5),{}) }
     }//end body
@@ -107,6 +107,7 @@ struct PresetModule_Previews: PreviewProvider {
                     showPresetPopup: .constant(false),
                     isMoving: .constant(false)
                 )
+                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             
@@ -119,6 +120,7 @@ struct PresetModule_Previews: PreviewProvider {
                     showPresetPopup: .constant(false),
                     isMoving: .constant(false)
                 )
+                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewLayout(.device)
             .previewDevice("iPhone 6s")

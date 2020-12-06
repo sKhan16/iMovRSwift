@@ -51,17 +51,6 @@ struct AddPresetButton: View {
 
 }
 
-//func addPreset(user: UserObservable, name: String, height: Float) {
-//    //Test code. Replace when neccessary. Can mutate observable object.
-//    if user.addPr, index: <#Int#>eset(name: name, height: height, index: 0) {
-//        print("preset successfully added")
-//    } else {
-//        print("user.addPreset failed")
-//    }
-//    // Replace with functionality to switch to AddPreset screen.
-//    print("Moving to the add preset screen!")
-//}
-
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
         AddPresetButton(index: 0, showAddPreset: .constant(true))
