@@ -55,8 +55,9 @@ struct DeviceManagerView: View {
                             data: self.data,
                             edit: $editDeviceIndex,
                             isConnected: Binding<Bool> (
-                                    get: { return (self.bt.connectedDeskIndex == index) },
-                                    set: { $0 } ),
+                                get: { return (self.data.connectedDeskIndex == index) },
+                                set: /*Read-Only Binding*/{ $0 }
+                            ),
                             deviceIndex: index
                         )
                     }

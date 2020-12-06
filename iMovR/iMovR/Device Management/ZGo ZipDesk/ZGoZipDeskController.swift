@@ -20,6 +20,7 @@ let ZGoIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
 
 
 class ZGoZipDeskController: ObservableObject {
+    @EnvironmentObject var BTManager: DeviceBluetoothManager
     
     @Published var deskHeight: Float = 0
     @Published var maxHeight: Float = 1
@@ -43,15 +44,18 @@ class ZGoZipDeskController: ObservableObject {
 //        self.peripheral = connectedDesk.peripheral!
 //    }
     
-    func setDesk(desk: Desk) -> Bool {
-        guard desk.peripheral != nil else {
+    func setDesk(connectedDesk: Desk) -> Bool {
+        guard connectedDesk.peripheral != nil else {
             print("ZGoZipDeskController:setDesk(..) error- desk peripheral is nil")
             return false
         }
-        self.readCharacteristic = nil
-        self.writeCharacteristic = nil
-        self.peripheral = desk.peripheral!
-        self.desk = desk
+        self.peripheral = connectedDesk.peripheral!
+        // require BTManager to discover the characteristics only when desk changed
+        if self.desk.id != connectedDesk.id {
+            self.readCharacteristic = nil
+            self.writeCharacteristic = nil
+        }
+        self.desk = connectedDesk
         return true
     }
     

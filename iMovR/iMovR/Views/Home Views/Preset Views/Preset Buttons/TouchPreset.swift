@@ -15,15 +15,17 @@ struct TouchPreset: View {
     
     @State private var pressed: Bool = false
     
-    @State var name: String
-    @State var presetHeight: Float
+    @Binding var name: String
+    @Binding var presetHeight: Float
+    //@State var name: String
+    //@State var presetHeight: Float
     
     @Binding var isMoving: Bool
     
     //@State var tapped = false
     
-    //@Binding var presetName: String
-    //@Binding var presetHeight: Float
+    
+    
     
     var body: some View {
         Button(action: {
@@ -71,7 +73,7 @@ struct TouchPreset: View {
         
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        TouchPreset(zipdeskUI: ZGoZipDeskController(), name: "test", presetHeight: 33.3, isMoving: .constant(false))
+        TouchPreset(zipdeskUI: ZGoZipDeskController(), name: .constant("test preset"), presetHeight: .constant(33.3), isMoving: .constant(false))
     }
 }
 }

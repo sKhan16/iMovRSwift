@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PresetModule: View {
-
+    @EnvironmentObject var bt: DeviceBluetoothManager
     @State var isPaged: Bool = false
     @Binding var showAddPreset: [Bool]
     @Binding var isTouchGo: Bool
@@ -26,7 +26,7 @@ struct PresetModule: View {
         HStack {
             if self.isPaged {//last 3 presets
                 HStack {
-                    PresetButton(index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                    PresetButton(data: bt.data, index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                         //.offset(y: -80)
                         .fixedSize()
                         .padding(.leading, 5)
@@ -41,10 +41,10 @@ struct PresetModule: View {
                         StopGoButton(isMoving: self.$isMoving)
                     }
                     HStack(alignment: .bottom) {
-                        PresetButton(index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton(data: bt.data, index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .fixedSize()
                             .padding(.trailing, 10)
-                        PresetButton(index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton(data: bt.data, index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .fixedSize()
                             .padding(.leading, 10)
                     }
@@ -53,7 +53,7 @@ struct PresetModule: View {
                 
             } else {// first 3 presets
                 HStack {
-                    PresetButton(index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                    PresetButton(data: bt.data, index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                     //.offset(y: -80)
                         .fixedSize()
                         .padding(.leading, 5)
@@ -69,10 +69,10 @@ struct PresetModule: View {
                         StopGoButton(isMoving: self.$isMoving)
                     }
                     HStack(alignment: .bottom) {
-                        PresetButton(index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton(data: bt.data, index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .fixedSize()
                             .padding(.trailing, 10)
-                        PresetButton(index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton(data: bt.data, index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .fixedSize()
                             .padding(.leading, 10)
                     }

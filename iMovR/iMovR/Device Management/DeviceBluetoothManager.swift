@@ -21,7 +21,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Discovered Devices
     @Published var discoveredDevices: [Desk] = []
     // Connected desk is stored in savedDevices: [Desk] in DeviceDataManager
-    @Published var connectedDeskIndex: Int = -1
     
 ///# Current Desk
     /*@Published*/ var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
@@ -114,11 +113,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 //            self.zipdesk = ZGoZipDeskController(connectedDesk: device)
 //            guard self.zipdesk != nil else { return false }
 //        }
-        guard self.zipdesk.setDesk(desk: device) else {
+        guard self.zipdesk.setDesk(connectedDesk: device) else {
             return false
         }
         print("connecting to device: \(device.name), id:\(device.id)")
-        self.connectedDeskIndex = savedIndex
+        self.data.connectedDeskIndex = savedIndex
         centralManager?.connect(device.peripheral!)
     //MARK: check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
@@ -133,18 +132,18 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.disconnectFromDevice error: no desk device connected")
             return false
         }
-        guard let peripheral: CBPeripheral = self.zipdesk.getPeripheral() else {
+        guard let connectedPeripheral: CBPeripheral = self.zipdesk.getPeripheral() else {
             print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
             return false
         }
-        guard (device.peripheral == peripheral) && (savedIndex == self.connectedDeskIndex) else {
+        guard (device.peripheral == connectedPeripheral) && (savedIndex == self.data.connectedDeskIndex) else {
             print("bt.disconnectFromDevice error: desk device does not match connectedDeskIndex & zipdesk peripheral")
             return false
         }
         print("disconnecting from connected desk")
-        centralManager?.cancelPeripheralConnection(peripheral)
+        centralManager?.cancelPeripheralConnection(connectedPeripheral)
         self.isDeskConnected = false
-        //self.connectedDeskIndex = -1    //leave old index for easy reconnection
+        self.data.connectedDeskIndex = nil    //leave old index for easy reconnection
         return true
     }
     
@@ -293,7 +292,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         DispatchQueue.main.async { () -> Void in
             self.connStatus = .error
             self.isDeskConnected = false
-            self.connectedDeskIndex = -1
+            self.data.connectedDeskIndex = nil
         }
         // clear zipdesk so it never references a dead connection
         //self.zipdesk = nil
@@ -310,10 +309,17 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // Unintentional disconnection: attempt to reestablish connection with current desk
         if error != nil {
             print("desk disconnected with error\nattempting reconnection with current desk")
-            print( "didDisconnect: reconnection successful? - " + String(self.connectToDevice(device: self.zipdesk.getDesk(), savedIndex: self.connectedDeskIndex)) )
+            
+            guard self.data.connectedDeskIndex != nil else {
+                print("didDisconnect error: data.connectedDeskIndex == nil")
+                return
+            }
+            let didReconnect: Bool = self.connectToDevice( device: self.zipdesk.getDesk(),
+                                                savedIndex: self.data.connectedDeskIndex! )
+            print( "didDisconnect: reconnection successful? - " + String(didReconnect) )
         } else {
             DispatchQueue.main.async { () -> Void in
-                self.connectedDeskIndex = -1
+                self.data.connectedDeskIndex = nil
             }
         }
     }
@@ -380,7 +386,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
               Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""])
             ]
         
-        self.connectedDeskIndex = 0
+        self.data.connectedDeskIndex = 0
     }
     
     

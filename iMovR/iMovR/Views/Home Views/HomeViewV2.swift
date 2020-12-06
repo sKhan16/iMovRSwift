@@ -75,14 +75,15 @@ struct HomeViewV2: View {
                 // Popup for editing saved device properties
                 if (showPresetPopup) {
                     PresetEditPopup(show: $showPresetPopup, isTouchGo: self.$isTouchGo)
-                    .onAppear() {
-                        self.popupBackgroundBlur = 5
-                        withAnimation(.easeIn(duration: 5),{})
-                    }
-                    .onDisappear() {
-                        self.popupBackgroundBlur = 0
-                        withAnimation(.easeOut(duration: 5),{})
-                    }
+                        .environmentObject(bt)
+                        .onAppear() {
+                            self.popupBackgroundBlur = 5
+                            withAnimation(.easeIn(duration: 5),{})
+                        }
+                        .onDisappear() {
+                            self.popupBackgroundBlur = 0
+                            withAnimation(.easeOut(duration: 5),{})
+                        }
                 }
             }/*end ZStack*/
             .onAppear() {

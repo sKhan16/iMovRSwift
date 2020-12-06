@@ -64,12 +64,17 @@ struct doneButton: View {
     var body: some View {
         Button(action: {
             
-            print("index in addPresetView \(index)")
+            print("index \(index) in addPresetView")
+            guard bt.data.connectedDeskIndex != nil else {
+                print("AddPresetView error: changes not saved, no desk connected")
+                self.showAddPreset = false
+                return
+            }
             
             let height: Float = (self.presetHeight as NSString).floatValue
             if height <= 48.00 && height >= 23.00 {
                 self.isInvalidInput = false
-                var currDesk: Desk = self.bt.zipdesk.getDesk()
+                var currDesk: Desk = bt.data.savedDevices[bt.data.connectedDeskIndex!]
                 currDesk.presetHeights[index] = height
                 currDesk.presetNames[index] = self.presetName
                 self.bt.data.editDevice(desk: currDesk)

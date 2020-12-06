@@ -14,8 +14,8 @@ struct HoldPreset: View {
     
     @State private var pressed: Bool = false
     
-    @State var name: String
-    @State var presetHeight: Float
+    @Binding var name: String
+    @Binding var presetHeight: Float
     
     
     //@State var tapped = false
@@ -76,6 +76,6 @@ struct HoldPreset: View {
 
 struct HoldPreset_Previews: PreviewProvider {
     static var previews: some View {
-        HoldPreset(name: "test", presetHeight: 32.0)
+        HoldPreset(name: .constant("test name"), presetHeight: .constant(32.0))
     }
 }

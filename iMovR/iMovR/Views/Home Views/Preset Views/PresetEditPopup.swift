@@ -18,10 +18,8 @@ struct PresetEditPopup: View {
     @State var editPresetName: String = ""
     @State var editPresetHeight: String = ""
     @State var isInvalidInput: Bool = false
-    @State var isSaved: Bool = false
     
     var body: some View {
-        let currDesk = self.bt.zipdesk.getDesk()
         ZStack {
             // Background color filter & back button
             Button(action: {self.show = false}, label: {
@@ -32,7 +30,8 @@ struct PresetEditPopup: View {
             })
             VStack {
                // Display Presets List
-                if self.editIndex == -1  {
+                if self.editIndex == -1, bt.data.connectedDeskIndex != nil {
+                    let currDesk: Desk = bt.data.savedDevices[bt.data.connectedDeskIndex!]
                     VStack {
                         Text("Preset Settings")
                             .font(Font.title2)
@@ -72,9 +71,7 @@ struct PresetEditPopup: View {
                             .foregroundColor(Color.white)
                             .font(Font.body.weight(.medium))
                             .offset(y:8)
-                        
                         VStack(alignment: .leading) {
-                            
                             Text("Change Preset \(self.editIndex+1) Name?")
                                 .foregroundColor(Color.white)
                                 .font(Font.body.weight(.medium))
@@ -92,49 +89,17 @@ struct PresetEditPopup: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                         .padding()
-                        
-                        //PresetSettingView()
-                        //                    TextField(" new name", text: $editName)
-    //                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        /*
-                         Text("Device ID:")
-                         .foregroundColor(Color.white)
-                         .font(Font.body.weight(.medium))
-                         .padding(.top, 10)
-                         .offset(y:8)
-                         TextField("change id?", text: $editID)
-                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                         */
                     }
                     .padding()
-                    
-                    editSaveButton(presetName: self.$editPresetName, presetHeight: self.$editPresetHeight, isInvalidInput: self.$isInvalidInput, isSaved: self.$isSaved, currIndex: self.editIndex)
-//                    Button(action: {
-//
-//                        self.show = false
-//                        print("saving 'preset menu' changes")//add functionality here
-//
-//                    }, label: {
-//                        Text("Save Changes")
-//                            .font(Font.title3.bold())
-//                            .foregroundColor(Color.white)
-//                            .padding()
-//                            .background(ColorManager.preset)
-//                            .cornerRadius(27)
-//                    })
-//                    .frame(width:200,height:100)
+                    editSaveButton(data: self.bt.data, presetName: self.$editPresetName, presetHeight: self.$editPresetHeight, isInvalidInput: self.$isInvalidInput, editIndex: self.$editIndex)
                 }
-                
-            }
+            } //end main level VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
             .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             
-            
         }//end ZStack
-        //.onTapGesture { self.deviceIndex = -1 }
-        // Goes back when tapped outside of edit window
     }//end Body
 }
 
@@ -143,39 +108,45 @@ private struct editSaveButton: View {
     
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @ObservedObject var data: DeviceDataManager
     
     @Binding  var presetName: String
     @Binding  var presetHeight: String
     @Binding var isInvalidInput: Bool
-    @Binding var isSaved: Bool
-    
-    var currIndex: Int
+    @Binding var editIndex: Int
     
     var body: some View {
         Button(action: {
-            var currDesk: Desk = self.bt.zipdesk.getDesk()
+            guard bt.data.connectedDeskIndex != nil else {
+                print("PresetEditPopup error: changes not saved, no desk connected")
+                self.editIndex = -1
+                return
+            }
+            var currDesk: Desk = data.savedDevices[data.connectedDeskIndex!]
+            
             if (self.presetHeight != "") {
-                //Converts presetHeight to a float
                 let height: Float = (self.presetHeight as NSString).floatValue
-                
-                //TODO: Change min and max to read values from desk
                 if height <= (self.bt.zipdesk.maxHeight) && height >= (self.bt.zipdesk.minHeight) {
                     if (self.presetName != "") {
-                        currDesk.presetNames[self.currIndex] = self.presetName
+                        currDesk.presetNames[self.editIndex] = self.presetName
                     }
-                    currDesk.presetHeights[self.currIndex] = height
-                    self.bt.data.editDevice(desk: currDesk)
+                    currDesk.presetHeights[self.editIndex] = height
+                    self.data.editDevice(desk: currDesk)
+                    if currDesk.id == bt.zipdesk.getDesk().id,
+                        currDesk.peripheral?.identifier == bt.zipdesk.getPeripheral()?.identifier
+                    {
+                        bt.zipdesk.setDesk(connectedDesk: currDesk)
+                    }
                     self.isInvalidInput = false
-                    self.isSaved = true
+                    self.editIndex = -1
                 } else {
                     self.isInvalidInput = true
-                    self.isSaved = false
                     print("height out of bounds!")
                 }
             } else if (self.presetName != "") {
-                currDesk.presetNames[self.currIndex] = self.presetName
+                currDesk.presetNames[self.editIndex] = self.presetName
                 self.bt.data.editDevice(desk: currDesk)
-                self.isSaved = true
+                self.editIndex = -1
             }
         }, label: {
             Text("Save Changes")

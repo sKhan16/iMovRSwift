@@ -16,6 +16,7 @@ public class DeviceDataManager: ObservableObject {
     @EnvironmentObject var BTManager: DeviceBluetoothManager
     
     @Published var savedDevices: [Desk] = []
+    @Published var connectedDeskIndex: Int?
     
     private var fetchedDevices: [ZipDeskData]?
     
@@ -23,10 +24,6 @@ public class DeviceDataManager: ObservableObject {
     @Environment(\.managedObjectContext) var managedObjectContext
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
-    
-//    init(savedDevicesBinding: Binding<[Desk]>) {
-//        self.savedDevices = savedDevicesBinding
     init() {
         guard self.pullPersistentData() else {
             print("error retrieving stored desks and presets")
@@ -160,13 +157,8 @@ public class DeviceDataManager: ObservableObject {
             print("DeviceDataManager.editDesk error: desk data not found")
             return
         }
-//        if ## desk.id == zipdesk.getDesk().id ## {
-//            deskData.isLastConnectedTo = true // Initialize to true when auto connecting on save of new device
-//            self.updateBTManagerConnectedDesk(connectedDesk: <#T##Desk#>)
-//        }
         deskData.name = desk.name
         deskData.deskID = Int64(desk.id)
-        
         deskData.presetHeights = self.archiveFloatArray(array: desk.presetHeights)
         deskData.presetNames = self.archiveStringArray(array: desk.presetNames)
         do {
@@ -176,19 +168,15 @@ public class DeviceDataManager: ObservableObject {
             print(error.localizedDescription)
             print("DeviceDataManager.editDesk error saving edited desk")
         }
+        
+        // if the edited device is the currently connected zipdesk, update the zipdesk
+//        if  desk.id == BTManager.zipdesk.getDesk().id,
+//            desk.peripheral?.identifier == BTManager.zipdesk.getPeripheral()?.identifier
+//        {
+//            BTManager.zipdesk.setDesk(connectedDesk: desk)
+//        }
         if !self.pullPersistentData() {
             print("DeviceDataManager.editDesk error pulling saved desks")
-        }
-    }
-    
-    // Called after currently connected device is edited
-    private func updateBTManagerConnectedDesk(connectedDesk: Desk) {
-        guard connectedDesk.peripheral?.state == .connected else {
-            print("DeviceDataManager: error - \"connectedDesk\" peripheral not connected")
-            return
-        }
-        if BTManager.zipdesk.setDesk(desk: connectedDesk) {
-            print("DeviceDataManager: successfully updated current desk")
         }
     }
     

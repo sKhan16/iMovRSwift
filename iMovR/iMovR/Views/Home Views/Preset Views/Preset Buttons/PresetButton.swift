@@ -10,55 +10,48 @@ import SwiftUI
 
 struct PresetButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
-    @Environment(\.colorScheme) var colorScheme
-    
-    @State private var pressed: Bool = false
-    
-    //@State var name: String
-    //@State var presetVal: Float
-    
-    //@State var tapped = false
-    
-    //@Binding var presetName: String
-    //@Binding var presetHeight: Float
-    //@Binding var isLoaded: Bool
+    @ObservedObject var data: DeviceDataManager
     let index: Int
     @Binding var showAddPreset: Bool
     @Binding var isTouchGo: Bool
     @Binding var isMoving: Bool
     
-    //    let customDrag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({
-    //        print("Moving")
-    //    }).onEnded({
-    //        print("STOP MOVING")
-    //    })
+    @Environment(\.colorScheme) var colorScheme
     
-    //    let PresetGesture = LongPressGesture(minimumDuration: 3.0, maximumDistance: CGFloat(50))
-    //        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { _ in
-    //            if !self.tapped {
-    //                self.tapped = true
-    //                self.callback()
-    //            }
-    //        }
-    //        .onEnded { _ in
-    //            self.tapped = false
-    //        })
+    @State private var pressed: Bool = false
+    
     
     var body: some View {
-        let currDesk = self.bt.zipdesk.getDesk()
-        let height: Float = currDesk.presetHeights[self.index]
-        if height > -1 {
-            if isTouchGo {
-                TouchPreset(zipdeskUI: self.bt.zipdesk,
-                            name: "pset \(index)",
-                            presetHeight: height,
-                            isMoving: self.$isMoving)
+        if let deskIndex: Int = data.connectedDeskIndex {
+            
+            let currDesk: Desk? = data.savedDevices[deskIndex]
+            let height: Float? = currDesk?.presetHeights[self.index]
+            
+            if height != nil, height! > -1 {
+                
+                let heightBinding = Binding<Float> (
+                    get: { height! },
+                    set: /*Read-Only Binding*/{ $0 }
+                )
+                let nameBinding = Binding<String> (
+                    get: { currDesk!.presetNames[self.index] },
+                    set: /*Read-Only Binding*/{ $0 }
+                )
+                
+                if isTouchGo { // Touch n go
+                    TouchPreset(zipdeskUI: self.bt.zipdesk,
+                                name: nameBinding,
+                                presetHeight: heightBinding,
+                                isMoving: self.$isMoving)
+                } else { // Hold to go
+                    HoldPreset(name: nameBinding,
+                               presetHeight: heightBinding)
+                }
+                
+            } else { // this preset is unassigned
+                AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
             }
-            else {
-                HoldPreset(name: "pset \(index)", presetHeight: height)
-            }
-        }
-        else {
+        } else { // no desk is connected
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
         }
     }
