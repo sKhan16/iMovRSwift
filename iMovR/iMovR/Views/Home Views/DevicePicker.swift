@@ -13,6 +13,14 @@ import SwiftUI
 struct DevicePicker: View {
     @State var index: Int = 0
     @ObservedObject var deviceData: DeviceDataManager
+//    @Binding var isConnected: Bool = Binding<Bool>(
+//        get: {
+//            if let connected: Int = deviceData.connectedDeskIndex {
+//                return (self.index == connected)
+//            } else { return false }
+//        },
+//        set: { $0 } // Read-Only Binding
+//    )
     
     
     init(deviceData: DeviceDataManager) {
@@ -21,9 +29,7 @@ struct DevicePicker: View {
     
     // Only used for canvas preview mode
     init?(testMode: Bool) {
-        guard testMode else {
-            return nil
-        }
+        guard testMode else { return nil }
         let tempData = DeviceDataManager()
         tempData.savedDevices =
             [ Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""]),
@@ -37,13 +43,29 @@ struct DevicePicker: View {
                 PickerLeft(index: $index, devices: $deviceData.savedDevices)
                     .frame(width: 50, height: 80)
                 Spacer()
-                ZStack {
-                    if deviceData.savedDevices.count > 0 {
-                        Text(deviceData.savedDevices[index].name)
+                
+                if deviceData.savedDevices.count > 0 {
+                    ZStack {
+                        Text(deviceData.savedDevices[self.index].name)
                             .font(.system(size: 40))
                             .foregroundColor(Color.white)
+                            .offset(y: -5)
+                        
+                        if self.deviceData.connectedDeskIndex != nil,
+                           self.deviceData.connectedDeskIndex! == self.index {
+                            Text("Connected")
+                                .font(Font.callout.weight(.regular))
+                                .foregroundColor(ColorManager.preset)
+                                .offset(y: 23)
+                        } else {
+                            Text("Disconnected")
+                                .font(Font.callout.weight(.regular))
+                                .foregroundColor(ColorManager.morePreset)
+                                .offset(y: 23)
+                        }
                     }
                 }
+                
                 Spacer()
                 PickerRight(index: $index, devices: $deviceData.savedDevices)
                     .frame(width: 50, height: 80)
@@ -102,7 +124,11 @@ struct DevicePicker_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            DevicePicker(testMode: true)
+            VStack {
+                DevicePicker(testMode: true)
+                    .padding(.top, 50)
+                Spacer()
+            }
         }
     }
 }

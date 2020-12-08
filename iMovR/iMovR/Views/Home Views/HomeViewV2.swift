@@ -12,6 +12,7 @@ struct HomeViewV2: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var zipdeskUI: ZGoZipDeskController
+    @ObservedObject var data: DeviceDataManager
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     @State private var showPresetPopup: Bool = false
@@ -30,14 +31,16 @@ struct HomeViewV2: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
-                    DevicePicker(deviceData: bt.data)
+                    
+                    DevicePicker(deviceData: self.data)
                         .padding([.leading, .trailing])
+                    
                     ZStack {
                         HeightSliderV2(zipdeskUI: self.zipdeskUI)
                             .frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
                             .padding()
+                        
                         HStack {
-                            
                             VStack() {
                                 HStack() {
                                     Spacer()
@@ -52,6 +55,7 @@ struct HomeViewV2: View {
                                 }
                             }
                             .padding(.trailing, 25)
+                            
                             HStack {
                                 Spacer()
                                 VStack {
@@ -63,15 +67,16 @@ struct HomeViewV2: View {
                                 .padding(.trailing, 15)
                             }
                         }
-                    }
+                    } // end ZStack
                     .frame(maxWidth: .infinity)
+                    
                     PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
                         .frame(height: 180)
                         .padding(.bottom, 10)
 
-                } // end vstack with homepage main components
+                } // end top-level VStack containing homepage main components
                 .blur(radius: popupBackgroundBlur)
-            
+                
                 // Popup for editing saved device properties
                 if (showPresetPopup) {
                     PresetEditPopup(show: $showPresetPopup, isTouchGo: self.$isTouchGo)
@@ -85,7 +90,13 @@ struct HomeViewV2: View {
                             withAnimation(.easeOut(duration: 5),{})
                         }
                 }
-            }/*end ZStack*/
+                
+                // Popup for Stop Button
+                if (isMoving && isTouchGo) {
+//MARK: IMPLEMENT STOP BUTTON OVERLAY
+                }
+                
+            } // end top-level ZStack containing main home page components and popup overlays
             .onAppear() {
             withAnimation(.easeInOut(duration: 10),{})
             }
@@ -99,14 +110,14 @@ struct HomeViewV2_Previews: PreviewProvider {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
 
-                HomeViewV2(zipdeskUI: ZGoZipDeskController())
+                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager())
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2(zipdeskUI: ZGoZipDeskController())
+                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager())
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

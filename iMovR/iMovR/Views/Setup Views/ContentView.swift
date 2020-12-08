@@ -21,7 +21,7 @@ struct ContentView: View {
             // Home Page Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2(zipdeskUI: BTController.zipdesk)
+                HomeViewV2(zipdeskUI: BTController.zipdesk, data: BTController.data)
                     // Desk safety use case: user switches tabs
                     .onDisappear() {
                         self.BTController.zipdesk.releaseDesk()

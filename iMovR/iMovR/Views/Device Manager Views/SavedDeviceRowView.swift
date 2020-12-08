@@ -43,7 +43,7 @@ struct SavedDeviceRowView: View {
                         .font(Font.body.weight(.medium))
                         .foregroundColor(ColorManager.connected)
                 }
-                Text(String(currDevice.id))
+                Text("("+String(currDevice.id)+")")
                     .font(Font.caption)//.weight(.medium))
                     .foregroundColor(Color.white)
             }

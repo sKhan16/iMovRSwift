@@ -33,7 +33,7 @@ struct DiscoveredDeviceRowView: View {
                         .font(Font.title3.bold())
                         .truncationMode(.tail)
                         .foregroundColor(Color.white)
-                    Text(String(currDevice.id))
+                    Text("("+String(currDevice.id)+")")
                         .font(Font.body.weight(.medium))
                         .foregroundColor(Color.white)
                 }
