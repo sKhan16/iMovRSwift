@@ -117,7 +117,10 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             return false
         }
         print("connecting to device: \(device.name), id:\(device.id)")
-        self.data.connectedDeskIndex = savedIndex
+        DispatchQueue.main.sync { () -> Void in
+            self.data.connectedDeskIndex = savedIndex
+        }
+        
         centralManager?.connect(device.peripheral!)
     //MARK: check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
