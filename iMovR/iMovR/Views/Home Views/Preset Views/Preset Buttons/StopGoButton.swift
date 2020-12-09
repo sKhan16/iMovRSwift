@@ -9,39 +9,48 @@ import SwiftUI
 
 struct StopGoButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
-    
-    @Binding var isMoving: Bool
+    @State private var stopTimer: Timer?
     
     var body: some View {
-        Button(action: {
+        Button( action: {
             self.bt.zipdesk.releaseDesk()
-            print("Stop Timer fired b4 interval")
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
-                    print("Stop Timer fired after interval!")
+            print("StopGoButton: stopTimer start")
+            
+            self.stopTimer = Timer.scheduledTimer (
+                withTimeInterval: 0.3,
+                repeats: false )
+            { timer in
+                print("StopGoButton: stopTimer triggered")
                 self.bt.zipdesk.releaseDesk()
-                    timer.invalidate()
-                }
-            self.isMoving = false
-            }) {
-            Text("Stop")
-            .fontWeight(.bold)
-            .font(.title)
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .padding(5)
-            .background(Color.red)
-            .cornerRadius(40)
-            .foregroundColor(.white)
-            //.padding(10)
-            /*.overlay(
-                RoundedRectangle(cornerRadius: 40)
-                    .stroke(Color.purple, lineWidth: 0)
-            )*/
             }
-    }
+        } ) { // button View 'Label'
+            VStack {
+                Spacer()
+                Text("Stop")
+                    //.font(Font.largeTitle.weight(.bold))
+                    .font(Font.custom("largeTitle", size: 50.0))
+                    .frame(maxWidth: .infinity, idealHeight: 80, maxHeight: 80)
+                    .background(Color.red)
+                    .cornerRadius(40)
+                    .foregroundColor(.white)
+                    .padding([.leading, .trailing], 15)
+                    .padding(.bottom, (200/2 - 80/2))
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }//end Button View 'Label'
+        .onAppear() {
+            withAnimation(.easeIn(duration: 5),{})
+        }
+        .onDisappear() {
+            stopTimer?.invalidate()
+            stopTimer = nil
+            withAnimation(.easeOut(duration: 5),{})
+        }
+    }//end Body
 }
 
 struct StopGoButton_Previews: PreviewProvider {
     static var previews: some View {
-        StopGoButton(isMoving: .constant(true))
+        StopGoButton()
     }
 }

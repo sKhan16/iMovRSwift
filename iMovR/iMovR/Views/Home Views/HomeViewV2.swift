@@ -17,6 +17,8 @@ struct HomeViewV2: View {
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     @State private var showPresetPopup: Bool = false
     @State private var popupBackgroundBlur: CGFloat = 0
+    @State private var notMovingTimer: Timer?
+    @State private var suppressStopButton: Bool = false
 
     @State var isTouchGo: Bool = false
     @State var isMoving: Bool = false
@@ -59,9 +61,15 @@ struct HomeViewV2: View {
                             HStack {
                                 Spacer()
                                 VStack {
-                                    UpButton(testHeight: self.$testHeight)
+                                    UpButton (
+                                        pressed: self.$suppressStopButton,
+                                        testHeight: self.$testHeight
+                                    )
                                         .padding(.bottom, 10)
-                                    DownButton(testHeight: self.$testHeight)
+                                    DownButton (
+                                        pressed: self.$suppressStopButton,
+                                        testHeight: self.$testHeight
+                                    )
                                         .padding(.top, 10)
                                 }
                                 .padding(.trailing, 15)
@@ -69,11 +77,15 @@ struct HomeViewV2: View {
                         }
                     } // end ZStack
                     .frame(maxWidth: .infinity)
-                    
-                    PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
-                        .frame(height: 180)
-                        .padding(.bottom, 10)
-
+                    ZStack {
+                        PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
+                        if (!suppressStopButton && isMoving && isTouchGo) {
+                            ColorManager.bgColor //stop button can cover up PresetModule
+                                .frame(height: 190)
+                        }
+                    }
+                    .padding(.bottom, 10)
+                    .frame(height: 200)
                 } // end top-level VStack containing homepage main components
                 .blur(radius: popupBackgroundBlur)
                 
@@ -92,14 +104,27 @@ struct HomeViewV2: View {
                 }
                 
                 // Popup for Stop Button
-                if (isMoving && isTouchGo) {
-//MARK: IMPLEMENT STOP BUTTON OVERLAY
+                if (!suppressStopButton && isMoving && isTouchGo) {
+                    StopGoButton()
                 }
                 
             } // end top-level ZStack containing main home page components and popup overlays
             .onAppear() {
-            withAnimation(.easeInOut(duration: 10),{})
+                withAnimation(.easeInOut(duration: 10),{})
             }
+            .onChange(of: zipdeskUI.deskHeight, perform: { value in
+                self.isMoving = true
+                self.notMovingTimer?.invalidate()
+                self.notMovingTimer = nil
+                print("HomeView: notMovingTimer start")
+                self.notMovingTimer = Timer.scheduledTimer (
+                    withTimeInterval: 0.5,
+                    repeats: false )
+                { timer in
+                    print("HomeView: notMovingTimer triggered")
+                    self.isMoving = false
+                }
+            })
         }//end GeoReader
     }//end body
 }

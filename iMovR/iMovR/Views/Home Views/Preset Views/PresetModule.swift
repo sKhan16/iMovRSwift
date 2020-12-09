@@ -16,30 +16,19 @@ struct PresetModule: View {
     @Binding var showPresetPopup: Bool
     @Binding var isMoving: Bool
     var body: some View {
-        if self.isMoving {
-            HStack {
-                StopGoButton(isMoving: self.$isMoving)
-            }
-                .onAppear() { withAnimation(.easeIn(duration: 5),{}) }
-                .onDisappear() { withAnimation(.easeOut(duration: 5),{}) }
-        } else {
         HStack {
             if self.isPaged {//last 3 presets
                 HStack {
                     PresetButton(data: bt.data, index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
-                        //.offset(y: -80)
                         .fixedSize()
                         .padding(.leading, 5)
-                        .padding(.top, 20)
+                        .padding(.top, 10)
                 }
-                .frame(maxHeight: .infinity, alignment: .top)
+                    .frame(maxHeight: .infinity, alignment: .top)
+                
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
-                        .padding(.bottom)
-                    ///Change to self.isTouchGo for old functionality
-                    if self.isMoving && self.isTouchGo {
-                        StopGoButton(isMoving: self.$isMoving)
-                    }
+                        .padding(.bottom, 10)
                     HStack(alignment: .bottom) {
                         PresetButton(data: bt.data, index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .fixedSize()
@@ -48,26 +37,22 @@ struct PresetModule: View {
                             .fixedSize()
                             .padding(.leading, 10)
                     }
+                    .padding(.bottom, 10)
                 }
                 .frame(maxHeight: .infinity)
                 
             } else {// first 3 presets
                 HStack {
                     PresetButton(data: bt.data, index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
-                    //.offset(y: -80)
                         .fixedSize()
                         .padding(.leading, 5)
-                        .padding(.top, 20)
+                        .padding(.top, 10)
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
+                
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
-                        .padding(.bottom)
-                    
-                    ///Change THIS to self.isMoving to see the stop button appear when desk is moving. ELSE change to self.isTouchGo to see the button appear when in Touch and go mode
-                    if self.isMoving {
-                        StopGoButton(isMoving: self.$isMoving)
-                    }
+                        .padding(.bottom, 10)
                     HStack(alignment: .bottom) {
                         PresetButton(data: bt.data, index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
                             .fixedSize()
@@ -76,22 +61,26 @@ struct PresetModule: View {
                             .fixedSize()
                             .padding(.leading, 10)
                     }
+                    .padding(.bottom, 10)
                 }
                 .frame(maxHeight: .infinity)
+                
             }//end of isPaged preset logic
+            
             HStack {
-            MorePresetButton(isPaged: self.$isPaged)
-                //.offset(y: -80)
-                .padding(.trailing, 5)
-                .padding(.top, 20)
+                MorePresetButton(isPaged: self.$isPaged)
+                    //.offset(y: -80)
+                    .padding(.trailing, 5)
+                    .padding(.top, 10)
             }
             .frame(maxHeight: .infinity, alignment: .top)
+            
         }//end 1st-level HStack
         .frame(height: 190)
         .onAppear() { withAnimation(.easeIn(duration: 5),{}) }
         .onDisappear() { withAnimation(.easeOut(duration: 5),{}) }
+        
     }//end body
-    }
 }
 
 

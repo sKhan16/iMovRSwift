@@ -36,8 +36,7 @@ struct PresetButton: View {
                 ZStack {
                     if isTouchGo { // Touch n go
                         TouchPreset(zipdeskUI: self.bt.zipdesk,
-                                    presetHeight: heightBinding,
-                                    isMoving: self.$isMoving)
+                                    presetHeight: heightBinding)
                     } else { // Hold to go
                         HoldPreset(presetHeight: heightBinding)
                     }

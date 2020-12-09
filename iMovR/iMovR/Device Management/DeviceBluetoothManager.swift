@@ -107,19 +107,13 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("connectToDevice(..) error: attempted to connect to nil peripheral,\nperipheral expired or not initialized")
             return false
         }
-//        if self.zipdesk != nil {
-//            guard self.zipdesk!.setDesk(desk: device) else { return false }
-//        } else {
-//            self.zipdesk = ZGoZipDeskController(connectedDesk: device)
-//            guard self.zipdesk != nil else { return false }
-//        }
         guard self.zipdesk.setDesk(connectedDesk: device) else {
             return false
         }
         print("connecting to device: \(device.name), id:\(device.id)")
-        DispatchQueue.main.sync { () -> Void in
-            self.data.connectedDeskIndex = savedIndex
-        }
+        //DispatchQueue.main.sync { () -> Void in
+        self.data.connectedDeskIndex = savedIndex
+        //}
         
         centralManager?.connect(device.peripheral!)
     //MARK: check if connection times out... use timer
