@@ -9,15 +9,22 @@
 import SwiftUI
 
 struct AddPresetView: View {
-    
+    @EnvironmentObject var bt: DeviceBluetoothManager
     @State private var presetName: String = ""
     @State private var presetHeight: String = ""
+    @State private var useDeskHeight: Bool = true
     @Binding var showAddPreset: Bool
     @State var isInvalidInput: Bool = false
 
     let index: Int
 
     var body: some View {
+        
+        let autoFillHeight = Binding<String>(
+            get: { useDeskHeight ? String(self.bt.zipdesk.deskHeight) : self.presetHeight },
+            set: { self.presetHeight = useDeskHeight ? String(self.bt.zipdesk.deskHeight) : $0 }
+        )
+        
         NavigationView {
         //ZStack {
             VStack {
@@ -26,10 +33,25 @@ struct AddPresetView: View {
                 Section(header: Text("PRESET")) {
                     
                     TextField("Preset Name", text: $presetName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    TextField("Preset Height", text: $presetHeight)
+                    //HStack {
+                        Toggle("Autofill Height of Desk?", isOn: self.$useDeskHeight)
+                            .padding(.trailing, 70)
+                        //Spacer()
+                    //}
+                    
+                    TextField("Preset Height", text: autoFillHeight
+                    ) { changing in
+                        if changing {
+                            self.useDeskHeight = false
+                        }
+                    }
                         .keyboardType(.decimalPad)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     if (self.isInvalidInput) {
@@ -46,7 +68,7 @@ struct AddPresetView: View {
             .navigationBarTitle(Text("New Preset"), displayMode: .inline)
             .navigationBarItems(
                 leading: CloseButton(showSheet: self.$showAddPreset),
-                trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset, isInvalidInput: self.$isInvalidInput, index: self.index))
+                trailing: doneButton(presetName: self.$presetName, presetHeight: self.$presetHeight, showAddPreset: self.$showAddPreset, isInvalidInput: self.$isInvalidInput, useDeskHeight: self.$useDeskHeight, index: self.index))
         }
     }
 }
@@ -54,10 +76,11 @@ struct AddPresetView: View {
 struct doneButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     
-    @Binding  var presetName: String
-    @Binding  var presetHeight: String
+    @Binding var presetName: String
+    @Binding var presetHeight: String
     @Binding var showAddPreset: Bool
     @Binding var isInvalidInput: Bool
+    @Binding var useDeskHeight: Bool
 
     let index: Int
     
@@ -70,8 +93,12 @@ struct doneButton: View {
                 self.showAddPreset = false
                 return
             }
-            
-            let height: Float = (self.presetHeight as NSString).floatValue
+            let height: Float
+            if useDeskHeight {
+                height = self.bt.zipdesk.deskHeight
+            } else {
+                height = (self.presetHeight as NSString).floatValue
+            }
             if height <= 48.00 && height >= 23.00 {
                 self.isInvalidInput = false
                 var currDesk: Desk = bt.data.savedDevices[bt.data.connectedDeskIndex!]
@@ -95,5 +122,6 @@ struct doneButton: View {
 struct AddPresetView_Previews: PreviewProvider {
     static var previews: some View {
         AddPresetView(showAddPreset: .constant(true), index: 0)
+            .environmentObject(DeviceBluetoothManager(previewMode: true)!)
     }
 }

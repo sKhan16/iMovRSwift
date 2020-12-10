@@ -31,7 +31,7 @@ struct PresetButton: View {
                 
                 let heightBinding = Binding<Float> (
                     get: { height! },
-                    set: /*Read-Only Binding*/{ $0 }
+                    set: /*Read-Only Binding*/{ _ in }
                 )
                 ZStack {
                     if isTouchGo { // Touch n go
