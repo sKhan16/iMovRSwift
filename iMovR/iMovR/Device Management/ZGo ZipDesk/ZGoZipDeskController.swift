@@ -23,8 +23,8 @@ class ZGoZipDeskController: ObservableObject {
     @EnvironmentObject var BTManager: DeviceBluetoothManager
     
     @Published var deskHeight: Float = 0
-    @Published var maxHeight: Float = 1
-    @Published var minHeight: Float = 0
+    @Published var maxHeight: Float = 42.0
+    @Published var minHeight: Float = 24.0
     @Published var normalizedHeight: Float = 0.5
     
     private var peripheral: CBPeripheral?

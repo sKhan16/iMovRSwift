@@ -19,6 +19,7 @@ struct HomeViewV2: View {
     @State private var popupBackgroundBlur: CGFloat = 0
     @State private var notMovingTimer: Timer?
     @State private var suppressStopButton: Bool = false
+    @State private var isPaged: Bool = false
 
     @State var isTouchGo: Bool = false
     @State var isMoving: Bool = false
@@ -37,9 +38,9 @@ struct HomeViewV2: View {
                     DevicePicker(deviceData: self.data)
                         .padding([.leading, .trailing])
                     
-                    ZStack {
-                        HeightSliderV2(zipdeskUI: self.zipdeskUI)
-                            .frame(minWidth: 20,maxWidth: 20, maxHeight: .infinity)
+                    ZStack(alignment: .center) {
+                        HeightSliderV2(zipdeskUI: self.zipdeskUI, deviceData: self.data, isPaged: self.$isPaged)
+                            .frame(minWidth: 50,maxWidth: 50, maxHeight: .infinity)
                             .padding()
                         
                         HStack {
@@ -78,7 +79,7 @@ struct HomeViewV2: View {
                     } // end ZStack
                     .frame(maxWidth: .infinity)
                     ZStack {
-                        PresetModule(isPaged: false, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
+                        PresetModule(isPaged: self.$isPaged, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
                         if (!suppressStopButton && isMoving && isTouchGo) {
                             ColorManager.bgColor //stop button can cover up PresetModule
                                 .frame(height: 190)
@@ -135,14 +136,14 @@ struct HomeViewV2_Previews: PreviewProvider {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
 
-                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager())
+                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager(test: true)!)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager())
+                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager(test: true)!)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

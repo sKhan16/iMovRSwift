@@ -31,6 +31,13 @@ public class DeviceDataManager: ObservableObject {
         }
         print("ZipDeskData successfully retrieved")
     }
+    init?(test: Bool) {
+        guard test else { return nil }
+        savedDevices.append(Desk(name: "test desk", deskID: 12345678,
+                                 presetHeights: [24.0,30.0,35.5,-1,-1,-1],
+                                 presetNames: ["one","two","three","four","five","six"]))
+        connectedDeskIndex = 0
+    }
     
     
     func pullPersistentData () -> Bool {

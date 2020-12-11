@@ -41,6 +41,7 @@
 		1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60ED7253A310000B564F8 /* MovementButton.swift */; };
 		1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */; };
 		1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60F06253FB57200B564F8 /* HoldPreset.swift */; };
+		410358772583FF7C00B4C3A2 /* HeightTickMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410358762583FF7C00B4C3A2 /* HeightTickMark.swift */; };
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
 		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
@@ -124,6 +125,7 @@
 		1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditButton.swift; sourceTree = "<group>"; };
 		1EE60F06253FB57200B564F8 /* HoldPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldPreset.swift; sourceTree = "<group>"; };
 		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		410358762583FF7C00B4C3A2 /* HeightTickMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightTickMark.swift; sourceTree = "<group>"; };
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
 		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
@@ -297,6 +299,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		410358752583FF4100B4C3A2 /* Height Indicators */ = {
+			isa = PBXGroup;
+			children = (
+				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
+				410358762583FF7C00B4C3A2 /* HeightTickMark.swift */,
+			);
+			path = "Height Indicators";
+			sourceTree = "<group>";
+		};
 		41166132252BA9A80063A68D /* Device Manager Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,13 +360,13 @@
 		416105FC2578714500D87A49 /* Home Views */ = {
 			isa = PBXGroup;
 			children = (
+				416105FD2578726900D87A49 /* Preset Views */,
+				410358752583FF4100B4C3A2 /* Height Indicators */,
 				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
 				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
-				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
-				416105FD2578726900D87A49 /* Preset Views */,
 			);
 			path = "Home Views";
 			sourceTree = "<group>";
@@ -649,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				410358772583FF7C00B4C3A2 /* HeightTickMark.swift in Sources */,
 				41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */,
 				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
@@ -870,7 +882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.16;
+				MARKETING_VERSION = 1.17;
 				PRODUCT_BUNDLE_IDENTIFIER = iMovR.test.001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -893,7 +905,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.16;
+				MARKETING_VERSION = 1.17;
 				PRODUCT_BUNDLE_IDENTIFIER = iMovR.test.001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
