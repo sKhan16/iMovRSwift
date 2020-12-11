@@ -11,16 +11,9 @@ import SwiftUI
 
 
 struct DevicePicker: View {
-    @State var index: Int = 0
+    @State private var index: Int = 0
     @ObservedObject var deviceData: DeviceDataManager
-//    @Binding var isConnected: Bool = Binding<Bool>(
-//        get: {
-//            if let connected: Int = deviceData.connectedDeskIndex {
-//                return (self.index == connected)
-//            } else { return false }
-//        },
-//        set: { $0 } // Read-Only Binding
-//    )
+    @EnvironmentObject var bt: DeviceBluetoothManager
     
     
     init(deviceData: DeviceDataManager) {
@@ -38,9 +31,47 @@ struct DevicePicker: View {
         self.deviceData = tempData
     }
     
+    
     var body: some View {
+        
+        // used by DevicePicker to change the connected device-
+        // -and update the local display index
+        let autoconnectBinding = Binding<Int> (
+            get: {
+                return self.index
+            },
+            set: { newValue in
+                self.index = newValue
+                let connected: Int? = self.deviceData.connectedDeskIndex
+                let devices: [Desk] = self.deviceData.savedDevices
+                if connected == nil {
+                    //                    var autoconnectDevices: [Desk] = []
+                    //                    for device in devices {
+                    //                        if device.peripheral != nil {
+                    //                            bt.connectToDevice(device: <#T##Desk#>, savedIndex: <#T##Int#>)
+                    //                        }
+                    //                    }
+                }
+                else if connected == self.index {
+                    if devices[connected!].peripheral?.state != .connected {
+                        print("DevicePicker connecting to device")
+                        guard bt.connectToDevice(device: devices[connected!], savedIndex: connected!) else {
+                            print("DevicePicker ")
+                        }
+                    }
+                }
+                else if self.index != connected { // connect to the newly selected device
+                    print("DevicePicker connecting to device")
+                    guard bt.connectToDevice(device: devices[self.index], savedIndex: self.index) else {
+                        print("DevicePicker ")
+                    }
+                }
+            }//end set
+        )//end binding
+        
+        
             HStack {
-                PickerLeft(index: $index, devices: $deviceData.savedDevices)
+                PickerLeft(index: autoconnectBinding, devices: $deviceData.savedDevices)
                     .frame(width: 50, height: 80)
                 Spacer()
                 
@@ -67,7 +98,7 @@ struct DevicePicker: View {
                 }
                 
                 Spacer()
-                PickerRight(index: $index, devices: $deviceData.savedDevices)
+                PickerRight(index: autoconnectBinding, devices: $deviceData.savedDevices)
                     .frame(width: 50, height: 80)
             }
             .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)

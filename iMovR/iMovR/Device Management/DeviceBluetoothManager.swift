@@ -144,37 +144,41 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         return true
     }
     
-    func rediscoverDevice(device: Desk) {
-    //MARK: initialize self.zipdesk here
-
-        print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk.getDesk().name))")
-        guard self.zipdesk.getDesk().id > 0 else {//fixxxxxxxxx
-            print("invalid deskID stored, or user hasn't input deskID yet")
-            self.connStatus = .error
-            return
-        }
-        guard self.bluetoothReadyFlag else {
-            print("bluetooth not ready yet")
-            self.connStatus = .disabled
-            return
-        }
-// disconnect if needed to connect to a different desk
-        if self.isDeskConnected {
-            print("disconnecting from connected desk")
-            self.isDeskConnected = false
-            
-            if let peripheral: CBPeripheral = self.zipdesk.getPeripheral() {
-                centralManager?.cancelPeripheralConnection(peripheral)
-            } else {
-                print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
-            }
-        }
+    func autoconnectToDevice(...) {
         
-        print("Scanning for peripherals with service: \(ZGoServiceUUID)")
-        self.connStatus = .scanning
-        // BT is on, targeted current desk is set, now scan for peripherals that match the CBUUID
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
+    
+//    func rediscoverDevice(device: Desk) {
+//    //MARK: initialize self.zipdesk here
+//
+//        print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk.getDesk().name))")
+//        guard self.zipdesk.getDesk().id > 0 else {//fixxxxxxxxx
+//            print("invalid deskID stored, or user hasn't input deskID yet")
+//            self.connStatus = .error
+//            return
+//        }
+//        guard self.bluetoothReadyFlag else {
+//            print("bluetooth not ready yet")
+//            self.connStatus = .disabled
+//            return
+//        }
+//// disconnect if needed to connect to a different desk
+//        if self.isDeskConnected {
+//            print("disconnecting from connected desk")
+//            self.isDeskConnected = false
+//
+//            if let peripheral: CBPeripheral = self.zipdesk.getPeripheral() {
+//                centralManager?.cancelPeripheralConnection(peripheral)
+//            } else {
+//                print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
+//            }
+//        }
+//
+//        print("Scanning for peripherals with service: \(ZGoServiceUUID)")
+//        self.connStatus = .scanning
+//        // BT is on, targeted current desk is set, now scan for peripherals that match the CBUUID
+//        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
+//    }
     
     
     
