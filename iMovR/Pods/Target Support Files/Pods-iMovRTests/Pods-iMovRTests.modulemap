@@ -1,6 +1,0 @@
-framework module Pods_iMovRTests {
-  umbrella header "Pods-iMovRTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

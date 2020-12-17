@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PresetModule: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
-    @State var isPaged: Bool = false
+    @Binding var isPaged: Bool
     @Binding var showAddPreset: [Bool]
     @Binding var isTouchGo: Bool
     @Binding var showPresetPopup: Bool
@@ -90,7 +90,7 @@ struct PresetModule_Previews: PreviewProvider {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 PresetModule(
-                    isPaged: false,
+                    isPaged: .constant(false),
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
                     isTouchGo: .constant(true),
                     showPresetPopup: .constant(false),
@@ -103,7 +103,7 @@ struct PresetModule_Previews: PreviewProvider {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 PresetModule(
-                    isPaged: false,
+                    isPaged: .constant(false),
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
                     isTouchGo: .constant(true),
                     showPresetPopup: .constant(false),

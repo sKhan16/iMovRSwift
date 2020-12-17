@@ -17,8 +17,6 @@
 		1E23016024BCEB39009A0B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E23015F24BCEB39009A0B3C /* Assets.xcassets */; };
 		1E23016324BCEB39009A0B3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E23016224BCEB39009A0B3C /* Preview Assets.xcassets */; };
 		1E23016624BCEB39009A0B3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E23016424BCEB39009A0B3C /* LaunchScreen.storyboard */; };
-		1E23017124BCEB3A009A0B3C /* iMovRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017024BCEB3A009A0B3C /* iMovRTests.swift */; };
-		1E23017C24BCEB3A009A0B3C /* iMovRUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */; };
 		1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E31FFD424DA4A6100E9913F /* Desk.swift */; };
 		1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */; };
 		1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E94E1E424C0F72800155123 /* PresetButton.swift */; };
@@ -41,6 +39,7 @@
 		1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60ED7253A310000B564F8 /* MovementButton.swift */; };
 		1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */; };
 		1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60F06253FB57200B564F8 /* HoldPreset.swift */; };
+		410358772583FF7C00B4C3A2 /* HeightTickMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410358762583FF7C00B4C3A2 /* HeightTickMark.swift */; };
 		41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41166133252BA9F80063A68D /* DeviceManagerView.swift */; };
 		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
 		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
@@ -58,30 +57,10 @@
 		41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */; };
 		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
-		63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
-		BA86BF78F4DFD11A4E11CE19 /* Pods_iMovRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EF5AA32B191B376E8A0011 /* Pods_iMovRTests.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1E23016D24BCEB3A009A0B3C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1E23014B24BCEB35009A0B3C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1E23015224BCEB35009A0B3C;
-			remoteInfo = iMovR;
-		};
-		1E23017824BCEB3A009A0B3C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1E23014B24BCEB35009A0B3C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1E23015224BCEB35009A0B3C;
-			remoteInfo = iMovR;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		17EF5AA32B191B376E8A0011 /* Pods_iMovRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E21EFC524C8E869008BDE9A /* Subview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subview.swift; sourceTree = "<group>"; };
 		1E21EFC724C8FF37008BDE9A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		1E21EFC924C8FFC0008BDE9A /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
@@ -94,12 +73,6 @@
 		1E23016224BCEB39009A0B3C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1E23016524BCEB39009A0B3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E23016724BCEB39009A0B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E23016C24BCEB3A009A0B3C /* iMovRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iMovRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E23017024BCEB3A009A0B3C /* iMovRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMovRTests.swift; sourceTree = "<group>"; };
-		1E23017224BCEB3A009A0B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E23017724BCEB3A009A0B3C /* iMovRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iMovRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMovRUITests.swift; sourceTree = "<group>"; };
-		1E23017D24BCEB3A009A0B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E31FFD424DA4A6100E9913F /* Desk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Desk.swift; sourceTree = "<group>"; };
 		1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		1E94E1E424C0F72800155123 /* PresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetButton.swift; sourceTree = "<group>"; };
@@ -119,11 +92,10 @@
 		1EAA5CE6253579E400A471E2 /* PresetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetModule.swift; sourceTree = "<group>"; };
 		1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePresetButton.swift; sourceTree = "<group>"; };
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
-		1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.release.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1EE60ED7253A310000B564F8 /* MovementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementButton.swift; sourceTree = "<group>"; };
 		1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditButton.swift; sourceTree = "<group>"; };
 		1EE60F06253FB57200B564F8 /* HoldPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldPreset.swift; sourceTree = "<group>"; };
-		385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		410358762583FF7C00B4C3A2 /* HeightTickMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightTickMark.swift; sourceTree = "<group>"; };
 		41166133252BA9F80063A68D /* DeviceManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagerView.swift; sourceTree = "<group>"; };
 		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
@@ -142,10 +114,7 @@
 		41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
-		56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovRTests.release.xcconfig"; path = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.release.xcconfig"; sourceTree = "<group>"; };
 		893E3CBD5644BA439014A61E /* Pods-iMovR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.debug.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.debug.xcconfig"; sourceTree = "<group>"; };
-		9FD23769F24AD847D22803F6 /* Pods-iMovR-iMovRUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR-iMovRUITests.debug.xcconfig"; path = "Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D179C6E351A00E6EE7A51012 /* Pods-iMovRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovRTests.debug.xcconfig"; path = "Target Support Files/Pods-iMovRTests/Pods-iMovRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -155,22 +124,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E23016924BCEB3A009A0B3C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BA86BF78F4DFD11A4E11CE19 /* Pods_iMovRTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E23017424BCEB3A009A0B3C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63D55FE870D210236453CE40 /* Pods_iMovR_iMovRUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,8 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				1E23015524BCEB35009A0B3C /* iMovR */,
-				1E23016F24BCEB3A009A0B3C /* iMovRTests */,
-				1E23017A24BCEB3A009A0B3C /* iMovRUITests */,
 				1E23015424BCEB35009A0B3C /* Products */,
 				28B22DFC3619A951708A72C1 /* Pods */,
 				7F07244DFABD274366A726AB /* Frameworks */,
@@ -204,8 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				1E23015324BCEB35009A0B3C /* iMovR.app */,
-				1E23016C24BCEB3A009A0B3C /* iMovRTests.xctest */,
-				1E23017724BCEB3A009A0B3C /* iMovRUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,24 +186,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		1E23016F24BCEB3A009A0B3C /* iMovRTests */ = {
-			isa = PBXGroup;
-			children = (
-				1E23017024BCEB3A009A0B3C /* iMovRTests.swift */,
-				1E23017224BCEB3A009A0B3C /* Info.plist */,
-			);
-			path = iMovRTests;
-			sourceTree = "<group>";
-		};
-		1E23017A24BCEB3A009A0B3C /* iMovRUITests */ = {
-			isa = PBXGroup;
-			children = (
-				1E23017B24BCEB3A009A0B3C /* iMovRUITests.swift */,
-				1E23017D24BCEB3A009A0B3C /* Info.plist */,
-			);
-			path = iMovRUITests;
-			sourceTree = "<group>";
-		};
 		1E94E1E624C12B6E00155123 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,11 +201,11 @@
 		1EAA5CB22534ED2D00A471E2 /* Preset Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				1E94E1E424C0F72800155123 /* PresetButton.swift */,
 				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
 				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
 				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
 				41F306A025461A0B0008F62B /* TouchPreset.swift */,
-				1E94E1E424C0F72800155123 /* PresetButton.swift */,
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
 				1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */,
 				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
@@ -289,12 +220,17 @@
 			children = (
 				893E3CBD5644BA439014A61E /* Pods-iMovR.debug.xcconfig */,
 				47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */,
-				9FD23769F24AD847D22803F6 /* Pods-iMovR-iMovRUITests.debug.xcconfig */,
-				1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */,
-				D179C6E351A00E6EE7A51012 /* Pods-iMovRTests.debug.xcconfig */,
-				56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		410358752583FF4100B4C3A2 /* Height Indicators */ = {
+			isa = PBXGroup;
+			children = (
+				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
+				410358762583FF7C00B4C3A2 /* HeightTickMark.swift */,
+			);
+			path = "Height Indicators";
 			sourceTree = "<group>";
 		};
 		41166132252BA9A80063A68D /* Device Manager Views */ = {
@@ -349,13 +285,13 @@
 		416105FC2578714500D87A49 /* Home Views */ = {
 			isa = PBXGroup;
 			children = (
+				416105FD2578726900D87A49 /* Preset Views */,
+				410358752583FF4100B4C3A2 /* Height Indicators */,
 				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
 				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
-				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
-				416105FD2578726900D87A49 /* Preset Views */,
 			);
 			path = "Home Views";
 			sourceTree = "<group>";
@@ -403,8 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */,
-				385592C126C7A41E2FAF3325 /* Pods_iMovR_iMovRUITests.framework */,
-				17EF5AA32B191B376E8A0011 /* Pods_iMovRTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -431,45 +365,6 @@
 			productReference = 1E23015324BCEB35009A0B3C /* iMovR.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1E23016B24BCEB3A009A0B3C /* iMovRTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1E23018324BCEB3A009A0B3C /* Build configuration list for PBXNativeTarget "iMovRTests" */;
-			buildPhases = (
-				AF46D2852C22BDFF114643A7 /* [CP] Check Pods Manifest.lock */,
-				1E23016824BCEB3A009A0B3C /* Sources */,
-				1E23016924BCEB3A009A0B3C /* Frameworks */,
-				1E23016A24BCEB3A009A0B3C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1E23016E24BCEB3A009A0B3C /* PBXTargetDependency */,
-			);
-			name = iMovRTests;
-			productName = iMovRTests;
-			productReference = 1E23016C24BCEB3A009A0B3C /* iMovRTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1E23017624BCEB3A009A0B3C /* iMovRUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1E23018624BCEB3A009A0B3C /* Build configuration list for PBXNativeTarget "iMovRUITests" */;
-			buildPhases = (
-				D3D13F1EC6E49A87E974A420 /* [CP] Check Pods Manifest.lock */,
-				1E23017324BCEB3A009A0B3C /* Sources */,
-				1E23017424BCEB3A009A0B3C /* Frameworks */,
-				1E23017524BCEB3A009A0B3C /* Resources */,
-				1A9EE7CEEFF9A4A752E2935B /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1E23017924BCEB3A009A0B3C /* PBXTargetDependency */,
-			);
-			name = iMovRUITests;
-			productName = iMovRUITests;
-			productReference = 1E23017724BCEB3A009A0B3C /* iMovRUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -482,14 +377,6 @@
 				TargetAttributes = {
 					1E23015224BCEB35009A0B3C = {
 						CreatedOnToolsVersion = 11.5;
-					};
-					1E23016B24BCEB3A009A0B3C = {
-						CreatedOnToolsVersion = 11.5;
-						TestTargetID = 1E23015224BCEB35009A0B3C;
-					};
-					1E23017624BCEB3A009A0B3C = {
-						CreatedOnToolsVersion = 11.5;
-						TestTargetID = 1E23015224BCEB35009A0B3C;
 					};
 				};
 			};
@@ -507,8 +394,6 @@
 			projectRoot = "";
 			targets = (
 				1E23015224BCEB35009A0B3C /* iMovR */,
-				1E23016B24BCEB3A009A0B3C /* iMovRTests */,
-				1E23017624BCEB3A009A0B3C /* iMovRUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -522,20 +407,6 @@
 				1EAA5C87252BC4D200A471E2 /* Colors.xcassets in Resources */,
 				1E23016324BCEB39009A0B3C /* Preview Assets.xcassets in Resources */,
 				1E23016024BCEB39009A0B3C /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E23016A24BCEB3A009A0B3C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E23017524BCEB3A009A0B3C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,23 +435,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1A9EE7CEEFF9A4A752E2935B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iMovR-iMovRUITests/Pods-iMovR-iMovRUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		91FF2CA382127EF4342E16C7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -598,50 +452,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iMovR/Pods-iMovR-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AF46D2852C22BDFF114643A7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iMovRTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3D13F1EC6E49A87E974A420 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iMovR-iMovRUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -649,6 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				410358772583FF7C00B4C3A2 /* HeightTickMark.swift in Sources */,
 				41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */,
 				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
@@ -697,36 +508,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1E23016824BCEB3A009A0B3C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E23017124BCEB3A009A0B3C /* iMovRTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E23017324BCEB3A009A0B3C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E23017C24BCEB3A009A0B3C /* iMovRUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1E23016E24BCEB3A009A0B3C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1E23015224BCEB35009A0B3C /* iMovR */;
-			targetProxy = 1E23016D24BCEB3A009A0B3C /* PBXContainerItemProxy */;
-		};
-		1E23017924BCEB3A009A0B3C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1E23015224BCEB35009A0B3C /* iMovR */;
-			targetProxy = 1E23017824BCEB3A009A0B3C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1E23016424BCEB39009A0B3C /* LaunchScreen.storyboard */ = {
@@ -870,7 +652,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.16;
+				MARKETING_VERSION = 1.17;
 				PRODUCT_BUNDLE_IDENTIFIER = iMovR.test.001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -893,100 +675,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.16;
+				MARKETING_VERSION = 1.17;
 				PRODUCT_BUNDLE_IDENTIFIER = iMovR.test.001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		1E23018424BCEB3A009A0B3C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D179C6E351A00E6EE7A51012 /* Pods-iMovRTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M25MU7D9NY;
-				INFOPLIST_FILE = iMovRTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR.iMovRTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMovR.app/iMovR";
-			};
-			name = Debug;
-		};
-		1E23018524BCEB3A009A0B3C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56EEE8ED04416F7D2144F99F /* Pods-iMovRTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M25MU7D9NY;
-				INFOPLIST_FILE = iMovRTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR.iMovRTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMovR.app/iMovR";
-			};
-			name = Release;
-		};
-		1E23018724BCEB3A009A0B3C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FD23769F24AD847D22803F6 /* Pods-iMovR-iMovRUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M25MU7D9NY;
-				INFOPLIST_FILE = iMovRUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR.iMovRUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iMovR;
-			};
-			name = Debug;
-		};
-		1E23018824BCEB3A009A0B3C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EE1B6B0AF799A8AFAD456D8 /* Pods-iMovR-iMovRUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M25MU7D9NY;
-				INFOPLIST_FILE = iMovRUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = iMovR.iMovRUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iMovR;
 			};
 			name = Release;
 		};
@@ -1007,24 +701,6 @@
 			buildConfigurations = (
 				1E23018124BCEB3A009A0B3C /* Debug */,
 				1E23018224BCEB3A009A0B3C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1E23018324BCEB3A009A0B3C /* Build configuration list for PBXNativeTarget "iMovRTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1E23018424BCEB3A009A0B3C /* Debug */,
-				1E23018524BCEB3A009A0B3C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1E23018624BCEB3A009A0B3C /* Build configuration list for PBXNativeTarget "iMovRUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1E23018724BCEB3A009A0B3C /* Debug */,
-				1E23018824BCEB3A009A0B3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

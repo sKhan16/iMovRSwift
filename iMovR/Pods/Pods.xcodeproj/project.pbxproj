@@ -9,13 +9,9 @@
 /* Begin PBXBuildFile section */
 		035854F8763C412005535A35EBEB9E50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		18EF57466FE8A7790FC0230B47A7A8D8 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461945EDE87DFD7CDD4F5126154AF88 /* PopupView.swift */; };
-		1E2C2540AE76FBFDB99C670BEFDFD781 /* Pods-iMovR-iMovRUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C731617BED0A9795D124A03482CB10AB /* Pods-iMovR-iMovRUITests-dummy.m */; };
 		237E0DCED8983050ADD62763C483EB8F /* ExytePopupView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B74E9B3E65E6233A5CA23C355F03E /* ExytePopupView-dummy.m */; };
 		3EC761B8E245A00630C0CB80EBCEC9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		3F096DDE785AF21ABB87EF49C90C7CB5 /* Pods-iMovRTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A487D07CC05B9E9D4ACB39AE9A812D /* Pods-iMovRTests-dummy.m */; };
-		401402569866CEBE2E1DC846C8F7A0E4 /* Pods-iMovRTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E361DDDC2FF1845BD094B1D034B9AC8 /* Pods-iMovRTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AF847D7C228AF374D4496F011B7A89E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		675C868D633F7965651A609374564ED9 /* Pods-iMovR-iMovRUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EFAA17393FBAA7A868E7BC4B97F6EE /* Pods-iMovR-iMovRUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		97AA28E7AA5B2B0E6A9F1C28E5A0591D /* ExytePopupView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 564A6452FC120F89437DC8F4B10CAEBB /* ExytePopupView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A4C4819FBD118C6B0BB437E4BDAE1432 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		D6F4C527C4356AE0726E25158FB536B0 /* Pods-iMovR-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CADD1A4537028EA7AB8EFFDD7C2343E0 /* Pods-iMovR-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,10 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		005813270722ACBF3CF32945F7F1F067 /* Pods-iMovR-iMovRUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iMovR-iMovRUITests-Info.plist"; sourceTree = "<group>"; };
 		04BBC764AB881458DE3E070157A24CB5 /* Pods-iMovR-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iMovR-Info.plist"; sourceTree = "<group>"; };
-		082D96D9513749371A83C16ED773305E /* Pods-iMovR-iMovRUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iMovR-iMovRUITests.modulemap"; sourceTree = "<group>"; };
-		154401761B1AC81BA6EC0FCE6649687B /* Pods-iMovRTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iMovRTests.modulemap"; sourceTree = "<group>"; };
 		19C254E5D91124F91262F25087AD1E6B /* ExytePopupView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ExytePopupView.release.xcconfig; sourceTree = "<group>"; };
 		228B0E9319DCB6F92D168576441C5F00 /* ExytePopupView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ExytePopupView.modulemap; sourceTree = "<group>"; };
 		2DB1A83B93689ECD023C1B20E39958EA /* Pods-iMovR.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iMovR.modulemap"; sourceTree = "<group>"; };
@@ -59,34 +52,20 @@
 		369D4EA999578C660BA833D41E2B0A93 /* Pods-iMovR-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iMovR-acknowledgements.markdown"; sourceTree = "<group>"; };
 		46DD59DE759324C7920A8447CD4B0D72 /* ExytePopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExytePopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB2BCDBD48607355F606CC57DC25A7A /* Pods_iMovR_iMovRUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR_iMovRUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		55EFAA17393FBAA7A868E7BC4B97F6EE /* Pods-iMovR-iMovRUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iMovR-iMovRUITests-umbrella.h"; sourceTree = "<group>"; };
 		564A6452FC120F89437DC8F4B10CAEBB /* ExytePopupView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ExytePopupView-umbrella.h"; sourceTree = "<group>"; };
-		5B0B843F143B1910566B30DC2F3FD886 /* Pods-iMovRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iMovRTests.release.xcconfig"; sourceTree = "<group>"; };
-		639EE595B438D160B98C9F53CF62BDE5 /* Pods-iMovRTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iMovRTests-Info.plist"; sourceTree = "<group>"; };
 		63BE42F24599ED0A2AD982694C7448D5 /* Pods_iMovR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AACF2BDEFE5ADEBBF4D3AC60A5F9F1B /* Pods-iMovRTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iMovRTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		7370DF63617301E2D7B4A37D45C1EC67 /* Pods-iMovR-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iMovR-acknowledgements.plist"; sourceTree = "<group>"; };
 		7461945EDE87DFD7CDD4F5126154AF88 /* PopupView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = Source/PopupView.swift; sourceTree = "<group>"; };
-		8E361DDDC2FF1845BD094B1D034B9AC8 /* Pods-iMovRTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iMovRTests-umbrella.h"; sourceTree = "<group>"; };
 		90361829CE8CDA16BCA77D4682646D6D /* ExytePopupView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ExytePopupView-Info.plist"; sourceTree = "<group>"; };
-		91FD39780E756C77D8C3AF647957B390 /* Pods-iMovR-iMovRUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iMovR-iMovRUITests-frameworks.sh"; sourceTree = "<group>"; };
-		97927403CD7ACCB10F33A8076DB21444 /* Pods-iMovR-iMovRUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iMovR-iMovRUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9A12F86D042591B1544A9C821B3C8BE3 /* Pods_iMovRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A3545CD09A370BBB595B7F58DF8FE6EF /* Pods-iMovR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iMovR.debug.xcconfig"; sourceTree = "<group>"; };
-		A98B7EA5538BC3F4888282E86704A20F /* Pods-iMovR-iMovRUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iMovR-iMovRUITests-acknowledgements.plist"; sourceTree = "<group>"; };
-		C731617BED0A9795D124A03482CB10AB /* Pods-iMovR-iMovRUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iMovR-iMovRUITests-dummy.m"; sourceTree = "<group>"; };
 		CADD1A4537028EA7AB8EFFDD7C2343E0 /* Pods-iMovR-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iMovR-umbrella.h"; sourceTree = "<group>"; };
 		CB9C7E6E83D8753D383A6462FA37DEC9 /* ExytePopupView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ExytePopupView.debug.xcconfig; sourceTree = "<group>"; };
 		CDD681185B32D82BB26FC7343BC72E96 /* Pods-iMovR-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iMovR-dummy.m"; sourceTree = "<group>"; };
-		D172C817C086B434D0F1B2463273B567 /* Pods-iMovR-iMovRUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iMovR-iMovRUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D2AF0E55B16994B1AFCA46D00B47F7A8 /* Pods-iMovRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iMovRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DDE07E909D3D9A192AFC876D1B584378 /* Pods-iMovR-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iMovR-frameworks.sh"; sourceTree = "<group>"; };
 		F85995E19E0D544648895D9CB376C974 /* ExytePopupView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ExytePopupView-prefix.pch"; sourceTree = "<group>"; };
 		F8659848247D76F45C12B42F64742CC8 /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
-		F8A487D07CC05B9E9D4ACB39AE9A812D /* Pods-iMovRTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iMovRTests-dummy.m"; sourceTree = "<group>"; };
-		FD3FF68D3908EF10C40927DB1078E690 /* Pods-iMovRTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iMovRTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		FD4E806AB529751408C1540464E2F768 /* Pods-iMovR-iMovRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iMovR-iMovRUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,45 +147,10 @@
 			path = ExytePopupView;
 			sourceTree = "<group>";
 		};
-		970B7784C1F428B319FEF37CA4769952 /* Pods-iMovR-iMovRUITests */ = {
-			isa = PBXGroup;
-			children = (
-				082D96D9513749371A83C16ED773305E /* Pods-iMovR-iMovRUITests.modulemap */,
-				97927403CD7ACCB10F33A8076DB21444 /* Pods-iMovR-iMovRUITests-acknowledgements.markdown */,
-				A98B7EA5538BC3F4888282E86704A20F /* Pods-iMovR-iMovRUITests-acknowledgements.plist */,
-				C731617BED0A9795D124A03482CB10AB /* Pods-iMovR-iMovRUITests-dummy.m */,
-				91FD39780E756C77D8C3AF647957B390 /* Pods-iMovR-iMovRUITests-frameworks.sh */,
-				005813270722ACBF3CF32945F7F1F067 /* Pods-iMovR-iMovRUITests-Info.plist */,
-				55EFAA17393FBAA7A868E7BC4B97F6EE /* Pods-iMovR-iMovRUITests-umbrella.h */,
-				D172C817C086B434D0F1B2463273B567 /* Pods-iMovR-iMovRUITests.debug.xcconfig */,
-				FD4E806AB529751408C1540464E2F768 /* Pods-iMovR-iMovRUITests.release.xcconfig */,
-			);
-			name = "Pods-iMovR-iMovRUITests";
-			path = "Target Support Files/Pods-iMovR-iMovRUITests";
-			sourceTree = "<group>";
-		};
-		A193A25BD7ABF7A521D11320C56F99DA /* Pods-iMovRTests */ = {
-			isa = PBXGroup;
-			children = (
-				154401761B1AC81BA6EC0FCE6649687B /* Pods-iMovRTests.modulemap */,
-				6AACF2BDEFE5ADEBBF4D3AC60A5F9F1B /* Pods-iMovRTests-acknowledgements.markdown */,
-				FD3FF68D3908EF10C40927DB1078E690 /* Pods-iMovRTests-acknowledgements.plist */,
-				F8A487D07CC05B9E9D4ACB39AE9A812D /* Pods-iMovRTests-dummy.m */,
-				639EE595B438D160B98C9F53CF62BDE5 /* Pods-iMovRTests-Info.plist */,
-				8E361DDDC2FF1845BD094B1D034B9AC8 /* Pods-iMovRTests-umbrella.h */,
-				D2AF0E55B16994B1AFCA46D00B47F7A8 /* Pods-iMovRTests.debug.xcconfig */,
-				5B0B843F143B1910566B30DC2F3FD886 /* Pods-iMovRTests.release.xcconfig */,
-			);
-			name = "Pods-iMovRTests";
-			path = "Target Support Files/Pods-iMovRTests";
-			sourceTree = "<group>";
-		};
 		BFFD0D5ACDED07DDCDEB88C1ACDA9F97 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
 				E8DFB6DAC65449501464662D7C65B471 /* Pods-iMovR */,
-				970B7784C1F428B319FEF37CA4769952 /* Pods-iMovR-iMovRUITests */,
-				A193A25BD7ABF7A521D11320C56F99DA /* Pods-iMovRTests */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -262,7 +206,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401402569866CEBE2E1DC846C8F7A0E4 /* Pods-iMovRTests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +221,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675C868D633F7965651A609374564ED9 /* Pods-iMovR-iMovRUITests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,7 +376,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F096DDE785AF21ABB87EF49C90C7CB5 /* Pods-iMovRTests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +383,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E2C2540AE76FBFDB99C670BEFDFD781 /* Pods-iMovR-iMovRUITests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +511,6 @@
 		};
 		431017B7B23DDDD10946B572D34D2F35 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2AF0E55B16994B1AFCA46D00B47F7A8 /* Pods-iMovRTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -649,7 +588,6 @@
 		};
 		5F8E3E65EF443F54CEBE9D16279CA17F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD4E806AB529751408C1540464E2F768 /* Pods-iMovR-iMovRUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -732,7 +670,6 @@
 		};
 		C0890F32F79D01532D82D033FFA0ACC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D172C817C086B434D0F1B2463273B567 /* Pods-iMovR-iMovRUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -771,7 +708,6 @@
 		};
 		D5E8C6B0F1CCE41D236C7F3C72088F9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B0B843F143B1910566B30DC2F3FD886 /* Pods-iMovRTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
