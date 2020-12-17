@@ -27,7 +27,7 @@ struct PresetButton: View {
             let currDesk: Desk? = data.savedDevices[deskIndex]
             let height: Float? = currDesk?.presetHeights[self.index]
             
-            if height != nil, height! > -1 {
+            if height != nil, height! > -1.0 {
                 
                 let heightBinding = Binding<Float> (
                     get: { height! },
