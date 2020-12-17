@@ -46,30 +46,28 @@ struct HeightSliderV2: View {
                 }
                 
                 // HeightTickMark preset indicators
-                if let deskIndex: Int = deviceData.connectedDeskIndex {
-                    let currDeskPresets = deviceData.savedDevices[deskIndex].presetHeights
-                    
-                    ForEach(0...5, id: \.self) { index in
-                        if (!isPaged && index <= 2) || (isPaged && index >= 3) {
+                if let deskIndex: Int = deviceData.connectedDeskIndex,
+                let currDeskPresets = deviceData.savedDevices[deskIndex].presetHeights
+                {
+                    ForEach(0...5, id: \.self)
+                    { index in
+                        if (!isPaged && index <= 2) || (isPaged && index >= 3)
+                        {
                             let normPresetH = CGFloat( (currDeskPresets[index]-zipdeskUI.minHeight)/(zipdeskUI.maxHeight-zipdeskUI.minHeight))
-                            
-                            HeightTickMark(
-                                height: Binding<Float> (
+                            HeightTickMark (
+                                height: Binding<Float>(
                                     get: { currDeskPresets[index] },
-                                    set: { _ in } )
-                            )
-                            .offset (
-                            x: 25,
-                            y: 10 - min(normPresetH*geometry.size.height, geometry.size.height)
-                            )
+                                    set: { _ in } ) )
+                                .offset(
+                                x: 25,
+                                y: 10 - min(normPresetH*geometry.size.height, geometry.size.height))
                         }
                     }
-                }
+                }//end preset tick marks
+                
             }//end top-level ZStack
             
-            
         }//end GeoReader
-        
         
     }//end body
 }

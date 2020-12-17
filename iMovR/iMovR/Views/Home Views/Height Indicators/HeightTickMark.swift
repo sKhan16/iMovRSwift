@@ -26,7 +26,7 @@ struct HeightTickMark: View {
                     //.shadow(radius: 5)
                     .foregroundColor(ColorManager.preset)
                     
-                Text(String(height))
+                Text(String(format: "%.1f", height))
                     .font(Font.caption.bold())
                     .foregroundColor(ColorManager.gray)
                     .offset(x: 23)
