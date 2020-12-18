@@ -11,6 +11,7 @@ import SwiftUI
 struct MorePresetButton: View {
     
     @Binding var isPaged: Bool
+    @State private var fadeOut: Bool = false
     
     var body: some View {
         Button(action: {
@@ -19,14 +20,11 @@ struct MorePresetButton: View {
             VStack {
                 ZStack {
                     Circle()
-                        //.resizable()
-                        //.stroke(Color.black, lineWidth: 3)
-                        //.background(Circle().foregroundColor(ColorManager.preset))
                         .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
-                    Image(systemName: "ellipsis")
+                    Image(systemName: isPaged ? "arrowshape.turn.up.left.fill" : "arrowshape.turn.up.right.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 40, height: 10)
+                        .frame(width: 45)//,height: 10)
                         .foregroundColor(Color.white)
                 }
             }

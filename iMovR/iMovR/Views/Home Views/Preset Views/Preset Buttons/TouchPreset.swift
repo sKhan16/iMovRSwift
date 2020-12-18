@@ -27,15 +27,13 @@ struct TouchPreset: View {
                 timer.invalidate()
             }
         }) {
-            VStack {
-                ZStack {
-                    Circle()
-                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
-                    Text(String(format: "%.1f", presetHeight))
-                        .frame(minWidth: 70, idealWidth: 75, maxWidth: 75, minHeight: 70, idealHeight: 75, maxHeight: 75)
-                        .font(.largeTitle)
-                        .foregroundColor(Color.white)
-                }
+            ZStack {
+                Circle()
+                    .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                Text(String(format: "%.1f", presetHeight))
+                    .frame(minWidth: 70, idealWidth: 75, maxWidth: 75, minHeight: 70, idealHeight: 75, maxHeight: 75)
+                    .font(.largeTitle)
+                    .foregroundColor(Color.white)
             }
             .foregroundColor(ColorManager.preset)
         }//end Button
