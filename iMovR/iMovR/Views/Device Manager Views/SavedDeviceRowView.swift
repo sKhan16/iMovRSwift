@@ -17,9 +17,9 @@ struct SavedDeviceRowView: View {
     let deviceIndex: Int
     
     let testSavedDevices: [Desk] = [
-        Desk(name: "Main Office Desk", deskID: 10009810, presetHeights:[], presetNames: []),
-        Desk(name: "Treadmill Home Office ", deskID: 54810, presetHeights:[], presetNames: []),
-        Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [])
+        Desk(name: "Main Office Desk", deskID: 10009810, presetHeights:[], presetNames: [], isLastConnected: true),
+        Desk(name: "Treadmill Home Office ", deskID: 54810, presetHeights:[], presetNames: [], isLastConnected: false),
+        Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [], isLastConnected: false)
     ]
     
     var body: some View {
