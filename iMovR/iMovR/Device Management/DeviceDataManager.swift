@@ -188,6 +188,34 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
+    func setLastConnectedDesk (desk: Desk) {
+        
+        guard let thisDeskData: ZipDeskData = findDeskData(desk: desk) else {
+            print("DeviceDataManager.setLastConnectedDesk error: desk data not found")
+            return
+        }
+        thisDeskData.isLastConnectedTo = true
+
+        for otherDeskData in self.fetchedDevices! {
+            if(otherDeskData.deskID != thisDeskData.deskID) {
+                otherDeskData.isLastConnectedTo = false
+            }
+        }
+        
+        do {
+            try self.context.save()
+            print("desk lastConnected set")
+        } catch {
+            print(error.localizedDescription)
+            print("DeviceDataManager.setLastConnectedDesk error saving desk removal")
+        }
+        if !self.pullPersistentData() {
+            print("DeviceDataManager.setLastConnectedDesk data fetch error")
+        }
+        
+    }
+    
+    
     private func archiveStringArray(array: [String]) -> Data {
         do {                                // this might be the wrong archive fx
             let data = try NSKeyedArchiver.archivedData(withRootObject: array/*Array<String>.self---NSArray.self*/, requiringSecureCoding: false)
