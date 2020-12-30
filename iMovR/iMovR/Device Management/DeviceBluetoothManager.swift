@@ -109,25 +109,30 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
         guard device.peripheral != nil else {
-            print("connectToDevice(..) error: attempted to connect to nil peripheral,\nperipheral expired or not initialized")
+            print("bt.connectToDevice - ERROR: attempted to connect to nil peripheral,\n" +
+                    "peripheral expired or not initialized")
             return false
+        }
+        if device.peripheral?.state == .connected {
+            print("bt.connectToDevice - WARNING: that device is already connected")
         }
         guard self.zipdesk.setDesk(connectedDesk: device) else {
             return false
         }
+        
         print("connecting to device: \(device.name), id:\(device.id)")
-        //DispatchQueue.main.sync { () -> Void in
+            
         self.data.connectedDeskIndex = savedIndex
         self.data.setLastConnectedDesk(desk: device)
-        //}
         
         centralManager?.connect(device.peripheral!)
+        return true
+        
     //MARK: check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
             // continue connection process by initializing ZGoZipDeskController
         // calls centralManager:didFailToConnectPeripheral:error: on failure
         // continue connection process by scanning for the desk again
-        return true
     }
     
     
@@ -321,13 +326,13 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             self.connStatus = .disconnected
             self.isDeskConnected = false
         }
-        print("device disconnected-")
+        print("bt.didDisconnectPeripheral - device disconnected")
         // Unintentional disconnection: attempt to reestablish connection with current desk
         if error != nil {
-            print("desk disconnected with error\nattempting reconnection with current desk")
+            print("desk disconnected with error\nattempting reconnection")
             
             guard self.data.connectedDeskIndex != nil else {
-                print("didDisconnect error: data.connectedDeskIndex == nil")
+                print("bt.didDisconnectPeripheral ERROR: data.connectedDeskIndex == nil")
                 return
             }
             let didReconnect: Bool = self.connectToDevice( device: self.zipdesk.getDesk(),
