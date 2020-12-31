@@ -20,6 +20,9 @@ struct DeviceManagerView: View {
     @State var saveDeviceIndex: Int = -1
     @State private var popupBackgroundBlur: CGFloat = 0
     
+    //popup vars
+    @State var canConnect: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
         ZStack(alignment: .center) {

@@ -72,8 +72,14 @@ private struct ConnectButton: View {
     let deviceIndex: Int
     @Binding var isConnected: Bool
     
+    /// Going to want to a boolean that is saved throughout the app that so this shows up once.
+    @State var canConnect: Bool = false
+    @State var showAlert: Bool = false
+    
     var body: some View {
         Button( action:{
+            self.showAlert = true
+            
             let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
             if isConnected {
                 let didDisconnect: Bool = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
@@ -115,11 +121,23 @@ private struct ConnectButton: View {
                         .frame(height: 40)
                 }
                 
-            }
+            } .alert(isPresented: $showAlert) {
+                Alert(title: Text("Moving your desk via bluetooth could result in injury. iMovR and affiliated are not responsible for any damages that occur. Please press confirm if you agree to these terms"), primaryButton: .default(Text("Confirm")) {
+                    /// Insert code that connects to desk when pressing confirm
+                    if !self.canConnect {
+                        self.canConnect = true
+                    }
+                    if self.canConnect {
+                        print("connection to desk  started")
+
+                        self.canConnect = false
+                    }
+                    },  secondaryButton: .destructive(Text("Cancel")))
+                ///stop connecting to desk OR disconnect from desk when cancel is clicked.
         } //end button
     }//end body
 }//end ConnectButton
-
+}
 
 private struct EditButton: View {
     let deviceIndex: Int
@@ -168,3 +186,4 @@ struct SavedDeviceRowView_Previews: PreviewProvider {
         }
     }
 }
+
