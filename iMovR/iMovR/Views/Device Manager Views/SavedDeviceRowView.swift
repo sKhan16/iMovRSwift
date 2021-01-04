@@ -77,6 +77,10 @@ private struct ConnectButton: View {
             let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
             if isConnected {
                 let didDisconnect: Bool = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
+                if didDisconnect {
+                    //Disables autoreconnect for this device.
+                    self.bt.data.setLastConnectedDesk(desk: thisDevice, disable: true)
+                }
                 print("Device Manager View: disconnect from device \(thisDevice.name) - " +
                         (didDisconnect ? "success" : "fail" ) )
             }

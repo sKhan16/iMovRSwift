@@ -191,7 +191,8 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func setLastConnectedDesk (desk: Desk) {
+    func setLastConnectedDesk (desk: Desk,
+                               disable: Bool = false) {
         guard let thisDeskData: ZipDeskData = findDeskData(desk: desk) else {
             print("DeviceDataManager.setLastConnectedDesk error: desk data not found")
             return

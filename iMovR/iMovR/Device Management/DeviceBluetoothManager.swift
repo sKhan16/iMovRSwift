@@ -267,7 +267,9 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                     // establish autoconnect to device if it was last connected
                     let thisSavedDevice: Desk = self.data.savedDevices[foundIndex]
                     
-                    if thisSavedDevice.isLastConnected {
+                    if thisSavedDevice.isLastConnected,
+                       !self.isDeskConnected,
+                       self.data.connectedDeskIndex == nil {
                         let didConnect = self.connectToDevice(device: thisSavedDevice, savedIndex: foundIndex)
                         print("saved desk autoconnect successful? : \(didConnect)")
                     }
@@ -327,7 +329,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             self.isDeskConnected = false
         }
         print("bt.didDisconnectPeripheral - device disconnected")
-        // Unintentional disconnection: attempt to reestablish connection with current desk
+        // disconnected unintentionally, attempt reconnection once
         if error != nil {
             print("desk disconnected with error\nattempting reconnection")
             
@@ -337,8 +339,15 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             }
             let didReconnect: Bool = self.connectToDevice( device: self.zipdesk.getDesk(),
                                                 savedIndex: self.data.connectedDeskIndex! )
+            if !didReconnect {
+                // if reconnection failed, notify the app UI
+                DispatchQueue.main.async { () -> Void in
+                    self.data.connectedDeskIndex = nil
+                }
+            }
             print( "didDisconnect: reconnection successful? - " + String(didReconnect) )
         } else {
+            // Intentional disconnection
             DispatchQueue.main.async { () -> Void in
                 self.data.connectedDeskIndex = nil
             }
