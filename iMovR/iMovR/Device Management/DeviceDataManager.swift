@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  DeviceDataManager.swift
 //  iMovR
 //
 //  Created by Michael Humphrey on 11/24/20.
@@ -31,6 +31,7 @@ public class DeviceDataManager: ObservableObject {
         }
         print("ZipDeskData successfully retrieved")
     }
+    
     init?(test: Bool) {
         guard test else { return nil }
         savedDevices.append(Desk(name: "test desk", deskID: 12345678,

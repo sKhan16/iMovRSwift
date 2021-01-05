@@ -49,6 +49,8 @@
 		414E7F242547A74B00AA00AD /* DiscoveredDeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */; };
 		414E7F332548D0EC00AA00AD /* SaveDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */; };
 		414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F442548D29200AA00AD /* EditDeviceView.swift */; };
+		415A9D2525A3D75200590292 /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A9D2325A3D75200590292 /* UserData+CoreDataClass.swift */; };
+		415A9D2625A3D75200590292 /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A9D2425A3D75200590292 /* UserData+CoreDataProperties.swift */; };
 		419062492575C45F00D80D57 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419062482575C45F00D80D57 /* AddPresetView.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
@@ -105,6 +107,8 @@
 		414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveredDeviceRowView.swift; sourceTree = "<group>"; };
 		414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeviceView.swift; sourceTree = "<group>"; };
 		414E7F442548D29200AA00AD /* EditDeviceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDeviceView.swift; sourceTree = "<group>"; };
+		415A9D2325A3D75200590292 /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		415A9D2425A3D75200590292 /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		419062482575C45F00D80D57 /* AddPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPresetView.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 		41367058256DB6040051ED8C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				415A9D2325A3D75200590292 /* UserData+CoreDataClass.swift */,
+				415A9D2425A3D75200590292 /* UserData+CoreDataProperties.swift */,
 				41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */,
 				41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */,
 				4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */,
@@ -459,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415A9D2625A3D75200590292 /* UserData+CoreDataProperties.swift in Sources */,
 				410358772583FF7C00B4C3A2 /* HeightTickMark.swift in Sources */,
 				41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */,
 				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
@@ -483,6 +490,7 @@
 				41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
 				1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */,
+				415A9D2525A3D75200590292 /* UserData+CoreDataClass.swift in Sources */,
 				1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */,
 				414E7F332548D0EC00AA00AD /* SaveDeviceView.swift in Sources */,
 				1EAA5CAB252FC97800A471E2 /* HeightSliderV2.swift in Sources */,

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="UserData" representedClassName="UserData" syncable="YES">
+        <attribute name="touchAndGoWaiver" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="treadmillWaiver" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+    </entity>
     <entity name="ZipDeskData" representedClassName=".ZipDeskData" syncable="YES">
         <attribute name="deskID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isLastConnectedTo" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -8,6 +12,7 @@
         <attribute name="presetNames" attributeType="Binary" valueTransformerName="" customClassName="Array&lt;String&gt;"/>
     </entity>
     <elements>
+        <element name="UserData" positionX="-63" positionY="-27" width="128" height="73"/>
         <element name="ZipDeskData" positionX="-63" positionY="-18" width="128" height="28"/>
     </elements>
 </model>
