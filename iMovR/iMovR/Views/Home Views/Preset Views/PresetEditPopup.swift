@@ -13,6 +13,7 @@ struct PresetEditPopup: View {
     
     @Binding var show: Bool
     @Binding var isTouchGo: Bool
+    @Binding var showTNGWarningPopup: Bool
     
     @State var editIndex: Int = -1
     @State var editPresetName: String = ""
@@ -166,7 +167,7 @@ struct PresetEditPopup_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            PresetEditPopup(show: .constant(true), isTouchGo: .constant(true))
+            PresetEditPopup(show: .constant(true), isTouchGo: .constant(true), showTNGWarningPopup: .constant(false))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

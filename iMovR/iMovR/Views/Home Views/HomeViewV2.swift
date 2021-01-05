@@ -10,13 +10,17 @@ import SwiftUI
 
 struct HomeViewV2: View {
     
+    @EnvironmentObject var user: UserDataManager
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var zipdeskUI: ZGoZipDeskController
     @ObservedObject var data: DeviceDataManager
     
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
+    
     @State private var showPresetPopup: Bool = false
+    @State private var showTNGWarningPopup: Bool = false
     @State private var popupBackgroundBlur: CGFloat = 0
+    
     @State private var notMovingTimer: Timer?
     @State private var suppressStopButton: Bool = false
     @State private var isPaged: Bool = false
@@ -28,6 +32,7 @@ struct HomeViewV2: View {
     
     var body: some View {
         GeometryReader { geo in
+            // ZStack for applying popups to the main view
             ZStack(alignment: .center) {
                 VStack {
                     Image("imovrLogo")
@@ -90,9 +95,14 @@ struct HomeViewV2: View {
                 } // end top-level VStack containing homepage main components
                 .blur(radius: popupBackgroundBlur)
                 
+                
                 // Popup for editing saved device properties
                 if (showPresetPopup) {
-                    PresetEditPopup(show: $showPresetPopup, isTouchGo: self.$isTouchGo)
+                    PresetEditPopup (
+                        show: self.$showPresetPopup,
+                        isTouchGo: self.$isTouchGo,
+                        showTNGWarningPopup: self.$showTNGWarningPopup
+                    )
                         .environmentObject(bt)
                         .onAppear() {
                             self.popupBackgroundBlur = 5
@@ -103,6 +113,14 @@ struct HomeViewV2: View {
                             withAnimation(.easeOut(duration: 5),{})
                         }
                 }
+                
+                
+                if showTNGWarningPopup,
+                   !self.user.agreedToZipDeskWaiver {
+                    //placeholder
+                    Text("Moving your desk via bluetooth could result in injury. iMovR and affiliated are not responsible for any damages that occur. Please press confirm if you agree to these terms")
+                }
+                
                 
                 // Popup for Stop Button
                 if (!suppressStopButton && isMoving && isTouchGo) {
