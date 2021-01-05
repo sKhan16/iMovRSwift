@@ -80,7 +80,9 @@ public class DeviceDataManager: ObservableObject {
                 }
             }
         }
+        //DispatchQueue.main.sync { () -> Void in
         self.savedDevices = convertedDevices
+        //}
         return true
     } // end pullPersistentData()
     
@@ -197,7 +199,7 @@ public class DeviceDataManager: ObservableObject {
             print("DeviceDataManager.setLastConnectedDesk error: desk data not found")
             return
         }
-        thisDeskData.isLastConnectedTo = true
+        thisDeskData.isLastConnectedTo = !disable
 
         for otherDeskData in self.fetchedDevices! {
             if(otherDeskData.deskID != thisDeskData.deskID) {
