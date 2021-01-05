@@ -11,23 +11,28 @@
 import Foundation
 import CoreBluetooth
 
-struct Desk: Identifiable { // inherit from Device, make Desk a class, in DeviceBluetoothManager compare&discover Devices instead of Desks
+// future plan: make Desk a class that inherits from Device; in DeviceBluetoothManager compare and discover 'Devices' instead of only 'Desks'
+
+struct Desk: Identifiable {
     
     var name: String
     var id: Int
     var peripheral: CBPeripheral?
     var rssi: NSNumber?
+    var isLastConnected: Bool
+        // Default preset values, unless modified on desk initialization
     var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
     var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
-    var connectionStatus: Bool?
     
-    // DeviceData Manager/CoreData Saved Desk Constructor
-    init(name: String, deskID: Int, presetHeights: [Float], presetNames: [String]) {
+    
+    // DeviceDataManager & CoreData Saved Desk Constructor
+    init(name: String, deskID: Int, presetHeights: [Float], presetNames: [String], isLastConnected: Bool) {
         self.name = name
         self.id = deskID
         // override default preset values
         self.presetHeights = presetHeights
         self.presetNames = presetNames
+        self.isLastConnected = isLastConnected
         
     }
 //    init(zipdeskData: ZipDeskData) {
@@ -43,6 +48,7 @@ struct Desk: Identifiable { // inherit from Device, make Desk a class, in Device
         self.id = deskID
         self.peripheral = deskPeripheral
         self.rssi = rssi
+        self.isLastConnected = false
     }
     
 }

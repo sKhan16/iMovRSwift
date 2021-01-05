@@ -36,13 +36,12 @@ public class DeviceDataManager: ObservableObject {
         guard test else { return nil }
         savedDevices.append(Desk(name: "test desk", deskID: 12345678,
                                  presetHeights: [24.0,30.0,35.5,-1,-1,-1],
-                                 presetNames: ["one","two","three","four","five","six"]))
+                                 presetNames: ["one","two","three","four","five","six"], isLastConnected: true))
         connectedDeskIndex = 0
     }
     
     
     func pullPersistentData () -> Bool {
-        var convertedDevices: [Desk] = []
         do {
             self.fetchedDevices = try context.fetch(ZipDeskData.fetchRequest())
         } catch {
@@ -54,31 +53,37 @@ public class DeviceDataManager: ObservableObject {
             return false
         }
         
-        // iterate: convertedDevices(new) + savedDevices(old) -> savedDevices(current)
-        if !self.fetchedDevices!.isEmpty {
+        var convertedDevices: [Desk] = []
+        
+        // savedDevices(old) + convertedDevices(new) -> savedDevices(current)
+        
+        if !(self.fetchedDevices!.isEmpty) {
             for deviceData in self.fetchedDevices! {
                 convertedDevices.append (
                     Desk(name: deviceData.name,
                          deskID: Int(deviceData.deskID),
                          presetHeights: self.dearchiveFloatArray(data: deviceData.presetHeights),
-                         presetNames: self.dearchiveStringArray(data: deviceData.presetNames)) )
+                         presetNames: self.dearchiveStringArray(data: deviceData.presetNames),
+                         isLastConnected: deviceData.isLastConnectedTo )
+                )
                 print("Found Saved ZipDeskData(\(deviceData.name) - id: \(deviceData.deskID)")
             }
         }
-        print("##warning##-- (attempted fix)-- \nDeviceDataManager.pullPersistentData(): overwriting local saved devices-\n-may lose peripheral references if left unchecked")
-        // must copy the in-range peripherals or they would be discarded
+        // copy the in-range peripherals over
         for device in self.savedDevices {
             if(device.peripheral != nil) {
                 if let index: Int = convertedDevices.firstIndex (
-                        where: { (nextDevice: Desk) -> Bool in
-                            nextDevice.id == device.id
+                        where: { (updatedDevice: Desk) -> Bool in
+                            updatedDevice.id == device.id
                         }) {
                     // store CBPeripheral in new reference to device
                     convertedDevices[index].peripheral = device.peripheral
                 }
             }
         }
+        //DispatchQueue.main.sync { () -> Void in
         self.savedDevices = convertedDevices
+        //}
         return true
     } // end pullPersistentData()
     
@@ -185,6 +190,33 @@ public class DeviceDataManager: ObservableObject {
 //        }
         if !self.pullPersistentData() {
             print("DeviceDataManager.editDesk error pulling saved desks")
+        }
+    }
+    
+    
+    func setLastConnectedDesk (desk: Desk,
+                               disable: Bool = false) {
+        guard let thisDeskData: ZipDeskData = findDeskData(desk: desk) else {
+            print("DeviceDataManager.setLastConnectedDesk error: desk data not found")
+            return
+        }
+        thisDeskData.isLastConnectedTo = !disable
+
+        for otherDeskData in self.fetchedDevices! {
+            if(otherDeskData.deskID != thisDeskData.deskID) {
+                otherDeskData.isLastConnectedTo = false
+            }
+        }
+
+        do {
+            try self.context.save()
+            print("desk lastConnected set")
+        } catch {
+            print(error.localizedDescription)
+            print("DeviceDataManager.setLastConnectedDesk error saving desk removal")
+        }
+        if !self.pullPersistentData() {
+            print("DeviceDataManager.setLastConnectedDesk data fetch error")
         }
     }
     

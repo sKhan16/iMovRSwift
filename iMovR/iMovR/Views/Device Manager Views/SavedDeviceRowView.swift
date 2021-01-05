@@ -17,9 +17,9 @@ struct SavedDeviceRowView: View {
     let deviceIndex: Int
     
     let testSavedDevices: [Desk] = [
-        Desk(name: "Main Office Desk", deskID: 10009810, presetHeights:[], presetNames: []),
-        Desk(name: "Treadmill Home Office ", deskID: 54810, presetHeights:[], presetNames: []),
-        Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [])
+        Desk(name: "Main Office Desk", deskID: 10009810, presetHeights:[], presetNames: [], isLastConnected: true),
+        Desk(name: "Treadmill Home Office ", deskID: 54810, presetHeights:[], presetNames: [], isLastConnected: false),
+        Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [], isLastConnected: false)
     ]
     
     var body: some View {
@@ -73,21 +73,26 @@ private struct ConnectButton: View {
     @Binding var isConnected: Bool
     
     var body: some View {
-        Button( action:{
+        
+        Button( action: {
+            
             let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
+            
             if isConnected {
+                self.bt.data.setLastConnectedDesk(desk: thisDevice, disable: true)
                 let didDisconnect: Bool = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
+                
                 print("Device Manager View: disconnect from device \(thisDevice.name) - " +
                         (didDisconnect ? "success" : "fail" ) )
             }
-            else {
-                if self.bt.connectToDevice(device: thisDevice, savedIndex: deviceIndex) {
-                    print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
-                } else {
-                    print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
-                }
+            else if self.bt.connectToDevice(device: thisDevice, savedIndex: deviceIndex) {
+                print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
             }
-        } ) { // Button 'label' View
+            else {
+                print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
+            }
+            
+        }/*end button action*/ ) { // Button View 'label':
             ZStack {
                 Circle()
                     .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)

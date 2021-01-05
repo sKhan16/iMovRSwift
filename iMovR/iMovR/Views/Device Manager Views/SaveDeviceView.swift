@@ -27,13 +27,15 @@ struct SaveDeviceView: View {
     var body: some View {
         ZStack{
             // Background color filter & back button
-            Button(action: {self.deviceIndex = -1}, label: {
-                Rectangle()
+            Button (
+                action: { self.deviceIndex = -1 },
+                label: {
+                    Rectangle()
                     .fill(Color.gray)
                     .opacity(0.2)
                     .edgesIgnoringSafeArea(.top)
-                //.blur(radius: 3.0)
-            })
+                }
+            )
             VStack {
                 
                 VStack {
@@ -41,17 +43,17 @@ struct SaveDeviceView: View {
                         Text("New Device")
                             .font(Font.title.weight(.medium))
                             .padding(5)
-                        Button(action: {self.deviceIndex = -1}, label: {
-                            Text("Back")
+                        Button (
+                            action: {self.deviceIndex = -1},
+                            label: {
+                                Text("Back")
                                 .font(Font.caption)
                                 .frame(width: 50, height: 28)
                                 .offset(x:-1)
                                 .background(Color.red)
                                 .cornerRadius(13)
                                 .shadow(radius: 3)
-                            
-                            
-                        })
+                        } )
                         .offset(x: -116, y: -14)
                     }
                     Rectangle()
@@ -108,20 +110,36 @@ struct SaveDeviceView: View {
                 
                 Button(action: {
                     print("saving new device")
-                    var newDevice = self.selectedDevice
                     guard newName != "" else {
                         print("save new device error: no name given")
                         self.showWarning = true
                         return
                     }
+                    
+                    var newDevice = self.selectedDevice
                     newDevice.name = newName
+                    
                     if (self.bt.data.addDevice(desk: newDevice)) {
                         self.bt.discoveredDevices.remove(at: deviceIndex)
+                        
+                        if let savedDeviceIndex: Int = bt.data.savedDevices.firstIndex(
+                            where: { (newSavedDevice: Desk) -> Bool in
+                                newSavedDevice.id == newDevice.id
+                            })
+                        {
+                            // have found index in savedDevices array,
+                            // try to connect now
+                            let didConnect = bt.connectToDevice (
+                                    device: newDevice,
+                                    savedIndex: savedDeviceIndex )
+                            print("SaveDeviceView: did connect to device after saving?-\(didConnect)")
+                        }
                     }
                     self.showWarning = false
                     self.deviceIndex = -1
                     
-                }, label: {
+                }, // end save button action
+                label: {
                     Text("Save Changes")
                         .font(Font.title3.bold())
                         .foregroundColor(Color.white)
@@ -129,21 +147,21 @@ struct SaveDeviceView: View {
                         .background(ColorManager.preset)
                         .cornerRadius(20)
                         .shadow(radius: 8)
-                })
+                } ) // end save button.
                 .frame(width:200,height:100)
                 
                 
-            }
+            } // end top-level VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
             .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             
         }//end ZStack
-        //.onTapGesture { self.deviceIndex = -1 }
-        // Goes back when tapped outside of edit window
     }//end Body
+    
 }
+
 
 struct SaveDeviceView_Previews: PreviewProvider {
     
@@ -154,7 +172,7 @@ struct SaveDeviceView_Previews: PreviewProvider {
             
             //DeviceManagerView()
             
-            SaveDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]))
+            SaveDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false))
         }
     }
 }

@@ -12,34 +12,41 @@ import CoreBluetooth
 
 
 class DeviceBluetoothManager: NSObject, ObservableObject,
-                              CBCentralManagerDelegate, CBPeripheralDelegate {
+                              CBCentralManagerDelegate,
+                              CBPeripheralDelegate {
     
-    ///# Persistent Device Data Manager
+///# Persistent Device Data & Discovered Devices
     @Published var data: DeviceDataManager = DeviceDataManager()
-        // contains- savedDevices: [Desk]
-    
-///# Discovered Devices
     @Published var discoveredDevices: [Desk] = []
-    // Connected desk is stored in savedDevices: [Desk] in DeviceDataManager
     
 ///# Current Desk
-    /*@Published*/ var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
-    //MOVE THIS TO ZIPDESK PLEASE
     @Published var isDeskConnected: Bool = false
-    //TODO: IMPLEMENT isDeskMoving with differential of height over time (put this in characteristicDidUpdate)
-    @Published var isDeskMoving: Bool = false
-
+    var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
     
 ///# Current Monitor Arm
     // @Published var isMonitorArmConnected: Bool = false
+    
 ///# Current Treadmill
     // @Published var isTreadmillConnected: Bool = false
     
-///# Local Bluetooth Objects
+    
+///# Core Bluetooth
     private var centralManager: CBCentralManager?
     private var desiredPeripheral: CBPeripheral?
-
     private var bluetoothReadyFlag = false
+    
+    ///# Connection Status
+    enum ConnectionStatus {
+        case disabled, ready, scanning, error, connected, disconnected
+    }
+    
+    private var connStatus: ConnectionStatus = .disconnected
+    
+    func status() -> ConnectionStatus {
+        return self.connStatus
+    }
+    
+    
     
 ///# Initializer
     override init() {
@@ -51,7 +58,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
     
-    // preview test mode initializer
+///# Test Mode Initializer - XCode Canvas Previews
     init?(previewMode: Bool) {
         guard previewMode else { return nil }
         super.init()
@@ -63,18 +70,9 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     
-///# Connection Status
-    enum ConnectionStatus {
-        case disabled, ready, scanning, error, connected, disconnected
-    }
-    private var connStatus: ConnectionStatus = .disconnected
     
-    func status() -> ConnectionStatus {
-        return self.connStatus
-    }
+///# Device Discovery and Connection functions
     
-    
-///# Device Connection & Discovery
     func scanForDevices() {
         print("attemping to scan for devices")
         guard self.bluetoothReadyFlag else {
@@ -87,6 +85,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
+    
     
     func stopScan() {
         print("terminating device scan")
@@ -104,25 +103,34 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
         guard device.peripheral != nil else {
-            print("connectToDevice(..) error: attempted to connect to nil peripheral,\nperipheral expired or not initialized")
+            print("bt.connectToDevice - ERROR: attempted to connect to nil peripheral,\n" +
+                    "peripheral expired or not initialized")
+            return false
+        }
+        guard device.peripheral?.state != .connected,
+              device.peripheral?.state != .connecting else {
+            print("bt.connectToDevice - ERROR: that device is already connected")
             return false
         }
         guard self.zipdesk.setDesk(connectedDesk: device) else {
             return false
         }
+        
         print("connecting to device: \(device.name), id:\(device.id)")
-        //DispatchQueue.main.sync { () -> Void in
+            
         self.data.connectedDeskIndex = savedIndex
-        //}
+        self.data.setLastConnectedDesk(desk: device)
         
         centralManager?.connect(device.peripheral!)
+        return true
+        
     //MARK: check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
             // continue connection process by initializing ZGoZipDeskController
         // calls centralManager:didFailToConnectPeripheral:error: on failure
         // continue connection process by scanning for the desk again
-        return true
     }
+    
     
     func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool {
         guard self.isDeskConnected else {
@@ -144,48 +152,23 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         return true
     }
     
-    func rediscoverDevice(device: Desk) {
-    //MARK: initialize self.zipdesk here
-
-        print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk.getDesk().name))")
-        guard self.zipdesk.getDesk().id > 0 else {//fixxxxxxxxx
-            print("invalid deskID stored, or user hasn't input deskID yet")
-            self.connStatus = .error
-            return
-        }
-        guard self.bluetoothReadyFlag else {
-            print("bluetooth not ready yet")
-            self.connStatus = .disabled
-            return
-        }
-// disconnect if needed to connect to a different desk
-        if self.isDeskConnected {
-            print("disconnecting from connected desk")
-            self.isDeskConnected = false
-            
-            if let peripheral: CBPeripheral = self.zipdesk.getPeripheral() {
-                centralManager?.cancelPeripheralConnection(peripheral)
-            } else {
-                print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
-            }
-        }
-        
-        print("Scanning for peripherals with service: \(ZGoServiceUUID)")
-        self.connStatus = .scanning
-        // BT is on, targeted current desk is set, now scan for peripherals that match the CBUUID
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
-    }
-    
-    
     
     
 ///# CoreBluetooth CentralManager Delegate functions
     
-    ///# centralManagerDidUpdateState
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print("Checking Bluetooth status")
+        
         switch central.state {
-        // Bad cases: Bluetooth is not yet ready
+        
+        // Ideal case: Bluetooth is powered on, scan for desks
+        case .poweredOn:
+            DispatchQueue.main.async { () -> Void in (self.connStatus = .ready) }
+            print("Bluetooth status is POWERED ON")
+            // scan when user clicks the Connect To Desk button
+            bluetoothReadyFlag = true
+            
+        // Bad cases - Bluetooth is not yet ready
         case .unknown:
             print("Bluetooth status is UNKNOWN")
             bluetoothReadyFlag = false
@@ -206,13 +189,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("Bluetooth status is POWERED OFF")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
-        // Ideal case: Bluetooth is powered on, scan for desks
-        case .poweredOn:
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .ready) }
-            print("Bluetooth status is POWERED ON")
-            // scan when user clicks the Connect To Desk button
-            bluetoothReadyFlag = true
-        // Exception:
+            
+        // Exception
         @unknown default:
             print("Bluetooth status EXCEPTION")
             bluetoothReadyFlag = false
@@ -225,29 +203,37 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     func centralManager(_ central: CBCentralManager,
                         didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-//MARK: ZIPDESK ID IMPLEMENTATION (delegate this to self.zipdesk later)
-        // Make unique manufacturer ID readable
+        // Make unique ZGO manufacturer ID readable
         let rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
         // Bytes are stored as 0x3k, where 'k' is one digit of the 8 digit manufacturer ID.
-        // 0x30 = 3 * 2^4 = 48
         var manufacturerDeskID : Int = 0
         for (index, digit) in rawData.enumerated() {
-            manufacturerDeskID += Int(digit - 48) * Int(pow(10,Double(7-index)))
+            manufacturerDeskID += Int(digit - 48) * Int( pow(10,Double(7-index)) )
         }
         
         print("iOS discovered device w/ id# \(manufacturerDeskID)")
         
         DispatchQueue.main.async { () -> Void in
+            
             // check saved devices for this device, update device peripheral if found
             if self.data.savedDevices.count > 0 {
-                if let foundIndex: Int = self.data.savedDevices.firstIndex(
+                if let foundIndex: Int = self.data.savedDevices.firstIndex (
                         where: { (device) -> Bool in
                             device.id == manufacturerDeskID
                         }) {
                     self.data.savedDevices[foundIndex].peripheral = peripheral
-                    // found in saved devices so skip the discovered devices check
-//MARK: What if this device was the last connected desk? Automatically connect to it now:
+                    // device previously saved, peripheral now stored locally-
+                    // establish autoconnect to device if it was last connected
+                    let thisSavedDevice: Desk = self.data.savedDevices[foundIndex]
                     
+                    if thisSavedDevice.isLastConnected,
+                       !self.isDeskConnected,
+                       self.data.connectedDeskIndex == nil {
+                        
+                        let didConnect = self.connectToDevice(device: thisSavedDevice, savedIndex: foundIndex)
+                        print("saved desk autoconnect successful? : \(didConnect)")
+                        
+                    }
                     return
                 }
             }
@@ -266,6 +252,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             // device wasn't found in discovered or saved so add it now
             self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
         } // end async queue
+        
     } // end didDiscover peripheral
     
     
@@ -273,7 +260,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     func centralManager(_ central: CBCentralManager,
                         didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
-        DispatchQueue.main.async { () -> Void in
+        DispatchQueue.main.sync { () -> Void in
             self.connStatus = .connected
             self.isDeskConnected = true
         }
@@ -286,7 +273,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
         print("didFailToConnect peripheral, error:" + String(describing: error))
-        DispatchQueue.main.async { () -> Void in
+        DispatchQueue.main.sync { () -> Void in
             self.connStatus = .error
             self.isDeskConnected = false
             self.data.connectedDeskIndex = nil
@@ -298,26 +285,18 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     ///# didDisconnectPeripheral peripheral
     func centralManager(_ central: CBCentralManager,
                         didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        DispatchQueue.main.async { () -> Void in
+        DispatchQueue.main.sync { () -> Void in
             self.connStatus = .disconnected
             self.isDeskConnected = false
+            self.data.connectedDeskIndex = nil
         }
-        print("device disconnected-")
-        // Unintentional disconnection: attempt to reestablish connection with current desk
+        
+        // disconnected unintentionally
         if error != nil {
-            print("desk disconnected with error\nattempting reconnection with current desk")
-            
-            guard self.data.connectedDeskIndex != nil else {
-                print("didDisconnect error: data.connectedDeskIndex == nil")
-                return
-            }
-            let didReconnect: Bool = self.connectToDevice( device: self.zipdesk.getDesk(),
-                                                savedIndex: self.data.connectedDeskIndex! )
-            print( "didDisconnect: reconnection successful? - " + String(didReconnect) )
+            print("peripheral disconnected with error")
         } else {
-            DispatchQueue.main.async { () -> Void in
-                self.data.connectedDeskIndex = nil
-            }
+            // Intentional disconnection
+            print("bt.didDisconnectPeripheral - device disconnected")
         }
     }
     
@@ -369,18 +348,18 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     private func setTestMode() {
         
         self.data.savedDevices =
-            [ Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
-              Desk(name:"Treadmill Home Office",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
-              Desk(name:"Home Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
-              Desk(name:"Conference Room Third Floor Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
-              Desk(name:"Office 38 Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
-              Desk(name:"Home Monitor Arm",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"]),
+            [ Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: true),
+              Desk(name:"Treadmill Home Office",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false),
+              Desk(name:"Home Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false),
+              Desk(name:"Conference Room Third Floor Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false),
+              Desk(name:"Office 38 Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false),
+              Desk(name:"Home Monitor Arm",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false),
               ]
         
         self.discoveredDevices =
-            [ Desk(name: "Discovered ZipDesk", deskID: 10007189, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""]),
-              Desk(name: "Discovered ZipDesk", deskID: 10004955, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""]),
-              Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""])
+            [ Desk(name: "Discovered ZipDesk", deskID: 10007189, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false),
+              Desk(name: "Discovered ZipDesk", deskID: 10004955, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false),
+              Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false)
             ]
         
         self.data.connectedDeskIndex = 0

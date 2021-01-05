@@ -133,7 +133,7 @@ struct EditDeviceView_Previews: PreviewProvider {
             
             //DeviceManagerView()
         
-            EditDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678, presetHeights:[], presetNames: []))
+            EditDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678, presetHeights:[], presetNames: [], isLastConnected: false))
         }
     }
 }
