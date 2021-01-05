@@ -12,34 +12,40 @@ import CoreBluetooth
 
 
 class DeviceBluetoothManager: NSObject, ObservableObject,
-                              CBCentralManagerDelegate, CBPeripheralDelegate {
+                              CBCentralManagerDelegate,
+                              CBPeripheralDelegate {
     
-    ///# Persistent Device Data Manager
+///# Persistent Device Data & Discovered Devices
     @Published var data: DeviceDataManager = DeviceDataManager()
-        // contains- savedDevices: [Desk]
-    
-///# Discovered Devices
     @Published var discoveredDevices: [Desk] = []
-    // Connected desk is stored in savedDevices: [Desk] in DeviceDataManager
     
 ///# Current Desk
-    /*@Published*/ var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
-    //MOVE THIS TO ZIPDESK PLEASE
     @Published var isDeskConnected: Bool = false
-    //TODO: IMPLEMENT isDeskMoving with differential of height over time (put this in characteristicDidUpdate)
-    @Published var isDeskMoving: Bool = false
-
+    var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
     
 ///# Current Monitor Arm
     // @Published var isMonitorArmConnected: Bool = false
+    
 ///# Current Treadmill
     // @Published var isTreadmillConnected: Bool = false
     
-///# Local Bluetooth Objects
+    
+///# Core Bluetooth
     private var centralManager: CBCentralManager?
     private var desiredPeripheral: CBPeripheral?
-
     private var bluetoothReadyFlag = false
+    
+    ///# Connection Status
+    enum ConnectionStatus {
+        case disabled, ready, scanning, error, connected, disconnected
+    }
+    
+    private var connStatus: ConnectionStatus = .disconnected
+    
+    func status() -> ConnectionStatus {
+        return self.connStatus
+    }
+    
     
     
 ///# Initializer
@@ -52,8 +58,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
     
-    
-    // preview test mode initializer
+///# Test Mode Initializer - XCode Canvas Previews
     init?(previewMode: Bool) {
         guard previewMode else { return nil }
         super.init()
@@ -65,19 +70,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     
-///# Connection Status
-    enum ConnectionStatus {
-        case disabled, ready, scanning, error, connected, disconnected
-    }
-    private var connStatus: ConnectionStatus = .disconnected
     
-    func status() -> ConnectionStatus {
-        return self.connStatus
-    }
-    
-    
-    
-///# Device Connection & Discovery
+///# Device Discovery and Connection functions
     
     func scanForDevices() {
         print("attemping to scan for devices")
@@ -157,43 +151,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         self.data.connectedDeskIndex = nil    //leave old index for easy reconnection
         return true
     }
-    
-    
-/*
-     
-    func rediscoverDevice(device: Desk) {
-    //MARK: initialize self.zipdesk here
-
-        print("attempting to find and connect to current selected desk \(String(describing: self.zipdesk.getDesk().name))")
-        guard self.zipdesk.getDesk().id > 0 else {//fixxxxxxxxx
-            print("invalid deskID stored, or user hasn't input deskID yet")
-            self.connStatus = .error
-            return
-        }
-        guard self.bluetoothReadyFlag else {
-            print("bluetooth not ready yet")
-            self.connStatus = .disabled
-            return
-        }
-// disconnect if needed to connect to a different desk
-        if self.isDeskConnected {
-            print("disconnecting from connected desk")
-            self.isDeskConnected = false
-            
-            if let peripheral: CBPeripheral = self.zipdesk.getPeripheral() {
-                centralManager?.cancelPeripheralConnection(peripheral)
-            } else {
-                print("error: bt.isDeskConnected was true, but bt.zipdesk not initialized yet")
-            }
-        }
-        
-        print("Scanning for peripherals with service: \(ZGoServiceUUID)")
-        self.connStatus = .scanning
-        // BT is on, targeted current desk is set, now scan for peripherals that match the CBUUID
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
-    }
-     
-*/
     
     
     
