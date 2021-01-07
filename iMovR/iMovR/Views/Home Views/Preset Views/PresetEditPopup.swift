@@ -42,14 +42,11 @@ struct PresetEditPopup: View {
                             VStack {
                                 Button(action: { self.editIndex = index }, label: {
                                     ZStack {
+                                        
                                         RoundedRectangle(cornerRadius: 12).fill(ColorManager.deviceBG)
                                             .frame(height: 40)
-                                            //.border(Color.black, width: 3)
-                                            //        .overlay(
-                                            //            RoundedRectangle(cornerRadius: 20)
-                                            //                .stroke(Color.black, lineWidth: 2)
-                                            //        )
                                             .shadow(color: .black, radius: 3, x: 0, y: 3)
+                                        
                                         HStack {
                                             Text("Edit \(currDesk.presetNames[index]):")
                                             Text( (currDesk.presetHeights[index] > -1) ? String(currDesk.presetHeights[index]) : "Empty")
@@ -107,7 +104,6 @@ struct PresetEditPopup: View {
 
 private struct editSaveButton: View {
     
-    //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var data: DeviceDataManager
     
@@ -157,8 +153,9 @@ private struct editSaveButton: View {
                 .background(ColorManager.preset)
                 .cornerRadius(27)
         })
-        .frame(width:200,height:100)}
+        .frame(width:200,height:100)
     }
+}
 
 
 
@@ -167,7 +164,11 @@ struct PresetEditPopup_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            PresetEditPopup(show: .constant(true), isTouchGo: .constant(true), showTNGWarningPopup: .constant(false))
+            PresetEditPopup (
+                show: .constant(true),
+                isTouchGo: .constant(true),
+                showTNGWarningPopup: .constant(false)
+            )
                 .environmentObject(DeviceBluetoothManager())
         }
     }

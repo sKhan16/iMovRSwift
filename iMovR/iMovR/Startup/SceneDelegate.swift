@@ -13,7 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    //let user = UserObservable()
+    // Environment Objects
+    let user = UserDataManager()
     let BTController = DeviceBluetoothManager()
 
 
@@ -37,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController (
                 rootView: contentView
-                    //.environmentObject(user)
+                    .environmentObject(user)
                     .environmentObject(BTController)
             )
             self.window = window

@@ -63,7 +63,7 @@ public class UserDataManager: ObservableObject {
     }
     
     
-    func setTNGWaiver(_ value: Bool) {
+    func setTNGWaiver(_ value: Bool) -> Bool {
         if self.fetchedUserData != nil, !self.fetchedUserData!.isEmpty {
             self.fetchedUserData![0].touchAndGoWaiver = value
         } else {
@@ -71,11 +71,11 @@ public class UserDataManager: ObservableObject {
             let newUserData = UserData(context: self.context)
             newUserData.touchAndGoWaiver = value
         }
-        self.saveUserData()
+        return self.saveUserData()
     }
     
     
-    func saveUserData() {
+    func saveUserData() -> Bool {
         var isSuccess: Bool
         do {
             try self.context.save()
@@ -84,6 +84,7 @@ public class UserDataManager: ObservableObject {
         } catch {
             isSuccess = false
             print("UserDataManager.saveUserData error: \n---------------\n" + error.localizedDescription + "/n")
+            //this code is awful... i wrote it this way ill fix it later...
         }
         if isSuccess {
             if !self.pullPersistentData() {
@@ -91,6 +92,7 @@ public class UserDataManager: ObservableObject {
                 print("UserDataManager.saveUserData data fetch error")
             }
         }
+        return isSuccess
     }
 
 }

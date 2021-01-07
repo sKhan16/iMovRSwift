@@ -52,6 +52,7 @@
 		415A9D2525A3D75200590292 /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A9D2325A3D75200590292 /* UserData+CoreDataClass.swift */; };
 		415A9D2625A3D75200590292 /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A9D2425A3D75200590292 /* UserData+CoreDataProperties.swift */; };
 		419062492575C45F00D80D57 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419062482575C45F00D80D57 /* AddPresetView.swift */; };
+		419A429925A66CD2000B261F /* TouchNGoPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A429825A66CD2000B261F /* TouchNGoPopup.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
 		41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD0F0C254CD54400B828BA /* PresetNew.swift */; };
@@ -110,6 +111,7 @@
 		415A9D2325A3D75200590292 /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		415A9D2425A3D75200590292 /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		419062482575C45F00D80D57 /* AddPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPresetView.swift; sourceTree = "<group>"; };
+		419A429825A66CD2000B261F /* TouchNGoPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchNGoPopup.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
 		41AD0F0C254CD54400B828BA /* PresetNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetNew.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				419062482575C45F00D80D57 /* AddPresetView.swift */,
 				41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */,
 				1EAA5CB22534ED2D00A471E2 /* Preset Buttons */,
+				419A429825A66CD2000B261F /* TouchNGoPopup.swift */,
 			);
 			path = "Preset Views";
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				1EAA5CAB252FC97800A471E2 /* HeightSliderV2.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
 				41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */,
+				419A429925A66CD2000B261F /* TouchNGoPopup.swift in Sources */,
 				1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */,
 				1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */,
