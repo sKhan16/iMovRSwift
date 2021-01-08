@@ -294,6 +294,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // disconnected unintentionally
         if error != nil {
             print("peripheral disconnected with error")
+            // ensure autoconnect is enabled
+            self.scanForDevices()
         } else {
             // Intentional disconnection
             print("bt.didDisconnectPeripheral - device disconnected")
