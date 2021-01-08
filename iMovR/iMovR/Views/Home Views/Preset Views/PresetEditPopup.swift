@@ -10,29 +10,47 @@ import SwiftUI
 
 struct PresetEditPopup: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @EnvironmentObject var user: UserDataManager
     
     @Binding var show: Bool
     @Binding var isTouchGo: Bool
-    @Binding var showTNGWarningPopup: Bool
+    
+    @State private var showTNGWarningPopup: Bool = false
     
     @State var editIndex: Int = -1
     @State var editPresetName: String = ""
     @State var editPresetHeight: String = ""
     @State var isInvalidInput: Bool = false
     
+    
     var body: some View {
         ZStack {
             // Background color filter & back button
             Button(action: {self.show = false}, label: {
                 Rectangle()
-                    .fill(Color.gray)
-                    .opacity(0.2)
+                    .fill(ColorManager.bgColor)
+                    .opacity(0.75)
                     .edgesIgnoringSafeArea(.top)
             })
+            
             VStack {
                // Display Presets List
-                if self.editIndex == -1, bt.data.connectedDeskIndex != nil {
+                if bt.data.connectedDeskIndex == nil {
+                    Text("Preset Settings")
+                        .font(Font.largeTitle)
+                        .foregroundColor(.white)
+                        .padding(.top, 10)
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.white)
+                    Text("Please Connect To A Device")
+                        .font(Font.title2)
+                        .foregroundColor(.white)
+                }
+                
+                else if self.editIndex == -1, bt.data.connectedDeskIndex != nil {
                     let currDesk: Desk = bt.data.savedDevices[bt.data.connectedDeskIndex!]
+                    
                     VStack {
                         Text("Preset Settings")
                             .font(Font.title2)
@@ -60,9 +78,13 @@ struct PresetEditPopup: View {
                             }
                         }
                     }
-                    .padding(.top, 5)
-                    MovementButton(isTouchGo: self.$isTouchGo)
+                        .padding(.top, 5)
+                    
+                    //I'll explain in a sec
+                    TnGToggle (isTouchGo: self.$isTouchGo)
                         .padding(.bottom)
+                    
+                    
                 } else {
                     VStack(alignment: .leading) {
                         Text("Change Preset Name?")
@@ -97,6 +119,13 @@ struct PresetEditPopup: View {
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             
+            
+            if self.isTouchGo,
+               !self.user.agreedToZipDeskWaiver {
+                TouchNGoPopup()
+                //Text("Moving your desk via bluetooth could result in injury. iMovR and affiliated are not responsible for any damages that occur. Please press confirm if you agree to these terms")
+            }
+            
         }//end ZStack
     }//end Body
 }
@@ -107,8 +136,8 @@ private struct editSaveButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var data: DeviceDataManager
     
-    @Binding  var presetName: String
-    @Binding  var presetHeight: String
+    @Binding var presetName: String
+    @Binding var presetHeight: String
     @Binding var isInvalidInput: Bool
     @Binding var editIndex: Int
     
@@ -166,10 +195,10 @@ struct PresetEditPopup_Previews: PreviewProvider {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             PresetEditPopup (
                 show: .constant(true),
-                isTouchGo: .constant(true),
-                showTNGWarningPopup: .constant(false)
+                isTouchGo: .constant(true)
             )
-                .environmentObject(DeviceBluetoothManager())
+            .environmentObject(UserDataManager())
+            .environmentObject(DeviceBluetoothManager(previewMode: true)!)
         }
     }
 }

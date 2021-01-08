@@ -18,7 +18,6 @@ struct HomeViewV2: View {
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     
     @State private var showPresetPopup: Bool = false
-    @State private var showTNGWarningPopup: Bool = false
     @State private var popupBackgroundBlur: CGFloat = 0
     
     @State private var notMovingTimer: Timer?
@@ -100,8 +99,7 @@ struct HomeViewV2: View {
                 if (showPresetPopup) {
                     PresetEditPopup (
                         show: self.$showPresetPopup,
-                        isTouchGo: self.$isTouchGo,
-                        showTNGWarningPopup: self.$showTNGWarningPopup
+                        isTouchGo: self.$isTouchGo
                     )
                         .environmentObject(bt)
                         .onAppear() {
@@ -112,17 +110,6 @@ struct HomeViewV2: View {
                             self.popupBackgroundBlur = 0
                             withAnimation(.easeOut(duration: 5),{})
                         }
-                }
-                
-                
-                if showTNGWarningPopup,
-                   !self.user.agreedToZipDeskWaiver {
-                    TouchNGoPopup (
-                        show: self.$showTNGWarningPopup
-                        
-                    )
-                    
-                    //Text("Moving your desk via bluetooth could result in injury. iMovR and affiliated are not responsible for any damages that occur. Please press confirm if you agree to these terms")
                 }
                 
                 

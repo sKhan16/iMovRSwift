@@ -11,17 +11,8 @@ import SwiftUI
 struct TouchNGoPopup: View {
     @EnvironmentObject var user: UserDataManager
     
-    @Binding var show: Bool
-    
-    
     var body: some View {
         ZStack {
-//            Button (
-//                action: {},
-//                label: {
-            
-//                }
-//            )
             Rectangle()
                 .fill(ColorManager.bgColor)
                 .opacity(0.75)
@@ -45,6 +36,7 @@ struct TouchNGoPopup: View {
                 Spacer()
                 
                 HStack {
+                    
                     //DenyButton
                     Button(
                         action: {
@@ -63,7 +55,6 @@ struct TouchNGoPopup: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color.white, lineWidth: 1)
-                        
                     )
                     .padding(5)
                     
@@ -74,7 +65,6 @@ struct TouchNGoPopup: View {
                                 print("TouchNGoPopup error: user.setTNGWaiver(true) failed")
                                 return
                             }
-                            self.show = false
                         },
                         label: {
                             Text("I Agree")
@@ -120,7 +110,7 @@ struct TouchNGoPopup_Previews: PreviewProvider {
                 data: DeviceDataManager(test: true)!
             ).environmentObject(DeviceBluetoothManager(previewMode: true)!).environmentObject(UserDataManager())
             
-            TouchNGoPopup(show: .constant(true))
+            TouchNGoPopup()
                 .environmentObject(UserDataManager())
             
         }

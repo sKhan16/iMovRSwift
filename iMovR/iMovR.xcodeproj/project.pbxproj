@@ -36,7 +36,7 @@
 		1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5CE6253579E400A471E2 /* PresetModule.swift */; };
 		1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */; };
 		1EB9C3A624C7B8540086AC3C /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB9C3A524C7B8540086AC3C /* CloseButton.swift */; };
-		1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60ED7253A310000B564F8 /* MovementButton.swift */; };
+		1EE60ED8253A310000B564F8 /* TnGToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60ED7253A310000B564F8 /* TnGToggle.swift */; };
 		1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */; };
 		1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE60F06253FB57200B564F8 /* HoldPreset.swift */; };
 		410358772583FF7C00B4C3A2 /* HeightTickMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410358762583FF7C00B4C3A2 /* HeightTickMark.swift */; };
@@ -95,7 +95,7 @@
 		1EAA5CE6253579E400A471E2 /* PresetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetModule.swift; sourceTree = "<group>"; };
 		1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePresetButton.swift; sourceTree = "<group>"; };
 		1EB9C3A524C7B8540086AC3C /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
-		1EE60ED7253A310000B564F8 /* MovementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementButton.swift; sourceTree = "<group>"; };
+		1EE60ED7253A310000B564F8 /* TnGToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnGToggle.swift; sourceTree = "<group>"; };
 		1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditButton.swift; sourceTree = "<group>"; };
 		1EE60F06253FB57200B564F8 /* HoldPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldPreset.swift; sourceTree = "<group>"; };
 		410358762583FF7C00B4C3A2 /* HeightTickMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightTickMark.swift; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
 				1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */,
 				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
-				1EE60ED7253A310000B564F8 /* MovementButton.swift */,
+				1EE60ED7253A310000B564F8 /* TnGToggle.swift */,
 				1EE60F06253FB57200B564F8 /* HoldPreset.swift */,
 			);
 			path = "Preset Buttons";
@@ -475,7 +475,7 @@
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
-				1EE60ED8253A310000B564F8 /* MovementButton.swift in Sources */,
+				1EE60ED8253A310000B564F8 /* TnGToggle.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
 				1EAA5C82252BADD200A471E2 /* HomeViewV2.swift in Sources */,
 				41462FAE253A571E006C96C9 /* DeviceBluetoothManager.swift in Sources */,

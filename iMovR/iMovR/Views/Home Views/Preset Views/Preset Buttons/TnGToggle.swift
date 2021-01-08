@@ -1,5 +1,5 @@
 //
-//  MovementButton.swift
+//  TnGToggle.swift
 //  iMovR
 //
 //  Created by Shakeel Khan on 10/16/20.
@@ -8,8 +8,11 @@
 
 import SwiftUI
 
-struct MovementButton: View {
+struct TnGToggle: View {
+    
     @Binding var isTouchGo: Bool
+    
+    
     var body: some View {
         HStack (alignment: .center) {
         Text("Push & Hold")
@@ -22,8 +25,8 @@ struct MovementButton: View {
     }
 }
 
-struct MovementButton_Previews: PreviewProvider {
+struct TnGToggle_Previews: PreviewProvider {
     static var previews: some View {
-        MovementButton(isTouchGo: .constant(true))
+        TnGToggle(isTouchGo: .constant(true))
     }
 }
