@@ -146,7 +146,7 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func removeDevice (desk: Desk) {
+    func deleteDevice (desk: Desk) {
         guard let deskData: ZipDeskData = findDeskData(desk: desk) else {
             print("DeviceDataManager.removeDesk error: desk data not found")
             return

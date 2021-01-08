@@ -15,14 +15,15 @@ struct EditDeviceView: View {
     @Binding var deviceIndex: Int
     var selectedDevice: Desk
     
+    @State private var confirmDeleteMenu: Bool = true
+    @State private var editName: String = ""
+    
 //    init(deviceIndex: Binding<Int>, selectedDevice: Desk){
 //        self._deviceIndex = deviceIndex
 //        self.selectedDevice = selectedDevice
 //        UITableView.appearance().backgroundColor = .clear
 //    }
     
-    @State var editName: String = ""
-//    @State var editID: String = ""
     
     var body: some View {
         ZStack{
@@ -34,88 +35,156 @@ struct EditDeviceView: View {
                     .edgesIgnoringSafeArea(.top)
                     //.blur(radius: 3.0)
             })
+            
             VStack {
                 
+                // Header
                 VStack {
+                    
                     ZStack {
-                    Text("Edit Device")
-                        .font(Font.title.weight(.medium))
-                        .padding(5)
-                        Button(action: {self.deviceIndex = -1}, label: {
-                            Text("Back")
-                                .font(Font.caption)
-                                .frame(width: 50, height: 28)
-                                .offset(x:-1)
-                                .background(Color.red)
-                                .cornerRadius(13)
-                                .shadow(radius: 3)
-                                
-                            
-                        })
-                        .offset(x: -116, y: -14)
+                        Text("Edit Device")
+                            .font(Font.title.weight(.medium).monospacedDigit())
+                        Button (
+                            action: {self.deviceIndex = -1},
+                            label: {
+                                Text("Back")
+                                    .font(Font.caption)
+                                    .frame(width: 40, height: 25)
+                                    .background(Color.red)
+                                    .cornerRadius(8, antialiased: true)
+                            }
+                        )
+                        .offset(x: -115, y: 0)
                     }
-                    Rectangle()
-                        .foregroundColor(Color.black)
-                        .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
+                    .padding(.top, 10)
+
                     VStack {
                         Text(selectedDevice.name)
                             .font(Font.title3.weight(.medium))
+                            .offset(y: 3)
                         Text("ZipDesk ID: " + String(selectedDevice.id))
-                            .font(Font.body.monospacedDigit().weight(.regular))
+                            .font(Font.body.monospacedDigit())
                             .padding(.top,1)
+                            .offset(y: -2)
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.top, 10)
-                    //.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                    //.padding([.leading,.trailing])
+                    .background(ColorManager.deviceBG)
+                    .cornerRadius(10)
+                    .padding([.bottom,.leading,.trailing],10)
+                    
                 }
                 .frame(maxWidth: .infinity)
                 .foregroundColor(Color.white)
-                .padding(.top)
                 
-                VStack(alignment: .leading) {
-                    Text("Change Device Name?")
-                        .foregroundColor(Color.white)
-                        .font(Font.body.weight(.medium))
-                        .offset(y:8)
-                    TextField(" new name", text: $editName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    /*
-                    Text("Device ID:")
-                        .foregroundColor(Color.white)
-                        .font(Font.body.weight(.medium))
-                        .padding(.top, 10)
-                        .offset(y:8)
-                    TextField("change id?", text: $editID)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    */
+                
+                // Content
+                if confirmDeleteMenu {
+                    VStack {
+                        Text("Are you sure you want to delete this device? Saved presets will be lost.")
+                            .foregroundColor(.white)
+                            .padding(50)
+                        
+                        HStack {
+                            Button (
+                                action: {
+                                    self.confirmDeleteMenu = true
+                                },
+                                label: {
+                                    Text("Keep Device")
+                                        .font(Font.headline)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 115, height: 50)
+                                        .background(ColorManager.yesGreen)
+                                        .cornerRadius(8)
+                                }
+                            )
+                            //.padding(.trailing, 30)
+                            
+                            Button (
+                                action: {
+                                    self.confirmDeleteMenu = false
+                                    self.deviceIndex = -1
+                                    self.bt.data.deleteDevice(desk: self.selectedDevice)
+                                },
+                                label: {
+                                    Text("Delete")
+                                        .font(Font.headline)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 80, height: 40)
+                                        .background(Color.red)
+                                        .cornerRadius(8)
+                                }
+                            )
+                            //.padding(.leading, 10)
+                                                
+                        }
+                    }
                 }
-                .padding()
-                Spacer()
-                
-                Button(action: {
-                    print("saving 'edit device' changes")
-                    var changedDevice = self.selectedDevice
-                    changedDevice.name = editName
-                    self.bt.data.editDevice(desk: changedDevice)
-                    self.deviceIndex = -1
+                else {
                     
-                }, label: {
-                    Text("Save Changes")
-                        .font(Font.title3.bold())
-                        .foregroundColor(Color.white)
-                        .padding()
-                        .background(ColorManager.preset)
-                        .cornerRadius(20)
-                        .shadow(radius: 8)
-                })
-                .frame(width:200,height:100)
-                
-                
-            }
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                            .foregroundColor(Color.white)
+                            .font(Font.body.weight(.medium))
+                            .offset(y:8)
+                        TextField(self.selectedDevice.name, text: $editName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        /*
+                        Text("Device ID:")
+                            .foregroundColor(Color.white)
+                            .font(Font.body.weight(.medium))
+                            .padding(.top, 10)
+                            .offset(y:8)
+                        TextField("change id?", text: $editID)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        */
+                        
+                    }
+                    .padding([.bottom,.leading,.trailing],10)
+                    
+                    
+                    Button (
+                        action: {
+                            self.confirmDeleteMenu = true
+                        },
+                        label: {
+                            Text("Delete Device")
+                                .font(Font.headline)
+                                .foregroundColor(Color.white)
+                                .frame(width: 125, height: 30)
+                                .background(Color.red)
+                                .cornerRadius(8)
+                        }
+                    )
+                    .padding(.top, 10)
+                    
+                    Spacer()
+                    
+                    Button(
+                        action: {
+                            print("saving 'edit device' changes")
+                            var changedDevice = self.selectedDevice
+                            changedDevice.name = editName
+                            self.bt.data.editDevice(desk: changedDevice)
+                            self.deviceIndex = -1
+                        },
+                        label: {
+                            Text("Save Changes")
+                                .font(Font.title2.bold())
+                                .foregroundColor(Color.white)
+                                .frame(width: 170, height: 55)
+                                .background(ColorManager.yesGreen)
+                                .cornerRadius(15)
+                        }
+                    )
+                    .padding(.bottom, 35)
+                    
+                    
+                } // end else
+            }// end VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
-            .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
-            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
+            .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor).shadow(color: ColorManager.gray, radius: 2))
+            //.overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.white, lineWidth: 1))
             .padding()
 
         }//end ZStack

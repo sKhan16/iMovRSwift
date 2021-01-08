@@ -74,7 +74,7 @@ struct TouchNGoPopup: View {
                         }
                     )
                     .frame(width: 100, height: 45)
-                    .background(Color(red: 0.1, green: 0.65, blue: 0.1, opacity: 1.0))
+                    .background(ColorManager.yesGreen)
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
