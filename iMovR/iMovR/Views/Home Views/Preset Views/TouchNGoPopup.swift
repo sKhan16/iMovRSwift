@@ -84,6 +84,7 @@ struct TouchNGoPopup: View {
                     .padding(5)
                 }
                 .frame(width: 250, height: 55)
+                .padding(.bottom, 10)
                 
             }
                 .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
