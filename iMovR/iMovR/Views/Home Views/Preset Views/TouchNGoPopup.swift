@@ -41,6 +41,10 @@ struct TouchNGoPopup: View {
                     Button(
                         action: {
                             //idk
+                            guard self.user.setTNGWaiver(false) else {
+                                print("TouchNGoPopup error: user.setTNGWaiver(false) failed")
+                                return
+                            }
                             print("User has rejected TNG Waiver...")
                         },
                         label: {

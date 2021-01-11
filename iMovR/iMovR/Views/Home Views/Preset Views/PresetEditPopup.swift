@@ -120,7 +120,7 @@ struct PresetEditPopup: View {
             .padding()
             
             
-            if self.isTouchGo,
+            if self.isTouchGo &&
                !self.user.agreedToZipDeskWaiver {
                 TouchNGoPopup()
                 //Text("Moving your desk via bluetooth could result in injury. iMovR and affiliated are not responsible for any damages that occur. Please press confirm if you agree to these terms")
