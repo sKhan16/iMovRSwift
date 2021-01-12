@@ -18,14 +18,14 @@ struct TouchPreset: View {
     
     var body: some View {
         Button(action: {
-            self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
-            print("TouchPreset: timer start")
-                
-            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                print("TouchPreset: timer triggered")
-                self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
-                timer.invalidate()
-            }
+//            self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
+//            print("TouchPreset: timer start")
+//
+//            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+//                print("TouchPreset: timer triggered")
+//                self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
+//                timer.invalidate()
+//            }
         }) {
             ZStack {
                 Circle()
@@ -36,8 +36,24 @@ struct TouchPreset: View {
                     .foregroundColor(Color.white)
             }
             .foregroundColor(ColorManager.preset)
-        }//end Button
-        
+        }//end Button view 'Label'
+        .onLongPressGesture (
+            minimumDuration: 15,
+            maximumDistance: CGFloat(50),
+            pressing: { pressing in
+                self.pressed = pressing
+                if pressing { // press begun
+                    self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
+                    
+                    // additional move command in case desk was asleep
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
+                        timer.invalidate()
+                    }
+                }
+            },
+            perform: {}
+        )
     }
         
 struct LoadedPreset_Previews: PreviewProvider {

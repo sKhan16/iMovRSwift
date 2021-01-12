@@ -31,24 +31,29 @@ struct PresetButton: View {
                 
                 let heightBinding = Binding<Float> (
                     get: { height! },
-                    set: /*Read-Only Binding*/{ _ in }
+                    set: { _ in } /*Intended for Read-Only*/
                 )
                 ZStack {
-                    if isTouchGo { // Touch n go
+                    if isTouchGo {
                         TouchPreset(zipdeskUI: self.bt.zipdesk,
                                     presetHeight: heightBinding)
-                    } else { // Hold to go
+                    }
+                    else {
                         HoldPreset(presetHeight: heightBinding)
                     }
+                    
                     Text(currDesk!.presetNames[self.index])
                         .foregroundColor(ColorManager.gray)
                         .offset(y: 53)
                 }
                 
-            } else { // this preset is unassigned
+            }
+            else { // desk is connected, unassigned preset
                 AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
             }
-        } else { // no desk is connected
+            
+        }
+        else { // desk not connected
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
         }
     }
