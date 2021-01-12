@@ -230,13 +230,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		410358752583FF4100B4C3A2 /* Height Indicators */ = {
+		410358752583FF4100B4C3A2 /* Height Indication */ = {
 			isa = PBXGroup;
 			children = (
 				1EAA5CAA252FC97800A471E2 /* HeightSliderV2.swift */,
 				410358762583FF7C00B4C3A2 /* HeightTickMark.swift */,
 			);
-			path = "Height Indicators";
+			path = "Height Indication";
 			sourceTree = "<group>";
 		};
 		41166132252BA9A80063A68D /* Device Manager Views */ = {
@@ -295,7 +295,7 @@
 			children = (
 				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
 				416105FD2578726900D87A49 /* Preset Views */,
-				410358752583FF4100B4C3A2 /* Height Indicators */,
+				410358752583FF4100B4C3A2 /* Height Indication */,
 				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,

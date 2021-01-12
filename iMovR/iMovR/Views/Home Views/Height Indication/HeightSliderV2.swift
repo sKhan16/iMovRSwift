@@ -26,19 +26,23 @@ struct HeightSliderV2: View {
                 HStack {
                     Spacer()
                     ZStack(alignment:.bottom) {
-                        Rectangle().frame(
+                        Rectangle()
+                        .frame (
                             width: geometry.size.width ,
                             height: geometry.size.height
                         )
                             .opacity(1.0)
                             .foregroundColor(Color.white)
                             
-                        Rectangle().frame(
+                        Rectangle()
+                        .frame (
                             width: geometry.size.width,
-                            height: min( CGFloat(self.zipdeskUI.normalizedHeight) * geometry.size.height, geometry.size.height )
+                            height: min ( CGFloat(self.zipdeskUI.normalizedHeight) * geometry.size.height, geometry.size.height
+                            )
                         )
-                            .foregroundColor(Color(UIColor.systemGreen))
-                            .animation(.linear)
+                        .foregroundColor(Color(UIColor.systemGreen))
+//                            .animation(Animation.linear(duration: 1))
+                            .animation(Animation.linear(duration: 0.55))
                     }
                     .frame(idealWidth: 25, maxWidth: 25, maxHeight: .infinity)
                     .cornerRadius(25)
