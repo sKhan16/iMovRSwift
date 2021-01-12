@@ -15,7 +15,7 @@ struct EditDeviceView: View {
     @Binding var deviceIndex: Int
     var selectedDevice: Desk
     
-    @State private var confirmDeleteMenu: Bool = true
+    @State private var confirmDeleteMenu: Bool = false
     @State private var editName: String = ""
     
 //    init(deviceIndex: Binding<Int>, selectedDevice: Desk){
@@ -78,85 +78,39 @@ struct EditDeviceView: View {
                 
                 
                 // Content
-                if confirmDeleteMenu {
-                    VStack {
-                        Text("Are you sure you want to delete this device? Saved presets will be lost.")
-                            .foregroundColor(.white)
-                            .padding(50)
-                        
-                        HStack {
-                            Button (
-                                action: {
-                                    self.confirmDeleteMenu = true
-                                },
-                                label: {
-                                    Text("Keep Device")
-                                        .font(Font.headline)
-                                        .foregroundColor(Color.white)
-                                        .frame(width: 115, height: 50)
-                                        .background(ColorManager.yesGreen)
-                                        .cornerRadius(8)
-                                }
-                            )
-                            //.padding(.trailing, 30)
-                            
-                            Button (
-                                action: {
-                                    self.confirmDeleteMenu = false
-                                    self.deviceIndex = -1
-                                    self.bt.data.deleteDevice(desk: self.selectedDevice)
-                                },
-                                label: {
-                                    Text("Delete")
-                                        .font(Font.headline)
-                                        .foregroundColor(Color.white)
-                                        .frame(width: 80, height: 40)
-                                        .background(Color.red)
-                                        .cornerRadius(8)
-                                }
-                            )
-                            //.padding(.leading, 10)
-                                                
-                        }
-                    }
-                }
-                else {
-                    
+                if !confirmDeleteMenu {
                     VStack(alignment: .leading) {
-                        Text("Name")
+                        Text("Edit Name")
                             .foregroundColor(Color.white)
                             .font(Font.body.weight(.medium))
                             .offset(y:8)
                         TextField(self.selectedDevice.name, text: $editName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         /*
-                        Text("Device ID:")
-                            .foregroundColor(Color.white)
-                            .font(Font.body.weight(.medium))
-                            .padding(.top, 10)
-                            .offset(y:8)
-                        TextField("change id?", text: $editID)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        */
+                         Text("Device ID:")
+                         .foregroundColor(Color.white)
+                         .font(Font.body.weight(.medium))
+                         .padding(.top, 10)
+                         .offset(y:8)
+                         TextField("change id?", text: $editID)
+                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                         */
                         
                     }
-                    .padding([.bottom,.leading,.trailing],10)
-                    
+                    .padding([.bottom,.leading,.trailing],20)
                     
                     Button (
-                        action: {
-                            self.confirmDeleteMenu = true
-                        },
+                        action: { self.confirmDeleteMenu = true },
                         label: {
                             Text("Delete Device")
                                 .font(Font.headline)
                                 .foregroundColor(Color.white)
                                 .frame(width: 125, height: 30)
-                                .background(Color.red)
+                                .background(ColorManager.deviceBG)
                                 .cornerRadius(8)
                         }
                     )
-                    .padding(.top, 10)
+                    .padding(.top, 15)
                     
                     Spacer()
                     
@@ -177,10 +131,62 @@ struct EditDeviceView: View {
                                 .cornerRadius(15)
                         }
                     )
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 50)
                     
-                    
-                } // end else
+                } else { // Confirm Delete Menu
+                    VStack {
+                        VStack {
+                            Text("Are you sure you want to delete this device?")
+                                .multilineTextAlignment(.center)
+                                .font(Font.title2.bold())
+                            Text("Saved presets will be lost.")
+                                .multilineTextAlignment(.center)
+                                .offset(y: 6)
+                        }
+                        .foregroundColor(.white)
+                        .padding(15)
+                        
+                        
+                        Button (
+                            action: {
+                                self.confirmDeleteMenu = false
+                            },
+                            label: {
+                                Text("Keep Device")
+                                    .font(Font.headline)
+                                    .foregroundColor(Color.white)
+                                    .frame(width: 130, height: 50)
+                                    .background(ColorManager.yesGreen)
+                                    .cornerRadius(8)
+                            }
+                        )
+                        .padding(.top, 15)
+                        
+                        
+                        Button (
+                            action: {
+                                self.confirmDeleteMenu = false
+                                
+                                self.bt.disconnectFromDevice(device: self.selectedDevice, savedIndex: self.deviceIndex)
+                                self.deviceIndex = -1
+                                self.bt.data.deleteDevice(desk: self.selectedDevice)
+                            },
+                            label: {
+                                Text("Delete")
+                                    .font(Font.headline)
+                                    .foregroundColor(Color.white)
+                                    .frame(width: 100, height: 40)
+                                    .background(Color.red)
+                                    .cornerRadius(8)
+                            }
+                        )
+                        .padding(.top, 35)
+                        
+                        Spacer()
+                        
+                    }
+                }// end ConfirmDeleteMenu
+                
             }// end VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
             .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor).shadow(color: ColorManager.gray, radius: 2))
