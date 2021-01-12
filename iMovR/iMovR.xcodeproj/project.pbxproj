@@ -307,10 +307,10 @@
 		416105FD2578726900D87A49 /* Preset Views */ = {
 			isa = PBXGroup;
 			children = (
+				1EAA5CB22534ED2D00A471E2 /* Preset Buttons */,
 				1EAA5CE6253579E400A471E2 /* PresetModule.swift */,
 				419062482575C45F00D80D57 /* AddPresetView.swift */,
 				41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */,
-				1EAA5CB22534ED2D00A471E2 /* Preset Buttons */,
 				419A429825A66CD2000B261F /* TouchNGoPopup.swift */,
 			);
 			path = "Preset Views";
