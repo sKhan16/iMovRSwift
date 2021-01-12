@@ -27,7 +27,6 @@ struct HomeViewV2: View {
     @State var isTouchGo: Bool = false
     @State var isMoving: Bool = false
     
-    @State private var testHeight: Float = 35.0
     
     var body: some View {
         GeometryReader { geo in
@@ -66,15 +65,9 @@ struct HomeViewV2: View {
                             HStack {
                                 Spacer()
                                 VStack {
-                                    UpButton (
-                                        pressed: self.$suppressStopButton,
-                                        testHeight: self.$testHeight
-                                    )
+                                    UpButton (pressed: self.$suppressStopButton)
                                         .padding(.bottom, 10)
-                                    DownButton (
-                                        pressed: self.$suppressStopButton,
-                                        testHeight: self.$testHeight
-                                    )
+                                    DownButton (pressed: self.$suppressStopButton)
                                         .padding(.top, 10)
                                 }
                                 .padding(.trailing, 15)
@@ -147,15 +140,16 @@ struct HomeViewV2_Previews: PreviewProvider {
 
                 HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager(test: true)!)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+                    .environmentObject(UserDataManager())
             }
-            .previewDevice("iPhone 11")
+            .previewDevice("iPhone 12")
             
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager(test: true)!)
-                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewDevice("iPhone 6s")
+//            ZStack {
+//                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+//                HomeViewV2(zipdeskUI: ZGoZipDeskController(), data: DeviceDataManager(test: true)!)
+//                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//            }
+//            .previewDevice("iPhone 6s")
         }
     }
 }
