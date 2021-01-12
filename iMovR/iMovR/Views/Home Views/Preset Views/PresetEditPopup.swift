@@ -14,13 +14,15 @@ struct PresetEditPopup: View {
     
     @Binding var show: Bool
     @Binding var isTouchGo: Bool
+    @State private var tngLink: Bool = false
     
-    @State private var showTNGWarningPopup: Bool = false
+    @State private var showTnGPopup: Bool = false
     
-    @State var editIndex: Int = -1
+    @State var editIndex: Int = 0
     @State var editPresetName: String = ""
     @State var editPresetHeight: String = ""
     @State var isInvalidInput: Bool = false
+    
     
     
     var body: some View {
@@ -37,14 +39,14 @@ struct PresetEditPopup: View {
                // Display Presets List
                 if bt.data.connectedDeskIndex == nil {
                     Text("Preset Settings")
-                        .font(Font.largeTitle)
+                        .font(Font.title)
                         .foregroundColor(.white)
-                        .padding(.top, 10)
+                        .padding(.top, 5)
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(.white)
                     Text("Please Connect To A Device")
-                        .font(Font.title2)
+                        .font(Font.title2.bold())
                         .foregroundColor(.white)
                 }
                 
@@ -53,22 +55,21 @@ struct PresetEditPopup: View {
                     
                     VStack {
                         Text("Preset Settings")
-                            .font(Font.title2)
+                            .font(Font.title)
                             .foregroundColor(.white)
                             .padding(.top, 5)
                         ForEach(Range(0...5)) { index in
                             VStack {
                                 Button(action: { self.editIndex = index }, label: {
                                     ZStack {
-                                        
                                         RoundedRectangle(cornerRadius: 12).fill(ColorManager.deviceBG)
                                             .frame(height: 40)
                                             .shadow(color: .black, radius: 3, x: 0, y: 3)
                                         
-                                        HStack {
-                                            Text("Edit \(currDesk.presetNames[index]):")
-                                            Text( (currDesk.presetHeights[index] > -1) ? String(currDesk.presetHeights[index]) : "Empty")
-                                        }
+                                        Text(
+                                            "Edit \(currDesk.presetNames[index]):  " +
+                                            ((currDesk.presetHeights[index] > -1) ? String(currDesk.presetHeights[index]) : "Empty")
+                                        )
                                         
                                     }
                                 })
@@ -78,33 +79,34 @@ struct PresetEditPopup: View {
                             }
                         }
                     }
-                        .padding(.top, 5)
+                    .padding([.top,.bottom], 5)
                     
-                    //I'll explain in a sec
-                    TnGToggle (isTouchGo: self.$isTouchGo)
-                        .padding(.bottom)
+                    TnGToggle (isTouchGo: self.$isTouchGo, showTnGPopup: self.$showTnGPopup)
+                        .padding(5)
                     
                     
                 } else {
-                    VStack(alignment: .leading) {
-                        Text("Change Preset Name?")
+                    let currDesk: Desk = bt.data.savedDevices[bt.data.connectedDeskIndex!]
+                    VStack(alignment: .center) {
+                        Text("Edit Preset")
                             .foregroundColor(Color.white)
-                            .font(Font.body.weight(.medium))
-                            .offset(y:8)
+                            .font(Font.title)
+                            .padding(.top, 5)
                         VStack(alignment: .leading) {
-                            Text("Change Preset \(self.editIndex+1) Name?")
+                            Text("Name")
                                 .foregroundColor(Color.white)
-                                .font(Font.body.weight(.medium))
-                                .offset(y:8)
-                            TextField(" new name", text: $editPresetName)
+                                .font(Font.headline)
+                                .offset(y:6)
+                            TextField(" \(currDesk.presetNames[self.editIndex])", text: $editPresetName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(.bottom, 5)
                             
-                            Text("Change Preset \(self.editIndex+1) Height?")
+                            Text("Height")
                                 .foregroundColor(Color.white)
-                                .font(Font.body.weight(.medium))
-                                .offset(y:8)
+                                .font(Font.headline)
+                                .offset(y:6)
                             /// Fix textfield to work with Float
-                            TextField(" new height", text: self.$editPresetHeight)
+                            TextField(" \(currDesk.presetHeights[self.editIndex], specifier: "%.1f")", text: self.$editPresetHeight)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
@@ -114,18 +116,15 @@ struct PresetEditPopup: View {
                     editSaveButton(data: self.bt.data, presetName: self.$editPresetName, presetHeight: self.$editPresetHeight, isInvalidInput: self.$isInvalidInput, editIndex: self.$editIndex)
                 }
             } //end main level VStack
-            .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
+            .frame(idealWidth: 300, maxWidth: 300, idealHeight: 450, maxHeight: 450, alignment: .top).fixedSize(horizontal: true, vertical: true)
             .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             
             
-            if self.isTouchGo &&
-               !self.user.agreedToZipDeskWaiver {
-                TouchNGoPopup()
-                //Text("Moving your desk via bluetooth could result in injury. iMovR and affiliated are not responsible for any damages that occur. Please press confirm if you agree to these terms")
+            if self.showTnGPopup {
+                TouchNGoPopup(isTouchGo: self.$isTouchGo, showTnGPopup: self.$showTnGPopup)
             }
-            
         }//end ZStack
     }//end Body
 }

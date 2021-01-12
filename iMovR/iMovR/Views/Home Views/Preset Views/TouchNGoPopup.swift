@@ -10,6 +10,8 @@ import SwiftUI
 
 struct TouchNGoPopup: View {
     @EnvironmentObject var user: UserDataManager
+    @Binding var isTouchGo: Bool
+    @Binding var showTnGPopup: Bool
     
     var body: some View {
         ZStack {
@@ -28,6 +30,7 @@ struct TouchNGoPopup: View {
                 Rectangle()
                     .foregroundColor(.white)
                     .frame(height: 1)
+                    .shadow(color: .white, radius: 2)
                 
                 Text("Jar Jar Binks was a Gungan male military commander and politician who played a key role during the Invasion of Naboo and the Clone Wars that culminated in the fall of the Galactic Republic and the rise of the Galactic Empire. Once an outcast from Gungan society due to his clumsy behaviour, he regained favour with his people by helping secure an alliance between the Gungan boss Rugor Nass and Queen Padmé Amidala of Naboo.")
                     .foregroundColor(.white)
@@ -45,6 +48,8 @@ struct TouchNGoPopup: View {
                                 print("TouchNGoPopup error: user.setTNGWaiver(false) failed")
                                 return
                             }
+                            self.isTouchGo = false
+                            self.showTnGPopup = false
                             print("User has rejected TNG Waiver...")
                         },
                         label: {
@@ -69,6 +74,8 @@ struct TouchNGoPopup: View {
                                 print("TouchNGoPopup error: user.setTNGWaiver(true) failed")
                                 return
                             }
+                            self.isTouchGo = true
+                            self.showTnGPopup = false
                         },
                         label: {
                             Text("I Agree")
@@ -95,7 +102,7 @@ struct TouchNGoPopup: View {
                 .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
                 .overlay(
                     RoundedRectangle(cornerRadius: 25).stroke(Color.white, lineWidth: 1)
-                        .shadow(color: .white, radius: 2, x: 0, y: 0)
+                        .shadow(color: .white, radius: 2)
                 )
                 
                 .padding()
@@ -115,7 +122,7 @@ struct TouchNGoPopup_Previews: PreviewProvider {
                 data: DeviceDataManager(test: true)!
             ).environmentObject(DeviceBluetoothManager(previewMode: true)!).environmentObject(UserDataManager())
             
-            TouchNGoPopup()
+            TouchNGoPopup(isTouchGo: .constant(false), showTnGPopup: .constant(true))
                 .environmentObject(UserDataManager())
             
         }
