@@ -31,6 +31,7 @@ struct HeightTickMark: View {
                     .foregroundColor(ColorManager.gray)
                     .offset(x: 23)
             }
+            .offset(y: -3)
         }
     }
 }
