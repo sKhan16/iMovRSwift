@@ -20,9 +20,9 @@ struct AddPresetView: View {
 
     var body: some View {
         
-        let autoFillHeight = Binding<String>(
-            get: { useDeskHeight ? String(self.bt.zipdesk.deskHeight) : self.presetHeight },
-            set: { self.presetHeight = useDeskHeight ? String(self.bt.zipdesk.deskHeight) : $0 }
+        let autoFillHeight = Binding<String> (
+            get: { return (useDeskHeight ? String(self.bt.zipdesk.deskHeight) : self.presetHeight) },
+            set: { self.presetHeight = useDeskHeight ? String(format:"%.1f",self.bt.zipdesk.deskHeight) : $0 }
         )
         
         NavigationView {
@@ -37,18 +37,16 @@ struct AddPresetView: View {
                         .autocapitalization(.none)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    //HStack {
-                        Toggle("Autofill Height of Desk?", isOn: self.$useDeskHeight)
-                            .padding(.trailing, 70)
-                        //Spacer()
-                    //}
                     
-                    TextField("Preset Height", text: autoFillHeight
-                    ) { changing in
-                        if changing {
-                            self.useDeskHeight = false
+                    TextField (
+                        "Preset Height",
+                        text: autoFillHeight
+                    )
+                        { changing in
+                            if changing {
+                                self.useDeskHeight = false
+                            }
                         }
-                    }
                         .keyboardType(.decimalPad)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
