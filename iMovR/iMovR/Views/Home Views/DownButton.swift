@@ -11,6 +11,7 @@ import SwiftUI
 struct DownButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var pressed: Bool
+    @Binding var unpressedTimer: Timer?
     
     var body: some View {
         Button(action: {}) {
@@ -18,19 +19,26 @@ struct DownButton: View {
             .resizable()
             .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
             .foregroundColor(Color.white)
+                
             .onLongPressGesture (
                 minimumDuration: 15,
                 maximumDistance: CGFloat(50),
                 pressing: { pressing in
-                    self.pressed = pressing
                     if pressing {
+                        self.pressed = true
+                        self.unpressedTimer?.invalidate()
+                        self.unpressedTimer = nil
                         self.bt.zipdesk.lowerDesk()
+                        print("press DOWN")
                     }
-                    else {
+                    else { // unpressed DownButton
                         self.bt.zipdesk.releaseDesk()
-                        let _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
+                        self.unpressedTimer = Timer.scheduledTimer (
+                            withTimeInterval: 1.5,
+                            repeats: false
+                        ) { timer in
+                            print("release DOWN -> timer")
                             self.pressed = false
-                            timer.invalidate()
                         }
                     }
                 },
@@ -54,7 +62,7 @@ struct DownButton_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            DownButton(pressed: .constant(false))
+            DownButton(pressed: .constant(false), unpressedTimer: .constant(nil))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

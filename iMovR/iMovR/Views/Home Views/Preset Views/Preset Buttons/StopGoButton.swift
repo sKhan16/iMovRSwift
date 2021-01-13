@@ -14,13 +14,11 @@ struct StopGoButton: View {
     var body: some View {
         Button( action: {
             self.bt.zipdesk.releaseDesk()
-            print("StopGoButton: stopTimer start")
             
             self.stopTimer = Timer.scheduledTimer (
                 withTimeInterval: 0.3,
                 repeats: false )
             { timer in
-                print("StopGoButton: stopTimer triggered")
                 self.bt.zipdesk.releaseDesk()
             }
         } ) { // button View 'Label'

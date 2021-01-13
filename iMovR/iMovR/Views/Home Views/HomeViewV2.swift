@@ -21,6 +21,7 @@ struct HomeViewV2: View {
     @State private var popupBackgroundBlur: CGFloat = 0
     
     @State private var notMovingTimer: Timer?
+    @State private var unpressedUpDownTimer: Timer?
     @State private var suppressStopButton: Bool = false
     @State private var isPaged: Bool = false
 
@@ -65,9 +66,15 @@ struct HomeViewV2: View {
                             HStack {
                                 Spacer()
                                 VStack {
-                                    UpButton (pressed: self.$suppressStopButton)
+                                    UpButton (
+                                        pressed: self.$suppressStopButton,
+                                        unpressedTimer: self.$unpressedUpDownTimer
+                                    )
                                         .padding(.bottom, 10)
-                                    DownButton (pressed: self.$suppressStopButton)
+                                    DownButton (
+                                        pressed: self.$suppressStopButton,
+                                        unpressedTimer: self.$unpressedUpDownTimer
+                                    )
                                         .padding(.top, 10)
                                 }
                                 .padding(.trailing, 15)
@@ -113,18 +120,18 @@ struct HomeViewV2: View {
                 
             } // end top-level ZStack containing main home page components and popup overlays
             .onAppear() {
-                withAnimation(.easeInOut(duration: 10),{})
+                withAnimation(.easeInOut(duration: 1.0),{})
             }
             .onChange(of: zipdeskUI.deskHeight, perform: { value in
                 self.isMoving = true
                 self.notMovingTimer?.invalidate()
                 self.notMovingTimer = nil
-                print("HomeView: notMovingTimer start")
+                print("desk moving")
                 self.notMovingTimer = Timer.scheduledTimer (
                     withTimeInterval: 0.5,
                     repeats: false )
                 { timer in
-                    print("HomeView: notMovingTimer triggered")
+                    print("desk stopped")
                     self.isMoving = false
                 }
             })
