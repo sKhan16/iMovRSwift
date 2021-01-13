@@ -18,7 +18,7 @@ struct PresetEditPopup: View {
     
     @State private var showTnGPopup: Bool = false
     
-    @State var editIndex: Int = 0
+    @State var editIndex: Int = -1
     @State var editPresetName: String = ""
     @State var editPresetHeight: String = ""
     @State var isInvalidInput: Bool = false
