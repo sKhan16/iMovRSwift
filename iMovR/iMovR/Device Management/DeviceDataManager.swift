@@ -146,10 +146,13 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func deleteDevice (desk: Desk) {
+    func deleteDevice (desk: Desk, savedIndex: Int) {
         guard let deskData: ZipDeskData = findDeskData(desk: desk) else {
             print("DeviceDataManager.removeDesk error: desk data not found")
             return
+        }
+        if self.connectedDeskIndex == savedIndex {
+            self.connectedDeskIndex = nil
         }
         self.context.delete(deskData)
         do {

@@ -22,45 +22,50 @@ struct SavedDeviceRowView: View {
         Desk(name: "Home Desk", deskID: 56781234, presetHeights:[], presetNames: [], isLastConnected: false)
     ]
     
+    @ViewBuilder
     var body: some View {
-        let currDevice = self.data.savedDevices[deviceIndex]
-        //for preview testing
-        //let currDevice = testSavedDevices[deviceIndex]
-        HStack {
-            ConnectButton( deviceIndex: self.deviceIndex,
-                           isConnected: self.$isConnected
-            )// end ConnectButton initializer
-                .padding(.leading, 5)
-                .frame(width:70, height:65)
-            
-            VStack {
-                Text(currDevice.name)
-                    .font(Font.title3.bold())
-                    .truncationMode(.tail)
-                    .foregroundColor(Color.white)
-                if self.isConnected {
-                    Text("Connected")
-                        .font(Font.body.weight(.medium))
-                        .foregroundColor(ColorManager.connected)
+        if !self.data.savedDevices.indices.contains(deviceIndex) {
+            EmptyView()
+        } else {
+            let currDevice = self.data.savedDevices[deviceIndex]
+            //for preview testing
+            //let currDevice = testSavedDevices[deviceIndex]
+            HStack {
+                ConnectButton( deviceIndex: self.deviceIndex,
+                               isConnected: self.$isConnected
+                )// end ConnectButton initializer
+                    .padding(.leading, 5)
+                    .frame(width:70, height:65)
+                
+                VStack {
+                    Text(currDevice.name)
+                        .font(Font.title3.bold())
+                        .truncationMode(.tail)
+                        .foregroundColor(Color.white)
+                    if self.isConnected {
+                        Text("Connected")
+                            .font(Font.body.weight(.medium))
+                            .foregroundColor(ColorManager.connected)
+                    }
+                    Text("("+String(currDevice.id)+")")
+                        .font(Font.caption)//.weight(.medium))
+                        .foregroundColor(Color.white)
                 }
-                Text("("+String(currDevice.id)+")")
-                    .font(Font.caption)//.weight(.medium))
-                    .foregroundColor(Color.white)
+                    .lineLimit(1)
+                    .frame(idealWidth: .infinity, maxWidth: .infinity)
+                
+                EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
+                    .padding(.trailing, 5)
+                    .frame(width:70, height:65)
             }
-                .lineLimit(1)
-                .frame(idealWidth: .infinity, maxWidth: .infinity)
-            
-            EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
-                .padding(.trailing, 5)
-                .frame(width:70, height:65)
-        }
-        .frame(height: 75)
-        .background(ColorManager.deviceBG)
-        .cornerRadius(75/2.0)
+            .frame(height: 75)
+            .background(ColorManager.deviceBG)
+            .cornerRadius(75/2.0)
 
-        .shadow(color: .black, radius: 3, x: 0, y: 4)
-        .padding([.leading, .trailing, .top], 2)
-        .padding(.bottom, 8)
+            .shadow(color: .black, radius: 3, x: 0, y: 4)
+            .padding([.leading, .trailing, .top], 2)
+            .padding(.bottom, 8)
+        }
     }// end Body
 }// end SavedDeviceRowView
 

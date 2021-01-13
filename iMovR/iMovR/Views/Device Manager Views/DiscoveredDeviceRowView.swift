@@ -15,12 +15,13 @@ struct DiscoveredDeviceRowView: View {
     @Binding var save: Int
     let deviceIndex: Int
     
-    // In final build, this array is type [Device] & comes from BTController or UserObservable
-    //let testSavedDevices: [Desk] = [Desk(name: "Main Office Desk", deskID: 10009810), Desk(name: "Treadmill Home Office ", deskID: 54810), Desk(name: "Home Desk", deskID: 56781234)]//, Desk(name: "Conference Room Third Floor Desk", deskID: 10005326), Desk(name: "Office 38 Desk", deskID: 38801661), Desk(name: "Home Monitor Arm", deskID: 881004)]
     let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189, presetHeights:[], presetNames: [], isLastConnected: false), Desk(name: "Discovered ZipDesk", deskID: 10004955, presetHeights:[], presetNames: [], isLastConnected: false), Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[], presetNames: [], isLastConnected: false)]
+    
     @ViewBuilder
     var body: some View {
-        if self.bt.discoveredDevices.indices.contains(deviceIndex) {
+        if !self.bt.discoveredDevices.indices.contains(deviceIndex) {
+            EmptyView()
+        } else {
             let currDevice = self.bt.discoveredDevices[deviceIndex]
             HStack {
                 SaveButton(deviceIndex: self.deviceIndex, saveIndex: $save)
@@ -51,8 +52,6 @@ struct DiscoveredDeviceRowView: View {
             .shadow(color: .black, radius: 3, x: 0, y: 4)
             .padding([.leading, .trailing, .top], 2)
             .padding(.bottom, 8)
-        } else {
-            EmptyView()
         }
     }
 }
