@@ -57,6 +57,8 @@
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
 		41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD0F0C254CD54400B828BA /* PresetNew.swift */; };
 		41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C2EFE4252E371D006D6BF2 /* Device.swift */; };
+		41D54E9A25B0F51E002833B5 /* SelectedPresetEditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D54E9925B0F51E002833B5 /* SelectedPresetEditMenu.swift */; };
+		41D54EA825B0FDE9002833B5 /* PresetEditOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D54EA725B0FDE9002833B5 /* PresetEditOptions.swift */; };
 		41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */; };
 		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
@@ -116,6 +118,8 @@
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
 		41AD0F0C254CD54400B828BA /* PresetNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetNew.swift; sourceTree = "<group>"; };
 		41C2EFE4252E371D006D6BF2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		41D54E9925B0F51E002833B5 /* SelectedPresetEditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPresetEditMenu.swift; sourceTree = "<group>"; };
+		41D54EA725B0FDE9002833B5 /* PresetEditOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditOptions.swift; sourceTree = "<group>"; };
 		41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
@@ -308,9 +312,9 @@
 			isa = PBXGroup;
 			children = (
 				1EAA5CB22534ED2D00A471E2 /* Preset Buttons */,
+				41D54EA625B0FD81002833B5 /* Preset Edit */,
 				1EAA5CE6253579E400A471E2 /* PresetModule.swift */,
 				419062482575C45F00D80D57 /* AddPresetView.swift */,
-				41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */,
 				419A429825A66CD2000B261F /* TouchNGoPopup.swift */,
 			);
 			path = "Preset Views";
@@ -342,6 +346,16 @@
 				41166141252BABFD0063A68D /* ZGo ZipDesk */,
 			);
 			path = "Device Management";
+			sourceTree = "<group>";
+		};
+		41D54EA625B0FD81002833B5 /* Preset Edit */ = {
+			isa = PBXGroup;
+			children = (
+				41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */,
+				41D54E9925B0F51E002833B5 /* SelectedPresetEditMenu.swift */,
+				41D54EA725B0FDE9002833B5 /* PresetEditOptions.swift */,
+			);
+			path = "Preset Edit";
 			sourceTree = "<group>";
 		};
 		7F07244DFABD274366A726AB /* Frameworks */ = {
@@ -474,6 +488,7 @@
 				1E31FFD524DA4A6100E9913F /* Desk.swift in Sources */,
 				1E94E1E324BF9FCE00155123 /* AddPresetButton.swift in Sources */,
 				41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */,
+				41D54E9A25B0F51E002833B5 /* SelectedPresetEditMenu.swift in Sources */,
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
 				1EE60ED8253A310000B564F8 /* TnGToggle.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
@@ -510,6 +525,7 @@
 				1E23015E24BCEB35009A0B3C /* ContentView.swift in Sources */,
 				1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
+				41D54EA825B0FDE9002833B5 /* PresetEditOptions.swift in Sources */,
 				1EAA5CA6252BE1A600A471E2 /* DevicePicker.swift in Sources */,
 				41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */,
 				419062492575C45F00D80D57 /* AddPresetView.swift in Sources */,
