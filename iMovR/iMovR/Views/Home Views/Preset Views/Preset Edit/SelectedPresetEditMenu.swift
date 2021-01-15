@@ -90,7 +90,7 @@ struct SelectedPresetEditMenu: View {
                         .offset(y:6)
                     /// Fix textfield to work with Float
                     TextField (
-                        " \(currDesk.presetHeights[self.editIndex], specifier: "%.1f")",
+                        " \( (currDesk.presetHeights[self.editIndex] == -1.0) ? "Empty" : String(format:"%.1f",currDesk.presetHeights[self.editIndex]) )",
                         text: getPresetHeight
                     )
                     { changing in
