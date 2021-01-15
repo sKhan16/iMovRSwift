@@ -11,9 +11,10 @@ import SwiftUI
 struct AddPresetView: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @State private var presetName: String = ""
-    @State private var presetHeight: String = ""
+    @State private var presetHeight: String = "" // doesnt andy want this to change so that it keeps the height...
     @State private var useDeskHeight: Bool = true
     @Binding var showAddPreset: Bool
+    
     @State var isInvalidInput: Bool = false
 
     let index: Int
@@ -21,7 +22,7 @@ struct AddPresetView: View {
     var body: some View {
         
         let autoFillHeight = Binding<String> (
-            get: { return (useDeskHeight ? String(self.bt.zipdesk.deskHeight) : self.presetHeight) },
+            get: { return (useDeskHeight ? String(format:"%.1f",self.bt.zipdesk.deskHeight) : self.presetHeight) },
             set: { self.presetHeight = useDeskHeight ? String(format:"%.1f",self.bt.zipdesk.deskHeight) : $0 }
         )
         
@@ -44,6 +45,9 @@ struct AddPresetView: View {
                     )
                         { changing in
                             if changing {
+                                if self.presetHeight == "" { // Preset height set to desk height
+                                    self.presetHeight = String(format:"%.1f",self.bt.zipdesk.deskHeight)
+                                }
                                 self.useDeskHeight = false
                             }
                         }
