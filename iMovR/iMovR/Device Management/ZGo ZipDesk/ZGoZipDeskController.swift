@@ -148,15 +148,15 @@ class ZGoZipDeskController: ObservableObject {
     // Called after desk notifies that the read characteristic has been updated
     func identifyMessage() {
         guard self.readCharacteristic != nil else {
-            print("zipdesk.identifyMessage(): zipdesk readCharacteristic not assigned")
+            print("zipdesk.identifyMessage -- zipdesk readCharacteristic is nil")
             return
         }
         guard let readData: Data = self.readCharacteristic?.value else {
-            print("zipdesk.identifyMessage(): invalid read characteristic value (nil)")
+            print("zipdesk.identifyMessage -- invalid readCharacteristic.value")
             return
         }
         guard readData.count > 3 else {
-            print("zipdesk.identifyMessage(): read characteristic data length too small")
+            print("zipdesk.identifyMessage -- read characteristic data length too small")
             return
         }
         let readByteData: [UInt8] = [UInt8](readData)
@@ -176,7 +176,7 @@ class ZGoZipDeskController: ObservableObject {
         //print("calculated checksum = \(String(describing: calcChecksum))")
         
         guard calcChecksum == msgChecksum else {
-            print("checksum error - received invalid message from desk")
+            print("zipdesk.identifyMessage -- checksum error")
             return
         }
         
@@ -187,7 +187,7 @@ class ZGoZipDeskController: ObservableObject {
                 print("readData count invalid")
                 return
             }
-            print("successfully detected message: Table Height Information")
+            print("Received \"Table Height Information\"")
             self.deskCurrHeight = [readByteData[4],readByteData[3]]
             self.deskMinHeight = [readByteData[6],readByteData[5]]
             self.deskMaxHeight = [readByteData[8],readByteData[7]]
@@ -203,7 +203,7 @@ class ZGoZipDeskController: ObservableObject {
             self.updateDisplayedHeights()
             
         } else {
-            print("readData message unidentified in updateHeightInfo()")
+            print("Received \"Undefined Desk Response\"")
             print(readData.map { String(format: "%02x", $0) }.joined())
             return
         }
@@ -232,7 +232,7 @@ class ZGoZipDeskController: ObservableObject {
     
     private func isDeskConnected() -> Bool {
         guard self.peripheral?.state == .connected else {
-            print("error: desk peripheral not connected")
+            print("zipdesk.isDeskConnected -- ERROR: peripheral not connected")
             return false
         }
         return true

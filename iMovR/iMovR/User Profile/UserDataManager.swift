@@ -32,10 +32,9 @@ public class UserDataManager: ObservableObject {
     
     init() {
         guard self.pullPersistentData() else {
-            print("error retrieving user states")
+            print("UserDataManager -- ERROR: failed when retrieving user states")
             return
         }
-        print("user profile successfully retrieved")
     }
     
     
@@ -48,12 +47,12 @@ public class UserDataManager: ObservableObject {
             return false
         }
         guard (self.fetchedUserData != nil) else {
-            print("error fetching UserData")
+            print("no UserData found - nil")
             return false
         }
         
         if !self.fetchedUserData!.isEmpty {
-            print("Found Saved UserData")
+            print("Found Saved UserData.")
             
             let userData: UserData = self.fetchedUserData![0]
             self.agreedToZipDeskWaiver = userData.touchAndGoWaiver

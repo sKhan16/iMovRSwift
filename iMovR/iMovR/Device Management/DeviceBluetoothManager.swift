@@ -74,7 +74,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Device Discovery and Connection functions
     
     func scanForDevices() {
-        print("attemping to scan for devices")
+        print("Scanning for devices:")
         guard self.bluetoothReadyFlag else {
             print("-bluetooth not ready yet")
             self.connStatus = .disabled
@@ -119,7 +119,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             let didDisconnect = self.disconnectFromDevice (
                 device: otherConnectedDevice,
                 savedIndex: self.data.connectedDeskIndex! )
-                print("bt.connect -- disconnect from last device: \(otherConnectedDevice.name), id:\(device.id) - " + (didDisconnect ? "success" : "fail" ) )
+                print("bt.connect -- disconnect from last device: \(otherConnectedDevice.name), id:\(otherConnectedDevice.id) - " + (didDisconnect ? "success" : "fail" ) )
         }
         
         print("bt.connect -- connecting to device: \(device.name), id:\(device.id)")
@@ -165,42 +165,40 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# CoreBluetooth CentralManager Delegate functions
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("Checking Bluetooth status")
-        
         switch central.state {
         
         // Ideal case: Bluetooth is powered on, scan for desks
         case .poweredOn:
             DispatchQueue.main.async { () -> Void in (self.connStatus = .ready) }
-            print("Bluetooth status is POWERED ON")
+            print("Bluetooth status is POWERED ON.")
             // scan when user clicks the Connect To Desk button
             bluetoothReadyFlag = true
             
         // Bad cases - Bluetooth is not yet ready
         case .unknown:
-            print("Bluetooth status is UNKNOWN")
+            print("Bluetooth status is UNKNOWN!")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
         case .resetting:
-            print("Bluetooth status is RESETTING")
+            print("Bluetooth status is RESETTING!")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
         case .unsupported:
-            print("Bluetooth status is UNSUPPORTED")
+            print("Bluetooth status is UNSUPPORTED!")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
         case .unauthorized:
-            print("Bluetooth status is UNAUTHORIZED")
+            print("Bluetooth status is UNAUTHORIZED!")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
         case .poweredOff:
-            print("Bluetooth status is POWERED OFF")
+            print("Bluetooth status is POWERED OFF!")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
             
         // Exception
         @unknown default:
-            print("Bluetooth status EXCEPTION")
+            print("Bluetooth status EXCEPTION!")
             bluetoothReadyFlag = false
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
         }
@@ -239,7 +237,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                        self.data.connectedDeskIndex == nil {
                         
                         let didConnect = self.connectToDevice(device: thisSavedDevice, savedIndex: foundIndex)
-                        print("saved desk autoconnect successful? : \(didConnect)")
+                        print("Last connected desk autoconnect : " + didConnect ? "success" : "fail")
                         
                     }
                     return
@@ -272,7 +270,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             self.connStatus = .connected
             self.isDeskConnected = true
         }
-        print("successfully connected to desk \(String(describing: self.zipdesk.getDesk().id))")
+        print("successfully connected to desk \(self.zipdesk.getDesk().id))")
         peripheral.discoverServices([ZGoServiceUUID])
     }
     

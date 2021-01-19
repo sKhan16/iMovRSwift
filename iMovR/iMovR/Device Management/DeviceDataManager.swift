@@ -29,7 +29,7 @@ public class DeviceDataManager: ObservableObject {
             print("error retrieving stored desks and presets")
             return
         }
-        print("ZipDeskData successfully retrieved")
+        print("ZipDeskData successfully retrieved.")
     }
     
     init?(test: Bool) {
@@ -66,7 +66,7 @@ public class DeviceDataManager: ObservableObject {
                          presetNames: self.dearchiveStringArray(data: deviceData.presetNames),
                          isLastConnected: deviceData.isLastConnectedTo )
                 )
-                print("Found Saved ZipDeskData(\(deviceData.name) - id: \(deviceData.deskID)")
+                print("Found Saved ZipDeskData(\"\(deviceData.name)\", \(deviceData.deskID))")
             }
         }
         // copy the in-range peripherals over
@@ -89,7 +89,6 @@ public class DeviceDataManager: ObservableObject {
     
     
     func findDeskData (desk: Desk) -> ZipDeskData? {
-        print("DeviceDataManager.findDeskData---testing new matching ZipDeskData search")
         guard let index: Int = self.fetchedDevices!.firstIndex(
                 where: { (thisDeskData: ZipDeskData) -> Bool in
                     thisDeskData.deskID == desk.id
@@ -213,7 +212,7 @@ public class DeviceDataManager: ObservableObject {
 
         do {
             try self.context.save()
-            print("desk lastConnected set")
+            print("Last connected desk set (\(desk.name), \(desk.id))")
         } catch {
             print(error.localizedDescription)
             print("DeviceDataManager.setLastConnectedDesk error saving desk removal")
