@@ -14,14 +14,8 @@ struct SaveDeviceView: View {
     
     @Binding var deviceIndex: Int
     var selectedDevice: Desk
+    
     @State var showWarning: Bool = false
-    
-    //    init(deviceIndex: Binding<Int>, selectedDevice: Desk){
-    //        self._deviceIndex = deviceIndex
-    //        self.selectedDevice = selectedDevice
-    //        UITableView.appearance().backgroundColor = .clear
-    //    }
-    
     @State var newName: String = ""
     
     var body: some View {
@@ -132,7 +126,7 @@ struct SaveDeviceView: View {
                             let didConnect = bt.connectToDevice (
                                     device: newDevice,
                                     savedIndex: savedDeviceIndex )
-                            print("SaveDeviceView: did connect to device after saving?-\(didConnect)")
+                            print("saved new device: did connect - \(didConnect)")
                         }
                     }
                     self.showWarning = false

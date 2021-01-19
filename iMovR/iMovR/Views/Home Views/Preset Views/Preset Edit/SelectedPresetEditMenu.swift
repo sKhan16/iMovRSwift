@@ -146,7 +146,7 @@ private struct EditSaveButton: View {
                     if currDesk.id == bt.zipdesk.getDesk().id,
                        currDesk.peripheral?.identifier == bt.zipdesk.getPeripheral()?.identifier
                     {
-                        bt.zipdesk.setDesk(connectedDesk: currDesk)
+                        bt.zipdesk.setDesk(soonConnectedDesk: currDesk)
                     }
                     self.isInvalidInput = false
                     self.editIndex = -1

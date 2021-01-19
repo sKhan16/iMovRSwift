@@ -83,21 +83,33 @@ private struct ConnectButton: View {
             
             let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
             
-            if isConnected {
-                self.bt.data.setLastConnectedDesk(desk: thisDevice, disable: true)
+            if isConnected { // Disconnect from this connected desk
                 let didDisconnect: Bool = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
-                
-                print("Device Manager View: disconnect from device \(thisDevice.name) - " +
+                print("SavedDevRow -- disconnect from \(thisDevice.name) - " +
                         (didDisconnect ? "success" : "fail" ) )
-            }
-            else if self.bt.connectToDevice(device: thisDevice, savedIndex: deviceIndex) {
-                print("connecting to device: \(thisDevice.name), id:\(thisDevice.id)")
+                
             }
             else {
-                print("bt.connectToDevice attempt failed (device: \(thisDevice.name), id:\(thisDevice.id))")
+                let didConnect = self.bt.connectToDevice (
+                    device: thisDevice,
+                    savedIndex: deviceIndex )
+                print("SavedDevRow -- connect to \(thisDevice.name) - " +
+                        (didConnect ? "success" : "fail" ) )
             }
+//            // No devices connected yet, connect normally
+//            else if bt.data.connectedDeskIndex == nil {
+//                let didConnect = self.bt.connectToDevice (
+//                    device: thisDevice,
+//                    savedIndex: deviceIndex )
+//                print("SavedDevRow -- connect to \(thisDevice.name) - " +
+//                        (didConnect ? "success" : "fail" ) )
+//
+//
+//            } // Connected to another desk, disconnect and connect to this
             
-        }/*end button action*/ ) { // Button View 'label':
+
+        }/*end button action*/ )
+        { // Button View 'label'
             ZStack {
                 Circle()
                     .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
