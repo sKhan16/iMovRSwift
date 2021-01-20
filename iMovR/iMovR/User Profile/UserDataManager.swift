@@ -52,10 +52,13 @@ public class UserDataManager: ObservableObject {
         }
         
         if !self.fetchedUserData!.isEmpty {
-            print("Found Saved UserData.")
+            print("Found Saved UserData")
             
             let userData: UserData = self.fetchedUserData![0]
-            self.agreedToZipDeskWaiver = userData.touchAndGoWaiver
+            
+//MARK: Disabling persistent TnGWaiver as per Andy's request. Uncomment below to revert
+            //self.agreedToZipDeskWaiver = userData.touchAndGoWaiver
+            
             //self.agreedToTreadmillWaiver = userData.treadmillWaiver
         }
         return true
@@ -64,6 +67,10 @@ public class UserDataManager: ObservableObject {
     
     func setTNGWaiver(_ value: Bool) -> Bool {
         if self.fetchedUserData != nil, !self.fetchedUserData!.isEmpty {
+            
+//MARK: Disabling persistent TnGWaiver as per Andy's request. Delete below to revert
+self.agreedToZipDeskWaiver = value
+            
             self.fetchedUserData![0].touchAndGoWaiver = value
         } else {
             print("no UserData found, initializing")
