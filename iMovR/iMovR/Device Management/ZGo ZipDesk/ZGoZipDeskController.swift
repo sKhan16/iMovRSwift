@@ -49,12 +49,12 @@ class ZGoZipDeskController: ObservableObject {
             print("ZGoZipDeskController:setDesk(..) error- desk peripheral is nil")
             return false
         }
-        self.peripheral = soonConnectedDesk.peripheral!
-        // require BTManager to discover the characteristics only when desk changed
         if self.desk.id != soonConnectedDesk.id {
             self.readCharacteristic = nil
             self.writeCharacteristic = nil
         }
+        self.peripheral = soonConnectedDesk.peripheral!
+        // require BTManager to discover the characteristics only when desk changed
         self.desk = soonConnectedDesk
         return true
     }

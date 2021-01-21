@@ -66,7 +66,7 @@ public class DeviceDataManager: ObservableObject {
                          presetNames: self.dearchiveStringArray(data: deviceData.presetNames),
                          isLastConnected: deviceData.isLastConnectedTo )
                 )
-                print("Found Saved ZipDeskData(\"\(deviceData.name)\", \(deviceData.deskID))")
+                //print("Found Saved ZipDeskData(\"\(deviceData.name)\", \(deviceData.deskID))")
             }
         }
         // copy the in-range peripherals over
@@ -151,6 +151,7 @@ public class DeviceDataManager: ObservableObject {
             return
         }
         if self.connectedDeskIndex == savedIndex {
+            BTManager.disconnectFromDevice(device: desk, savedIndex: self.connectedDeskIndex!)
             self.connectedDeskIndex = nil
         }
         self.context.delete(deskData)
@@ -212,7 +213,9 @@ public class DeviceDataManager: ObservableObject {
 
         do {
             try self.context.save()
-            print("Last connected desk set (\(desk.name), \(desk.id))")
+            if !disable {
+                print("Last connected desk set (\(desk.name), \(desk.id))")
+            }
         } catch {
             print(error.localizedDescription)
             print("DeviceDataManager.setLastConnectedDesk error saving desk removal")

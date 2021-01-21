@@ -23,7 +23,7 @@ struct ContentView: View {
                 HomeViewV2(zipdeskUI: BTController.zipdesk, data: BTController.data)
                     .onAppear() {
                         // Enable autoconnect
-                        if !(self.BTController.isDeskConnected) {
+                        if self.BTController.data.connectedDeskIndex == nil {
                             self.BTController.scanForDevices()
                         } else {
                             self.BTController.stopScan()

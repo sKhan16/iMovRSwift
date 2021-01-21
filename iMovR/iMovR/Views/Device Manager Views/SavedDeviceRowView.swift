@@ -93,6 +93,9 @@ private struct ConnectButton: View {
                 let didConnect = self.bt.connectToDevice (
                     device: thisDevice,
                     savedIndex: deviceIndex )
+                if didConnect {
+                    self.bt.data.connectedDeskIndex = deviceIndex
+                }
                 print("SavedDevRow -- connect to \(thisDevice.name) - " +
                         (didConnect ? "success" : "fail" ) )
             }
