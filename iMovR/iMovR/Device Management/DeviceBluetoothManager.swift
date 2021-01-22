@@ -33,7 +33,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     private var centralManager: CBCentralManager?
     private var desiredPeripheral: CBPeripheral?
     private var bluetoothReadyFlag = false
-    private var stagedToConnectIndex: Int?
+    private var connectingIndex: Int?
     
     ///# Connection Status
     enum ConnectionStatus {
@@ -102,18 +102,23 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
-        self.stopScan()
+        //self.stopScan()
+        
         guard device.peripheral != nil else {
             print("bt.connect -- ERROR: attempted to connect to nil peripheral")
             return false
         }
-        guard device.peripheral?.state != .connected,
-              device.peripheral?.state != .connecting else {
+        guard self.data.connectedDeskIndex != savedIndex else {
             print("bt.connect -- ERROR: that device is already connected")
             return false
         }
+        guard device.peripheral?.state != .connected,
+              device.peripheral?.state != .connecting else {
+            print("bt.connect -- ERROR: device peripheral connected but not set to connectedDeskIndex")
+            return false
+        }
         print("-> bt.connect")
-        
+/*
         // disconnect from old connected device
         if self.data.connectedDeskIndex != nil,
            self.data.connectedDeskIndex != savedIndex {
@@ -124,37 +129,33 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 savedIndex: self.data.connectedDeskIndex! )
                 print("disconnect from last device: \(otherConnectedDevice.name), id:\(otherConnectedDevice.id) - " + (didDisconnect ? "success" : "fail" ) )
         }
-        
-        // connect to new device
+ */
+        // connect to this device
         print("connecting to this device: \(device.name), id:\(device.id)")
-        guard self.zipdesk.setDesk(soonConnectedDesk: device) else {
-            return false
-        }
-                
-        //self.data.connectedDeskIndex = savedIndex
-        self.stagedToConnectIndex = savedIndex
+        self.connectingIndex = savedIndex
         self.data.setLastConnectedDesk(desk: device)
         centralManager?.connect(device.peripheral!)
         
         
-// debug
+// debug prints
 let temp = self.data.connectedDeskIndex
 print("debug message - connection bugs\n  data.connectedDeskindex = \(String(describing: data.connectedDeskIndex))\n  new peripheral connection status \(String(describing: device.peripheral?.state))")
 if temp != nil {
     print("  old peripheral connection status \(String(describing: self.data.savedDevices[temp!].peripheral?.state))")
 }
-// end debug
+// end debug prints
         
+        // check if connection times out... use timer
+        // calls centralManager:didConnectPeripheral: on success
+        // continue connection process by initializing ZGoZipDeskController
+        // calls centralManager:didFailToConnectPeripheral:error: on failure
+        // continue connection process by scanning for the desk again
+        //    }
         
         return true
     } // end connectToDevice
     
-// check if connection times out... use timer
-        // calls centralManager:didConnectPeripheral: on success
-            // continue connection process by initializing ZGoZipDeskController
-        // calls centralManager:didFailToConnectPeripheral:error: on failure
-        // continue connection process by scanning for the desk again
-//    }
+
     
     
     func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool {
@@ -167,16 +168,12 @@ if temp != nil {
             return false
         }
         guard (savedIndex == self.data.connectedDeskIndex) else {
-            print("bt.disconnectFromDevice error: desk device does not match connectedDeskIndex & zipdesk peripheral")
+            print("bt.disconnectFromDevice error: desk device does not match connectedDeskIndex / current zipdesk peripheral")
             return false
         }
         print("disconnecting from connected desk")
         self.data.setLastConnectedDesk(desk: device, disable: true)
         centralManager?.cancelPeripheralConnection(device.peripheral!)
-
-//        while (device.peripheral?.state == .connected) {
-//            wait
-//        }
         return true
     }
     
@@ -285,20 +282,36 @@ if temp != nil {
     func centralManager(_ central: CBCentralManager,
                         didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
+        print("-> bt.didConnect")
         DispatchQueue.main.sync { () -> Void in
+            guard self.connectingIndex != nil else {
+                print("didConnect ERROR: connectingIndex was unstaged. ")
+                return
+            }
+            guard peripheral == data.savedDevices[connectingIndex!].peripheral else {
+                print("didConnect ERROR: peripherals do not match")
+                return
+            }
+            guard self.zipdesk.setDesk (
+                    soonConnectedDesk: data.savedDevices[connectingIndex!]
+            ) else {
+                print("didConnect ERROR: rejected by zipdesk.setDesk")
+                return
+            }
             self.connStatus = .connected
-            self.data.connectedDeskIndex = self.stagedToConnectIndex
-            self.stagedToConnectIndex = nil
+            self.data.connectedDeskIndex = self.connectingIndex
+            self.connectingIndex = nil
+            self.zipdesk.getPeripheral()!.discoverServices([ZGoServiceUUID])
             
             print("Successfully connected to desk # \(self.zipdesk.getDesk().id).")
-            peripheral.discoverServices([ZGoServiceUUID])
             
             print("bt.didConnect: disconnecting from all other desks")
             for (index, device) in data.savedDevices.enumerated() {
                 // find improperly connected devices
                 if index != self.data.connectedDeskIndex,
                    device.peripheral != nil,
-                   (device.peripheral!.state == .connected || device.peripheral!.state == .connecting) {
+                   (device.peripheral!.state == .connected || device.peripheral!.state == .connecting)
+                {
                     
                     centralManager?.cancelPeripheralConnection(device.peripheral!)
                 }
@@ -323,16 +336,20 @@ if temp != nil {
     ///# didDisconnectPeripheral peripheral
     func centralManager(_ central: CBCentralManager,
                         didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        
         DispatchQueue.main.sync { () -> Void in
             self.connStatus = .disconnected
-            if self.stagedToConnectIndex == nil {
+            if self.data.connectedDeskIndex != nil,
+               peripheral == data.savedDevices[data.connectedDeskIndex!].peripheral
+            {
+                print("bt.didDisconnect -- nullified connectedDeskIndex")
                 self.data.connectedDeskIndex = nil
             }
         }
         
         // disconnected unintentionally
         if error != nil {
-            print("peripheral disconnected with error")
+            print("peripheral disconnected with error; scanning")
             // ensure autoconnect is enabled
             self.scanForDevices()
         } else {

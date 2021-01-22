@@ -204,9 +204,9 @@ public class DeviceDataManager: ObservableObject {
             return
         }
         thisDeskData.isLastConnectedTo = !disable
-
+        // turn off autoconnect for all other desks
         for otherDeskData in self.fetchedDevices! {
-            if(otherDeskData.deskID != thisDeskData.deskID) {
+            if(thisDeskData.deskID != otherDeskData.deskID) {
                 otherDeskData.isLastConnectedTo = false
             }
         }

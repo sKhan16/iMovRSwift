@@ -84,20 +84,13 @@ private struct ConnectButton: View {
             let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
             
             if isConnected { // Disconnect from this connected desk
-                let didDisconnect: Bool = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
-                print("SavedDevRow -- disconnect from \(thisDevice.name) - " +
-                        (didDisconnect ? "success" : "fail" ) )
-                
+                _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
             }
             else {
-                let didConnect = self.bt.connectToDevice (
+                _ = self.bt.connectToDevice (
                     device: thisDevice,
-                    savedIndex: deviceIndex )
-                if didConnect {
-                    self.bt.data.connectedDeskIndex = deviceIndex
-                }
-                print("SavedDevRow -- connect to \(thisDevice.name) - " +
-                        (didConnect ? "success" : "fail" ) )
+                    savedIndex: deviceIndex
+                )
             }
 //            // No devices connected yet, connect normally
 //            else if bt.data.connectedDeskIndex == nil {
