@@ -23,6 +23,9 @@ struct HomeViewV2: View {
     @State private var notMovingTimer: Timer?
     @State private var unpressedUpDownTimer: Timer?
     @State private var suppressStopButton: Bool = false
+    
+    @State private var devicePickerIndex: Int? = nil
+    
     @State private var isPaged: Bool = false
 
     @State var isTouchGo: Bool = false
@@ -39,7 +42,16 @@ struct HomeViewV2: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
-                    DevicePicker(deviceData: self.data)
+                    DevicePicker (
+                        deviceData: self.data
+                        pickerIndex: Binding<Int?> (
+                            get: <#T##() -> Int?#>,
+                            set: <#T##(Int?) -> Void#>
+                            // needs to do the following -->
+                            // get: return either the connectedDeskIndex or the available desk that the user wants to connect to. what about setting on startup/first connection? hmm
+                            // set: keep track of displayed device with devicePickerIndex and attempt to connect to said device. check if index has changed, and adjust it accordingly to go to the next AVAILABLE device, not just every saved device.
+                        )
+                    )
                         .padding([.leading, .trailing])
                     
                     ZStack(alignment: .center) {

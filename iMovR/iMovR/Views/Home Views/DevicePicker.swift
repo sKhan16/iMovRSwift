@@ -12,8 +12,7 @@ import SwiftUI
 
 struct DevicePicker: View {
     @ObservedObject var deviceData: DeviceDataManager
-    
-    @State var index: Int = 0
+    @Binding var pickerIndex: Int?
     
     
     init(deviceData: DeviceDataManager) {
@@ -36,22 +35,24 @@ struct DevicePicker: View {
         ZStack {
             
             HStack {
-                PickerLeft(index: $index, devices: $deviceData.savedDevices)
+                PickerLeft(index: $pickerIndex, devices: $deviceData.savedDevices)
                     .frame(width: 35, height: 80)
                 Spacer()
-                PickerRight(index: $index, devices: $deviceData.savedDevices)
+                PickerRight(index: $pickerIndex, devices: $deviceData.savedDevices)
                     .frame(width: 35, height: 80)
             }
             
-            if deviceData.savedDevices.count > 0 {
+            if self.deviceData.savedDevices.count > 0,
+               self.pickerIndex != nil
+            {
                 ZStack {
-                    Text(deviceData.savedDevices[self.index].name)
+                    Text(deviceData.savedDevices[self.pickerIndex!].name)
                         .font(.system(size: 40))
                         .foregroundColor(Color.white)
                         .padding([.leading,.trailing], 35)
                     
                     if self.deviceData.connectedDeskIndex != nil,
-                       self.deviceData.connectedDeskIndex! == self.index {
+                       self.deviceData.connectedDeskIndex! == self.pickerIndex! {
                         Text("Connected")
                             .font(Font.title2)
                             .foregroundColor(
@@ -66,6 +67,7 @@ struct DevicePicker: View {
                     }
                 }
             } else {
+                
                 Text("Connect To A Device")
                     .font(.system(size: 30))
                     .foregroundColor(Color.white)
@@ -80,15 +82,19 @@ struct DevicePicker: View {
 
 
 struct PickerLeft: View {
-    @Binding var index: Int
+    @EnvironmentObject var bt: DeviceBluetoothManager
+    
+    @Binding var index: Int?
     @Binding var devices: Array<Desk>
     
     var body: some View {
         Button(action: {
+            self.bt.scanForDevices()
             if devices.count > 0 {
                 if index == 0 {
                     index = devices.count - 1
                 } else {
+                    // CHANGE TO WORK WITH pickerIndex OPTIONAL
                     index -= 1
                 }
             }
@@ -105,11 +111,14 @@ struct PickerLeft: View {
 
 
 struct PickerRight: View {
-    @Binding var index: Int
+    @EnvironmentObject var bt: DeviceBluetoothManager
+    
+    @Binding var index: Int?
     @Binding var devices: Array<Desk>
     
     var body: some View {
         Button(action: {
+            self.bt.scanForDevices()
             if devices.count > 0 {
                 if index == devices.count - 1 {
                     index = 0
