@@ -11,68 +11,73 @@ import SwiftUI
 
 
 struct DevicePicker: View {
-    @State var index: Int = 0
     @ObservedObject var deviceData: DeviceDataManager
-//    @Binding var isConnected: Bool = Binding<Bool>(
-//        get: {
-//            if let connected: Int = deviceData.connectedDeskIndex {
-//                return (self.index == connected)
-//            } else { return false }
-//        },
-//        set: { $0 } // Read-Only Binding
-//    )
+    
+    @State var index: Int = 0
     
     
     init(deviceData: DeviceDataManager) {
         self.deviceData = deviceData
     }
     
-    // Only used for canvas preview mode
     init?(testMode: Bool) {
         guard testMode else { return nil }
         let tempData = DeviceDataManager()
-        tempData.savedDevices =
-            [ Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: true),
-              Desk(name:"Treadmill Home Office",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false),
-              Desk(name:"Home Desk",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false) ]
+        tempData.savedDevices = [
+            Desk(name:"Main Office Deskkkkkkkkk",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: true),
+            Desk(name:"Treadmill Home Office",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false),
+            Desk(name:"Home Desk",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false)
+        ]
         self.deviceData = tempData
     }
     
+    
     var body: some View {
+        ZStack {
+            
             HStack {
                 PickerLeft(index: $index, devices: $deviceData.savedDevices)
-                    .frame(width: 50, height: 80)
-                Spacer()
-                
-                if deviceData.savedDevices.count > 0 {
-                    ZStack {
-                        Text(deviceData.savedDevices[self.index].name)
-                            .font(.system(size: 40))
-                            .foregroundColor(Color.white)
-                            .offset(y: -5)
-                        
-                        if self.deviceData.connectedDeskIndex != nil,
-                           self.deviceData.connectedDeskIndex! == self.index {
-                            Text("Connected")
-                                .font(Font.callout.weight(.regular))
-                                .foregroundColor(ColorManager.preset)
-                                .offset(y: 23)
-                        } else {
-                            Text("Disconnected")
-                                .font(Font.callout.weight(.regular))
-                                .foregroundColor(ColorManager.morePreset)
-                                .offset(y: 23)
-                        }
-                    }
-                }
-                
+                    .frame(width: 35, height: 80)
                 Spacer()
                 PickerRight(index: $index, devices: $deviceData.savedDevices)
-                    .frame(width: 50, height: 80)
+                    .frame(width: 35, height: 80)
             }
-            .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)
+            
+            if deviceData.savedDevices.count > 0 {
+                ZStack {
+                    Text(deviceData.savedDevices[self.index].name)
+                        .font(.system(size: 40))
+                        .foregroundColor(Color.white)
+                        .padding([.leading,.trailing], 35)
+                    
+                    if self.deviceData.connectedDeskIndex != nil,
+                       self.deviceData.connectedDeskIndex! == self.index {
+                        Text("Connected")
+                            .font(Font.title2)
+                            .foregroundColor(
+                                Color(red: 0.3, green: 0.9, blue: 0.3)
+                            )
+                            .offset(y: 35)
+                    } else {
+                        Text("Disconnected")
+                            .font(Font.title2)
+                            .foregroundColor(ColorManager.morePreset)
+                            .offset(y: 35)
+                    }
+                }
+            } else {
+                Text("Connect To A Device")
+                    .font(.system(size: 30))
+                    .foregroundColor(Color.white)
+                    .padding([.leading,.trailing], 35)
+            }
+            
+        }
+        .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)
+        .padding(.bottom, 10)
     }
 }
+
 
 struct PickerLeft: View {
     @Binding var index: Int
@@ -92,10 +97,12 @@ struct PickerLeft: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(Color.white)
-                .frame(width: 25)
+                //.frame(width: 25)
         }
     }
 }
+
+
 
 struct PickerRight: View {
     @Binding var index: Int
@@ -115,10 +122,45 @@ struct PickerRight: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(Color.white)
-                .frame(width: 25)
+                //.frame(width: 25)
         }
     }
+    
+    func pickNextDeviceIndex(index: Int, reverse: Bool = false) -> Int {
+        //recursive
+        let savedCount = devices.count
+
+        if index <= savedCount {
+            if devices[index].peripheral != nil {
+                return index
+            } else {
+                return pickNextDeviceIndex(index: (index + 1))
+            }
+        }
+//        else if currIndex > savedCount {
+//            return pickNextDeviceIndex(currIndex: 0)
+//        }
+        
+        if let nextIndex: Int = devices.firstIndex (
+        where: { (getidDevice) -> Bool in
+        getidDevice.id == device.id }
+        ) {
+            return nextIndex
+        } else {
+            return pickNextDeviceIndex(currIndex: 0)
+        }
+        
+        //return nextIndex
+    }
 }
+
+
+
+func pickPreviousDeviceIndex(currIndex: Int) -> Int {
+    return pickNextDeviceIndex(currIndex: currIndex, reverse: true)
+}
+
+//in range --- device.peripheral != nil
 
 struct DevicePicker_Previews: PreviewProvider {
     static var previews: some View {
