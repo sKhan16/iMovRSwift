@@ -34,9 +34,12 @@ public class DeviceDataManager: ObservableObject {
     
     init?(test: Bool) {
         guard test else { return nil }
-        savedDevices.append(Desk(name: "test desk", deskID: 12345678,
+        savedDevices.append(Desk(name: "first test desk", deskID: 12345678,
                                  presetHeights: [24.0,30.0,35.5,-1,-1,-1],
                                  presetNames: ["one","two","three","four","five","six"], isLastConnected: true))
+        savedDevices.append(Desk(name: "second test desk", deskID: 55554444,
+                                 presetHeights: [24.0,30.0,35.5,-1,-1,-1],
+                                 presetNames: ["one","two","three","four","five","six"], isLastConnected: false))
         connectedDeskIndex = 0
     }
     

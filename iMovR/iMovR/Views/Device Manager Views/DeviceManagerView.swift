@@ -129,14 +129,14 @@ struct DeviceManagerView_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                DeviceManagerView(data: DeviceDataManager())
+                DeviceManagerView(data: DeviceDataManager(test: true)!)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 11")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 
-                DeviceManagerView(data: DeviceDataManager())
+                DeviceManagerView(data: DeviceDataManager(test: true)!)
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 6s")

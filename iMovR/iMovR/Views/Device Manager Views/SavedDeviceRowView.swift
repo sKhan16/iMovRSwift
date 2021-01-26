@@ -38,21 +38,35 @@ struct SavedDeviceRowView: View {
                     .frame(width:70, height:65)
                 
                 VStack {
-                    Text(currDevice.name)
-                        .font(Font.title3.bold())
-                        .truncationMode(.tail)
-                        .foregroundColor(Color.white)
+                    VStack {
+                        Text(currDevice.name)
+                            .font(Font.title3.bold())
+                            .truncationMode(.tail)
+                            .foregroundColor(Color.white)
+                        Text("("+String(currDevice.id)+")")
+                            .font(Font.caption)//.weight(.medium))
+                            .foregroundColor(Color.white)
+                    }.offset(y: -3)
                     if self.isConnected {
                         Text("Connected")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.connected)
+                            .padding([.leading,.trailing], 3)
+                    } else if self.data.savedDevices[deviceIndex].peripheral != nil {
+                        Text("Available")
+                            .font(Font.body.weight(.medium))
+                            .foregroundColor(Color.white)
+                            .padding([.leading,.trailing], 3)
+                    } else {
+                        Text("Not Found")
+                            .font(Font.body.weight(.medium))
+                            .foregroundColor(ColorManager.gray)
+                            .padding([.leading,.trailing], 3)
                     }
-                    Text("("+String(currDevice.id)+")")
-                        .font(Font.caption)//.weight(.medium))
-                        .foregroundColor(Color.white)
                 }
-                    .lineLimit(1)
-                    .frame(idealWidth: .infinity, maxWidth: .infinity)
+                .lineLimit(1)
+                .frame(idealWidth: .infinity, maxWidth: .infinity)
+                .offset(y: 1)
                 
                 EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
                     .padding(.trailing, 5)
@@ -106,33 +120,48 @@ private struct ConnectButton: View {
 
         }/*end button action*/ )
         { // Button View 'label'
-            ZStack {
-                Circle()
-                    .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
-                    .aspectRatio(contentMode: .fit)
-                    .shadow(color: .black, radius: 2)
-                if isConnected {
-                    Image(systemName: "iphone.homebutton.slash")
-                        .resizable()
-                        .accentColor(ColorManager.deviceBG)
+            if self.bt.data.savedDevices[deviceIndex].peripheral != nil {
+                ZStack {
+                    Circle()
+                        .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 40)
-                    Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .accentColor(Color.red)
+                        .shadow(color: .black, radius: 2)
+                    if isConnected {
+                        Image(systemName: "iphone.homebutton.slash")
+                            .resizable()
+                            .accentColor(ColorManager.deviceBG)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 40)
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .accentColor(Color.red)
+                            .aspectRatio(contentMode: .fit)
+                            .background(ColorManager.connected.cornerRadius(20).frame(width: 18, height: 18))
+                            .frame(height: 20)
+                            .offset(x: 25, y: -20)
+                            .shadow(color: ColorManager.connected, radius: 1)
+                    } else {
+                        Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.left.and.right")
+                            .resizable()
+                            .accentColor(ColorManager.morePreset)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 40)
+                    }
+                    
+                }
+            } else {
+                ZStack {
+                    Circle()
+                        .foregroundColor(Color.gray)
                         .aspectRatio(contentMode: .fit)
-                        .background(ColorManager.connected.cornerRadius(20).frame(width: 18, height: 18))
-                        .frame(height: 20)
-                        .offset(x: 25, y: -20)
-                        .shadow(color: ColorManager.connected, radius: 1)
-                } else {
+                        .shadow(color: ColorManager.gray, radius: 2)
                     Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.left.and.right")
                         .resizable()
-                        .accentColor(ColorManager.morePreset)
+                        .accentColor(ColorManager.gray)
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 40)
+                        .opacity(0.6)
                 }
-                
             }
         } //end button
     }//end body
