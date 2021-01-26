@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SavedDeviceRowView: View {
     
-    //@EnvironmentObject var bt: DeviceBluetoothManager
+    @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var data: DeviceDataManager
     @Binding var edit: Int
     @Binding var isConnected: Bool
@@ -47,7 +47,12 @@ struct SavedDeviceRowView: View {
                             .font(Font.caption)//.weight(.medium))
                             .foregroundColor(Color.white)
                     }.offset(y: -3)
-                    if self.isConnected {
+                    if !bt.bluetoothEnabled {
+                        Text("Phone Bluetooth Disabled")
+                            .font(Font.body.weight(.medium))
+                            .foregroundColor(ColorManager.gray)
+                            .padding([.leading,.trailing], 3)
+                    } else if self.isConnected {
                         Text("Connected")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.connected)
@@ -120,7 +125,8 @@ private struct ConnectButton: View {
 
         }/*end button action*/ )
         { // Button View 'label'
-            if self.bt.data.savedDevices[deviceIndex].peripheral != nil {
+            if self.bt.bluetoothEnabled,
+            self.bt.data.savedDevices[deviceIndex].peripheral != nil {
                 ZStack {
                     Circle()
                         .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
