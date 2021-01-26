@@ -155,7 +155,6 @@ if temp != nil {
         return true
     } // end connectToDevice
     
-
     
     
     func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool {
@@ -211,6 +210,10 @@ if temp != nil {
         case .poweredOff:
             print("Bluetooth status is POWERED OFF!")
             bluetoothReadyFlag = false
+            if let index: Int = self.data.connectedDeskIndex {
+                self.data.connectedDeskIndex = nil
+                _ = disconnectFromDevice(device: self.data.savedDevices[index], savedIndex: index)
+            }
             DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
             
         // Exception
