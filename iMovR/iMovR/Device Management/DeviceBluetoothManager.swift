@@ -28,24 +28,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# Current Treadmill
     // @Published var isTreadmillConnected: Bool = false
     
-    
 ///# Core Bluetooth
+    @Published var bluetoothEnabled: Bool = false
     private var centralManager: CBCentralManager?
     private var desiredPeripheral: CBPeripheral?
-    private var bluetoothReadyFlag = false
     private var connectingIndex: Int?
-    
-    ///# Connection Status
-    enum ConnectionStatus {
-        case disabled, ready, scanning, error, connected, disconnected
-    }
-    
-    private var connStatus: ConnectionStatus = .disconnected
-    
-    func status() -> ConnectionStatus {
-        return self.connStatus
-    }
-    
     
     
 ///# Initializer
@@ -75,34 +62,21 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     func scanForDevices() {
         print("Scanning for devices:")
-        guard self.bluetoothReadyFlag else {
-            print("-bluetooth not ready yet")
-            self.connStatus = .disabled
-            return
-        }
-        if self.connStatus != .connected {
-            self.connStatus = .scanning
-        }
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
     
     func stopScan() {
         print("terminating device scan")
-        guard self.bluetoothReadyFlag else {
+        guard self.bluetoothEnabled else {
             print("-bluetooth not ready yet")
-            self.connStatus = .disabled
             return
-        }
-        if self.connStatus == .scanning {
-            self.connStatus = .ready
         }
         centralManager?.stopScan()
     }
     
     
     func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
-        
         guard device.peripheral != nil else {
             print("bt.connect -- ERROR: attempted to connect to nil peripheral")
             return false
@@ -116,41 +90,17 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.connect -- ERROR: device peripheral connected but not set to connectedDeskIndex")
             return false
         }
-        print("-> bt.connect")
-/*
-        // disconnect from old connected device
-        if self.data.connectedDeskIndex != nil,
-           self.data.connectedDeskIndex != savedIndex {
-            
-            let otherConnectedDevice: Desk = self.data.savedDevices[self.data.connectedDeskIndex!]
-            let didDisconnect = self.disconnectFromDevice (
-                device: otherConnectedDevice,
-                savedIndex: self.data.connectedDeskIndex! )
-                print("disconnect from last device: \(otherConnectedDevice.name), id:\(otherConnectedDevice.id) - " + (didDisconnect ? "success" : "fail" ) )
-        }
- */
         // connect to this device
         print("connecting to this device: \(device.name), id:\(device.id)")
         self.connectingIndex = savedIndex
         self.data.setLastConnectedDesk(desk: device)
         centralManager?.connect(device.peripheral!)
-        
-        
-// debug prints
-let temp = self.data.connectedDeskIndex
-print("debug message - connection bugs\n  data.connectedDeskindex = \(String(describing: data.connectedDeskIndex))\n  new peripheral connection status \(String(describing: device.peripheral?.state))")
-if temp != nil {
-    print("  old peripheral connection status \(String(describing: self.data.savedDevices[temp!].peripheral?.state))")
-}
-// end debug prints
-        
         // check if connection times out... use timer
         // calls centralManager:didConnectPeripheral: on success
         // continue connection process by initializing ZGoZipDeskController
         // calls centralManager:didFailToConnectPeripheral:error: on failure
         // continue connection process by scanning for the desk again
         //    }
-        
         return true
     } // end connectToDevice
     
@@ -184,42 +134,52 @@ if temp != nil {
         
         // Ideal case: Bluetooth is powered on, scan for desks
         case .poweredOn:
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .ready) }
             print("Bluetooth status is POWERED ON.")
-            // scan when user clicks the Connect To Desk button
-            bluetoothReadyFlag = true
+            self.scanForDevices()
+            DispatchQueue.main.sync { () -> Void in
+                self.bluetoothEnabled = true
+            }
             
         // Bad cases - Bluetooth is not yet ready
         case .unknown:
             print("Bluetooth status is UNKNOWN!")
-            bluetoothReadyFlag = false
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
+            DispatchQueue.main.sync { () -> Void in
+                self.bluetoothEnabled = false
+            }
         case .resetting:
             print("Bluetooth status is RESETTING!")
-            bluetoothReadyFlag = false
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
+            DispatchQueue.main.sync { () -> Void in
+                self.bluetoothEnabled = false
+            }
         case .unsupported:
             print("Bluetooth status is UNSUPPORTED!")
-            bluetoothReadyFlag = false
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
+            DispatchQueue.main.sync { () -> Void in
+                self.bluetoothEnabled = false
+            }
         case .unauthorized:
             print("Bluetooth status is UNAUTHORIZED!")
-            bluetoothReadyFlag = false
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
+            DispatchQueue.main.sync { () -> Void in
+                self.bluetoothEnabled = false
+            }
         case .poweredOff:
             print("Bluetooth status is POWERED OFF!")
-            bluetoothReadyFlag = false
-            if let index: Int = self.data.connectedDeskIndex {
-                self.data.connectedDeskIndex = nil
-                _ = disconnectFromDevice(device: self.data.savedDevices[index], savedIndex: index)
+            DispatchQueue.main.sync {
+                self.bluetoothEnabled = false
+                if let index: Int = self.data.connectedDeskIndex {
+                    self.data.connectedDeskIndex = nil
+                    self.disconnectFromDevice (
+                        device: self.data.savedDevices[index],
+                        savedIndex: index
+                    )
+                }
             }
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
             
         // Exception
         @unknown default:
             print("Bluetooth status EXCEPTION!")
-            bluetoothReadyFlag = false
-            DispatchQueue.main.async { () -> Void in (self.connStatus = .disabled) }
+            DispatchQueue.main.sync { () -> Void in
+                self.bluetoothEnabled = false
+            }
         }
     }
     
@@ -300,7 +260,6 @@ if temp != nil {
                 print("didConnect ERROR: rejected by zipdesk.setDesk")
                 return
             }
-            self.connStatus = .connected
             self.data.connectedDeskIndex = self.connectingIndex
             self.connectingIndex = nil
             self.zipdesk.getPeripheral()!.discoverServices([ZGoServiceUUID])
@@ -328,7 +287,6 @@ if temp != nil {
                         error: Error?) {
         print("didFailToConnect peripheral, error:" + String(describing: error))
         DispatchQueue.main.sync { () -> Void in
-            self.connStatus = .error
             self.data.connectedDeskIndex = nil
         }
         // clear zipdesk so it never references a dead connection
@@ -340,7 +298,6 @@ if temp != nil {
                         didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         
         DispatchQueue.main.sync { () -> Void in
-            self.connStatus = .disconnected
             if self.data.connectedDeskIndex != nil,
                peripheral == data.savedDevices[data.connectedDeskIndex!].peripheral
             {
