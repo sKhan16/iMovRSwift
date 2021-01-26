@@ -25,8 +25,6 @@ struct ContentView: View {
                         // Enable autoconnect
                         if self.BTController.data.connectedDeskIndex == nil {
                             self.BTController.scanForDevices()
-                        } else {
-                            self.BTController.stopScan()
                         }
                     }
                     
@@ -49,7 +47,9 @@ struct ContentView: View {
                     .onAppear() {
                         self.BTController.scanForDevices()
                     }.onDisappear() {
-                        self.BTController.stopScan()
+                        if BTController.data.connectedDeskIndex != nil {
+                            self.BTController.stopScan()
+                        }
                     }
             }.tabItem {
                 VStack {

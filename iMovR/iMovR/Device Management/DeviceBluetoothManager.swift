@@ -102,7 +102,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
-        //self.stopScan()
         
         guard device.peripheral != nil else {
             print("bt.connect -- ERROR: attempted to connect to nil peripheral")
@@ -349,15 +348,15 @@ if temp != nil {
                 self.data.connectedDeskIndex = nil
             }
         }
+        // ensure discovery and autoconnect are enabled
+        self.scanForDevices()
         
         // disconnected unintentionally
         if error != nil {
-            print("peripheral disconnected with error; scanning")
-            // ensure autoconnect is enabled
-            self.scanForDevices()
+            print("peripheral disconnected with error")
         } else {
             // Intentional disconnection
-            print("bt.didDisconnectPeripheral - device disconnected")
+            print("bt.didDisconnectPeripheral - device disconnected without error")
         }
     }
     
