@@ -123,6 +123,9 @@ struct SaveDeviceView: View {
                         {
                             // have found index in savedDevices array,
                             // try to connect now
+//*********************************************************************
+// I think code here needs to change, check related git commit comment
+//*********************************************************************
                             let didConnect = bt.connectToDevice (
                                     device: newDevice,
                                     savedIndex: savedDeviceIndex )
