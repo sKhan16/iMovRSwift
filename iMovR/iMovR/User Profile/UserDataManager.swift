@@ -39,7 +39,6 @@ public class UserDataManager: ObservableObject {
     
     
     func pullPersistentData() -> Bool {
-        
         do {
             self.fetchedUserData = try context.fetch(UserData.fetchRequest())
         } catch {
@@ -51,14 +50,11 @@ public class UserDataManager: ObservableObject {
             return false
         }
         
-        if !self.fetchedUserData!.isEmpty {
+        if !(self.fetchedUserData!.isEmpty) {
             print("Found Saved UserData")
             
             let userData: UserData = self.fetchedUserData![0]
-            
-//MARK: Disabling persistent TnGWaiver as per Andy's request. Uncomment below to revert
-            //self.agreedToZipDeskWaiver = userData.touchAndGoWaiver
-            
+            self.agreedToZipDeskWaiver = userData.touchAndGoWaiver
             //self.agreedToTreadmillWaiver = userData.treadmillWaiver
         }
         return true
@@ -67,10 +63,6 @@ public class UserDataManager: ObservableObject {
     
     func setTNGWaiver(_ value: Bool) -> Bool {
         if self.fetchedUserData != nil, !self.fetchedUserData!.isEmpty {
-            
-//MARK: Disabling persistent TnGWaiver as per Andy's request. Delete below to revert
-self.agreedToZipDeskWaiver = value
-            
             self.fetchedUserData![0].touchAndGoWaiver = value
         } else {
             print("no UserData found, initializing")
@@ -89,8 +81,7 @@ self.agreedToZipDeskWaiver = value
             print("UserData saved.")
         } catch {
             isSuccess = false
-            print("UserDataManager.saveUserData error: \n---------------\n" + error.localizedDescription + "/n")
-            //this code is awful... i wrote it this way ill fix it later...
+            print("UserDataManager.saveUserData error: \n" + error.localizedDescription)
         }
         if isSuccess {
             if !self.pullPersistentData() {
