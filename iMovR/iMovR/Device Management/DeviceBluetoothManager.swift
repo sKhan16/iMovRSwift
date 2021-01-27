@@ -87,7 +87,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
         guard device.peripheral?.state != .connected,
               device.peripheral?.state != .connecting else {
-            print("bt.connect -- ERROR: device peripheral connected but not set to connectedDeskIndex")
+            //print("bt.connect -- ERROR: device peripheral connected but not set to connectedDeskIndex")
             return false
         }
         // connect to this device
