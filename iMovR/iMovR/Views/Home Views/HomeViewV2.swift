@@ -133,6 +133,8 @@ struct HomeViewV2: View {
                 { timer in
                     print("desk stopped")
                     self.isMoving = false
+// potential fix for height off by 0.1 annoyance
+//self.zipdeskUI.normalizedHeight = /*the height of last used preset; IFF moved by preset and just stopped*/
                 }
             })
         }//end GeoReader
