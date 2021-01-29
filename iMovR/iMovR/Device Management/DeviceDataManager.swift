@@ -153,10 +153,6 @@ public class DeviceDataManager: ObservableObject {
             print("DeviceDataManager.removeDesk error: desk data not found")
             return
         }
-        if self.connectedDeskIndex == savedIndex {
-            BTManager.disconnectFromDevice(device: desk, savedIndex: self.connectedDeskIndex!)
-            self.connectedDeskIndex = nil
-        }
         self.context.delete(deskData)
         do {
             try self.context.save()
