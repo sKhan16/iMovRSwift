@@ -166,12 +166,18 @@ struct EditDeviceView: View {
                         Button (
                             action: {
                                 self.confirmDeleteMenu = false
-                                if self.deviceIndex == self.bt.data.connectedDeskIndex {
+                                if self.deviceIndex == self.bt.data.connectedDeskIndex
+                                {
                                     guard self.bt.disconnectFromDevice(device: self.bt.data.savedDevices[self.deviceIndex], savedIndex: self.deviceIndex) else {
                                             print("delete device failed to disconnect")
                                             return
                                     }
                                     self.bt.data.connectedDeskIndex = nil
+                                }
+                                else if (self.bt.data.connectedDeskIndex != nil),
+                                        (self.deviceIndex < self.bt.data.connectedDeskIndex!)
+                                {
+                                    self.bt.data.connectedDeskIndex! -= 1
                                 }
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1
