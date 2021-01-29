@@ -115,19 +115,21 @@ struct SaveDeviceView: View {
                     
                     if (self.bt.data.addDevice(desk: newDevice)) {
                         self.bt.discoveredDevices.remove(at: deviceIndex)
-                        
-                        if let savedDeviceIndex: Int = bt.data.savedDevices.firstIndex(
-                            where: { (newSavedDevice: Desk) -> Bool in
-                                newSavedDevice.id == newDevice.id
-                            })
-                        {
-                            // have found index in savedDevices array,
-                            // try to connect now
-                            let didConnect = bt.connectToDevice (
-                                    device: newDevice,
-                                    savedIndex: savedDeviceIndex )
-                            print("saved new device: did connect - \(didConnect)")
-                        }
+                        self.bt.scanForDevices()
+//                        if let savedDeviceIndex: Int = bt.data.savedDevices.firstIndex(
+//                            where: { (newSavedDevice: Desk) -> Bool in
+//                                newSavedDevice.id == newDevice.id
+//                            })
+//                        {
+//
+////*********************************************************************
+//// I think code here needs to change, check related git commit comment
+////*********************************************************************
+//                            let didConnect = bt.connectToDevice (
+//                                    device: newDevice,
+//                                    savedIndex: savedDeviceIndex )
+//                            print("saved new device: did connect - \(didConnect)")
+//                        }
                     }
                     self.showWarning = false
                     self.deviceIndex = -1

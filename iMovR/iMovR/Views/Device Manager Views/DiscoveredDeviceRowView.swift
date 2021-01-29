@@ -63,7 +63,7 @@ private struct SaveButton: View {
     var body: some View {
         Button(
             action:{
-                print("save device menu activated")
+                print("SaveDeviceView activated")
                 self.saveIndex = self.deviceIndex
             }
         ) {

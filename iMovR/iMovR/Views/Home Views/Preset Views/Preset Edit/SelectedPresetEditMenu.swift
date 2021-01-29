@@ -26,12 +26,12 @@ struct SelectedPresetEditMenu: View {
     @ViewBuilder
     var body: some View {
         
-        if bt.data.connectedDeskIndex == nil {
+        if bt.data.connectedDeskIndex == nil || self.editIndex < 0 {
             EmptyView()
             //this is why we need @ViewBuilder -.- :C D:
         }
         else {
-            
+            // setup variables
             let currDesk: Desk = bt.data.savedDevices[bt.data.connectedDeskIndex!]
             
             let getPresetName: Binding = Binding<String> (
@@ -49,13 +49,21 @@ struct SelectedPresetEditMenu: View {
             
             let getPresetHeight: Binding = Binding<String> (
                 get: {
-                    return (showOldHeight ? String(format:"%.1f",currDesk.presetHeights[self.editIndex]) : self.editPresetHeight)
+                    var oldHeight: String = String(format:"%.1f",currDesk.presetHeights[self.editIndex])
+                    if oldHeight == "-1.0" {
+                        oldHeight = ""
+                    }
+                    return (showOldHeight ? oldHeight : self.editPresetHeight)
                 },
                 set: {
-                    self.editPresetHeight = showOldHeight ? String(format:"%.1f",currDesk.presetHeights[self.editIndex]) : $0
+                    var oldHeight: String = String(format:"%.1f",currDesk.presetHeights[self.editIndex])
+                    if oldHeight == "-1.0" {
+                        oldHeight = ""
+                    }
+                    self.editPresetHeight = showOldHeight ? oldHeight : $0
                 }
             )
-            
+            // preset edit menu View
             VStack(alignment: .center) {
                 
                 Text("Edit Preset")
@@ -69,6 +77,7 @@ struct SelectedPresetEditMenu: View {
                         .font(Font.headline)
                         .offset(y:6)
                     
+                    // edit NAME
                     TextField (
                         " \(currDesk.presetNames[self.editIndex])",
                         text: getPresetName
@@ -88,7 +97,7 @@ struct SelectedPresetEditMenu: View {
                         .foregroundColor(Color.white)
                         .font(Font.headline)
                         .offset(y:6)
-                    /// Fix textfield to work with Float
+                    // edit HEIGHT
                     TextField (
                         " \( (currDesk.presetHeights[self.editIndex] == -1.0) ? "Empty" : String(format:"%.1f",currDesk.presetHeights[self.editIndex]) )",
                         text: getPresetHeight
@@ -96,7 +105,11 @@ struct SelectedPresetEditMenu: View {
                     { changing in
                         if changing {
                             if self.editPresetHeight == "" { // Preset height set to desk height
-                                self.editPresetHeight = String(format:"%.1f",currDesk.presetHeights[self.editIndex])
+                                var oldHeight: String = String(format:"%.1f",currDesk.presetHeights[self.editIndex])
+                                if oldHeight == "-1.0" {
+                                    oldHeight = ""
+                                }
+                                self.editPresetHeight = oldHeight
                             }
                             self.showOldHeight = false
                         }
@@ -137,7 +150,10 @@ private struct EditSaveButton: View {
             
             if (self.presetHeight != "") {
                 let height: Float = (self.presetHeight as NSString).floatValue
-                if height <= (self.bt.zipdesk.maxHeight) && height >= (self.bt.zipdesk.minHeight) {
+                
+                if height <= (self.bt.zipdesk.maxHeight),
+                   height >= (self.bt.zipdesk.minHeight)
+                {
                     if (self.presetName != "") {
                         currDesk.presetNames[self.editIndex] = self.presetName
                     }
