@@ -182,7 +182,7 @@ struct EditDeviceView: View {
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
-//                                self.bt.scanForDevices()
+                                self.bt.scanForDevices()
                             },
                             label: {
                                 Text("Delete")
