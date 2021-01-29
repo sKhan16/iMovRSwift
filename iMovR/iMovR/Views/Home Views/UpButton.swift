@@ -54,6 +54,7 @@ struct UpButton: View {
             )
         }
         .padding()
+        .animation(.easeInOut)
     }
 }
 

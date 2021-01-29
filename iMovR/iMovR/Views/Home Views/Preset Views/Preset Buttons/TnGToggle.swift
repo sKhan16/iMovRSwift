@@ -24,7 +24,13 @@ struct TnGToggle: View {
             else {
                 Toggle("Sound", isOn: self.$showTnGPopup).labelsHidden()
             }
+            
+            if !self.isTouchGo {
+                //Text("")
+                let f = self.user.setTNGWaiver(false)
                 
+            }
+            
             Text("Touch & Go")
                 .foregroundColor(Color.white)
         }
