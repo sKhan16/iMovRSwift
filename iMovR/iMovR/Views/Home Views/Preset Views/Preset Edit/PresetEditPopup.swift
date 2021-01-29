@@ -13,7 +13,7 @@ struct PresetEditPopup: View {
     @EnvironmentObject var user: UserDataManager
     
     @Binding var show: Bool
-    @Binding var isTouchGo: Bool
+    // @Binding var isTouchGo: Bool   replaced by 'user.tngEnabled'
     @State private var tngLink: Bool = false
     
     @State private var showTnGPopup: Bool = false
@@ -51,7 +51,7 @@ struct PresetEditPopup: View {
                         PresetEditOptions (
                             editIndex: self.$editIndex
                         )
-                        TnGToggle (isTouchGo: self.$isTouchGo, showTnGPopup: self.$showTnGPopup)
+                        TnGToggle (showTnGPopup: self.$showTnGPopup)
                             .padding(5)
                     }
                 }
@@ -66,7 +66,7 @@ struct PresetEditPopup: View {
             
             
             if self.showTnGPopup {
-                TouchNGoPopup(isTouchGo: self.$isTouchGo, showTnGPopup: self.$showTnGPopup)
+                TouchNGoPopup(showTnGPopup: self.$showTnGPopup)
             }
         }//end ZStack
     }//end Body
@@ -78,8 +78,7 @@ struct PresetEditPopup_Previews: PreviewProvider {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
             PresetEditPopup (
-                show: .constant(true),
-                isTouchGo: .constant(true)
+                show: .constant(true)
             )
             .environmentObject(UserDataManager())
             .environmentObject(DeviceBluetoothManager(previewMode: true)!)

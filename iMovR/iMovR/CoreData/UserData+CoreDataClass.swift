@@ -2,7 +2,7 @@
 //  UserData+CoreDataClass.swift
 //  iMovR
 //
-//  Created by Michael Humphrey on 1/4/21.
+//  Created by Michael Humphrey on 1/29/21.
 //  Copyright © 2021 iMovR. All rights reserved.
 //
 //

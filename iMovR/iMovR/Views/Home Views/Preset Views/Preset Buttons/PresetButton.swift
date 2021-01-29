@@ -10,10 +10,11 @@ import SwiftUI
 
 struct PresetButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @EnvironmentObject var user: UserDataManager
     @ObservedObject var data: DeviceDataManager
     let index: Int
     @Binding var showAddPreset: Bool
-    @Binding var isTouchGo: Bool
+    // @Binding var isTouchGo: Bool   replaced by 'user.tngEnabled'
     @Binding var isMoving: Bool
     
     @Environment(\.colorScheme) var colorScheme
@@ -34,7 +35,7 @@ struct PresetButton: View {
                     set: { _ in } /*Intended for Read-Only*/
                 )
                 ZStack {
-                    if isTouchGo {
+                    if user.tngEnabled {
                         TouchPreset(zipdeskUI: self.bt.zipdesk,
                                     presetHeight: heightBinding)
                     }

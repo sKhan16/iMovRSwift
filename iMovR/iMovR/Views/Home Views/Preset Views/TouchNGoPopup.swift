@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TouchNGoPopup: View {
     @EnvironmentObject var user: UserDataManager
-    @Binding var isTouchGo: Bool
     @Binding var showTnGPopup: Bool
     
     var body: some View {
@@ -122,7 +121,7 @@ struct TouchNGoPopup_Previews: PreviewProvider {
                 data: DeviceDataManager(test: true)!
             ).environmentObject(DeviceBluetoothManager(previewMode: true)!).environmentObject(UserDataManager())
             
-            TouchNGoPopup(isTouchGo: .constant(false), showTnGPopup: .constant(true))
+            TouchNGoPopup(showTnGPopup: .constant(true))
                 .environmentObject(UserDataManager())
             
         }

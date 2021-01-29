@@ -19,6 +19,7 @@ public class UserDataManager: ObservableObject {
    
     @Published var loginState: LoginState = .firstTime
     @Published var agreedToZipDeskWaiver: Bool = false
+    @Published var tngEnabled: Bool = false
     //@Published var agreedToTreadmillWaiver: Bool = false
     
     private var fetchedUserData: [UserData]?
@@ -54,7 +55,9 @@ public class UserDataManager: ObservableObject {
             print("Found Saved UserData")
             
             let userData: UserData = self.fetchedUserData![0]
+            
             self.agreedToZipDeskWaiver = userData.touchAndGoWaiver
+            self.tngEnabled = userData.touchAndGoEnabled
             //self.agreedToTreadmillWaiver = userData.treadmillWaiver
         }
         return true
@@ -64,10 +67,23 @@ public class UserDataManager: ObservableObject {
     func setTNGWaiver(_ value: Bool) -> Bool {
         if self.fetchedUserData != nil, !self.fetchedUserData!.isEmpty {
             self.fetchedUserData![0].touchAndGoWaiver = value
+            self.fetchedUserData![0].touchAndGoEnabled = self.tngEnabled
         } else {
             print("no UserData found, initializing")
             let newUserData = UserData(context: self.context)
             newUserData.touchAndGoWaiver = value
+        }
+        return self.saveUserData()
+    }
+    
+    func toggleTNG(_ value: Bool) -> Bool {
+        if self.fetchedUserData != nil, !self.fetchedUserData!.isEmpty {
+            self.fetchedUserData![0].touchAndGoEnabled = value
+            self.fetchedUserData![0].touchAndGoWaiver = self.agreedToZipDeskWaiver
+        } else {
+            print("no UserData found, initializing")
+            let newUserData = UserData(context: self.context)
+            newUserData.touchAndGoEnabled = value
         }
         return self.saveUserData()
     }

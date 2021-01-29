@@ -10,16 +10,27 @@ import SwiftUI
 
 struct PresetModule: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
+    @EnvironmentObject var user: UserDataManager
+
+    
     @Binding var isPaged: Bool
-    @Binding var showAddPreset: [Bool]
-    @Binding var isTouchGo: Bool
-    @Binding var showPresetPopup: Bool
+    //@Binding var isTouchGo: Bool   replaced by 'user.tngEnabled'
+    
     @Binding var isMoving: Bool
+    
+    @Binding var showAddPreset: [Bool]
+    @Binding var showPresetPopup: Bool
+    
     var body: some View {
         HStack {
             if self.isPaged {//last 3 presets
                 HStack {
-                    PresetButton(data: bt.data, index: 3, showAddPreset: self.$showAddPreset[3], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                    PresetButton (
+                        data: bt.data,
+                        index: 3,
+                        showAddPreset: self.$showAddPreset[3],
+                        isMoving: self.$isMoving
+                    )
                         .fixedSize()
                         .padding(.leading, 5)
                         .padding(.top, 10)
@@ -30,10 +41,20 @@ struct PresetModule: View {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom, 10)
                     HStack(alignment: .bottom) {
-                        PresetButton(data: bt.data, index: 4, showAddPreset: self.$showAddPreset[4], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton (
+                            data: bt.data,
+                            index: 4,
+                            showAddPreset: self.$showAddPreset[4],
+                            isMoving: self.$isMoving
+                        )
                             .fixedSize()
                             .padding(.trailing, 10)
-                        PresetButton(data: bt.data, index: 5, showAddPreset: self.$showAddPreset[5], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton (
+                            data: bt.data,
+                            index: 5,
+                            showAddPreset: self.$showAddPreset[5],
+                            isMoving: self.$isMoving
+                        )
                             .fixedSize()
                             .padding(.leading, 10)
                     }
@@ -43,7 +64,12 @@ struct PresetModule: View {
                 
             } else {// first 3 presets
                 HStack {
-                    PresetButton(data: bt.data, index: 0, showAddPreset: self.$showAddPreset[0], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                    PresetButton (
+                        data: bt.data,
+                        index: 0,
+                        showAddPreset: self.$showAddPreset[0],
+                        isMoving: self.$isMoving
+                    )
                         .fixedSize()
                         .padding(.leading, 5)
                         .padding(.top, 10)
@@ -54,10 +80,20 @@ struct PresetModule: View {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom, 10)
                     HStack(alignment: .bottom) {
-                        PresetButton(data: bt.data, index: 1, showAddPreset: self.$showAddPreset[1], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton (
+                            data: bt.data,
+                            index: 1,
+                            showAddPreset: self.$showAddPreset[1],
+                            isMoving: self.$isMoving
+                        )
                             .fixedSize()
                             .padding(.trailing, 10)
-                        PresetButton(data: bt.data, index: 2, showAddPreset: self.$showAddPreset[2], isTouchGo: self.$isTouchGo, isMoving: self.$isMoving)
+                        PresetButton (
+                            data: bt.data,
+                            index: 2,
+                            showAddPreset: self.$showAddPreset[2],
+                            isMoving: self.$isMoving
+                        )
                             .fixedSize()
                             .padding(.leading, 10)
                     }
@@ -89,12 +125,12 @@ struct PresetModule_Previews: PreviewProvider {
         Group {
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                PresetModule(
+                PresetModule (
                     isPaged: .constant(false),
+                    isMoving: .constant(false),
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
-                    isTouchGo: .constant(true),
-                    showPresetPopup: .constant(false),
-                    isMoving: .constant(false)
+                    showPresetPopup: .constant(false)
+                    
                 )
                 .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
@@ -102,12 +138,11 @@ struct PresetModule_Previews: PreviewProvider {
             
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                PresetModule(
+                PresetModule (
                     isPaged: .constant(false),
+                    isMoving: .constant(false),
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
-                    isTouchGo: .constant(true),
-                    showPresetPopup: .constant(false),
-                    isMoving: .constant(false)
+                    showPresetPopup: .constant(false)
                 )
                 .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }

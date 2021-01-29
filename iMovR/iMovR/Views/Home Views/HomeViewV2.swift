@@ -25,7 +25,6 @@ struct HomeViewV2: View {
     @State private var suppressStopButton: Bool = false
     @State private var isPaged: Bool = false
 
-    @State var isTouchGo: Bool = false
     @State var isMoving: Bool = false
     
     
@@ -83,8 +82,13 @@ struct HomeViewV2: View {
                     } // end ZStack
                     .frame(maxWidth: .infinity)
                     ZStack {
-                        PresetModule(isPaged: self.$isPaged, showAddPreset: self.$showAddPreset, isTouchGo:self.$isTouchGo, showPresetPopup: self.$showPresetPopup, isMoving: self.$isMoving)
-                        if (!suppressStopButton && isMoving && isTouchGo) {
+                        PresetModule (
+                            isPaged: self.$isPaged,
+                            isMoving: self.$isMoving,
+                            showAddPreset: self.$showAddPreset,
+                            showPresetPopup: self.$showPresetPopup
+                        )
+                        if (!suppressStopButton && isMoving && user.tngEnabled) {
                             ColorManager.bgColor //stop button can cover up PresetModule
                                 .frame(height: 190)
                         }
@@ -98,8 +102,7 @@ struct HomeViewV2: View {
                 // Popup for editing saved device properties
                 if (showPresetPopup) {
                     PresetEditPopup (
-                        show: self.$showPresetPopup,
-                        isTouchGo: self.$isTouchGo
+                        show: self.$showPresetPopup
                     )
                         .environmentObject(bt)
                         .onAppear() {
@@ -114,7 +117,7 @@ struct HomeViewV2: View {
                 
                 
                 // Popup for Stop Button
-                if (!suppressStopButton && isMoving && isTouchGo) {
+                if (!suppressStopButton && isMoving && user.tngEnabled) {
                     StopGoButton()
                 }
                 
