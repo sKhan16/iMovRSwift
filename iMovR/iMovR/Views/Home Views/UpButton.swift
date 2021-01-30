@@ -6,6 +6,32 @@
 //  Copyright © 2020 iMovR. All rights reserved.
 //
 
+
+/*
+ Animation problems:
+ - Adding .animation(...) didn't work with the buttons.
+ - The problem is that our timers interrupt the UI state of the button
+ - Putting timer changes in another thread/asynchronous queue might help.
+ 
+            //Synchronous queue might freeze app when timer triggers, or maybe not.
+            //This would be the safer option if the app doesn't hang up with it.
+            DispatchQueue.main.sync { () -> Void in
+                // your code here
+                
+            }
+ 
+            //Asynchronous queue will cause less hang-ups, but may cause unexpected behavior.
+            //This is less ideal but might work if synchronous queue freezes the app.
+            DispatchQueue.main.async { () -> Void in
+                // your code here
+
+            }
+ 
+ 
+ */
+
+
+
 import SwiftUI
 
 struct UpButton: View {
