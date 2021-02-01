@@ -77,6 +77,7 @@ public class UserDataManager: ObservableObject {
     }
     
     func toggleTNG(_ value: Bool) -> Bool {
+        print("turning TnG " + (value ? "on" : "off"))
         if self.fetchedUserData != nil, !self.fetchedUserData!.isEmpty {
             self.fetchedUserData![0].touchAndGoEnabled = value
             self.fetchedUserData![0].touchAndGoWaiver = self.agreedToZipDeskWaiver

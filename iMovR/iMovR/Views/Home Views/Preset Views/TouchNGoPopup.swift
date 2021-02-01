@@ -42,12 +42,15 @@ struct TouchNGoPopup: View {
                     //DenyButton
                     Button(
                         action: {
-                            //idk
-                            guard self.user.setTNGWaiver(false) else {
-                                print("TouchNGoPopup error: user.setTNGWaiver(false) failed")
-                                return
-                            }
-                            self.isTouchGo = false
+                            /*
+                             guard self.user.setTNGWaiver(false) else {
+                             print("TouchNGoPopup error: user.setTNGWaiver(false) failed")
+                             return
+                             }
+                             */
+                            _=self.user.toggleTNG(false)
+                        // changed above for altered TnG waiver
+                            
                             self.showTnGPopup = false
                             print("User has rejected TNG Waiver...")
                         },
@@ -69,11 +72,15 @@ struct TouchNGoPopup: View {
                     //ConfirmButton
                     Button(
                         action: {
+                            /*
                             guard self.user.setTNGWaiver(true) else {
                                 print("TouchNGoPopup error: user.setTNGWaiver(true) failed")
                                 return
                             }
-                            self.isTouchGo = true
+                            */
+                            _=self.user.toggleTNG(true)
+                        // changed above for altered TnG waiver
+                            
                             self.showTnGPopup = false
                         },
                         label: {

@@ -12,27 +12,24 @@ import SwiftUI
 struct TnGToggle: View {
     @EnvironmentObject var user: UserDataManager
     @Binding var showTnGPopup: Bool
-    
-    
-    
-    @State var tngBindingLink: Bool = false
         
         
-    @ViewBuilder
     var body: some View {
         
-        var tngBinding = Binding<Bool> (
-            get: <#T##() -> Bool#>,
-            set: <#T##(Bool) -> Void#>
+        let tngBinding = Binding<Bool> (
+            get: { return user.tngEnabled },
+            set: { user.toggleTNG($0) }
         )
         
         HStack (alignment: .center) {
             Text("Push & Hold")
                 .foregroundColor(Color.white)
-                
-            if self.user.agreedToZipDeskWaiver {
-                Toggle("Sound", isOn: self.$isTouchGo).labelsHidden()
-            }
+            
+            // changed to require TnG waiver every time user toggles
+            //if self.user.agreedToZipDeskWaiver {
+            if self.user.tngEnabled {
+                Toggle("Sound", isOn: tngBinding).labelsHidden()
+            }   
             else {
                 Toggle("Sound", isOn: self.$showTnGPopup).labelsHidden()
             }
