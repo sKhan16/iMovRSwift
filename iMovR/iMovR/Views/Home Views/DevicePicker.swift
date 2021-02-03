@@ -30,7 +30,7 @@ struct DevicePicker: View {
         ]
         self.data = tempData
         self._pickerIndex = Binding<Int?> (
-            get: { return 0},
+            get: { return 0 },
             set: { $0 }
         )
     }
@@ -38,36 +38,22 @@ struct DevicePicker: View {
     
     var body: some View {
         let indexBinding = Binding<Int?> (
-            get: { return self.pickerIndex },
+            get: {
+                if self.pickerIndex == nil,
+                   data.connectedDeskIndex != nil {
+                    return data.connectedDeskIndex
+                }
+                return self.pickerIndex
+            },
             set: {
                 guard let nextIndex: Int = $0 else {
                     return
                 }
-                if data.savedDevices.count > 0,
-                   self.pickerIndex != nil {
-//                   ************************
-                    //pickNextDeviceIndex(index: self.pickerIndex, reverse: ((nextIndex - self.pickerIndex) > 0)
-                    /*
-                     ************************
-                   ##above is replacing below##
-                     ************************
-                    if index == data.savedDevices.count - 1 {
-                        index = 0
-                    } else {
-                        index += 1
-                    }
-                     ************************
-                     */
-                }
+                self.pickerIndex = pickAvailableDevice(nextIndex: nextIndex)
             }
         )
-        // needs to do the following -->
-        // get: return either the connectedDeskIndex or the available desk that the user wants to connect to. what about setting on startup/first connection? hmm
-        // set: keep track of displayed device with devicePickerIndex and attempt to connect to said device. check if index has changed, and adjust it accordingly to go to the next AVAILABLE device, not just every saved device.
-        
         
         ZStack {
-            
             HStack {
                 PickerLeft(index: indexBinding)
                     .frame(width: 35, height: 80)
@@ -112,40 +98,39 @@ struct DevicePicker: View {
         .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)
         .padding(.bottom, 10)
     }
-    /*
-    func pickNextDeviceIndex(index: Int, reverse: Bool = false) -> Int {
-        //recursive ugh (what if there are 3 unavailable devices between two ones in range?)
-     
-        let savedCount = data.savedDevices.count
-        
-        if index <= savedCount {
-            if data.savedDevices[index].peripheral != nil {
-                return index
-            } else {
-                return pickNextDeviceIndex(index: (index + 1))
-            }
-        }
-        //        else if currIndex > savedCount {
-        //            return pickNextDeviceIndex(currIndex: 0)
-        //        }
-        
-        if let nextIndex: Int = data.savedDevices.firstIndex (
-            where: { (getidDevice) -> Bool in
-                getidDevice.id == device.id }
-        ) {
-            return nextIndex
-        } else {
-            return pickNextDeviceIndex(currIndex: 0)
-        }
-        
-        //return nextIndex
-    }
     
-    public func pickPreviousDeviceIndex(currIndex: Int) -> Int {
-        return pickNextDeviceIndex(currIndex: currIndex, reverse: true)
+    
+    func pickAvailableDevice(nextIndex: Int) -> Int? {
+        
+        let deviceCount = data.savedDevices.count
+        guard deviceCount > 0 else { return nil }
+        
+        let filteredIndices = data.savedDevices.indices.filter {
+            data.savedDevices[$0].peripheral != nil
+        }
+        guard filteredIndices.count > 0 else {return nil}
+        
+        if self.pickerIndex == nil {
+            return filteredIndices[0]
+//maybe instead loop and see if a device is currently connected??
+        }
+        else {
+            let direction = (nextIndex - self.pickerIndex!) > 0
+            for availableIndex in ( direction ? filteredIndices : filteredIndices.reversed() ) {
+                
+                if direction,
+                   availableIndex > self.pickerIndex! {
+                    return availableIndex
+                }
+                else if !direction,
+                        availableIndex < self.pickerIndex! {
+                    return availableIndex
+                }
+            }
+            print("DevicePicker did not find another available device")
+            return self.pickerIndex
+        }
     }
-     */
-
     
 }
 
@@ -161,6 +146,8 @@ struct PickerLeft: View {
                 self.bt.scanForDevices()
                 if index != nil {
                     index! -= 1
+                } else if bt.data.connectedDeskIndex != nil {
+                    index = bt.data.connectedDeskIndex
                 }
             }
         ){
@@ -173,8 +160,6 @@ struct PickerLeft: View {
     }
 }
 
-
-
 struct PickerRight: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var index: Int?
@@ -185,6 +170,8 @@ struct PickerRight: View {
                 self.bt.scanForDevices()
                 if index != nil {
                     index! += 1
+                } else if bt.data.connectedDeskIndex != nil {
+                    index = bt.data.connectedDeskIndex
                 }
             }
         ){
@@ -195,14 +182,9 @@ struct PickerRight: View {
                 //.frame(width: 25)
         }
     }
-    
-    
-    
 }
 
 
-
-//in range --- device.peripheral != nil
 
 struct DevicePicker_Previews: PreviewProvider {
     static var previews: some View {
