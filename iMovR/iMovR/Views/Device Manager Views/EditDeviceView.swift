@@ -165,19 +165,30 @@ struct EditDeviceView: View {
                         
                         Button (
                             action: {
+    //I've moved devicePickerIndex to bt.data, need to appropriately change it when a desk is deleted
+    //Also, I need to know which devices have a peripheral if I am setting devicePickerIndex to anything besides nil.
+    //I can do this by using the indexBinding in DevicePicker, perhaps in this code
+    //OR, by using a .onChange(devicePickerIndex) in DevicePicker,
+    //OR by checking for 'available' devices here before modifying it.
                                 self.confirmDeleteMenu = false
-                                if self.deviceIndex == self.bt.data.connectedDeskIndex
+                                if (self.bt.data.connectedDeskIndex != nil)
                                 {
-                                    guard self.bt.disconnectFromDevice(device: self.bt.data.savedDevices[self.deviceIndex], savedIndex: self.deviceIndex) else {
+                                    if (self.deviceIndex == self.bt.data.connectedDeskIndex)
+                                    {
+                                        guard self.bt.disconnectFromDevice(device: self.bt.data.savedDevices[self.deviceIndex], savedIndex: self.deviceIndex) else
+                                        {
                                             print("delete device failed to disconnect")
                                             return
+                                        }
+                                        self.bt.data.connectedDeskIndex = nil
+                                        self.bt.data.devicePickerIndex = nil
                                     }
-                                    self.bt.data.connectedDeskIndex = nil
-                                }
-                                else if (self.bt.data.connectedDeskIndex != nil),
-                                        (self.deviceIndex < self.bt.data.connectedDeskIndex!)
+                                else if (self.bt.data.connectedDeskIndex != nil)
                                 {
-                                    self.bt.data.connectedDeskIndex! -= 1
+                                    if (self.deviceIndex < self.bt.data.connectedDeskIndex!)
+                                    {
+                                        self.bt.data.connectedDeskIndex! -= 1
+                                    }
                                 }
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1

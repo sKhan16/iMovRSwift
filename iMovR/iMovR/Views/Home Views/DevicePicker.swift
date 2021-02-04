@@ -12,12 +12,10 @@ import SwiftUI
 
 struct DevicePicker: View {
     @ObservedObject var data: DeviceDataManager
-    @Binding var pickerIndex: Int?
     
     
-    init(data: DeviceDataManager, pickerIndex: Binding<Int?>) {
+    init(data: DeviceDataManager) {
         self.data = data
-        self._pickerIndex = pickerIndex
     }
     
     init?(testMode: Bool) {
@@ -29,27 +27,19 @@ struct DevicePicker: View {
             Desk(name:"Home Desk",deskID:10009810, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false)
         ]
         self.data = tempData
-        self._pickerIndex = Binding<Int?> (
-            get: { return 0 },
-            set: { $0 }
-        )
     }
     
     
     var body: some View {
         let indexBinding = Binding<Int?> (
             get: {
-                if self.pickerIndex == nil,
-                   data.connectedDeskIndex != nil {
-                    return data.connectedDeskIndex
-                }
-                return self.pickerIndex
+                return self.data.devicePickerIndex
             },
             set: {
                 guard let nextIndex: Int = $0 else {
                     return
                 }
-                self.pickerIndex = pickAvailableDevice(nextIndex: nextIndex)
+                self.data.devicePickerIndex = pickAvailableDevice(nextIndex: nextIndex)
             }
         )
         
@@ -63,16 +53,16 @@ struct DevicePicker: View {
             }
             
             if self.data.savedDevices.count > 0,
-               self.pickerIndex != nil
+               self.data.devicePickerIndex != nil
             {
                 ZStack {
-                    Text(data.savedDevices[self.pickerIndex!].name)
+                    Text(data.savedDevices[self.data.devicePickerIndex!].name)
                         .font(.system(size: 40))
                         .foregroundColor(Color.white)
                         .padding([.leading,.trailing], 35)
                     
                     if self.data.connectedDeskIndex != nil,
-                       self.data.connectedDeskIndex! == self.pickerIndex {
+                       self.data.connectedDeskIndex! == self.data.devicePickerIndex {
                         Text("Connected")
                             .font(Font.title2)
                             .foregroundColor(
@@ -97,7 +87,11 @@ struct DevicePicker: View {
         }
         .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)
         .padding(.bottom, 10)
+        .onChange(of: data.connectedDeskIndex, perform: { connectedDeskIndex in
+            self.data.devicePickerIndex = connectedDeskIndex
+        })
     }
+    
     
     
     func pickAvailableDevice(nextIndex: Int) -> Int? {
@@ -110,25 +104,25 @@ struct DevicePicker: View {
         }
         guard filteredIndices.count > 0 else {return nil}
         
-        if self.pickerIndex == nil {
+        if self.data.devicePickerIndex == nil {
             return filteredIndices[0]
 //maybe instead loop and see if a device is currently connected??
         }
         else {
-            let direction = (nextIndex - self.pickerIndex!) > 0
+            let direction = (nextIndex - self.data.devicePickerIndex!) > 0
             for availableIndex in ( direction ? filteredIndices : filteredIndices.reversed() ) {
                 
                 if direction,
-                   availableIndex > self.pickerIndex! {
+                   availableIndex > self.data.devicePickerIndex! {
                     return availableIndex
                 }
                 else if !direction,
-                        availableIndex < self.pickerIndex! {
+                        availableIndex < self.data.devicePickerIndex! {
                     return availableIndex
                 }
             }
             print("DevicePicker did not find another available device")
-            return self.pickerIndex
+            return self.data.devicePickerIndex
         }
     }
     

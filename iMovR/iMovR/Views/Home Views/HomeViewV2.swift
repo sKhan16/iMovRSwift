@@ -24,7 +24,6 @@ struct HomeViewV2: View {
     @State private var unpressedUpDownTimer: Timer?
     @State private var suppressStopButton: Bool = false
     
-    @State private var devicePickerIndex: Int? = nil
     
     @State private var isPaged: Bool = false
 
@@ -42,10 +41,7 @@ struct HomeViewV2: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
-                    DevicePicker (
-                        data: self.data,
-                        pickerIndex: self.$devicePickerIndex
-                    )
+                    DevicePicker (data: self.data)
                         .padding([.leading, .trailing])
                     
                     ZStack(alignment: .center) {

@@ -17,6 +17,7 @@ public class DeviceDataManager: ObservableObject {
     
     @Published var savedDevices: [Desk] = []
     @Published var connectedDeskIndex: Int?
+    @Published var devicePickerIndex: Int?
     
     private var fetchedDevices: [ZipDeskData]?
     
