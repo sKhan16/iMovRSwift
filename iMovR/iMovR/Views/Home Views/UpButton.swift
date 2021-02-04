@@ -44,7 +44,7 @@ struct UpButton: View {
             Image(systemName: "chevron.up")
             .resizable()
             .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
-            .foregroundColor(Color.white)
+            .foregroundColor(self.pressed ? Color.gray : Color.white)
                 
             .onLongPressGesture (
                 minimumDuration: 15,
@@ -80,7 +80,6 @@ struct UpButton: View {
             )
         }
         .padding()
-        .animation(.easeInOut)
     }
 }
 
