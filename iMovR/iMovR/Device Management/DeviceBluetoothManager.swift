@@ -261,6 +261,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 return
             }
             self.data.connectedDeskIndex = self.connectingIndex
+            self.data.devicePickerIndex = self.connectingIndex
             self.connectingIndex = nil
             self.zipdesk.getPeripheral()!.discoverServices([ZGoServiceUUID])
             

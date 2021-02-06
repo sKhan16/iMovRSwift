@@ -163,37 +163,57 @@ struct EditDeviceView: View {
                         .padding(.top, 15)
                         
                         
+//need to appropriately change data.devicePickerIndex when a desk is deleted
+//need to know which devices have a peripheral if I am setting devicePickerIndex to anything besides nil.
+//I can do this by using the indexBinding in DevicePicker, perhaps in this code
+//OR, by using a .onChange(devicePickerIndex) in DevicePicker,
+//OR by checking for 'available' devices here before modifying it.
                         Button (
                             action: {
-    //I've moved devicePickerIndex to bt.data, need to appropriately change it when a desk is deleted
-    //Also, I need to know which devices have a peripheral if I am setting devicePickerIndex to anything besides nil.
-    //I can do this by using the indexBinding in DevicePicker, perhaps in this code
-    //OR, by using a .onChange(devicePickerIndex) in DevicePicker,
-    //OR by checking for 'available' devices here before modifying it.
                                 self.confirmDeleteMenu = false
-                                if (self.bt.data.connectedDeskIndex != nil)
+                                
+                                // Adjust device indices when removing a saved device:
+                                
+                                // Move devicePickerIndex
+                                if self.bt.data.devicePickerIndex != nil
                                 {
-                                    if (self.deviceIndex == self.bt.data.connectedDeskIndex)
+                                    if self.deviceIndex == self.bt.data.devicePickerIndex
                                     {
-                                        guard self.bt.disconnectFromDevice(device: self.bt.data.savedDevices[self.deviceIndex], savedIndex: self.deviceIndex) else
+                                        self.bt.data.devicePickerIndex = nil
+                                    }
+                                    else if self.deviceIndex < self.bt.data.devicePickerIndex!
+                                    {
+                                        self.bt.data.connectedDeskIndex! -= 1
+                                    }
+                                }
+                                
+                                // Move connectedDeskIndex
+                                if self.bt.data.connectedDeskIndex != nil
+                                {
+                                    if self.deviceIndex == self.bt.data.connectedDeskIndex
+                                    {
+                                        guard self.bt.disconnectFromDevice (
+                                                device: self.bt.data.savedDevices[self.deviceIndex],
+                                                savedIndex: self.deviceIndex )
+                                        else
                                         {
                                             print("delete device failed to disconnect")
                                             return
                                         }
                                         self.bt.data.connectedDeskIndex = nil
-                                        self.bt.data.devicePickerIndex = nil
                                     }
-                                else if (self.bt.data.connectedDeskIndex != nil)
-                                {
-                                    if (self.deviceIndex < self.bt.data.connectedDeskIndex!)
+                                    else if self.deviceIndex < self.bt.data.connectedDeskIndex!
                                     {
                                         self.bt.data.connectedDeskIndex! -= 1
                                     }
-                                }
+                                } // End indices adjustments
+                                
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1
+                                // Delete this selected device
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
                                 self.bt.scanForDevices()
+                                
                             },
                             label: {
                                 Text("Delete")

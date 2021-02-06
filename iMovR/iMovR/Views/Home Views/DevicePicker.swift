@@ -32,14 +32,14 @@ struct DevicePicker: View {
     
     var body: some View {
         let indexBinding = Binding<Int?> (
-            get: {
-                return self.data.devicePickerIndex
-            },
+            get: { return self.data.devicePickerIndex },
             set: {
-                guard let nextIndex: Int = $0 else {
-                    return
+                if $0 == nil {
+                    self.data.devicePickerIndex = nil
                 }
-                self.data.devicePickerIndex = pickAvailableDevice(nextIndex: nextIndex)
+                else {
+                    self.data.devicePickerIndex = pickAvailableDevice(nextIndex: $0!)
+                }
             }
         )
         
@@ -90,27 +90,37 @@ struct DevicePicker: View {
         .onChange(of: data.connectedDeskIndex, perform: { connectedDeskIndex in
             self.data.devicePickerIndex = connectedDeskIndex
         })
+        .onChange(of: data.)
     }
     
     
     
     func pickAvailableDevice(nextIndex: Int) -> Int? {
-        
+        // Check saved devices count
         let deviceCount = data.savedDevices.count
         guard deviceCount > 0 else { return nil }
         
+        // Check available devices count
         let filteredIndices = data.savedDevices.indices.filter {
             data.savedDevices[$0].peripheral != nil
         }
-        guard filteredIndices.count > 0 else {return nil}
+        guard filteredIndices.count > 0 else { return nil }
         
+// MARK: ATTEMPTED WRAP CHECK PROBABLY WONT FIX THE FOR LOOP
+        let nextIndexWrapped: Int
+        if nextIndex > deviceCount - 1 { nextIndexWrapped = 0 }
+        else if nextIndex < 0 { nextIndexWrapped = deviceCount - 1 }
+        else { nextIndexWrapped = nextIndex }
+        
+        // Return the closest available index to nextIndex
         if self.data.devicePickerIndex == nil {
             return filteredIndices[0]
-//maybe instead loop and see if a device is currently connected??
         }
         else {
+            // Determine direction increasing/decreasing, and pick closest available index
+//MARK: BUG - THIS DOESN'T WRAP UPON REACHING THE EDGE OF AVAILABLE DEVICES
             let direction = (nextIndex - self.data.devicePickerIndex!) > 0
-            for availableIndex in ( direction ? filteredIndices : filteredIndices.reversed() ) {
+            for availableIndex in (direction ? filteredIndices : filteredIndices.reversed()) {
                 
                 if direction,
                    availableIndex > self.data.devicePickerIndex! {
