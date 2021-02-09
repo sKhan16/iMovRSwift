@@ -35,13 +35,13 @@ struct DownButton: View {
                     }
                     else { // unpressed DownButton
                         self.bt.zipdesk.releaseDesk()
+                        self.animate = false
                         self.unpressedTimer = Timer.scheduledTimer (
                             withTimeInterval: 1.5,
                             repeats: false
                         ) { timer in
                             print("release DOWN -> timer")
                             self.pressed = false
-                            self.animate = false
                         }
                     }
                 },

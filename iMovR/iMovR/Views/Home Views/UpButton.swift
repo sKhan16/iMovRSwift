@@ -61,13 +61,13 @@ struct UpButton: View {
                     }
                     else { // unpressed UpButton
                         self.bt.zipdesk.releaseDesk()
+                        self.animate = false
                         self.unpressedTimer = Timer.scheduledTimer (
                             withTimeInterval: 1.5,
                             repeats: false
                         ) { timer in
                             print("release UP -> timer")
                             self.pressed = false
-                            self.animate = false
                         }
                     }
                 },
