@@ -12,13 +12,14 @@ struct DownButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var pressed: Bool
     @Binding var unpressedTimer: Timer?
+    @State private var animate: Bool = false
     
     var body: some View {
         Button(action: {}) {
             Image(systemName: "chevron.down")
             .resizable()
             .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
-            .foregroundColor(self.pressed ? Color.gray : Color.white)
+            .foregroundColor(self.animate ? Color.gray : Color.white)
                 
             .onLongPressGesture (
                 minimumDuration: 15,
@@ -26,6 +27,7 @@ struct DownButton: View {
                 pressing: { pressing in
                     if pressing {
                         self.pressed = true
+                        self.animate = true
                         self.unpressedTimer?.invalidate()
                         self.unpressedTimer = nil
                         self.bt.zipdesk.lowerDesk()
@@ -39,6 +41,7 @@ struct DownButton: View {
                         ) { timer in
                             print("release DOWN -> timer")
                             self.pressed = false
+                            self.animate = false
                         }
                     }
                 },
