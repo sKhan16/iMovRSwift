@@ -42,7 +42,6 @@ struct HomeViewV2: View {
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
                     DevicePicker (data: self.data)
-                        .padding([.leading, .trailing])
                     
                     ZStack(alignment: .center) {
                         HeightSliderV2(zipdeskUI: self.zipdeskUI, deviceData: self.data, isPaged: self.$isPaged)

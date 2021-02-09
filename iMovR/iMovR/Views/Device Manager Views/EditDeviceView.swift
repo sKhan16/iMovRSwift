@@ -18,12 +18,6 @@ struct EditDeviceView: View {
     @State private var confirmDeleteMenu: Bool = false
     @State private var editName: String = ""
     
-//    init(deviceIndex: Binding<Int>, selectedDevice: Desk){
-//        self._deviceIndex = deviceIndex
-//        self.selectedDevice = selectedDevice
-//        UITableView.appearance().backgroundColor = .clear
-//    }
-    
     
     var body: some View {
         ZStack{
@@ -163,18 +157,15 @@ struct EditDeviceView: View {
                         .padding(.top, 15)
                         
                         
-//need to appropriately change data.devicePickerIndex when a desk is deleted
-//need to know which devices have a peripheral if I am setting devicePickerIndex to anything besides nil.
-//I can do this by using the indexBinding in DevicePicker, perhaps in this code
-//OR, by using a .onChange(devicePickerIndex) in DevicePicker,
-//OR by checking for 'available' devices here before modifying it.
+//I can do this by using the indexBinding in DevicePicker, by using a .onChange(devicePickerIndex) in DevicePicker
                         Button (
                             action: {
                                 self.confirmDeleteMenu = false
                                 
-                                // Adjust device indices when removing a saved device:
-                                
-                                // Move devicePickerIndex
+                                // Adjust device indices when removing a saved device
+                                // Stage devicePickerIndex
+                                bt.data.devicePickerIndex = nil
+                            /*
                                 if self.bt.data.devicePickerIndex != nil
                                 {
                                     if self.deviceIndex == self.bt.data.devicePickerIndex
@@ -186,7 +177,7 @@ struct EditDeviceView: View {
                                         self.bt.data.connectedDeskIndex! -= 1
                                     }
                                 }
-                                
+                            */
                                 // Move connectedDeskIndex
                                 if self.bt.data.connectedDeskIndex != nil
                                 {
@@ -213,6 +204,9 @@ struct EditDeviceView: View {
                                 // Delete this selected device
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
                                 self.bt.scanForDevices()
+                                
+                                // Set devicePickerIndex post-delete.
+                                _=self.bt.data.setPickerIndex(decrement: true)
                                 
                             },
                             label: {

@@ -56,6 +56,7 @@
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
 		41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */; };
 		41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD0F0C254CD54400B828BA /* PresetNew.swift */; };
+		41BD1DE725D20EAC00260282 /* PickerDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD1DE625D20EAC00260282 /* PickerDisplayView.swift */; };
 		41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C2EFE4252E371D006D6BF2 /* Device.swift */; };
 		41D54E9A25B0F51E002833B5 /* SelectedPresetEditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D54E9925B0F51E002833B5 /* SelectedPresetEditMenu.swift */; };
 		41D54EA825B0FDE9002833B5 /* PresetEditOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D54EA725B0FDE9002833B5 /* PresetEditOptions.swift */; };
@@ -117,6 +118,7 @@
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		41A3097124C3C1D400644006 /* ZGoZipDeskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZGoZipDeskController.swift; sourceTree = "<group>"; };
 		41AD0F0C254CD54400B828BA /* PresetNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetNew.swift; sourceTree = "<group>"; };
+		41BD1DE625D20EAC00260282 /* PickerDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDisplayView.swift; sourceTree = "<group>"; };
 		41C2EFE4252E371D006D6BF2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		41D54E9925B0F51E002833B5 /* SelectedPresetEditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPresetEditMenu.swift; sourceTree = "<group>"; };
 		41D54EA725B0FDE9002833B5 /* PresetEditOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditOptions.swift; sourceTree = "<group>"; };
@@ -297,10 +299,10 @@
 		416105FC2578714500D87A49 /* Home Views */ = {
 			isa = PBXGroup;
 			children = (
+				41BD1DE525D20E5500260282 /* Device Picker Views */,
 				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
 				416105FD2578726900D87A49 /* Preset Views */,
 				410358752583FF4100B4C3A2 /* Height Indication */,
-				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
 				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
@@ -336,6 +338,15 @@
 				41166132252BA9A80063A68D /* Device Manager Views */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		41BD1DE525D20E5500260282 /* Device Picker Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EAA5CA5252BE1A600A471E2 /* DevicePicker.swift */,
+				41BD1DE625D20EAC00260282 /* PickerDisplayView.swift */,
+			);
+			path = "Device Picker Views";
 			sourceTree = "<group>";
 		};
 		41D079BF24C220E00047FD48 /* Device Management */ = {
@@ -515,6 +526,7 @@
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
 				41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */,
 				419A429925A66CD2000B261F /* TouchNGoPopup.swift in Sources */,
+				41BD1DE725D20EAC00260282 /* PickerDisplayView.swift in Sources */,
 				1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */,
 				1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */,

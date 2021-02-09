@@ -267,4 +267,67 @@ public class DeviceDataManager: ObservableObject {
         }
     }
     
+    
+    
+    // Device Picker Index manipulation
+    func setPickerIndex(decrement: Bool = false, increment: Bool = false) -> Bool {
+        // Check saved devices count
+        let deviceCount = self.savedDevices.count
+        guard deviceCount > 0 else { return false }
+        
+        // Check available devices count
+        let filteredIndices = self.savedDevices.indices.filter {
+            self.savedDevices[$0].peripheral != nil
+        }
+        let availableCount = filteredIndices.count
+        guard availableCount > 0 else { return false }
+        
+        // Check base cases first
+        if self.devicePickerIndex == nil {
+            self.devicePickerIndex = filteredIndices[0]
+            return true
+        }
+        else if availableCount == 1 {
+            self.devicePickerIndex = filteredIndices[0]
+            print("data.devicePickerIndex: only one available device")
+            return true
+        }
+        // index of current picker index in filteredIndices
+        guard let filtIndex: Int = filteredIndices.firstIndex(of: devicePickerIndex!)
+        else {
+            //filtered indices didnt contain the current index
+            // set to first available index
+            self.devicePickerIndex = filteredIndices[0]
+            return true
+        }
+        // Assign devicePickerIndex based on previous value,
+          // direction, and available indices
+          // knowing that there are 2+ available devices
+        if decrement {
+            if filtIndex == 0 {
+                // wrap to last value
+                self.devicePickerIndex = filteredIndices[availableCount - 1]
+            } else {
+                // decrement to device before current
+                self.devicePickerIndex = filteredIndices[filtIndex - 1]
+            }
+            return true
+        }
+        else if increment {
+            if filtIndex == availableCount - 1 {
+                // wrap to first value
+                self.devicePickerIndex = filteredIndices[0]
+            } else {
+                // increment to device after current
+                self.devicePickerIndex = filteredIndices[filtIndex + 1]
+            }
+            return true
+        }
+        else {
+            return false
+        }
+        
+    }
+    
+    
 }

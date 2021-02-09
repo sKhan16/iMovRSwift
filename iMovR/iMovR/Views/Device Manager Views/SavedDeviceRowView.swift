@@ -55,7 +55,7 @@ struct SavedDeviceRowView: View {
                     } else if self.isConnected {
                         Text("Connected")
                             .font(Font.body.weight(.medium))
-                            .foregroundColor(ColorManager.connected)
+                            .foregroundColor(ColorManager.connectGreen)
                             .padding([.leading,.trailing], 3)
                     } else if self.data.savedDevices[deviceIndex].peripheral != nil {
                         Text("Available")
@@ -133,7 +133,7 @@ private struct ConnectButton: View {
                     
                     ZStack {
                         Circle()
-                            .foregroundColor(isConnected ? ColorManager.connected : ColorManager.bgColor)
+                            .foregroundColor(isConnected ? ColorManager.connectYellow : ColorManager.bgColor)
                             .aspectRatio(contentMode: .fit)
                             .shadow(color: .black, radius: 2)
                         if isConnected {
@@ -146,10 +146,10 @@ private struct ConnectButton: View {
                                 .resizable()
                                 .accentColor(Color.red)
                                 .aspectRatio(contentMode: .fit)
-                                .background(ColorManager.connected.cornerRadius(20).frame(width: 18, height: 18))
+                                .background(ColorManager.connectYellow.cornerRadius(20).frame(width: 18, height: 18))
                                 .frame(height: 20)
                                 .offset(x: 25, y: -20)
-                                .shadow(color: ColorManager.connected, radius: 1)
+                                .shadow(color: ColorManager.connectYellow, radius: 1)
                         } else {
                             Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.left.and.right")
                                 .resizable()
