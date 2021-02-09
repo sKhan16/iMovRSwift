@@ -18,12 +18,6 @@ struct EditDeviceView: View {
     @State private var confirmDeleteMenu: Bool = false
     @State private var editName: String = ""
     
-//    init(deviceIndex: Binding<Int>, selectedDevice: Desk){
-//        self._deviceIndex = deviceIndex
-//        self.selectedDevice = selectedDevice
-//        UITableView.appearance().backgroundColor = .clear
-//    }
-    
     
     var body: some View {
         ZStack{
@@ -163,26 +157,57 @@ struct EditDeviceView: View {
                         .padding(.top, 15)
                         
                         
+//I can do this by using the indexBinding in DevicePicker, by using a .onChange(devicePickerIndex) in DevicePicker
                         Button (
                             action: {
                                 self.confirmDeleteMenu = false
-                                if self.deviceIndex == self.bt.data.connectedDeskIndex
+                                
+                                // Adjust device indices when removing a saved device
+                                // Stage devicePickerIndex
+                                bt.data.devicePickerIndex = nil
+                            /*
+                                if self.bt.data.devicePickerIndex != nil
                                 {
-                                    guard self.bt.disconnectFromDevice(device: self.bt.data.savedDevices[self.deviceIndex], savedIndex: self.deviceIndex) else {
+                                    if self.deviceIndex == self.bt.data.devicePickerIndex
+                                    {
+                                        self.bt.data.devicePickerIndex = nil
+                                    }
+                                    else if self.deviceIndex < self.bt.data.devicePickerIndex!
+                                    {
+                                        self.bt.data.connectedDeskIndex! -= 1
+                                    }
+                                }
+                            */
+                                // Move connectedDeskIndex
+                                if self.bt.data.connectedDeskIndex != nil
+                                {
+                                    if self.deviceIndex == self.bt.data.connectedDeskIndex
+                                    {
+                                        guard self.bt.disconnectFromDevice (
+                                                device: self.bt.data.savedDevices[self.deviceIndex],
+                                                savedIndex: self.deviceIndex )
+                                        else
+                                        {
                                             print("delete device failed to disconnect")
                                             return
+                                        }
+                                        self.bt.data.connectedDeskIndex = nil
                                     }
-                                    self.bt.data.connectedDeskIndex = nil
-                                }
-                                else if (self.bt.data.connectedDeskIndex != nil),
-                                        (self.deviceIndex < self.bt.data.connectedDeskIndex!)
-                                {
-                                    self.bt.data.connectedDeskIndex! -= 1
-                                }
+                                    else if self.deviceIndex < self.bt.data.connectedDeskIndex!
+                                    {
+                                        self.bt.data.connectedDeskIndex! -= 1
+                                    }
+                                } // End indices adjustments
+                                
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1
+                                // Delete this selected device
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
                                 self.bt.scanForDevices()
+                                
+                                // Set devicePickerIndex post-delete.
+                                _=self.bt.data.setPickerIndex(decrement: true)
+                                
                             },
                             label: {
                                 Text("Delete")

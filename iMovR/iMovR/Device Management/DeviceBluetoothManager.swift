@@ -211,6 +211,10 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                     // establish autoconnect to device if it was last connected
                     let thisSavedDevice: Desk = self.data.savedDevices[foundIndex]
                     
+                    if self.data.devicePickerIndex == nil {
+                        _=self.data.setPickerIndex(decrement: true)
+                    }
+                    
                     if thisSavedDevice.isLastConnected,
                        self.data.connectedDeskIndex == nil {
                         
@@ -260,12 +264,14 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 print("didConnect ERROR: rejected by zipdesk.setDesk")
                 return
             }
+            
+            // set UI indices to represent newly connected desk
             self.data.connectedDeskIndex = self.connectingIndex
+            self.data.devicePickerIndex = self.connectingIndex
             self.connectingIndex = nil
             self.zipdesk.getPeripheral()!.discoverServices([ZGoServiceUUID])
             
             print("Successfully connected to desk # \(self.zipdesk.getDesk().id).")
-            
             print("bt.didConnect: disconnecting from all other desks")
             for (index, device) in data.savedDevices.enumerated() {
                 // find improperly connected devices
@@ -273,12 +279,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                    device.peripheral != nil,
                    (device.peripheral!.state == .connected || device.peripheral!.state == .connecting)
                 {
-                    
                     centralManager?.cancelPeripheralConnection(device.peripheral!)
                 }
             }
         }
-    }
+    } //end didConnect
     
     
     ///# didFailToConnect peripheral

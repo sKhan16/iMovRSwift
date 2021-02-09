@@ -23,6 +23,8 @@ struct HomeViewV2: View {
     @State private var notMovingTimer: Timer?
     @State private var unpressedUpDownTimer: Timer?
     @State private var suppressStopButton: Bool = false
+    
+    
     @State private var isPaged: Bool = false
 
     @State var isMoving: Bool = false
@@ -38,8 +40,7 @@ struct HomeViewV2: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
-                    DevicePicker(deviceData: self.data)
-                        .padding([.leading, .trailing])
+                    DevicePicker (data: self.data)
                     
                     ZStack(alignment: .center) {
                         HeightSliderV2(zipdeskUI: self.zipdeskUI, deviceData: self.data, isPaged: self.$isPaged)
