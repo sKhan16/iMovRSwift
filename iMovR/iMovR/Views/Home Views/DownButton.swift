@@ -12,14 +12,18 @@ struct DownButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var pressed: Bool
     @Binding var unpressedTimer: Timer?
-    @State private var animate: Bool = false
+    @State private var animateColor: Color = Color.white
+    @State private var animateBlur: CGFloat = CGFloat(0.0)
+    @State private var animateOpacity: Double = 1.0
     
     var body: some View {
         Button(action: {}) {
             Image(systemName: "chevron.down")
-            .resizable()
-            .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
-            .foregroundColor(self.animate ? Color.gray : Color.white)
+                .resizable()
+                .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                .foregroundColor(animateColor)
+                .blur(radius: animateBlur)
+                .opacity(animateOpacity)
                 
             .onLongPressGesture (
                 minimumDuration: 15,
@@ -27,7 +31,11 @@ struct DownButton: View {
                 pressing: { pressing in
                     if pressing {
                         self.pressed = true
-                        self.animate = true
+                        withAnimation(.easeOut(duration: 0.05)) {
+                            //animateColor = Color.spaghetti
+                            //animateBlur = 1
+                            animateOpacity = 0.15
+                        }
                         self.unpressedTimer?.invalidate()
                         self.unpressedTimer = nil
                         self.bt.zipdesk.lowerDesk()
@@ -35,7 +43,10 @@ struct DownButton: View {
                     }
                     else { // unpressed DownButton
                         self.bt.zipdesk.releaseDesk()
-                        self.animate = false
+                        withAnimation(.easeIn(duration: 0.20)) {
+                            //animateBlur = 0.0
+                            animateOpacity = 1.0
+                        }
                         self.unpressedTimer = Timer.scheduledTimer (
                             withTimeInterval: 1.5,
                             repeats: false
