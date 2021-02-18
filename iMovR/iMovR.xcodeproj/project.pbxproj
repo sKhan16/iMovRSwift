@@ -299,13 +299,12 @@
 		416105FC2578714500D87A49 /* Home Views */ = {
 			isa = PBXGroup;
 			children = (
-				41BD1DE525D20E5500260282 /* Device Picker Views */,
 				1EAA5C81252BADD200A471E2 /* HomeViewV2.swift */,
-				416105FD2578726900D87A49 /* Preset Views */,
+				41BD1DE525D20E5500260282 /* Device Picker Views */,
 				410358752583FF4100B4C3A2 /* Height Indication */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
-				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
+				416105FD2578726900D87A49 /* Preset Views */,
 			);
 			path = "Home Views";
 			sourceTree = "<group>";
@@ -318,6 +317,7 @@
 				1EAA5CE6253579E400A471E2 /* PresetModule.swift */,
 				419062482575C45F00D80D57 /* AddPresetView.swift */,
 				419A429825A66CD2000B261F /* TouchNGoPopup.swift */,
+				1EB9C3A524C7B8540086AC3C /* CloseButton.swift */,
 			);
 			path = "Preset Views";
 			sourceTree = "<group>";
