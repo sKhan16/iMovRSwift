@@ -80,12 +80,17 @@ struct ContentView: View {
                         .font(.title)
                         .foregroundColor(.white)
                     HStack {
-                        Button(action:{}) {
-                            (b1 ? Unpressed:Pressed)
+//                        Button(action:{}) {
+//                            (b1 ? Unpressed:Pressed)
+//                            .resizable()
+//                            .frame(width: 140, height: 140)
+//                        }
+//                        .simultaneousGesture (
+                        
+                        (b1 ? Unpressed:Pressed)
                             .resizable()
                             .frame(width: 140, height: 140)
-                        }
-                            .simultaneousGesture (
+                            .gesture (
                                 DragGesture(minimumDistance: 0)
                                     .onChanged({ _ in
                                         b1 = true
@@ -94,23 +99,20 @@ struct ContentView: View {
                                         b1 = false
                                     })
                             )
-                            .buttonStyle(PlainButtonStyle())
+//                            .buttonStyle(PlainButtonStyle())
                         
-                        Button(action:{}) {
-                            (b2 ? Pressed:Unpressed)
-                                .resizable()
-                                .frame(width: 140, height: 140)
-                        }
-                        .simultaneousGesture (
-                            DragGesture(minimumDistance: 0)
-                                .onChanged({ _ in
-                                    b2 = true
-                                })
-                                .onEnded({ _ in
-                                    b2 = false
-                                })
-                        )
-                        .buttonStyle(PlainButtonStyle())
+                        (b2 ? Pressed:Unpressed)
+                            .resizable()
+                            .frame(width: 140, height: 140)
+                            .gesture (
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged({ _ in
+                                        b2 = true
+                                    })
+                                    .onEnded({ _ in
+                                        b2 = false
+                                    })
+                            )
                     }
                     
                     Spacer()
@@ -119,37 +121,31 @@ struct ContentView: View {
                         .font(.title)
                         .foregroundColor(.white)
                     HStack {
-                        Button(action:{}) {
-                            (b3 ? Unpressed:Pressed)
-                                .resizable()
-                                .frame(width: 105, height: 105)
-                        }
-                        .simultaneousGesture (
-                            DragGesture(minimumDistance: 0)
-                                .onChanged({ _ in
-                                    b3 = true
-                                })
-                                .onEnded({ _ in
-                                    b3 = false
-                                })
-                        )
-                        .buttonStyle(PlainButtonStyle())
+                        (b3 ? Unpressed:Pressed)
+                            .resizable()
+                            .frame(width: 105, height: 105)
+                            .gesture (
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged({ _ in
+                                        b3 = true
+                                    })
+                                    .onEnded({ _ in
+                                        b3 = false
+                                    })
+                            )
                         
-                        Button(action:{}) {
-                            (b4 ? Pressed:Unpressed)
-                                .resizable()
-                                .frame(width: 105, height: 105)
-                        }
-                        .simultaneousGesture (
-                            DragGesture(minimumDistance: 0)
-                                .onChanged({ _ in
-                                    b4 = true
-                                })
-                                .onEnded({ _ in
-                                    b4 = false
-                                })
-                        )
-                        .buttonStyle(PlainButtonStyle())
+                        (b4 ? Pressed:Unpressed)
+                            .resizable()
+                            .frame(width: 105, height: 105)
+                            .gesture (
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged({ _ in
+                                        b4 = true
+                                    })
+                                    .onEnded({ _ in
+                                        b4 = false
+                                    })
+                            )
                     }
                     
                     Spacer()
@@ -158,37 +154,31 @@ struct ContentView: View {
                         .font(.title)
                         .foregroundColor(.white)
                     HStack {
-                        Button(action:{}) {
-                            (b5 ? Unpressed:Pressed)
-                                .resizable()
-                                .frame(width: 210, height: 210)
-                        }
-                        .simultaneousGesture (
-                            DragGesture(minimumDistance: 0)
-                                .onChanged({ _ in
-                                    b5 = true
-                                })
-                                .onEnded({ _ in
-                                    b5 = false
-                                })
-                        )
-                        .buttonStyle(PlainButtonStyle())
+                        (b5 ? Unpressed:Pressed)
+                            .resizable()
+                            .frame(width: 210, height: 210)
+                            .gesture (
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged({ _ in
+                                        b5 = true
+                                    })
+                                    .onEnded({ _ in
+                                        b5 = false
+                                    })
+                            )
                         
-                        Button(action:{}) {
-                            (b6 ? Pressed:Unpressed)
-                                .resizable()
-                                .frame(width: 210, height: 210)
-                        }
-                        .simultaneousGesture (
-                            DragGesture(minimumDistance: 0)
-                                .onChanged({ _ in
-                                    b6 = true
-                                })
-                                .onEnded({ _ in
-                                    b6 = false
-                                })
-                        )
-                        .buttonStyle(PlainButtonStyle())
+                        (b6 ? Pressed:Unpressed)
+                            .resizable()
+                            .frame(width: 210, height: 210)
+                            .gesture (
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged({ _ in
+                                        b6 = true
+                                    })
+                                    .onEnded({ _ in
+                                        b6 = false
+                                    })
+                            )
                     }
                     
                 }
