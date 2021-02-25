@@ -25,6 +25,7 @@ struct PresetEditButton: View {
                     .aspectRatio(contentMode: .fit)
                     .accentColor(Color.black)
                     .frame(width: 40, height: 40)
+                    .shadow(color: .black, radius: 3, x: 0, y: 3)
                     
             }
         }

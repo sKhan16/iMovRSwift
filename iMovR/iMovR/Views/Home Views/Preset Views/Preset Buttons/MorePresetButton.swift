@@ -29,6 +29,7 @@ struct MorePresetButton: View {
                 }
             }
             .foregroundColor(ColorManager.morePreset)
+            .shadow(color: .black, radius: 3, x: 0, y: 4)
     }
 }
 

@@ -68,6 +68,7 @@ struct DownButton: View {
             )
         }
         .padding()
+        .shadow(color: .black, radius: 3, x: 0, y: 4)
         
     }
 }

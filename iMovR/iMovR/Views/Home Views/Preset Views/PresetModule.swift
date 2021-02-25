@@ -79,6 +79,7 @@ struct PresetModule: View {
                 VStack {
                     PresetEditButton(show: $showPresetPopup)
                         .padding(.bottom, 10)
+        
                     HStack(alignment: .bottom) {
                         PresetButton (
                             data: bt.data,
