@@ -42,7 +42,7 @@ struct PresetButton: View {
                     }
                     else {
                         HoldPreset(presetHeight: heightBinding)
-                            .shadow(color: .black, radius: 3, x: 0, y: 4)
+                            
                     }
                     
                     Text(currDesk!.presetNames[self.index])

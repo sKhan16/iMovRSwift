@@ -20,6 +20,7 @@ struct HoldPreset: View {
             ZStack {
                 Circle()
                 .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                .shadow(color: .black, radius: 3, x: 0, y: 4)
 //                .onLongPressGesture( minimumDuration: 7, maximumDistance: CGFloat(50), pressing: { pressing in
 //                    withAnimation(.easeInOut(duration: 1.0)) {
 //                        self.pressed = pressing
