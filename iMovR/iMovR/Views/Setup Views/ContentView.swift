@@ -12,11 +12,20 @@ struct ContentView: View {
     @EnvironmentObject var BTController: DeviceBluetoothManager
     
     @State private var selection = 0
+    
+    @State private var b1 = false
+    @State private var b2 = false
+    @State private var b3 = false
+    @State private var b4 = false
+    @State private var b5 = false
+    @State private var b6 = false
+    var Pressed = Image("buttonPressed")
+    var Unpressed = Image("buttonUnpressed")
  
     var body: some View {
         
         TabView(selection: $selection){
-            
+
             // Home Page Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
@@ -27,7 +36,7 @@ struct ContentView: View {
                             self.BTController.scanForDevices()
                         }
                     }
-                    
+
                     .onDisappear() {
                         // Desk safety
                         self.BTController.zipdesk.releaseDesk()
@@ -38,8 +47,8 @@ struct ContentView: View {
                     Text("Home")
                 }
             }.tag(0)
-            
-            
+
+
             // Device Manager Tab
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
@@ -59,8 +68,143 @@ struct ContentView: View {
                         //.font(.title)
                 }
             }.tag(1)
-            
-            
+
+            // graphics test tab
+            ZStack {
+                Image("appBackgroundPNG")
+                    .resizable()
+                    .scaledToFill()
+                .ignoresSafeArea(edges: .top)
+                VStack {
+                    Text("Default button size")
+                        .font(.title)
+                        .foregroundColor(.white)
+                    HStack {
+                        Button(action:{}) {
+                            (b1 ? Unpressed:Pressed)
+                            .resizable()
+                            .frame(width: 140, height: 140)
+                        }
+                            .simultaneousGesture (
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged({ _ in
+                                        b1 = true
+                                    })
+                                    .onEnded({ _ in
+                                        b1 = false
+                                    })
+                            )
+                            .buttonStyle(PlainButtonStyle())
+                        
+                        Button(action:{}) {
+                            (b2 ? Pressed:Unpressed)
+                                .resizable()
+                                .frame(width: 140, height: 140)
+                        }
+                        .simultaneousGesture (
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ _ in
+                                    b2 = true
+                                })
+                                .onEnded({ _ in
+                                    b2 = false
+                                })
+                        )
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Small button size")
+                        .font(.title)
+                        .foregroundColor(.white)
+                    HStack {
+                        Button(action:{}) {
+                            (b3 ? Unpressed:Pressed)
+                                .resizable()
+                                .frame(width: 105, height: 105)
+                        }
+                        .simultaneousGesture (
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ _ in
+                                    b3 = true
+                                })
+                                .onEnded({ _ in
+                                    b3 = false
+                                })
+                        )
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Button(action:{}) {
+                            (b4 ? Pressed:Unpressed)
+                                .resizable()
+                                .frame(width: 105, height: 105)
+                        }
+                        .simultaneousGesture (
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ _ in
+                                    b4 = true
+                                })
+                                .onEnded({ _ in
+                                    b4 = false
+                                })
+                        )
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Large button size")
+                        .font(.title)
+                        .foregroundColor(.white)
+                    HStack {
+                        Button(action:{}) {
+                            (b5 ? Unpressed:Pressed)
+                                .resizable()
+                                .frame(width: 210, height: 210)
+                        }
+                        .simultaneousGesture (
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ _ in
+                                    b5 = true
+                                })
+                                .onEnded({ _ in
+                                    b5 = false
+                                })
+                        )
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Button(action:{}) {
+                            (b6 ? Pressed:Unpressed)
+                                .resizable()
+                                .frame(width: 210, height: 210)
+                        }
+                        .simultaneousGesture (
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ _ in
+                                    b6 = true
+                                })
+                                .onEnded({ _ in
+                                    b6 = false
+                                })
+                        )
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                }
+                .padding([.top, .bottom], 50)
+                
+            }
+//            .background (
+//                Image("appBackground")
+//                    .resizable()
+//            )
+            .tabItem {
+                VStack {
+                    Image(systemName:"gearshape")
+                    Text("GFX Test")
+                }
+            }.tag(2)
 //            // Settings Page Tab
 //            SettingView().tabItem {
 //                VStack {
@@ -92,10 +236,10 @@ struct ContentView_Previews: PreviewProvider {
         return Group {
             ContentView().environment(\.managedObjectContext, context)
                 .environmentObject(DeviceBluetoothManager())
-                .previewDevice("iPhone 11")
-            ContentView().environment(\.managedObjectContext, context)
-                .environmentObject(DeviceBluetoothManager())
-                .previewDevice("iPhone 6s")
+                .previewDevice("iPhone 12")
+//            ContentView().environment(\.managedObjectContext, context)
+//                .environmentObject(DeviceBluetoothManager())
+//                .previewDevice("iPhone 6s")
         }
     }
 }
