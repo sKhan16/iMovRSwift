@@ -20,12 +20,12 @@ struct PresetEditButton: View {
                 Circle()
                     .foregroundColor(ColorManager.gray)
                     .frame(width: 45, height: 45)
+                    .shadow(color: .black, radius: 3, x: 0, y: 4)
                 Image(systemName: "gearshape")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .accentColor(Color.black)
                     .frame(width: 40, height: 40)
-                    .shadow(color: .black, radius: 3, x: 0, y: 3)
                     
             }
         }

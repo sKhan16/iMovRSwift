@@ -30,6 +30,7 @@ struct TouchPreset: View {
             ZStack {
                 Circle()
                     .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                    .shadow(color: .black, radius: 3, x: 0, y: 4)
                 Text(String(format: "%.1f", presetHeight))
                     .frame(minWidth: 70, idealWidth: 75, maxWidth: 75, minHeight: 70, idealHeight: 75, maxHeight: 75)
                     .font(.largeTitle)

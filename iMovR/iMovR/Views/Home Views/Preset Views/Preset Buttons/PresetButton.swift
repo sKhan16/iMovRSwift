@@ -38,7 +38,7 @@ struct PresetButton: View {
                     if user.tngEnabled {
                         TouchPreset(zipdeskUI: self.bt.zipdesk,
                                     presetHeight: heightBinding)
-                            .shadow(color: .black, radius: 3, x: 0, y: 4)
+                            
                     }
                     else {
                         HoldPreset(presetHeight: heightBinding)
@@ -53,13 +53,11 @@ struct PresetButton: View {
             }
             else { // desk is connected, unassigned preset
                 AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
-                    .shadow(color: .black, radius: 3, x: 0, y: 4)
             }
             
         }
         else { // desk not connected
             AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
-                .shadow(color: .black, radius: 3, x: 0, y: 4)
         }
     }
     

@@ -21,6 +21,7 @@ struct MorePresetButton: View {
                 ZStack {
                     Circle()
                         .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                        .shadow(color: .black, radius: 3, x: 0, y: 4)
                     Image(systemName: isPaged ? "arrowshape.turn.up.left.fill" : "arrowshape.turn.up.right.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -29,7 +30,6 @@ struct MorePresetButton: View {
                 }
             }
             .foregroundColor(ColorManager.morePreset)
-            .shadow(color: .black, radius: 3, x: 0, y: 4)
     }
 }
 
