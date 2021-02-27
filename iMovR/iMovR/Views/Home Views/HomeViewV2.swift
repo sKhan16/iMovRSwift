@@ -35,7 +35,7 @@ struct HomeViewV2: View {
             // ZStack for applying popups to the main view
             ZStack(alignment: .center) {
                 VStack {
-                    Image("imovrLogo")
+                    Image("z_imovrLogo_OLD")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width / 6, height: geo.size.height / 10)

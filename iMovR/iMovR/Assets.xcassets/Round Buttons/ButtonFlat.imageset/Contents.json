@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Button(UnPressed)(alternate)_NoBackground.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
