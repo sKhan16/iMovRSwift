@@ -65,9 +65,9 @@ struct DevicePicker: View {
             }
         }
         .frame(maxWidth: .infinity, minHeight: 80, idealHeight: 80, maxHeight: 80)
-        .background(ColorManager.deviceBG)
-        .cornerRadius(75/2.0)
-        .shadow(color: .black, radius: 3, x: 0, y: 4)
+//        .background(ColorManager.deviceBG)
+//        .cornerRadius(75/2.0)
+//        .shadow(color: .black, radius: 3, x: 0, y: 4)
         .padding(.bottom, 10)
         .padding([.leading,.trailing], 5)
     }
