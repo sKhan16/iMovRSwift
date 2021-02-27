@@ -20,7 +20,7 @@ struct SaveDeviceView: View {
     
     var body: some View {
         ZStack{
-            // Background color filter & back button
+            // Background back button/color filter
             Button (
                 action: { self.deviceIndex = -1 },
                 label: {
