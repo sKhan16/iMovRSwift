@@ -17,10 +17,10 @@ struct PresetEditButton: View {
             print("Open preset edit popup")
         }) {
             ZStack {
-                Circle()
-                    .foregroundColor(ColorManager.gray)
-                    .frame(width: 45, height: 45)
-                Image(systemName: "gearshape")
+//                Circle()
+//                    .foregroundColor(ColorManager.gray)
+//                    .frame(width: 45, height: 45)
+                Image("SettingsCog")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .accentColor(Color.black)

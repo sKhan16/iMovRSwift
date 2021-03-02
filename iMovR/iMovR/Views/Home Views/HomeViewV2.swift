@@ -75,12 +75,12 @@ struct HomeViewV2: View {
                                         pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
-                                        .padding(.bottom, 10)
+                                        //.padding(.bottom, 5)
                                     DownButton (
                                         pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
-                                        .padding(.top, 10)
+                                        //.padding(.top, 5)
                                 }
                                 .padding(.trailing, 15)
                             }

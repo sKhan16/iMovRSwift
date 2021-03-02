@@ -45,9 +45,9 @@ struct UpButton: View {
     var body: some View {
         Button(action: {})
         {
-            Image(systemName: "chevron.up")
+            Image("UpButton")
                 .resizable()
-                .frame(maxWidth: 90, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                .frame(maxWidth: 100, minHeight: 90, idealHeight: 100, maxHeight: 150)
                 .foregroundColor(animateColor)
                 .blur(radius: animateBlur)
                 .opacity(animateOpacity)
@@ -94,7 +94,7 @@ struct UpButton: View {
                 }
             )
         }
-        .padding()
+        .padding(.trailing)
     }
 }
 
