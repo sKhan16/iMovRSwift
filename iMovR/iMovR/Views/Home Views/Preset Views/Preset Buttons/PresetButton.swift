@@ -36,10 +36,18 @@ struct PresetButton: View {
                 )
                 ZStack {
                     if user.tngEnabled {
-                        TouchPreset(zipdeskUI: self.bt.zipdesk,
+                        ZStack {
+                            Image("ButtonPressedBG")
+                                .resizable()
+                                .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
+                            TouchPreset(zipdeskUI: self.bt.zipdesk,
                                     presetHeight: heightBinding)
+                        }
                     }
                     else {
+                        Image("ButtonPressedBG")
+                            .resizable()
+                            .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
                         HoldPreset(presetHeight: heightBinding)
                     }
                     
@@ -50,13 +58,23 @@ struct PresetButton: View {
                 
             }
             else { // desk is connected, unassigned preset
-                AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
-            }
+                ZStack {
+                    Image("ButtonPressedBG")
+                        .resizable()
+                        .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
+                    AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
+                }
+                }
             
         }
         else { // desk not connected
-            AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
-        }
+            ZStack {
+                Image("ButtonPressedBG")
+                    .resizable()
+                    .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
+                AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
+            }
+            }
     }
     
     enum DragState {
