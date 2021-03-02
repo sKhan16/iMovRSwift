@@ -23,7 +23,7 @@ struct ContentView: View {
                 data: BTController.data
             )
                 .background (
-                    Image("Background")
+                    Image("background")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .edgesIgnoringSafeArea(.all)

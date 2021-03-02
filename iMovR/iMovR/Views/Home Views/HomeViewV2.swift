@@ -38,7 +38,7 @@ struct HomeViewV2: View {
                     Image("iMovRLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: .infinity, maxHeight: 60)
+                        .frame(maxWidth: .infinity, maxHeight: 35)
                         .padding([.leading,.trailing], 40)
                     Color.white
                         .frame(maxWidth: .infinity, maxHeight: 1)
