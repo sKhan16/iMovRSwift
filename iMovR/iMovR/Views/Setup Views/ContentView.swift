@@ -18,29 +18,32 @@ struct ContentView: View {
         TabView(selection: $selection){
             
             // Home Page Tab
-            ZStack {
-                Image("Background")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .edgesIgnoringSafeArea(.all)
-                HomeViewV2(zipdeskUI: BTController.zipdesk, data: BTController.data)
-                    .onAppear() {
-                        // Enable autoconnect
-                        if self.BTController.data.connectedDeskIndex == nil {
-                            self.BTController.scanForDevices()
-                        }
+            HomeViewV2 (
+                zipdeskUI: BTController.zipdesk,
+                data: BTController.data
+            )
+                .background (
+                    Image("Background")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .edgesIgnoringSafeArea(.all)
+                )
+                .onAppear() {
+                    // Enable autoconnect
+                    if self.BTController.data.connectedDeskIndex == nil {
+                        self.BTController.scanForDevices()
                     }
-                    
-                    .onDisappear() {
-                        // Desk safety
-                        self.BTController.zipdesk.releaseDesk()
-                    }
-            }.tabItem {
-                VStack {
-                    Image(systemName: "house.fill")
-                    Text("Home")
                 }
-            }.tag(0)
+                .onDisappear() {
+                    // Desk safety
+                    self.BTController.zipdesk.releaseDesk()
+                }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                }.tag(0)
             
             
             // Device Manager Tab

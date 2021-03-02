@@ -35,10 +35,15 @@ struct HomeViewV2: View {
             // ZStack for applying popups to the main view
             ZStack(alignment: .center) {
                 VStack {
-                    Image("z_imovrLogo_OLD")
+                    Image("iMovRLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: geo.size.width / 6, height: geo.size.height / 10)
+                        .frame(maxWidth: .infinity, maxHeight: 60)
+                        .padding([.leading,.trailing], 40)
+                    Color.white
+                        .frame(maxWidth: .infinity, maxHeight: 1)
+                        .padding([.leading,.trailing], 30)
+//                        .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
                     DevicePicker (data: self.data)
                     
@@ -95,7 +100,7 @@ struct HomeViewV2: View {
                         }
                     }
                     .padding(.bottom, 10)
-                    .frame(height: 200)
+                    .frame(width: geo.size.width, height: 200)
                 } // end top-level VStack containing homepage main components
                 .blur(radius: popupBackgroundBlur)
                 
@@ -122,7 +127,8 @@ struct HomeViewV2: View {
                     StopGoButton()
                 }
                 
-            } // end top-level ZStack containing main home page components and popup overlays
+            } // end top-level ZStack
+            .frame(width: geo.size.width, height: geo.size.height)
             .onAppear() {
                 withAnimation(.easeInOut(duration: 1.0),{})
             }
