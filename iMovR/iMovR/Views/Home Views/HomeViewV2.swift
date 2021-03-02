@@ -149,7 +149,10 @@ struct HomeViewV2_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                Image("Background")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
 
                 HomeViewV2 (
                     zipdeskUI: ZGoZipDeskController(),
@@ -160,18 +163,21 @@ struct HomeViewV2_Previews: PreviewProvider {
             }
             .previewDevice("iPhone 12")
             
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-
-                HomeViewV2 (
-                    zipdeskUI: ZGoZipDeskController(),
-                    data: DeviceDataManager(test: true)!
-                )
-                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-                .environmentObject(UserDataManager())
-            }
-            .previewDevice("iPhone 6s")
-//            .previewDevice("iPhone SE (1st generation)")
+//            ZStack {
+//                Image("Background")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .edgesIgnoringSafeArea(.all)
+//
+//                HomeViewV2 (
+//                    zipdeskUI: ZGoZipDeskController(),
+//                    data: DeviceDataManager(test: true)!
+//                )
+//                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//                .environmentObject(UserDataManager())
+//            }
+//            .previewDevice("iPhone 6s")
+////            .previewDevice("iPhone SE (1st generation)")
             
         }
     }

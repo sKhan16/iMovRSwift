@@ -19,7 +19,10 @@ struct ContentView: View {
             
             // Home Page Tab
             ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                Image("Background")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
                 HomeViewV2(zipdeskUI: BTController.zipdesk, data: BTController.data)
                     .onAppear() {
                         // Enable autoconnect
@@ -92,10 +95,10 @@ struct ContentView_Previews: PreviewProvider {
         return Group {
             ContentView().environment(\.managedObjectContext, context)
                 .environmentObject(DeviceBluetoothManager())
-                .previewDevice("iPhone 11")
-            ContentView().environment(\.managedObjectContext, context)
-                .environmentObject(DeviceBluetoothManager())
-                .previewDevice("iPhone 6s")
+                .previewDevice("iPhone 12")
+//            ContentView().environment(\.managedObjectContext, context)
+//                .environmentObject(DeviceBluetoothManager())
+//                .previewDevice("iPhone 6s")
         }
     }
 }

@@ -37,17 +37,11 @@ struct PresetButton: View {
                 ZStack {
                     if user.tngEnabled {
                         ZStack {
-                            Image("ButtonPressedBG")
-                                .resizable()
-                                .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
                             TouchPreset(zipdeskUI: self.bt.zipdesk,
                                     presetHeight: heightBinding)
                         }
                     }
                     else {
-                        Image("ButtonPressedBG")
-                            .resizable()
-                            .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
                         HoldPreset(presetHeight: heightBinding)
                     }
                     
@@ -59,9 +53,6 @@ struct PresetButton: View {
             }
             else { // desk is connected, unassigned preset
                 ZStack {
-                    Image("ButtonPressedBG")
-                        .resizable()
-                        .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
                     AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
                 }
                 }
@@ -69,9 +60,6 @@ struct PresetButton: View {
         }
         else { // desk not connected
             ZStack {
-                Image("ButtonPressedBG")
-                    .resizable()
-                    .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
                 AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
             }
             }

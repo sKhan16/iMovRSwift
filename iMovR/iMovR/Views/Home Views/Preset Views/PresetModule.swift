@@ -134,20 +134,20 @@ struct PresetModule_Previews: PreviewProvider {
                 )
                 .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
-            .previewDevice("iPhone 11")
+            .previewDevice("iPhone 12")
             
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                PresetModule (
-                    isPaged: .constant(false),
-                    isMoving: .constant(false),
-                    showAddPreset: .constant([Bool](repeating: false, count: 6)),
-                    showPresetPopup: .constant(false)
-                )
-                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewLayout(.device)
-            .previewDevice("iPhone 6s")
+//            ZStack {
+//                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+//                PresetModule (
+//                    isPaged: .constant(false),
+//                    isMoving: .constant(false),
+//                    showAddPreset: .constant([Bool](repeating: false, count: 6)),
+//                    showPresetPopup: .constant(false)
+//                )
+//                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//            }
+//            .previewLayout(.device)
+//            .previewDevice("iPhone 6s")
 
         }
     }
