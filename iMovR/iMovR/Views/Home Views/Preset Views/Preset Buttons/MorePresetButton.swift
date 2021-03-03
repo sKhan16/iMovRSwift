@@ -11,6 +11,11 @@ import SwiftUI
 struct MorePresetButton: View {
     
     @Binding var isPaged: Bool
+    
+    var Pressed = Image("NextPresets_OLD")
+    var Unpressed = Image("NextPresetsPressed_OLD")
+
+    @State private var NextPresetsBG = false
     @State private var fadeOut: Bool = false
     
     var body: some View {
@@ -19,13 +24,28 @@ struct MorePresetButton: View {
         }) {
             VStack {
                 ZStack {
-                    Circle()
-                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
-                    Image(systemName: isPaged ? "arrowshape.turn.up.left.fill" : "arrowshape.turn.up.right.fill")
+                    (NextPresetsBG ? Pressed : Unpressed)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 45)//,height: 10)
-                        .foregroundColor(Color.white)
+                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ _ in
+                                    NextPresetsBG = true
+                                })
+                                .onEnded({ _ in
+                                    NextPresetsBG = false
+                                }))
+                    
+                    
+                    
+                    
+//                    Circle()
+//                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+//                    Image(systemName: isPaged ? "arrowshape.turn.up.left.fill" : "arrowshape.turn.up.right.fill")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 45)//,height: 10)
+//                        .foregroundColor(Color.white)
                 }
             }
             .foregroundColor(ColorManager.morePreset)

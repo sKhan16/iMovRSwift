@@ -38,6 +38,11 @@ struct UpButton: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var pressed: Bool
     @Binding var unpressedTimer: Timer?
+    
+    var Unpressed = Image("UpButton")
+    var Pressed = Image("UpButtonPressed")
+    
+    @State private var ButtonBG = false
     @State private var animateColor: Color = Color.white
     @State private var animateBlur: CGFloat = CGFloat(0.0)
     @State private var animateOpacity: Double = 1.0
@@ -45,12 +50,21 @@ struct UpButton: View {
     var body: some View {
         Button(action: {})
         {
-            Image("UpButton")
+            (ButtonBG ? Pressed : Unpressed)
                 .resizable()
                 .frame(maxWidth: 100, minHeight: 90, idealHeight: 100, maxHeight: 150)
-                .foregroundColor(animateColor)
-                .blur(radius: animateBlur)
-                .opacity(animateOpacity)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged({ _ in
+                            ButtonBG = true
+                        })
+                        .onEnded({ _ in
+                            ButtonBG = false
+                        }))
+                
+//                .foregroundColor(animateColor)
+//                .blur(radius: animateBlur)
+//                .opacity(animateOpacity)
                 
             .onLongPressGesture (
                 minimumDuration: 15,
