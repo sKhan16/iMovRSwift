@@ -49,12 +49,14 @@ struct PickerDisplayView: View {
                        self.data.connectedDeskIndex! == self.data.devicePickerIndex {
                         Text("Connected")
                             .font(.system(size: 20))
-                            .foregroundColor(ColorManager.connectGreen)
+                            // icky change. OG color: ColorManager.connectGreen
+                            .foregroundColor(Color.white)
                             .offset(y: 30)
                     } else {
                         Text("Available")
                             .font(.system(size: 20))
-                            .foregroundColor(ColorManager.morePreset)
+                            // icky change. OG color: ColorManager.morePreset
+                            .foregroundColor(Color.white)
                             .offset(y: 30)
                     }
                 }
