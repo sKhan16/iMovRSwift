@@ -88,15 +88,19 @@ struct HomeViewV2: View {
                     } // end ZStack
                     .frame(maxWidth: .infinity)
                     ZStack {
+                        
+                        if (!suppressStopButton && isMoving && user.tngEnabled) {
+                            StopGoButton()
+                            
+                            //ColorManager.bgColor //stop button can cover up PresetModule
+                              //  .frame(height: 190)
+                        } else {
                         PresetModule (
                             isPaged: self.$isPaged,
                             isMoving: self.$isMoving,
                             showAddPreset: self.$showAddPreset,
                             showPresetPopup: self.$showPresetPopup
                         )
-                        if (!suppressStopButton && isMoving && user.tngEnabled) {
-                            ColorManager.bgColor //stop button can cover up PresetModule
-                                .frame(height: 190)
                         }
                     }
                     .padding(.bottom, 10)
@@ -123,10 +127,10 @@ struct HomeViewV2: View {
                 
                 
                 // Popup for Stop Button
-                if (!suppressStopButton && isMoving && user.tngEnabled) {
-                    StopGoButton()
-                }
-                
+//                if (!suppressStopButton && isMoving && user.tngEnabled) {
+//                    StopGoButton()
+//                }
+//
             } // end top-level ZStack
             .frame(width: geo.size.width, height: geo.size.height)
             .onAppear() {
