@@ -27,4 +27,6 @@ struct ColorManager {
     static let connectGreen = Color("ConnectGreen")
     
     static let yesGreen = Color("yesGreen")
+    
+    static let royalBlue = Color("RoyalBlue")
 }

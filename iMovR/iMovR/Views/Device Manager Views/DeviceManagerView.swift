@@ -22,6 +22,15 @@ struct DeviceManagerView: View {
     var body: some View {
         ZStack(alignment: .center) {
             VStack {
+                Image("iMovRLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: 35)
+                    .padding([.leading,.trailing], 40)
+                Color.white
+                    .frame(maxWidth: .infinity, maxHeight: 1)
+                    .padding([.leading,.trailing], 40)
+                    .padding(.bottom, 10)
                 Text("Device Manager")
                     .font(Font.largeTitle.bold())
                     .foregroundColor(Color.white)
@@ -32,23 +41,25 @@ struct DeviceManagerView: View {
                         Text("SAVED")
                             .foregroundColor(Color.white)
                             .font(Font.title2)
-                            .padding(.leading, 20)
+                            .padding(.leading, 40)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .offset(y: 8)
                         Rectangle()
                             .fill(Color.white)
-                            .frame(height: 2)
+                            .frame(height: 1)
+                            .padding([.leading,.trailing], 35)
+                            .padding(.bottom, 25)
                     }
                     
-                    ForEach(data.savedDevices, id:\.self.id) { device -> SavedDeviceRowView? in
+                    ForEach(data.savedDevices, id:\.self.id)
+                    { device -> SavedDeviceRowView? in
                         guard let index: Int = data.savedDevices.firstIndex(
                                 where: { (getidDevice) -> Bool in
                                     getidDevice.id == device.id
-                                }) else {
-                            return nil// device not found even though should be in array
+                                })
+                        else {
+                            return nil
                         }
-
-                        //let isConnected: Binding<Bool> = (bt.connectedDeskIndex == index)
                         return SavedDeviceRowView (
                             data: self.data,
                             edit: $editDeviceIndex,
@@ -63,30 +74,37 @@ struct DeviceManagerView: View {
                             deviceIndex: index
                         )
                     }
-                    .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                     
                     VStack {
                         Text("DISCOVERED")
                             .foregroundColor(Color.white)
                             .font(Font.title2)
-                            .padding([.leading], 20)
+                            .padding([.leading,.top], 40)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .offset(y: 8)
                         Rectangle()
                             .fill(Color.white)
-                            .frame(height: 2)
+                            .frame(height: 1)
+                            .padding([.leading,.trailing], 35)
+                            .padding(.bottom, 25)
                     }
                     
-                    ForEach(bt.discoveredDevices, id:\.self.id) { device -> DiscoveredDeviceRowView? in
+                    ForEach(bt.discoveredDevices, id:\.self.id)
+                    { device -> DiscoveredDeviceRowView? in
                         guard let index: Int = bt.discoveredDevices.firstIndex(
-                                                where: { (getidDevice) -> Bool in
-                                                    getidDevice.id == device.id
-                                                }) else {
+                                where: { (getidDevice) -> Bool in
+                                    getidDevice.id == device.id
+                                })
+                        else {
                             return nil
                         }
-                        return DiscoveredDeviceRowView(save: $saveDeviceIndex, deviceIndex: index)
+                        return DiscoveredDeviceRowView (
+                            save: $saveDeviceIndex,
+                            deviceIndex: index
+                        )
                     }
-                    .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                 }
                 .padding(2)
 
@@ -127,12 +145,15 @@ struct DeviceManagerView: View {
 struct DeviceManagerView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                DeviceManagerView(data: DeviceDataManager(test: true)!)
-                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewDevice("iPhone 11")
+            DeviceManagerView(data: DeviceDataManager(test: true)!)
+                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+                .background (
+                    Image("Background")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                )
+                .previewDevice("iPhone 12")
             ZStack {
                 ColorManager.bgColor.edgesIgnoringSafeArea(.all)
                 

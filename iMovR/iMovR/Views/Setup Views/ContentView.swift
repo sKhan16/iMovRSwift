@@ -16,7 +16,6 @@ struct ContentView: View {
     var body: some View {
         
         TabView(selection: $selection){
-            
             // Home Page Tab
             HomeViewV2 (
                 zipdeskUI: BTController.zipdesk,
@@ -47,24 +46,31 @@ struct ContentView: View {
             
             
             // Device Manager Tab
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                DeviceManagerView(data: BTController.data)
-                    .onAppear() {
-                        self.BTController.scanForDevices()
-                    }.onDisappear() {
-                        if BTController.data.connectedDeskIndex != nil {
-                            self.BTController.stopScan()
-                        }
-                    }
-            }.tabItem {
-                VStack {
-                    Image(systemName: "studentdesk")
-                    //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
-                    Text("Devices")
-                        //.font(.title)
+            DeviceManagerView (
+                data: BTController.data
+            )
+                .background (
+                    Image("Background")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                )
+                .onAppear() {
+                    self.BTController.scanForDevices()
                 }
-            }.tag(1)
+                .onDisappear() {
+                    if BTController.data.connectedDeskIndex != nil {
+                        self.BTController.stopScan()
+                    }
+                }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "studentdesk")
+                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
+                        Text("Devices")
+                            //.font(.title)
+                    }
+                }.tag(1)
             
             
 //            // Settings Page Tab
@@ -74,6 +80,7 @@ struct ContentView: View {
 //                    Text("Settings")
 //                }
 //            }.tag(2)
+            
             
         }// end TabView
             // Desk safety when user sends app to background or reopens app.

@@ -42,10 +42,10 @@ struct SavedDeviceRowView: View {
                         Text(currDevice.name)
                             .font(Font.title3.bold())
                             .truncationMode(.tail)
-                            .foregroundColor(Color.white)
+                            .foregroundColor(ColorManager.royalBlue)
                         Text("("+String(currDevice.id)+")")
                             .font(Font.caption)//.weight(.medium))
-                            .foregroundColor(Color.white)
+                            .foregroundColor(ColorManager.royalBlue)
                     }.offset(y: -3)
                     if !bt.bluetoothEnabled {
                         Text("Phone Bluetooth Disabled")
@@ -60,7 +60,7 @@ struct SavedDeviceRowView: View {
                     } else if self.data.savedDevices[deviceIndex].peripheral != nil {
                         Text("Available")
                             .font(Font.body.weight(.medium))
-                            .foregroundColor(Color.white)
+                            .foregroundColor(ColorManager.royalBlue)
                             .padding([.leading,.trailing], 3)
                     } else {
                         Text("Not Found")
@@ -78,10 +78,14 @@ struct SavedDeviceRowView: View {
                     .frame(width:70, height:65)
             }
             .frame(height: 75)
-            .background(ColorManager.deviceBG)
-            .cornerRadius(75/2.0)
-
-            .shadow(color: .black, radius: 3, x: 0, y: 4)
+            .background(
+                Image("DeviceRowBG")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height:75)
+            )
+            //.cornerRadius(75/2.0)
+            //.shadow(color: .black, radius: 3, x: 0, y: 4)
             .padding([.leading, .trailing, .top], 2)
             .padding(.bottom, 8)
         }
@@ -206,23 +210,23 @@ private struct EditButton: View {
     }//end body
 }//end EditButton
 
-struct SavedDeviceRowView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        Group {
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
-                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewDevice("iPhone 11")
-            
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
-                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewDevice("iPhone 6s")
-        }
-    }
-}
+//struct SavedDeviceRowView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        Group {
+//            ZStack {
+//                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+//                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
+//                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//            }
+//            .previewDevice("iPhone 11")
+//
+//            ZStack {
+//                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+//                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
+//                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//            }
+//            .previewDevice("iPhone 6s")
+//        }
+//    }
+//}
