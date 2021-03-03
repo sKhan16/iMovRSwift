@@ -12,7 +12,7 @@ struct AddPresetButton: View {
 
     @Environment(\.colorScheme) var colorScheme
     
-   var Unpressed = Image("ButtonFlat")
+   var Unpressed = Image("ButtonFlatBG")
     var Pressed = Image("ButtonPressed")
 
     @State private var testCount: Float = 0.0
