@@ -12,6 +12,10 @@ struct AddPresetButton: View {
 
     @Environment(\.colorScheme) var colorScheme
     
+//   var Unpressed = Image("ButtonFlat")
+//    var Pressed = Image("ButtonPressed")
+    
+//    @State private var PresetBG = false
     @State private var testCount: Float = 0.0
     
     let index: Int
@@ -27,15 +31,11 @@ struct AddPresetButton: View {
            
         VStack {
                 ZStack {
-                    Circle()
-                        //.resizable()
-                        //.stroke(Color.black, lineWidth: 3)
-                        //.background(Circle().foregroundColor(ColorManager.preset))
-                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                    PresetBG()
                     Image(systemName: "plus")
                         .resizable()
                         .frame(width: 40, height: 40)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color.blue)
                 }
                 
         }

@@ -12,20 +12,21 @@ struct HoldPreset: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var presetHeight: Float
-    
+   
+//    var Unpressed = Image("ButtonFlat")
+//    var Pressed = Image("ButtonPressed")
+//
+//    @State private var PresetBG = false
     @State private var pressed: Bool = false
     
     var body: some View {
         Button(action: {}) {
             ZStack {
-                Image("ButtonFlat")
-                    .resizable()
-                    .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
-
+                PresetBG()
                 Text(String(format: "%.1f", presetHeight))
                     .frame(width: 60, height: 60)
                     .font(.system(size: 26))
-                    .foregroundColor(Color(UIColor.systemGreen))
+                    .foregroundColor(Color(UIColor.systemBlue))
             }//end ZStack
             .foregroundColor(ColorManager.preset)
             .onLongPressGesture (

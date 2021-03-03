@@ -13,7 +13,11 @@ struct TouchPreset: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var zipdeskUI: ZGoZipDeskController
     @Binding var presetHeight: Float
-    
+        
+//    var Unpressed = Image("ButtonFlat")
+//    var Pressed = Image("ButtonPressed")
+//
+//    @State private var PresetBG = false
     @State private var pressed: Bool = false
     
     var body: some View {
@@ -28,12 +32,12 @@ struct TouchPreset: View {
 //            }
         }) {
             ZStack {
-                Circle()
-                    .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
+                //Circle()
+                PresetBG()
                 Text(String(format: "%.1f", presetHeight))
-                    .frame(minWidth: 70, idealWidth: 75, maxWidth: 75, minHeight: 70, idealHeight: 75, maxHeight: 75)
-                    .font(.largeTitle)
-                    .foregroundColor(Color.white)
+                    .frame(width: 60, height: 60)
+                    .font(.system(size: 26))
+                    .foregroundColor(Color(UIColor.systemBlue))
             }
             .foregroundColor(ColorManager.preset)
         }//end Button view 'Label'

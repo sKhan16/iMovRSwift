@@ -90,6 +90,7 @@
 		41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */; };
 		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
+		7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92982525EF16FC008A6504 /* PresetBG.swift */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +181,7 @@
 		41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
+		7D92982525EF16FC008A6504 /* PresetBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetBG.swift; sourceTree = "<group>"; };
 		893E3CBD5644BA439014A61E /* Pods-iMovR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.debug.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -275,6 +277,7 @@
 				41F306A025461A0B0008F62B /* TouchPreset.swift */,
 				1EAA5CF225359A3A00A471E2 /* MorePresetButton.swift */,
 				1EE60EE3253A38AF00B564F8 /* PresetEditButton.swift */,
+				7D92982525EF16FC008A6504 /* PresetBG.swift */,
 				1E94E1E224BF9FCE00155123 /* AddPresetButton.swift */,
 				1EE60ED7253A310000B564F8 /* TnGToggle.swift */,
 				1EE60F06253FB57200B564F8 /* HoldPreset.swift */,
@@ -656,6 +659,7 @@
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
 				1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */,
 				1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */,
+				7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */,
 				414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserDataManager.swift in Sources */,
 				1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */,
