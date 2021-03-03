@@ -27,17 +27,7 @@ struct MorePresetButton: View {
                 ZStack {
                     (NextPresetsBG ? Pressed : Unpressed)
                         .resizable()
-                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)
-//                        .gesture(
-//                            DragGesture(minimumDistance: 0)
-//                                .onChanged({ _ in
-//                                    NextPresetsBG = true
-//                                })
-//                                .onEnded({ _ in
-//                                    NextPresetsBG = false
-//                                }))
-//                    
-                    
+                        .frame(minWidth: 70, idealWidth: 80, maxWidth: 80, minHeight: 70, idealHeight: 80, maxHeight: 80)          
                     
                     
 //                    Circle()
