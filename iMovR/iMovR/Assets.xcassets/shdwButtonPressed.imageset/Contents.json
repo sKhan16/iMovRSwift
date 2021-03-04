@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "iMovR_App_Static_Button.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

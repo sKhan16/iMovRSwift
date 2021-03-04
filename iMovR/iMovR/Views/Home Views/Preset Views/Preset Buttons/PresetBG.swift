@@ -10,15 +10,15 @@ import SwiftUI
 
 struct PresetBG: View {
     
-    var Unpressed = Image("ButtonFlatBG")
-    var Pressed = Image("ButtonPressed")
+    var Unpressed = Image("shdwButtonUnpressed")
+    var Pressed = Image("shdwButtonPressed")
     
     @State private var PresetBG = false
     
     var body: some View {
         (PresetBG ? Pressed : Unpressed)
             .resizable()
-            .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
+            .frame(minWidth: 85 + 15, idealWidth: 95 + 15, maxWidth: 95 + 15, minHeight: 85 + 15, idealHeight: 95 + 15, maxHeight: 95 + 15)
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged({ _ in
