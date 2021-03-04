@@ -23,7 +23,7 @@ struct ContentView: View {
             )
                 .background (
                     /// This has a lower case 'b' in the asset folder
-                    Image("background")
+                    Image("Background")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .edgesIgnoringSafeArea(.all)
