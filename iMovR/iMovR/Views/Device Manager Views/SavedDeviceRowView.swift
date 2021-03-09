@@ -140,7 +140,7 @@ private struct ConnectButton: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 40)
-                        Image("shdwButtonUnpressed")
+                        Image("ButtonRoundDark")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 40)

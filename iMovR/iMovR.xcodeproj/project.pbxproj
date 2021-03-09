@@ -44,9 +44,9 @@
 		4126AC9025EA0D7500849107 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7125EA0D7500849107 /* background.png */; };
 		4126AC9125EA0D7500849107 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7225EA0D7500849107 /* background@2x.png */; };
 		4126AC9225EA0D7500849107 /* background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7325EA0D7500849107 /* background@3x.png */; };
-		4126AC9325EA0D7500849107 /* Button(UnPressed).svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7525EA0D7500849107 /* Button(UnPressed).svg */; };
-		4126AC9425EA0D7500849107 /* Button(UnPressed)(alternate)_NoBackground.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7625EA0D7500849107 /* Button(UnPressed)(alternate)_NoBackground.svg */; };
-		4126AC9525EA0D7500849107 /* Button(UnPressed)_NoBackground.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7725EA0D7500849107 /* Button(UnPressed)_NoBackground.svg */; };
+		4126AC9325EA0D7500849107 /* ButtonRoundBG.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7525EA0D7500849107 /* ButtonRoundBG.svg */; };
+		4126AC9425EA0D7500849107 /* ButtonFlat.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7625EA0D7500849107 /* ButtonFlat.svg */; };
+		4126AC9525EA0D7500849107 /* ButtonRound.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7725EA0D7500849107 /* ButtonRound.svg */; };
 		4126AC9625EA0D7500849107 /* Connect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7925EA0D7500849107 /* Connect.svg */; };
 		4126AC9725EA0D7500849107 /* Settings_Icon_Pressed.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7A25EA0D7500849107 /* Settings_Icon_Pressed.svg */; };
 		4126AC9825EA0D7500849107 /* Settings_Icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC7B25EA0D7500849107 /* Settings_Icon.svg */; };
@@ -60,16 +60,17 @@
 		4126ACA025EA0D7500849107 /* Control_Icon_Pressed.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8325EA0D7500849107 /* Control_Icon_Pressed.svg */; };
 		4126ACA125EA0D7500849107 /* Connect_2_elipses.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8425EA0D7500849107 /* Connect_2_elipses.svg */; };
 		4126ACA225EA0D7500849107 /* Right_Arrow_Pressed.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8525EA0D7500849107 /* Right_Arrow_Pressed.svg */; };
-		4126ACA325EA0D7500849107 /* Button(UnPressed)(alternate).svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8625EA0D7500849107 /* Button(UnPressed)(alternate).svg */; };
+		4126ACA325EA0D7500849107 /* ButtonFlatBG.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8625EA0D7500849107 /* ButtonFlatBG.svg */; };
 		4126ACA425EA0D7500849107 /* Down_Arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8825EA0D7500849107 /* Down_Arrow.svg */; };
 		4126ACA525EA0D7500849107 /* Down_Arrow_Pressed.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8925EA0D7500849107 /* Down_Arrow_Pressed.svg */; };
 		4126ACA625EA0D7500849107 /* Up_Arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8A25EA0D7500849107 /* Up_Arrow.svg */; };
 		4126ACA725EA0D7500849107 /* Up_Arrow_Pressed.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126AC8B25EA0D7500849107 /* Up_Arrow_Pressed.svg */; };
 		4126ACAE25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126ACAB25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg */; };
-		4126ACAF25EA14FF00849107 /* iMovR_App_More_OnPress_Button.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126ACAC25EA14FF00849107 /* iMovR_App_More_OnPress_Button.svg */; };
-		4126ACB025EA14FF00849107 /* iMovR_App_More_Static_Button.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126ACAD25EA14FF00849107 /* iMovR_App_More_Static_Button.svg */; };
+		4126ACAF25EA14FF00849107 /* MorePresetRoundBG.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126ACAC25EA14FF00849107 /* MorePresetRoundBG.svg */; };
+		4126ACB025EA14FF00849107 /* MorePresetRoundDarkBG.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4126ACAD25EA14FF00849107 /* MorePresetRoundDarkBG.svg */; };
 		4127B25925C4CFB700571AD9 /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4127B25725C4CFB700571AD9 /* UserData+CoreDataClass.swift */; };
 		4127B25A25C4CFB700571AD9 /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4127B25825C4CFB700571AD9 /* UserData+CoreDataProperties.swift */; };
+		4135033925F2FF8900857EE0 /* ButtonBackground.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4135033625F2FF8800857EE0 /* ButtonBackground.svg */; };
 		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
 		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
 		41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */; };
@@ -138,9 +139,9 @@
 		4126AC7125EA0D7500849107 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		4126AC7225EA0D7500849107 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		4126AC7325EA0D7500849107 /* background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@3x.png"; sourceTree = "<group>"; };
-		4126AC7525EA0D7500849107 /* Button(UnPressed).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Button(UnPressed).svg"; sourceTree = "<group>"; };
-		4126AC7625EA0D7500849107 /* Button(UnPressed)(alternate)_NoBackground.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Button(UnPressed)(alternate)_NoBackground.svg"; sourceTree = "<group>"; };
-		4126AC7725EA0D7500849107 /* Button(UnPressed)_NoBackground.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Button(UnPressed)_NoBackground.svg"; sourceTree = "<group>"; };
+		4126AC7525EA0D7500849107 /* ButtonRoundBG.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonRoundBG.svg; sourceTree = "<group>"; };
+		4126AC7625EA0D7500849107 /* ButtonFlat.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonFlat.svg; sourceTree = "<group>"; };
+		4126AC7725EA0D7500849107 /* ButtonRound.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonRound.svg; sourceTree = "<group>"; };
 		4126AC7925EA0D7500849107 /* Connect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Connect.svg; sourceTree = "<group>"; };
 		4126AC7A25EA0D7500849107 /* Settings_Icon_Pressed.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Settings_Icon_Pressed.svg; sourceTree = "<group>"; };
 		4126AC7B25EA0D7500849107 /* Settings_Icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Settings_Icon.svg; sourceTree = "<group>"; };
@@ -154,16 +155,17 @@
 		4126AC8325EA0D7500849107 /* Control_Icon_Pressed.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Control_Icon_Pressed.svg; sourceTree = "<group>"; };
 		4126AC8425EA0D7500849107 /* Connect_2_elipses.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Connect_2_elipses.svg; sourceTree = "<group>"; };
 		4126AC8525EA0D7500849107 /* Right_Arrow_Pressed.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Right_Arrow_Pressed.svg; sourceTree = "<group>"; };
-		4126AC8625EA0D7500849107 /* Button(UnPressed)(alternate).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Button(UnPressed)(alternate).svg"; sourceTree = "<group>"; };
+		4126AC8625EA0D7500849107 /* ButtonFlatBG.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonFlatBG.svg; sourceTree = "<group>"; };
 		4126AC8825EA0D7500849107 /* Down_Arrow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Down_Arrow.svg; sourceTree = "<group>"; };
 		4126AC8925EA0D7500849107 /* Down_Arrow_Pressed.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Down_Arrow_Pressed.svg; sourceTree = "<group>"; };
 		4126AC8A25EA0D7500849107 /* Up_Arrow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Up_Arrow.svg; sourceTree = "<group>"; };
 		4126AC8B25EA0D7500849107 /* Up_Arrow_Pressed.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Up_Arrow_Pressed.svg; sourceTree = "<group>"; };
 		4126ACAB25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iMovR_App_Bottom-Bar.svg"; sourceTree = "<group>"; };
-		4126ACAC25EA14FF00849107 /* iMovR_App_More_OnPress_Button.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iMovR_App_More_OnPress_Button.svg; sourceTree = "<group>"; };
-		4126ACAD25EA14FF00849107 /* iMovR_App_More_Static_Button.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iMovR_App_More_Static_Button.svg; sourceTree = "<group>"; };
+		4126ACAC25EA14FF00849107 /* MorePresetRoundBG.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MorePresetRoundBG.svg; sourceTree = "<group>"; };
+		4126ACAD25EA14FF00849107 /* MorePresetRoundDarkBG.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MorePresetRoundDarkBG.svg; sourceTree = "<group>"; };
 		4127B25725C4CFB700571AD9 /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4127B25825C4CFB700571AD9 /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4135033625F2FF8800857EE0 /* ButtonBackground.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonBackground.svg; sourceTree = "<group>"; };
 		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
 		41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditPopup.swift; sourceTree = "<group>"; };
@@ -357,12 +359,13 @@
 		4126AC7425EA0D7500849107 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				4126ACAC25EA14FF00849107 /* iMovR_App_More_OnPress_Button.svg */,
-				4126ACAD25EA14FF00849107 /* iMovR_App_More_Static_Button.svg */,
-				4126AC7625EA0D7500849107 /* Button(UnPressed)(alternate)_NoBackground.svg */,
-				4126AC7725EA0D7500849107 /* Button(UnPressed)_NoBackground.svg */,
-				4126AC8625EA0D7500849107 /* Button(UnPressed)(alternate).svg */,
-				4126AC7525EA0D7500849107 /* Button(UnPressed).svg */,
+				4126AC7725EA0D7500849107 /* ButtonRound.svg */,
+				4126AC7525EA0D7500849107 /* ButtonRoundBG.svg */,
+				4126AC7625EA0D7500849107 /* ButtonFlat.svg */,
+				4126AC8625EA0D7500849107 /* ButtonFlatBG.svg */,
+				4135033625F2FF8800857EE0 /* ButtonBackground.svg */,
+				4126ACAC25EA14FF00849107 /* MorePresetRoundBG.svg */,
+				4126ACAD25EA14FF00849107 /* MorePresetRoundDarkBG.svg */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -578,11 +581,12 @@
 				4126AC9825EA0D7500849107 /* Settings_Icon.svg in Resources */,
 				4126ACA225EA0D7500849107 /* Right_Arrow_Pressed.svg in Resources */,
 				4126ACA425EA0D7500849107 /* Down_Arrow.svg in Resources */,
+				4135033925F2FF8900857EE0 /* ButtonBackground.svg in Resources */,
 				4126AC9B25EA0D7500849107 /* Left_Arrow.svg in Resources */,
-				4126AC9525EA0D7500849107 /* Button(UnPressed)_NoBackground.svg in Resources */,
-				4126ACAF25EA14FF00849107 /* iMovR_App_More_OnPress_Button.svg in Resources */,
+				4126AC9525EA0D7500849107 /* ButtonRound.svg in Resources */,
+				4126ACAF25EA14FF00849107 /* MorePresetRoundBG.svg in Resources */,
 				1E23016624BCEB39009A0B3C /* LaunchScreen.storyboard in Resources */,
-				4126AC9325EA0D7500849107 /* Button(UnPressed).svg in Resources */,
+				4126AC9325EA0D7500849107 /* ButtonRoundBG.svg in Resources */,
 				4171ED9B25EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg in Resources */,
 				4126AC9025EA0D7500849107 /* background.png in Resources */,
 				4126AC9625EA0D7500849107 /* Connect.svg in Resources */,
@@ -594,11 +598,11 @@
 				4126ACA625EA0D7500849107 /* Up_Arrow.svg in Resources */,
 				1E23016324BCEB39009A0B3C /* Preview Assets.xcassets in Resources */,
 				4126ACA725EA0D7500849107 /* Up_Arrow_Pressed.svg in Resources */,
-				4126ACB025EA14FF00849107 /* iMovR_App_More_Static_Button.svg in Resources */,
+				4126ACB025EA14FF00849107 /* MorePresetRoundDarkBG.svg in Resources */,
 				4126AC9125EA0D7500849107 /* background@2x.png in Resources */,
 				4126ACAE25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg in Resources */,
-				4126AC9425EA0D7500849107 /* Button(UnPressed)(alternate)_NoBackground.svg in Resources */,
-				4126ACA325EA0D7500849107 /* Button(UnPressed)(alternate).svg in Resources */,
+				4126AC9425EA0D7500849107 /* ButtonFlat.svg in Resources */,
+				4126ACA325EA0D7500849107 /* ButtonFlatBG.svg in Resources */,
 				4126AC9F25EA0D7500849107 /* Control_Icon.svg in Resources */,
 				1E23016024BCEB39009A0B3C /* Assets.xcassets in Resources */,
 				4126AC9D25EA0D7500849107 /* Connect_1_elipses.svg in Resources */,
