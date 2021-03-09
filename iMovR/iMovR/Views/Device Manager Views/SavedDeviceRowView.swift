@@ -230,23 +230,37 @@ private struct EditButton: View {
     }//end body
 }//end EditButton
 
-//struct SavedDeviceRowView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        Group {
+struct SavedDeviceRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ZStack {
+                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+                SavedDeviceRowView (
+                    data: DeviceDataManager(test: true)!,
+                    edit: .constant(0),
+                    isConnected: .constant(true),
+                    deviceIndex: 0
+                )
+                .environmentObject(
+                    DeviceBluetoothManager(previewMode: true)!
+                )
+            }
+            .previewDevice("iPhone 12")
+
 //            ZStack {
 //                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-//                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
-//                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-//            }
-//            .previewDevice("iPhone 11")
-//
-//            ZStack {
-//                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-//                SavedDeviceRowView(data: DeviceDataManager(), edit: .constant(0), isConnected: .constant(true), deviceIndex: 0)
-//                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//                SavedDeviceRowView (
+//                    data: DeviceDataManager(test: true)!,
+//                    edit: .constant(0),
+//                    isConnected: .constant(true),
+//                    deviceIndex: 0
+//                )
+//                .environmentObject(
+//                    DeviceBluetoothManager(previewMode: true)!
+//                )
 //            }
 //            .previewDevice("iPhone 6s")
-//        }
-//    }
-//}
+        }
+    }
+}
+
