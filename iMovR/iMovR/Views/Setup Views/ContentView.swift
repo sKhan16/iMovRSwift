@@ -76,10 +76,12 @@ struct ContentView: View {
             
             // GFX Test Page Tab
             VStack {
+                Text("ButtonRoundDark with BG")
                 Image("ButtonRoundDarkBG")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 100, height: 100)
+                Text("ButtonRoundDark no BG")
                 Image("ButtonRoundDark")
                     .resizable()
                     .aspectRatio(contentMode: .fill)

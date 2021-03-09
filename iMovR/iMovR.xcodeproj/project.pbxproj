@@ -73,6 +73,8 @@
 		4135033925F2FF8900857EE0 /* ButtonBackground.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4135033625F2FF8800857EE0 /* ButtonBackground.svg */; };
 		41367032256DA78A0051ED8C /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41367031256DA78A0051ED8C /* DeviceDataManager.swift */; };
 		4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4136705A256DB6040051ED8C /* iMovR.xcdatamodeld */; };
+		4138DA0425F6FF9200717273 /* ButtonRoundDark.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4138DA0225F6FF9100717273 /* ButtonRoundDark.svg */; };
+		4138DA0525F6FF9200717273 /* ButtonRoundDarkBG.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4138DA0325F6FF9100717273 /* ButtonRoundDarkBG.svg */; };
 		41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */; };
 		41462FAE253A571E006C96C9 /* DeviceBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */; };
 		414E7F1F2547A66C00AA00AD /* SavedDeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */; };
@@ -168,6 +170,8 @@
 		4135033625F2FF8800857EE0 /* ButtonBackground.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonBackground.svg; sourceTree = "<group>"; };
 		41367031256DA78A0051ED8C /* DeviceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		4136705B256DB6040051ED8C /* iMovR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMovR.xcdatamodel; sourceTree = "<group>"; };
+		4138DA0225F6FF9100717273 /* ButtonRoundDark.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonRoundDark.svg; sourceTree = "<group>"; };
+		4138DA0325F6FF9100717273 /* ButtonRoundDarkBG.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ButtonRoundDarkBG.svg; sourceTree = "<group>"; };
 		41462F9E253A51A0006C96C9 /* PresetEditPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditPopup.swift; sourceTree = "<group>"; };
 		41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBluetoothManager.swift; sourceTree = "<group>"; };
 		414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDeviceRowView.swift; sourceTree = "<group>"; };
@@ -359,6 +363,8 @@
 		4126AC7425EA0D7500849107 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				4138DA0225F6FF9100717273 /* ButtonRoundDark.svg */,
+				4138DA0325F6FF9100717273 /* ButtonRoundDarkBG.svg */,
 				4126AC7725EA0D7500849107 /* ButtonRound.svg */,
 				4126AC7525EA0D7500849107 /* ButtonRoundBG.svg */,
 				4126AC7625EA0D7500849107 /* ButtonFlat.svg */,
@@ -600,8 +606,10 @@
 				4126ACA725EA0D7500849107 /* Up_Arrow_Pressed.svg in Resources */,
 				4126ACB025EA14FF00849107 /* MorePresetRoundDarkBG.svg in Resources */,
 				4126AC9125EA0D7500849107 /* background@2x.png in Resources */,
+				4138DA0525F6FF9200717273 /* ButtonRoundDarkBG.svg in Resources */,
 				4126ACAE25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg in Resources */,
 				4126AC9425EA0D7500849107 /* ButtonFlat.svg in Resources */,
+				4138DA0425F6FF9200717273 /* ButtonRoundDark.svg in Resources */,
 				4126ACA325EA0D7500849107 /* ButtonFlatBG.svg in Resources */,
 				4126AC9F25EA0D7500849107 /* Control_Icon.svg in Resources */,
 				1E23016024BCEB39009A0B3C /* Assets.xcassets in Resources */,
