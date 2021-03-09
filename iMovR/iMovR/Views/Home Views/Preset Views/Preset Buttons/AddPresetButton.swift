@@ -30,7 +30,7 @@ struct AddPresetButton: View {
            
         VStack {
                 ZStack {
-                    //PresetBG()
+                    PresetBG()
                     (self.showAddPreset ? Pressed : Unpressed)
                         .resizable()
                         .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
