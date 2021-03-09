@@ -76,16 +76,43 @@ struct ContentView: View {
             
             // GFX Test Page Tab
             VStack {
-                Text("ButtonRoundDark with BG")
-                Image("ButtonRoundDarkBG")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
-                Text("ButtonRoundDark no BG")
-                Image("ButtonRoundDark")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
+                HStack {
+                    VStack {
+                        Text("ButtonRoundDarkBG")
+                        Image("ButtonRoundDarkBG")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                        Text("ButtonPressedBG")
+                        Image("ButtonPressedBG")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                    }
+                    VStack {
+                        Text("ButtonRoundDark")
+                        Image("ButtonRoundDark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                        Text("ButtonPressed")
+                        Image("ButtonPressed")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                    }
+                }
+                HStack{
+                    PresetBG(
+                        Unpressed: Image("ButtonPressed"),
+                        Pressed: Image("ButtonRoundDarkBG")
+                    )
+                    PresetBG(
+                        Unpressed: Image("ButtonPressed"),
+                        Pressed: Image("ButtonPressedBG")
+                    )
+                }
+                
             }.tabItem {
                 VStack {
                     Image(systemName: "paintbrush.pointed.fill")
