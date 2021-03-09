@@ -12,8 +12,8 @@ struct AddPresetButton: View {
 
     @Environment(\.colorScheme) var colorScheme
     
-   var Unpressed = Image("shdwButtonUnpressed")
-    var Pressed = Image("shdwButtonPressed")
+   var Unpressed = Image("ButtonRoundDark")
+    var Pressed = Image("ButtonRoundDarkBG")
 
     @State private var testCount: Float = 0.0
     

@@ -10,8 +10,8 @@ import SwiftUI
 
 struct PresetBG: View {
     
-    var Unpressed = Image("ButtonPressed")
-    var Pressed = Image("ButtonPressedBG")
+    var Unpressed = Image("ButtonRoundDark")
+    var Pressed = Image("ButtonRoundDarkBG")
     
     @State private var PresetBG = false
     
