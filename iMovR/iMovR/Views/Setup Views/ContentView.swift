@@ -16,107 +16,64 @@ struct ContentView: View {
     var body: some View {
         
         TabView(selection: $selection){
-//            // Home Page Tab
-//            HomeViewV2 (
-//                zipdeskUI: BTController.zipdesk,
-//                data: BTController.data
-//            )
-//                .background (
-//                    /// This has a lower case 'b' in the asset folder
-//                    Image("Background")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .edgesIgnoringSafeArea(.all)
-//                )
-//                .onAppear() {
-//                    // Enable autoconnect
-//                    if self.BTController.data.connectedDeskIndex == nil {
-//                        self.BTController.scanForDevices()
-//                    }
-//                }
-//                .onDisappear() {
-//                    // Desk safety
-//                    self.BTController.zipdesk.releaseDesk()
-//                }
-//                .tabItem {
-//                    VStack {
-//                        Image(systemName: "house.fill")
-//                        Text("Home")
-//                    }
-//                }.tag(0)
-//
-//
-//            // Device Manager Tab
-//            DeviceManagerView (
-//                data: BTController.data
-//            )
-//                .background (
-//                    Image("Background")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fill)
-//                        .edgesIgnoringSafeArea(.all)
-//                )
-//                .onAppear() {
-//                    self.BTController.scanForDevices()
-//                }
-//                .onDisappear() {
-//                    if BTController.data.connectedDeskIndex != nil {
-//                        self.BTController.stopScan()
-//                    }
-//                }
-//                .tabItem {
-//                    VStack {
-//                        Image(systemName: "studentdesk")
-//                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
-//                        Text("Devices")
-//                            //.font(.title)
-//                    }
-//                }.tag(1)
-//
+            // Home Page Tab
+            HomeViewV2 (
+                zipdeskUI: BTController.zipdesk,
+                data: BTController.data
+            )
+                .background (
+                    /// This has a lower case 'b' in the asset folder
+                    Image("Background")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .edgesIgnoringSafeArea(.all)
+                )
+                .onAppear() {
+                    // Enable autoconnect
+                    if self.BTController.data.connectedDeskIndex == nil {
+                        self.BTController.scanForDevices()
+                    }
+                }
+                .onDisappear() {
+                    // Desk safety
+                    self.BTController.zipdesk.releaseDesk()
+                }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                }.tag(0)
+
+
+            // Device Manager Tab
+            DeviceManagerView (
+                data: BTController.data
+            )
+                .background (
+                    Image("Background")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                )
+                .onAppear() {
+                    self.BTController.scanForDevices()
+                }
+                .onDisappear() {
+                    if BTController.data.connectedDeskIndex != nil {
+                        self.BTController.stopScan()
+                    }
+                }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "studentdesk")
+                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
+                        Text("Devices")
+                            //.font(.title)
+                    }
+                }.tag(1)
+
             
-            // GFX Test Page Tab
-            VStack {
-                HStack {
-                    VStack {
-                        Text("ButtonRoundDarkBG")
-                        Image("ButtonRoundDarkBG")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                        Text("ButtonPressedBG")
-                        Image("ButtonPressedBG")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                    }
-                    VStack {
-                        Text("ButtonRoundDark")
-                        Image("ButtonRoundDark")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                        Text("ButtonPressed")
-                        Image("ButtonPressed")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                    }
-                }
-                HStack{
-                    PresetBG()
-                    PresetBG(
-                        Unpressed: Image("ButtonPressed"),
-                        Pressed: Image("ButtonRoundDarkBG")
-                    )
-                }
-                
-            }.tabItem {
-                VStack {
-                    Image(systemName: "paintbrush.pointed.fill")
-                    Text("GFX Test")
-                }
-            }.tag(2)
-                      
             
 //            // Settings Page Tab
 //            SettingView().tabItem {
