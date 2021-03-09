@@ -136,11 +136,11 @@ private struct ConnectButton: View {
                    self.bt.data.savedDevices[deviceIndex].peripheral != nil
                 {
                     ZStack {
-                        Image("ConnectBlue")
+                        Image("ButtonRoundDark")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 40)
-                        Image("ButtonRoundDark")
+                            .frame(width: 60, height: 60)
+                        Image("ConnectBlue")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 40)
@@ -175,11 +175,11 @@ private struct ConnectButton: View {
 //                    }
                 } else {
                     ZStack {
-                        Image("ConnectBlue")
+                        Image("ButtonRoundDark")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 40)
-                        Image("shdwButtonPressed")
+                            .frame(width: 60, height: 60)
+                        Image("ConnectBlue")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 40)

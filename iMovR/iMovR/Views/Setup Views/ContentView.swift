@@ -103,13 +103,10 @@ struct ContentView: View {
                     }
                 }
                 HStack{
+                    PresetBG()
                     PresetBG(
                         Unpressed: Image("ButtonPressed"),
                         Pressed: Image("ButtonRoundDarkBG")
-                    )
-                    PresetBG(
-                        Unpressed: Image("ButtonPressed"),
-                        Pressed: Image("ButtonPressedBG")
                     )
                 }
                 
