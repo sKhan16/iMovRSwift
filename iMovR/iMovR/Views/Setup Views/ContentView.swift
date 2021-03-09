@@ -22,7 +22,6 @@ struct ContentView: View {
                 data: BTController.data
             )
                 .background (
-                    /// This has a lower case 'b' in the asset folder
                     Image("Background")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
