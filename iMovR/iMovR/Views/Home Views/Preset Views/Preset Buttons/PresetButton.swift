@@ -49,8 +49,9 @@ struct PresetButton: View {
                     }
                     
                     Text(currDesk!.presetNames[self.index])
+                        .font(.system(size: 14))
                         .foregroundColor(ColorManager.gray)
-                        .offset(y: 53)
+                        .offset(y: 58)
                 }
                 
             }
