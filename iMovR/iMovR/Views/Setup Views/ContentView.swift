@@ -39,8 +39,9 @@ struct ContentView: View {
                 }
                 .tabItem {
                     VStack {
-                        Image(systemName: "house.fill")
-                        Text("Home")
+                        Image("ControlPage")
+                            .renderingMode(.template)
+                        Text("Control")
                     }
                 }.tag(0)
 
