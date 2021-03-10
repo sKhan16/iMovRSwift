@@ -15,7 +15,7 @@ struct ContentView: View {
  
     var body: some View {
         
-        TabView(selection: $selection){
+        TabView(selection: $selection) {
             // Home Page Tab
             HomeViewV2 (
                 zipdeskUI: BTController.zipdesk,
@@ -104,12 +104,14 @@ struct ContentView_Previews: PreviewProvider {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         return Group {
-            ContentView().environment(\.managedObjectContext, context)
+            ContentView()
+                .environment(\.managedObjectContext, context)
                 .environmentObject(DeviceBluetoothManager())
                 .previewDevice("iPhone 12")
-//            ContentView().environment(\.managedObjectContext, context)
-//                .environmentObject(DeviceBluetoothManager())
-//                .previewDevice("iPhone 6s")
+            ContentView()
+                .environment(\.managedObjectContext, context)
+                .environmentObject(DeviceBluetoothManager())
+                .previewDevice("iPhone 6s")
         }
     }
 }

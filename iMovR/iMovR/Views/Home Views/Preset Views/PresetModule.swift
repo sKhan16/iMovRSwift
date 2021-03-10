@@ -20,6 +20,7 @@ struct PresetModule: View {
     
     @Binding var showAddPreset: [Bool]
     @Binding var showPresetPopup: Bool
+    var geoWidth: CGFloat
     
     var body: some View {
         HStack {
@@ -29,7 +30,8 @@ struct PresetModule: View {
                         data: bt.data,
                         index: 3,
                         showAddPreset: self.$showAddPreset[3],
-                        isMoving: self.$isMoving
+                        isMoving: self.$isMoving,
+                        geoWidth: geoWidth
                     )
                         .fixedSize()
                         .padding(.leading, 5)
@@ -45,7 +47,8 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 4,
                             showAddPreset: self.$showAddPreset[4],
-                            isMoving: self.$isMoving
+                            isMoving: self.$isMoving,
+                            geoWidth: geoWidth
                         )
                             .fixedSize()
                             .padding(.trailing, 10)
@@ -53,7 +56,7 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 5,
                             showAddPreset: self.$showAddPreset[5],
-                            isMoving: self.$isMoving
+                            isMoving: self.$isMoving, geoWidth: geoWidth
                         )
                             .fixedSize()
                             .padding(.leading, 10)
@@ -68,7 +71,8 @@ struct PresetModule: View {
                         data: bt.data,
                         index: 0,
                         showAddPreset: self.$showAddPreset[0],
-                        isMoving: self.$isMoving
+                        isMoving: self.$isMoving,
+                        geoWidth: geoWidth
                     )
                         .fixedSize()
                         .padding(.leading, 5)
@@ -84,7 +88,8 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 1,
                             showAddPreset: self.$showAddPreset[1],
-                            isMoving: self.$isMoving
+                            isMoving: self.$isMoving,
+                            geoWidth: geoWidth
                         )
                             .fixedSize()
                             .padding(.trailing, 10)
@@ -92,7 +97,7 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 2,
                             showAddPreset: self.$showAddPreset[2],
-                            isMoving: self.$isMoving
+                            isMoving: self.$isMoving, geoWidth: geoWidth
                         )
                             .fixedSize()
                             .padding(.leading, 10)
@@ -104,7 +109,8 @@ struct PresetModule: View {
             }//end of isPaged preset logic
             
             HStack {
-                MorePresetButton(isPaged: self.$isPaged)
+                MorePresetButton(isPaged: self.$isPaged,
+                                 geoWidth: geoWidth)
                     //.offset(y: -80)
                     .padding(.trailing, 5)
                     .padding(.top, 10)
@@ -129,7 +135,8 @@ struct PresetModule_Previews: PreviewProvider {
                     isPaged: .constant(false),
                     isMoving: .constant(false),
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
-                    showPresetPopup: .constant(false)
+                    showPresetPopup: .constant(false),
+                    geoWidth: CGFloat(300)
                     
                 )
                 .environmentObject(DeviceBluetoothManager(previewMode: true)!)

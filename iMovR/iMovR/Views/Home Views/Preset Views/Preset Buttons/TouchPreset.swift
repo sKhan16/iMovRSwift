@@ -19,6 +19,7 @@ struct TouchPreset: View {
 //
 //    @State private var PresetBG = false
     @State private var pressed: Bool = false
+    var geoWidth: CGFloat
     
     var body: some View {
         Button(action: {
@@ -33,17 +34,19 @@ struct TouchPreset: View {
         }) {
             ZStack {
                 //Circle()
-                PresetBG()
+                PresetBG(geoWidth: geoWidth)
                 Text(String(format: "%.1f", presetHeight))
-                    .frame(width: 60, height: 60)
-                    .font(.system(size: 26))
+                    .frame(
+                        width: ((geoWidth - 60)/4.5),
+                        height: ((geoWidth - 60)/4.5))
+                    .font(.system(size: (geoWidth - 60)/10))
                     .foregroundColor(Color(UIColor.systemBlue))
             }
             .foregroundColor(ColorManager.preset)
         }//end Button view 'Label'
         .onLongPressGesture (
             minimumDuration: 15,
-            maximumDistance: CGFloat(50),
+            maximumDistance: CGFloat((geoWidth - 60)/4),
             pressing: { pressing in
                 self.pressed = pressing
                 if pressing { // press begun
@@ -62,7 +65,7 @@ struct TouchPreset: View {
         
 struct LoadedPreset_Previews: PreviewProvider {
     static var previews: some View {
-        TouchPreset(zipdeskUI: ZGoZipDeskController(), presetHeight: .constant(33.3))
+        TouchPreset(zipdeskUI: ZGoZipDeskController(), presetHeight: .constant(33.3), geoWidth: CGFloat(300))
     }
 }
 }

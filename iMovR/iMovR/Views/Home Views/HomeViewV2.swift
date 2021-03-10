@@ -99,7 +99,8 @@ struct HomeViewV2: View {
                             isPaged: self.$isPaged,
                             isMoving: self.$isMoving,
                             showAddPreset: self.$showAddPreset,
-                            showPresetPopup: self.$showPresetPopup
+                            showPresetPopup: self.$showPresetPopup,
+                            geoWidth: geo.size.width
                         )
                         }
                     }
@@ -173,20 +174,20 @@ struct HomeViewV2_Previews: PreviewProvider {
             }
             .previewDevice("iPhone 12")
             
-//            ZStack {
-//                Image("Background")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .edgesIgnoringSafeArea(.all)
-//
-//                HomeViewV2 (
-//                    zipdeskUI: ZGoZipDeskController(),
-//                    data: DeviceDataManager(test: true)!
-//                )
-//                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-//                .environmentObject(UserDataManager())
-//            }
-//            .previewDevice("iPhone 6s")
+            ZStack {
+                Image("Background")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
+
+                HomeViewV2 (
+                    zipdeskUI: ZGoZipDeskController(),
+                    data: DeviceDataManager(test: true)!
+                )
+                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+                .environmentObject(UserDataManager())
+            }
+            .previewDevice("iPhone 6s")
 ////            .previewDevice("iPhone SE (1st generation)")
             
         }

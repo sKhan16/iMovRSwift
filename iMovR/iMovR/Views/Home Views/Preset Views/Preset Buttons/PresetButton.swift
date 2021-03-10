@@ -20,6 +20,7 @@ struct PresetButton: View {
     @Environment(\.colorScheme) var colorScheme
     
     @State private var pressed: Bool = false
+    var geoWidth: CGFloat
     
     
     var body: some View {
@@ -38,11 +39,13 @@ struct PresetButton: View {
                     if user.tngEnabled {
                         ZStack {
                             TouchPreset(zipdeskUI: self.bt.zipdesk,
-                                    presetHeight: heightBinding)
+                                        presetHeight: heightBinding,
+                                        geoWidth: geoWidth
+                            )
                         }
                     }
                     else {
-                        HoldPreset(presetHeight: heightBinding)
+                        HoldPreset(presetHeight: heightBinding, geoWidth: geoWidth)
                     }
                     
                     Text(currDesk!.presetNames[self.index])
@@ -53,14 +56,14 @@ struct PresetButton: View {
             }
             else { // desk is connected, unassigned preset
                 ZStack {
-                    AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
+                    AddPresetButton(geoWidth: geoWidth, index: self.index, showAddPreset: self.$showAddPreset)
                 }
                 }
             
         }
         else { // desk not connected
             ZStack {
-                AddPresetButton(index: self.index, showAddPreset: self.$showAddPreset)
+                AddPresetButton(geoWidth: geoWidth, index: self.index, showAddPreset: self.$showAddPreset)
             }
             }
     }

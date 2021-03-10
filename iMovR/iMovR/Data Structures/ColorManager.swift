@@ -29,4 +29,8 @@ struct ColorManager {
     static let yesGreen = Color("yesGreen")
     
     static let royalBlue = Color("RoyalBlue")
+    
+    static let buttonStatic = Color("ButtonStaticGFX")
+    
+    static let buttonPressed = Color("ButtonPressedGFX")
 }

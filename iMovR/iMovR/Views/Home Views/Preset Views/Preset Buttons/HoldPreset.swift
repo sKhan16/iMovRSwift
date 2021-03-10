@@ -18,20 +18,23 @@ struct HoldPreset: View {
 //
 //    @State private var PresetBG = false
     @State private var pressed: Bool = false
+    var geoWidth: CGFloat
     
     var body: some View {
         Button(action: {}) {
             ZStack {
-                PresetBG()
+                PresetBG(geoWidth: geoWidth)
                 Text(String(format: "%.1f", presetHeight))
-                    .frame(width: 60, height: 60)
-                    .font(.system(size: 26))
+                    .frame(
+                        width: ((geoWidth - 60)/4.5),
+                        height: ((geoWidth - 60)/4.5))
+                    .font(.system(size: (geoWidth - 60)/10))
                     .foregroundColor(Color(UIColor.systemBlue))
             }//end ZStack
             .foregroundColor(ColorManager.preset)
             .onLongPressGesture (
                 minimumDuration: 15,
-                maximumDistance: CGFloat(50),
+                maximumDistance: CGFloat((geoWidth - 60)/4),
                 pressing: { pressing in
                     self.pressed = pressing
                     if pressing { // press begun
@@ -49,7 +52,7 @@ struct HoldPreset: View {
             )
             .simultaneousGesture (
                 // additional move command in case desk was asleep
-                LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat(50))
+                LongPressGesture(minimumDuration: 0.2, maximumDistance: CGFloat((geoWidth - 60)/4))
                     .onEnded() { _ in
                         self.bt.zipdesk.moveToHeight(PresetHeight: self.presetHeight)
                     }
@@ -65,7 +68,7 @@ struct HoldPreset_Previews: PreviewProvider {
             .resizable()
             .aspectRatio(contentMode: .fill)
             .edgesIgnoringSafeArea(.all)
-        HoldPreset(presetHeight: .constant(32.0))
+            HoldPreset(presetHeight: .constant(32.0), geoWidth: CGFloat(300))//375//300//428
         }
     }
 }

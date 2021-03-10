@@ -12,49 +12,44 @@ struct AddPresetButton: View {
 
     @Environment(\.colorScheme) var colorScheme
     
-   var Unpressed = Image("ButtonRoundDark")
-    var Pressed = Image("ButtonRoundDarkBG")
-
-    @State private var testCount: Float = 0.0
+    var Unpressed: Image = Image("ButtonRoundDark")
+    var Pressed: Image = Image("ButtonRoundDarkBG")
+    var geoWidth: CGFloat
     
     let index: Int
-
     @Binding var showAddPreset: Bool
     
+    
     var body: some View {
-        
-            Button(action: {
-                self.showAddPreset = true
-                print("addPresetButton index \(self.index)")
-            }) {
-           
-        VStack {
-                ZStack {
-                    PresetBG()
-                    (self.showAddPreset ? Pressed : Unpressed)
-                        .resizable()
-                        .frame(minWidth: 85, idealWidth: 95, maxWidth: 95, minHeight: 85, idealHeight: 95, maxHeight: 95)
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(Color.blue)
-                }
-                
+        ZStack {
+            (self.showAddPreset ? Pressed : Unpressed)
+                .resizable()
+                .frame (
+                    width: ((geoWidth - 60)/4),
+                    height: ((geoWidth - 60)/4)
+                )
+            Image(systemName: "plus")
+                .resizable()
+                .frame (
+                    width: ((geoWidth - 60)/8),
+                    height: ((geoWidth - 60)/8)
+                )
+                .foregroundColor(Color.blue)
         }
-//        .foregroundColor(ColorManager.preset)
-//        .accentColor(Color.white)
-        
-            
-        }
-            .sheet(isPresented: self.$showAddPreset) {
-                AddPresetView(showAddPreset: self.$showAddPreset, index: self.index)
+        .gesture (
+            DragGesture(minimumDistance: 0)
+                .onChanged({ _ in
+                    self.showAddPreset = true
+                })
+        )
+        .sheet(isPresented: self.$showAddPreset) {
+            AddPresetView(showAddPreset: self.$showAddPreset, index: self.index)
         }
     }
-
 }
 
 struct AddPresetButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddPresetButton(index: 0, showAddPreset: .constant(true))
+        AddPresetButton(geoWidth: CGFloat(300), index: 0, showAddPreset: .constant(false))
     }
 }
