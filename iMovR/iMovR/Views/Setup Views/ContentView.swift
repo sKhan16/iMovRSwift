@@ -67,7 +67,7 @@ struct ContentView: View {
                     VStack {
                         Image(systemName: "studentdesk")
                         //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
-                        Text("Devices")
+                        Text("Connect")
                             //.font(.title)
                     }
                 }.tag(1)
