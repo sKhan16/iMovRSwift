@@ -14,25 +14,28 @@ struct TouchNGoPopup: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(ColorManager.bgColor)
-                .opacity(0.75)
-                //.edgesIgnoringSafeArea(.top)
-                .onTapGesture {}
+
+/// Not needed. Uses the popup behind it. Might need if we use this popup anywhere other than the preset settings pop up
+            
+//            Rectangle()
+//                .fill(ColorManager.bgColor)
+//                .opacity(0.75)
+//                .edgesIgnoringSafeArea(.top)
+//                .onTapGesture {}
 
             VStack {
                 
                 Text("Disclaimer")
                     .font(Font.largeTitle.bold())
-                    .foregroundColor(.white)
+                    .foregroundColor(ColorManager.buttonPressed)
                     .padding(10)
                 Rectangle()
                     .foregroundColor(.white)
                     .frame(height: 1)
-                    .shadow(color: .white, radius: 2)
+                    .shadow(color: ColorManager.buttonPressed, radius: 2)
                 
                 Text("Jar Jar Binks was a Gungan male military commander and politician who played a key role during the Invasion of Naboo and the Clone Wars that culminated in the fall of the Galactic Republic and the rise of the Galactic Empire. Once an outcast from Gungan society due to his clumsy behaviour, he regained favour with his people by helping secure an alliance between the Gungan boss Rugor Nass and Queen Padmé Amidala of Naboo.")
-                    .foregroundColor(.white)
+                    .foregroundColor(ColorManager.buttonPressed)
                     .padding(10)
                 
                 Spacer()
@@ -65,7 +68,7 @@ struct TouchNGoPopup: View {
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.white, lineWidth: 1)
+                            .stroke(ColorManager.buttonPressed, lineWidth: 1)
                     )
                     .padding(5)
                     
@@ -95,7 +98,7 @@ struct TouchNGoPopup: View {
                     .cornerRadius(25)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.white, lineWidth: 1)
+                            .stroke(ColorManager.buttonPressed, lineWidth: 1)
                         
                     )
                     .padding(5)
@@ -105,10 +108,10 @@ struct TouchNGoPopup: View {
                 
             }
                 .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
-                .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
+            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 25).stroke(Color.white, lineWidth: 1)
-                        .shadow(color: .white, radius: 2)
+                    RoundedRectangle(cornerRadius: 25).stroke(ColorManager.buttonPressed, lineWidth: 1)
+                        .shadow(color: ColorManager.buttonPressed, radius: 2)
                 )
                 
                 .padding()

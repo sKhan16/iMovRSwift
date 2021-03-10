@@ -67,13 +67,13 @@ struct SelectedPresetEditMenu: View {
             VStack(alignment: .center) {
                 
                 Text("Edit Preset")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(ColorManager.buttonPressed)
                     .font(Font.title)
                     .padding(.top, 5)
                 
                 VStack(alignment: .leading) {
                     Text("Name")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(ColorManager.buttonPressed)
                         .font(Font.headline)
                         .offset(y:6)
                     
@@ -94,7 +94,7 @@ struct SelectedPresetEditMenu: View {
                     .padding(.bottom, 5)
                     
                     Text("Height")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(ColorManager.buttonPressed)
                         .font(Font.headline)
                         .offset(y:6)
                     // edit HEIGHT
@@ -180,7 +180,7 @@ private struct EditSaveButton: View {
                 .font(Font.title3.bold())
                 .foregroundColor(Color.white)
                 .padding()
-                .background(ColorManager.preset)
+                .background(ColorManager.yesGreen)
                 .cornerRadius(27)
         })
         .frame(width:200,height:100)

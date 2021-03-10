@@ -23,7 +23,7 @@ struct TnGToggle: View {
         
         HStack (alignment: .center) {
             Text("Push & Hold")
-                .foregroundColor(Color.white)
+                .foregroundColor(ColorManager.buttonPressed)
             
             // changed to require TnG waiver every time user toggles
             //if self.user.agreedToZipDeskWaiver {
@@ -35,7 +35,7 @@ struct TnGToggle: View {
             }
             
             Text("Touch & Go")
-                .foregroundColor(Color.white)
+                .foregroundColor(ColorManager.buttonPressed)
         }
         
     }

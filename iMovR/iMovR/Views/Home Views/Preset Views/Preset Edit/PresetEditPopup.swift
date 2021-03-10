@@ -37,14 +37,14 @@ struct PresetEditPopup: View {
                 if bt.data.connectedDeskIndex == nil {
                     Text("Preset Settings")
                         .font(Font.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(ColorManager.buttonPressed)
                         .padding(.top, 5)
                     Rectangle()
                         .frame(height: 1)
-                        .foregroundColor(.white)
+                        .foregroundColor(ColorManager.buttonPressed)
                     Text("Please Connect To A Device")
                         .font(Font.title2.bold())
-                        .foregroundColor(.white)
+                        .foregroundColor(ColorManager.buttonPressed)
                 }
                 else if self.editIndex == -1 {
                     VStack {
@@ -60,7 +60,7 @@ struct PresetEditPopup: View {
                 }
             } //end main level VStack
             .frame(idealWidth: 300, maxWidth: 300, idealHeight: 450, maxHeight: 450, alignment: .top).fixedSize(horizontal: true, vertical: true)
-            .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
+            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white))
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             

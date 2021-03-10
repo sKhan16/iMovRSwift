@@ -21,7 +21,7 @@ struct PresetEditOptions: View {
         VStack {
             Text("Preset Settings")
                 .font(Font.title)
-                .foregroundColor(.white)
+                .foregroundColor(ColorManager.buttonPressed)
                 .padding(.top, 5)
             ForEach(Range(0...5)) { index in
                 PresetSelectButton (
@@ -55,7 +55,7 @@ private struct PresetSelectButton: View {
                 if data.connectedDeskIndex != nil {
                     let currDesk: Desk = data.savedDevices[data.connectedDeskIndex!]
                     ZStack {
-                        RoundedRectangle(cornerRadius: 12).fill(ColorManager.deviceBG)
+                        RoundedRectangle(cornerRadius: 12).fill(ColorManager.buttonStatic)
                             .frame(height: 40)
                             .shadow(color: .black, radius: 3, x: 0, y: 3)
                         
