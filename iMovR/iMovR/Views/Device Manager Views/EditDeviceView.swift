@@ -37,7 +37,9 @@ struct EditDeviceView: View {
                     
                     ZStack {
                         Text("Edit Device")
-                            .font(Font.title.weight(.medium).monospacedDigit())
+                            .font(Font.title.weight(.medium)
+                            .monospacedDigit())
+                            .foregroundColor(ColorManager.buttonPressed)
                         Button (
                             action: {self.deviceIndex = -1},
                             label: {
@@ -55,14 +57,16 @@ struct EditDeviceView: View {
                     VStack {
                         Text(selectedDevice.name)
                             .font(Font.title3.weight(.medium))
+                            .foregroundColor(ColorManager.buttonPressed)
                             .offset(y: 3)
                         Text("ZipDesk ID: " + String(selectedDevice.id))
                             .font(Font.body.monospacedDigit())
+                            .foregroundColor(ColorManager.buttonPressed)
                             .padding(.top,1)
                             .offset(y: -2)
                     }
                     .frame(maxWidth: .infinity)
-                    .background(ColorManager.deviceBG)
+                    .background(ColorManager.gray)
                     .cornerRadius(10)
                     .padding([.bottom,.leading,.trailing],10)
                     
@@ -75,7 +79,7 @@ struct EditDeviceView: View {
                 if !confirmDeleteMenu {
                     VStack(alignment: .leading) {
                         Text("Edit Name")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(ColorManager.buttonPressed)
                             .font(Font.body.weight(.medium))
                             .offset(y:8)
                         TextField(self.selectedDevice.name, text: $editName)
@@ -98,9 +102,9 @@ struct EditDeviceView: View {
                         label: {
                             Text("Delete Device")
                                 .font(Font.headline)
-                                .foregroundColor(Color.white)
+                                .foregroundColor(ColorManager.buttonPressed)
                                 .frame(width: 125, height: 30)
-                                .background(ColorManager.deviceBG)
+                                .background(ColorManager.gray)
                                 .cornerRadius(8)
                         }
                     )
@@ -227,7 +231,7 @@ struct EditDeviceView: View {
                 
             }// end VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
-            .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor).shadow(color: ColorManager.gray, radius: 2))
+            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white).shadow(color: ColorManager.gray, radius: 2))
             //.overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.white, lineWidth: 1))
             .padding()
 
