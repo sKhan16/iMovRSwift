@@ -39,7 +39,7 @@ struct TouchPreset: View {
                     .frame(
                         width: ((geoWidth - 60)/4.5),
                         height: ((geoWidth - 60)/4.5))
-                    .font(.system(size: (geoWidth - 60)/10))
+                    .font(.system(size: (geoWidth - 60)/12))
                     .foregroundColor(Color(UIColor.systemBlue))
             }
             .foregroundColor(ColorManager.preset)
