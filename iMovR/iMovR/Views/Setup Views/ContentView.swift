@@ -66,8 +66,8 @@ struct ContentView: View {
                 }
                 .tabItem {
                     VStack {
-                        Image(systemName: "studentdesk")
-                        //"books.vertical.fill") shippingbox.fill; latch.2.case.fill; printer.fill; ...
+                        Image("ConnectPage")
+                            .renderingMode(.template)
                         Text("Connect")
                             //.font(.title)
                     }
