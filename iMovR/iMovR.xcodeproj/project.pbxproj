@@ -81,9 +81,10 @@
 		414E7F242547A74B00AA00AD /* DiscoveredDeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */; };
 		414E7F332548D0EC00AA00AD /* SaveDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */; };
 		414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F442548D29200AA00AD /* EditDeviceView.swift */; };
-		4171ED9A25EF380D00AB5C7F /* Behind_Button_Device_Manager_Page.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4171ED9825EF380D00AB5C7F /* Behind_Button_Device_Manager_Page.svg */; };
 		4171ED9B25EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4171ED9925EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg */; };
 		4171ED9E25EF381700AB5C7F /* Repair_Icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */; };
+		4173E3BF25F982AB0047760E /* Edit_Rename_Icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4173E3BE25F982AB0047760E /* Edit_Rename_Icon.svg */; };
+		4173E3C325F982EB0047760E /* Behind_Button_Device_Manager_Page.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4173E3C225F982EB0047760E /* Behind_Button_Device_Manager_Page.svg */; };
 		419062492575C45F00D80D57 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419062482575C45F00D80D57 /* AddPresetView.swift */; };
 		419A429925A66CD2000B261F /* TouchNGoPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A429825A66CD2000B261F /* TouchNGoPopup.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
@@ -178,9 +179,10 @@
 		414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveredDeviceRowView.swift; sourceTree = "<group>"; };
 		414E7F322548D0EC00AA00AD /* SaveDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeviceView.swift; sourceTree = "<group>"; };
 		414E7F442548D29200AA00AD /* EditDeviceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDeviceView.swift; sourceTree = "<group>"; };
-		4171ED9825EF380D00AB5C7F /* Behind_Button_Device_Manager_Page.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Behind_Button_Device_Manager_Page.svg; sourceTree = "<group>"; };
 		4171ED9925EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Top_Divider_Device_Manager_Page.svg; sourceTree = "<group>"; };
 		4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Repair_Icon.svg; sourceTree = "<group>"; };
+		4173E3BE25F982AB0047760E /* Edit_Rename_Icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Edit_Rename_Icon.svg; sourceTree = "<group>"; };
+		4173E3C225F982EB0047760E /* Behind_Button_Device_Manager_Page.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Behind_Button_Device_Manager_Page.svg; sourceTree = "<group>"; };
 		419062482575C45F00D80D57 /* AddPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPresetView.swift; sourceTree = "<group>"; };
 		419A429825A66CD2000B261F /* TouchNGoPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchNGoPopup.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
@@ -344,7 +346,7 @@
 				4126AC7825EA0D7500849107 /* Icons */,
 				4126AC8725EA0D7500849107 /* Up Down Module */,
 				4126ACAB25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg */,
-				4171ED9825EF380D00AB5C7F /* Behind_Button_Device_Manager_Page.svg */,
+				4173E3C225F982EB0047760E /* Behind_Button_Device_Manager_Page.svg */,
 				4171ED9925EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg */,
 			);
 			path = "ErgoDynamics Graphics V1";
@@ -383,6 +385,7 @@
 				4126AC8225EA0D7500849107 /* Control_Icon.svg */,
 				4126AC8325EA0D7500849107 /* Control_Icon_Pressed.svg */,
 				4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */,
+				4173E3BE25F982AB0047760E /* Edit_Rename_Icon.svg */,
 				4126AC7925EA0D7500849107 /* Connect.svg */,
 				4126AC8025EA0D7500849107 /* Connect_1_elipses.svg */,
 				4126AC8425EA0D7500849107 /* Connect_2_elipses.svg */,
@@ -592,11 +595,11 @@
 				4126AC9525EA0D7500849107 /* ButtonRound.svg in Resources */,
 				4126ACAF25EA14FF00849107 /* MorePresetRoundBG.svg in Resources */,
 				1E23016624BCEB39009A0B3C /* LaunchScreen.storyboard in Resources */,
+				4173E3C325F982EB0047760E /* Behind_Button_Device_Manager_Page.svg in Resources */,
 				4126AC9325EA0D7500849107 /* ButtonRoundBG.svg in Resources */,
 				4171ED9B25EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg in Resources */,
 				4126AC9025EA0D7500849107 /* background.png in Resources */,
 				4126AC9625EA0D7500849107 /* Connect.svg in Resources */,
-				4171ED9A25EF380D00AB5C7F /* Behind_Button_Device_Manager_Page.svg in Resources */,
 				4126AC9725EA0D7500849107 /* Settings_Icon_Pressed.svg in Resources */,
 				4126AC9225EA0D7500849107 /* background@3x.png in Resources */,
 				4126AC9E25EA0D7500849107 /* Logo.svg in Resources */,
@@ -608,6 +611,7 @@
 				4126AC9125EA0D7500849107 /* background@2x.png in Resources */,
 				4138DA0525F6FF9200717273 /* ButtonRoundDarkBG.svg in Resources */,
 				4126ACAE25EA14FF00849107 /* iMovR_App_Bottom-Bar.svg in Resources */,
+				4173E3BF25F982AB0047760E /* Edit_Rename_Icon.svg in Resources */,
 				4126AC9425EA0D7500849107 /* ButtonFlat.svg in Resources */,
 				4138DA0425F6FF9200717273 /* ButtonRoundDark.svg in Resources */,
 				4126ACA325EA0D7500849107 /* ButtonFlatBG.svg in Resources */,

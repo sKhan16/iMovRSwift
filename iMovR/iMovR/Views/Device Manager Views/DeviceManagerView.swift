@@ -29,12 +29,17 @@ struct DeviceManagerView: View {
                     .padding([.leading,.trailing], 40)
                 Color.white
                     .frame(maxWidth: .infinity, maxHeight: 1)
-                    .padding([.leading,.trailing], 40)
+                    .padding([.leading,.trailing], 30)
                     .padding(.bottom, 10)
-                Text("Device Manager")
-                    .font(Font.largeTitle.bold())
+//                Text("Device Manager")
+//                    .font(Font.largeTitle.bold())
+//                    .foregroundColor(Color.white)
+//                    .padding()
+                Text("Connect and configure your desk")
                     .foregroundColor(Color.white)
+                    .font(Font.title2)
                     .padding()
+                    .frame(maxWidth: .infinity)
                 ScrollView {
                     
                     VStack {
@@ -48,7 +53,7 @@ struct DeviceManagerView: View {
                             .fill(Color.white)
                             .frame(height: 1)
                             .padding([.leading,.trailing], 35)
-                            .padding(.bottom, 25)
+                            .padding(.bottom, 5)
                     }
                     
                     ForEach(data.savedDevices, id:\.self.id)
@@ -69,7 +74,7 @@ struct DeviceManagerView: View {
                                         return (connected == index)
                                     } else { return false }
                                 },
-                                set: { $0 } // Read-Only Binding
+                                set: { _ = $0 } // Read-Only Binding
                             ),
                             deviceIndex: index
                         )
@@ -80,14 +85,15 @@ struct DeviceManagerView: View {
                         Text("DISCOVERED")
                             .foregroundColor(Color.white)
                             .font(Font.title2)
-                            .padding([.leading,.top], 40)
+                            .padding(.top, 20)
+                            .padding(.leading, 40)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .offset(y: 8)
                         Rectangle()
                             .fill(Color.white)
                             .frame(height: 1)
                             .padding([.leading,.trailing], 35)
-                            .padding(.bottom, 25)
+                            .padding(.bottom, 10)
                     }
                     
                     ForEach(bt.discoveredDevices, id:\.self.id)
@@ -154,13 +160,15 @@ struct DeviceManagerView_Previews: PreviewProvider {
                         .edgesIgnoringSafeArea(.all)
                 )
                 .previewDevice("iPhone 12")
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                
-                DeviceManagerView(data: DeviceDataManager(test: true)!)
-                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewDevice("iPhone 6s")
+            DeviceManagerView(data: DeviceDataManager(test: true)!)
+                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+                .background (
+                    Image("Background")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                )
+                .previewDevice("iPhone 6s")
         }
     }
 }

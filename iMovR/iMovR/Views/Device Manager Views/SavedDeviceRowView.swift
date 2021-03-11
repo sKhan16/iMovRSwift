@@ -24,70 +24,78 @@ struct SavedDeviceRowView: View {
     
     @ViewBuilder
     var body: some View {
+        
         if !self.data.savedDevices.indices.contains(deviceIndex) {
             EmptyView()
+            
         } else {
             let currDevice = self.data.savedDevices[deviceIndex]
-            //for preview testing
-            //let currDevice = testSavedDevices[deviceIndex]
+            
             HStack {
+                
                 ConnectButton( deviceIndex: self.deviceIndex,
                                isConnected: self.$isConnected
-                )// end ConnectButton initializer
+                )
                     .padding(.leading, 5)
-                    .frame(width:70, height:65)
+                    .frame(width:45, height:40)
                 
                 VStack {
-                    VStack {
-                        Text(currDevice.name)
-                            .font(Font.title3.bold())
-                            .truncationMode(.tail)
-                            .foregroundColor(ColorManager.royalBlue)
-//                        Text("("+String(currDevice.id)+")")
-//                            .font(Font.caption)//.weight(.medium))
-//                            .foregroundColor(ColorManager.royalBlue)
-                    }.offset(y: -3)
+                    /// Device Name and Status
                     if !bt.bluetoothEnabled {
+                        Text(currDevice.name)
+                            .font(.system(size: 20)).bold()
+                            .truncationMode(.tail)
+                            .foregroundColor(Color.gray)
                         Text("Phone Bluetooth Disabled")
-                            .font(Font.body.weight(.medium))
-                            .foregroundColor(ColorManager.gray)
+                            .font(Font.body)
+                            .foregroundColor(Color.gray)
                             .padding([.leading,.trailing], 3)
-                    } else if self.isConnected {
+                    }
+                    else if self.isConnected {
+                        Text(currDevice.name)
+                            .font(.system(size: 20)).bold()
+                            .truncationMode(.tail)
+                            .foregroundColor(ColorManager.buttonPressed)
                         Text("Connected")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.connectGreen)
                             .padding([.leading,.trailing], 3)
-                    } else if self.data.savedDevices[deviceIndex].peripheral != nil {
+                    }
+                    else if self.data.savedDevices[deviceIndex].peripheral != nil {
+                        Text(currDevice.name)
+                            .font(.system(size: 20)).bold()
+                            .truncationMode(.tail)
+                            .foregroundColor(ColorManager.buttonPressed)
                         Text("Available")
                             .font(Font.body.weight(.medium))
-                            .foregroundColor(ColorManager.royalBlue)
+                            .foregroundColor(ColorManager.buttonPressed)
                             .padding([.leading,.trailing], 3)
-                    } else {
-                        Text("Not Found")
+                    }
+                    else {
+                        Text(currDevice.name)
+                            .font(.system(size: 20)).bold()
+                            .truncationMode(.tail)
+                            .foregroundColor(Color.gray)
+                        Text("Not Found Nearby")
                             .font(Font.body.weight(.medium))
-                            .foregroundColor(ColorManager.gray)
+                            .foregroundColor(Color.gray)
                             .padding([.leading,.trailing], 3)
                     }
                 }
-                .lineLimit(1)
-                .frame(idealWidth: .infinity, maxWidth: .infinity)
-                .offset(y: 1)
+                    .lineLimit(1)
+                    .frame(idealWidth: .infinity, maxWidth: .infinity)
                 
                 EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
                     .padding(.trailing, 5)
-                    .frame(width:70, height:65)
+                    .frame(width:45, height:40)
             }
-            .frame(height: 75)
             .background(
-                Image("DeviceRowBG")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height:75)
+                Color(red: 0.97, green: 0.97, blue: 0.97)
+                    .cornerRadius(50)
             )
-            //.cornerRadius(75/2.0)
-            //.shadow(color: .black, radius: 3, x: 0, y: 4)
-            .padding([.leading, .trailing, .top], 2)
-            .padding(.bottom, 8)
+            .frame(idealWidth: .infinity, maxWidth: .infinity, idealHeight: 50, maxHeight: 50)
+            .padding([.leading, .trailing], 2)
+            .padding(.bottom, 5)
         }
     }// end Body
 }// end SavedDeviceRowView
@@ -100,104 +108,80 @@ private struct ConnectButton: View {
     let deviceIndex: Int
     @Binding var isConnected: Bool
     
+    var Unpressed: Image = Image("ButtonRoundDark")
+    var Pressed: Image = Image("ButtonRoundDarkBG")
+    @State private var isPressed: Bool = false
+    
     @ViewBuilder
     var body: some View {
         
-        if !self.bt.data.savedDevices.indices.contains(deviceIndex) {
+        if !self.bt.data.savedDevices.indices.contains(deviceIndex)
+        {
             EmptyView()
-        } else {
-            Button( action: {
-                let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
-                if isConnected { // Disconnect from this connected desk
-                    _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
+        }
+        else
+        {
+            ZStack {
+                (isPressed ? Pressed : Unpressed)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
+                
+                if bt.bluetoothEnabled,
+                   bt.data.savedDevices.indices.contains(deviceIndex),
+                   bt.data.savedDevices[deviceIndex].peripheral != nil
+                {
+                    //this desk is saved and available
+                    Image("Connect")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                    if isConnected {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .accentColor(Color.green)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 11)
+                            .background(
+                                Color.white
+                                    .cornerRadius(12)
+                                    .frame(width: 12, height: 12)
+                            )
+                            .offset(x: 10, y: 5)
+                    }
                 }
                 else {
-                    _ = self.bt.connectToDevice (
-                        device: thisDevice,
-                        savedIndex: deviceIndex
-                    )
+                    //this desk is not available
+                    Image("ConnectBlue")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                        .grayscale(1.0)
+                        .opacity(0.6)
                 }
-    //            // No devices connected yet, connect normally
-    //            else if bt.data.connectedDeskIndex == nil {
-    //                let didConnect = self.bt.connectToDevice (
-    //                    device: thisDevice,
-    //                    savedIndex: deviceIndex )
-    //                print("SavedDevRow -- connect to \(thisDevice.name) - " +
-    //                        (didConnect ? "success" : "fail" ) )
-    //
-    //
-    //            } // Connected to another desk, disconnect and connect to this
-                
-
-            }/*end button action*/ )
-            { // Button View 'label'
-                if self.bt.bluetoothEnabled,
-                   self.bt.data.savedDevices.indices.contains(deviceIndex),
-                   self.bt.data.savedDevices[deviceIndex].peripheral != nil
-                {
-                    ZStack {
-                        Image("ButtonRoundDark")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                        Image("ConnectBlue")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 40)
-                    }
-//                    ZStack {
-//                        Circle()
-//                            .foregroundColor(isConnected ? ColorManager.connectYellow : ColorManager.bgColor)
-//                            .aspectRatio(contentMode: .fit)
-//                            .shadow(color: .black, radius: 2)
-//                        if isConnected {
-//                            Image(systemName: "iphone.homebutton.slash")
-//                                .resizable()
-//                                .accentColor(ColorManager.deviceBG)
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(height: 40)
-//                            Image(systemName: "xmark.circle.fill")
-//                                .resizable()
-//                                .accentColor(Color.red)
-//                                .aspectRatio(contentMode: .fit)
-//                                .background(ColorManager.connectYellow.cornerRadius(20).frame(width: 18, height: 18))
-//                                .frame(height: 20)
-//                                .offset(x: 25, y: -20)
-//                                .shadow(color: ColorManager.connectYellow, radius: 1)
-//                        } else {
-//                            Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.left.and.right")
-//                                .resizable()
-//                                .accentColor(ColorManager.morePreset)
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(height: 40)
-//                        }
-//
-//                    }
-                } else {
-                    ZStack {
-                        Image("ButtonRoundDark")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                        Image("ConnectBlue")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 40)
-                    }
-//                    ZStack {
-//                        Circle()
-//                            .foregroundColor(Color.gray)
-//                            .aspectRatio(contentMode: .fit)
-//                            .shadow(color: ColorManager.gray, radius: 2)
-//                        Image(systemName: "iphone.homebutton.radiowaves.left.and.right") //"dot.radiowaves.left.and.right")
-//                            .resizable()
-//                            .accentColor(ColorManager.gray)
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(height: 40)
-//                            .opacity(0.6)
-//                    }
-                }
-            } //end button
+            }
+            .gesture (
+                DragGesture(minimumDistance: 0)
+                    .onChanged({ _ in
+                        isPressed = true
+                        let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
+                        
+                        if isConnected
+                        {
+                            _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
+                        }
+                        else
+                        {
+                            _ = self.bt.connectToDevice (
+                                device: thisDevice,
+                                savedIndex: deviceIndex
+                            )
+                        }
+                    })
+                    .onEnded({ _ in
+                        isPressed = false
+                    })
+            )
         }
     }//end body
 }//end ConnectButton
@@ -207,26 +191,32 @@ private struct EditButton: View {
     let deviceIndex: Int
     @Binding var editIndex: Int
     
+    var Unpressed: Image = Image("ButtonRoundDark")
+    var Pressed: Image = Image("ButtonRoundDarkBG")
+    @State private var isPressed: Bool = false
+    
     var body: some View {
-        Button(
-            action:{
-                print("edit device menu activated")
-                self.editIndex = self.deviceIndex
-            }
-        ) {
-            ZStack {
-                Circle()
-                    .foregroundColor(ColorManager.bgColor)
-                    .aspectRatio(contentMode: .fit)
-                    .shadow(color: .black, radius: 2)
-                Image(systemName: "wrench.and.screwdriver")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    //.rotationEffect(.degrees(90))
-                    .frame(height: 40)
-                    .foregroundColor(ColorManager.morePreset)
-            }
+        ZStack {
+            (isPressed ? Pressed : Unpressed)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
+            Image("EditIcon")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 20, height: 20)
         }
+        .gesture (
+            DragGesture(minimumDistance: 0)
+                .onChanged({ _ in
+                    isPressed = true
+                    print("edit device menu activated")
+                    self.editIndex = self.deviceIndex
+                })
+                .onEnded({ _ in
+                    isPressed = false
+                })
+        )
     }//end body
 }//end EditButton
 

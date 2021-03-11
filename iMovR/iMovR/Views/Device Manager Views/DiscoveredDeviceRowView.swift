@@ -15,46 +15,42 @@ struct DiscoveredDeviceRowView: View {
     @Binding var save: Int
     let deviceIndex: Int
     
-    let testDiscoveredDevices: [Desk] = [Desk(name: "Discovered ZipDesk", deskID: 10007189, presetHeights:[], presetNames: [], isLastConnected: false), Desk(name: "Discovered ZipDesk", deskID: 10004955, presetHeights:[], presetNames: [], isLastConnected: false), Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[], presetNames: [], isLastConnected: false)]
-    
     @ViewBuilder
     var body: some View {
-        if !self.bt.discoveredDevices.indices.contains(deviceIndex) {
+        if !self.bt.discoveredDevices.indices.contains(deviceIndex)
+        {
             EmptyView()
-        } else {
+        }
+        else
+        {
             let currDevice = self.bt.discoveredDevices[deviceIndex]
-            HStack {
-                SaveButton(deviceIndex: self.deviceIndex, saveIndex: $save)
-                    .offset(x: 5)
-                    .frame(width:75, height:75)
-                    .accentColor(ColorManager.morePreset)
-                //Spacer()
+            HStack
+            {
                 VStack {
                     Text(currDevice.name)
-                        .font(Font.title3.bold())
+                        .font(.system(size: 20)).bold()
                         .truncationMode(.tail)
-                        .foregroundColor(ColorManager.royalBlue)
+                        .foregroundColor(ColorManager.buttonPressed)
                     Text("("+String(currDevice.id)+")")
-                        .font(Font.body.weight(.medium))
-                        .foregroundColor(ColorManager.royalBlue)
+                        .font(Font.body)
+                        .foregroundColor(ColorManager.buttonPressed)
                 }
-                .font(Font.title3)
-                .lineLimit(1)
-                .frame(maxWidth: .infinity)
-                .padding([.top,.bottom], 15)
-                .padding(.trailing, 75)
+                    .font(Font.title3)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity)
+                    .padding(.leading, 45)
+                
+                SaveButton(deviceIndex: self.deviceIndex, saveIndex: $save)
+                    .padding(.trailing, 5)
+                    .frame(width:45, height:40)
             }
-            .frame(height: 75)
             .background(
-                Image("DeviceRowBG")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height:75)
+                Color(red: 0.97, green: 0.97, blue: 0.97)
+                    .cornerRadius(50)
             )
-            //.cornerRadius(75/2.0)
-            //.shadow(color: .black, radius: 3, x: 0, y: 4)
-            .padding([.leading, .trailing, .top], 2)
-            .padding(.bottom, 8)
+            .frame(idealWidth: .infinity, maxWidth: .infinity, idealHeight: 50, maxHeight: 50)
+            .padding([.leading, .trailing], 2)
+            .padding(.bottom, 5)
         }
     }
 }
@@ -63,24 +59,33 @@ private struct SaveButton: View {
     let deviceIndex: Int
     @Binding var saveIndex: Int
     
+    var Unpressed: Image = Image("ButtonRoundDark")
+    var Pressed: Image = Image("ButtonRoundDarkBG")
+    @State private var isPressed: Bool = false
+    
     var body: some View {
-        Button(
-            action:{
-                print("SaveDeviceView activated")
-                self.saveIndex = self.deviceIndex
-            }
-        ) {
-            ZStack {
-                Image(systemName: "plus.rectangle.fill.on.folder.fill")//"badge.plus.radiowaves.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    //.rotationEffect(.degrees(90))
-                    .frame(minWidth: 40, idealWidth: 50, maxWidth: 50)
-                
-                //RoundedRectangle(cornerRadius: 20)
-                //  .stroke(Color.black, lineWidth: 2)
-            }
+        ZStack {
+            (isPressed ? Pressed : Unpressed)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
+            Image(systemName: "plus.rectangle.fill.on.folder.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(ColorManager.buttonPressed)
+                .frame(width: 25)
         }
+        .gesture (
+            DragGesture(minimumDistance: 0)
+                .onChanged({ _ in
+                    isPressed = true
+                    print("SaveDeviceView activated")
+                    self.saveIndex = self.deviceIndex
+                })
+                .onEnded({ _ in
+                    isPressed = false
+                })
+        )
     }//end body
 }//end EditButton
 
