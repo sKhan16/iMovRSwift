@@ -36,6 +36,7 @@ struct SaveDeviceView: View {
                     ZStack {
                         Text("New Device")
                             .font(Font.title.weight(.medium))
+                            .foregroundColor(ColorManager.buttonPressed)
                             .padding(5)
                         Button (
                             action: {self.deviceIndex = -1},
@@ -51,13 +52,15 @@ struct SaveDeviceView: View {
                         .offset(x: -116, y: -14)
                     }
                     Rectangle()
-                        .foregroundColor(Color.black)
+                        .foregroundColor(ColorManager.buttonStatic)
                         .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
                     VStack {
                         Text(selectedDevice.name)
                             .font(Font.title3.weight(.medium))
+                            .foregroundColor(ColorManager.buttonPressed)
                         Text("ZipDesk ID: " + String(selectedDevice.id))
                             .font(Font.body.monospacedDigit().weight(.regular))
+                            .foregroundColor(ColorManager.buttonPressed)
                             .padding(.top,1)
                     }
                     .frame(maxWidth: .infinity)
@@ -71,7 +74,7 @@ struct SaveDeviceView: View {
                 
                 VStack(alignment: .leading) {
                     Text("Please name your device:")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(ColorManager.buttonPressed)
                         .font(Font.body.weight(.medium))
                         .offset(y:8)
                     TextField(" new name", text: $newName)
@@ -140,7 +143,7 @@ struct SaveDeviceView: View {
                         .font(Font.title3.bold())
                         .foregroundColor(Color.white)
                         .padding()
-                        .background(ColorManager.preset)
+                        .background(ColorManager.yesGreen)
                         .cornerRadius(20)
                         .shadow(radius: 8)
                 } ) // end save button.
@@ -149,7 +152,7 @@ struct SaveDeviceView: View {
                 
             } // end top-level VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
-            .background(RoundedRectangle(cornerRadius: 25).fill(ColorManager.bgColor))
+            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white))
             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.black, lineWidth: 1))
             .padding()
             
