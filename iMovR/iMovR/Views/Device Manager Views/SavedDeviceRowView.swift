@@ -136,7 +136,7 @@ private struct ConnectButton: View {
                     }
                     else
                     {
-                        Image("ConnectBlue")
+                        Image("Connect")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)
