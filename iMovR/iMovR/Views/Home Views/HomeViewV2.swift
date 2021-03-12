@@ -61,7 +61,7 @@ struct HomeViewV2: View {
                                         .lineLimit(1)
                                         .foregroundColor(Color.white)
                                     Text("in")
-                                        .foregroundColor(ColorManager.textColor)
+                                        .foregroundColor(Color.white)
                                         .font(.system(size: 42))
                                         .offset(y: 4)
                                 }
