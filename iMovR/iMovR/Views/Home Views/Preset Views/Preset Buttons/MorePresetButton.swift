@@ -16,12 +16,12 @@ struct MorePresetButton: View {
     var Pressed: Image = Image("ButtonRoundDarkBG")
     var geoWidth: CGFloat
     
-//    @State private var isPressed = false
+    @State private var isPressed = false
     
     var body: some View {
         VStack {
             ZStack {
-                (self.isPaged ? Pressed : Unpressed)
+                (isPressed ? Pressed : Unpressed)
                     .resizable()
                     .frame (
                         width: (geoWidth - 60)/4,
@@ -40,11 +40,11 @@ struct MorePresetButton: View {
         .gesture (
             DragGesture(minimumDistance: 0)
                 .onChanged({ _ in
-                    //self.isPressed = true
+                    self.isPressed = true
                     
                 })
                 .onEnded({ _ in
-                    //self.isPressed = false
+                    self.isPressed = false
                     self.isPaged.toggle()
                 })
         )
