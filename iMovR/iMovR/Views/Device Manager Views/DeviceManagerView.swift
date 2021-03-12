@@ -38,7 +38,7 @@ struct DeviceManagerView: View {
                 Text("Connect and configure your desk")
                     .foregroundColor(Color.white)
                     .font(Font.title2)
-                    .padding()
+                    .padding(20)
                     .frame(maxWidth: .infinity)
                 ScrollView {
                     
@@ -46,6 +46,7 @@ struct DeviceManagerView: View {
                         Text("SAVED")
                             .foregroundColor(Color.white)
                             .font(Font.title2)
+                            .fontWeight(.medium)
                             .padding(.leading, 40)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .offset(y: 8)
@@ -85,6 +86,7 @@ struct DeviceManagerView: View {
                         Text("DISCOVERED")
                             .foregroundColor(Color.white)
                             .font(Font.title2)
+                            .fontWeight(.medium)
                             .padding(.top, 20)
                             .padding(.leading, 40)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -93,7 +95,7 @@ struct DeviceManagerView: View {
                             .fill(Color.white)
                             .frame(height: 1)
                             .padding([.leading,.trailing], 35)
-                            .padding(.bottom, 10)
+                            .padding(.bottom, 5)
                     }
                     
                     ForEach(bt.discoveredDevices, id:\.self.id)

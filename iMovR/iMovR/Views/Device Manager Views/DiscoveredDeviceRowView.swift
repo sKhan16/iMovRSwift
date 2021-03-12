@@ -38,19 +38,18 @@ struct DiscoveredDeviceRowView: View {
                     .font(Font.title3)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity)
-                    .padding(.leading, 45)
+                    .padding(.leading, 57)
                 
                 SaveButton(deviceIndex: self.deviceIndex, saveIndex: $save)
-                    .padding(.trailing, 5)
-                    .frame(width:45, height:40)
+                    .frame(width:55, height:55)
+                    .padding([.leading,.trailing], 2)
             }
+            .frame(idealWidth: .infinity, maxWidth: .infinity, idealHeight: 60, maxHeight: 60)
             .background(
                 Color(red: 0.97, green: 0.97, blue: 0.97)
-                    .cornerRadius(50)
+                    .cornerRadius(60)
             )
-            .frame(idealWidth: .infinity, maxWidth: .infinity, idealHeight: 50, maxHeight: 50)
-            .padding([.leading, .trailing], 2)
-            .padding(.bottom, 5)
+            .padding([.leading, .trailing, .bottom], 2)
         }
     }
 }
@@ -68,12 +67,12 @@ private struct SaveButton: View {
             (isPressed ? Pressed : Unpressed)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
-            Image(systemName: "plus.rectangle.fill.on.folder.fill")
+                .frame(width: 55, height: 55)
+            Image(systemName: "plus")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(ColorManager.buttonPressed)
-                .frame(width: 25)
+                .frame(width: 28, height: 28)
         }
         .gesture (
             DragGesture(minimumDistance: 0)
@@ -98,12 +97,12 @@ struct DiscoveredDeviceRowView_Previews: PreviewProvider {
                     .environmentObject(DeviceBluetoothManager(previewMode: true)!)
             }
             .previewDevice("iPhone 12")
-            ZStack {
-                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-                DiscoveredDeviceRowView(save: .constant(0), deviceIndex: 0)
-                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-            }
-            .previewDevice("iPhone 6s")
+//            ZStack {
+//                ColorManager.bgColor.edgesIgnoringSafeArea(.all)
+//                DiscoveredDeviceRowView(save: .constant(0), deviceIndex: 0)
+//                    .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//            }
+//            .previewDevice("iPhone 6s")
         }
     }
 }

@@ -36,8 +36,8 @@ struct SavedDeviceRowView: View {
                 ConnectButton( deviceIndex: self.deviceIndex,
                                isConnected: self.$isConnected
                 )
-                    .padding(.leading, 5)
-                    .frame(width:45, height:40)
+                    .frame(width:55, height:55)
+                .padding([.leading,.trailing], 2)
                 
                 VStack {
                     /// Device Name and Status
@@ -49,7 +49,6 @@ struct SavedDeviceRowView: View {
                         Text("Phone Bluetooth Disabled")
                             .font(Font.body)
                             .foregroundColor(Color.gray)
-                            .padding([.leading,.trailing], 3)
                     }
                     else if self.isConnected {
                         Text(currDevice.name)
@@ -59,7 +58,6 @@ struct SavedDeviceRowView: View {
                         Text("Connected")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.connectGreen)
-                            .padding([.leading,.trailing], 3)
                     }
                     else if self.data.savedDevices[deviceIndex].peripheral != nil {
                         Text(currDevice.name)
@@ -69,7 +67,6 @@ struct SavedDeviceRowView: View {
                         Text("Available")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
-                            .padding([.leading,.trailing], 3)
                     }
                     else {
                         Text(currDevice.name)
@@ -79,23 +76,21 @@ struct SavedDeviceRowView: View {
                         Text("Not Found Nearby")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(Color.gray)
-                            .padding([.leading,.trailing], 3)
                     }
                 }
                     .lineLimit(1)
                     .frame(idealWidth: .infinity, maxWidth: .infinity)
                 
                 EditButton(deviceIndex: self.deviceIndex, editIndex: $edit)
-                    .padding(.trailing, 5)
-                    .frame(width:45, height:40)
+                    .frame(width:55, height:55)
+                    .padding([.leading,.trailing], 2)
             }
+            .frame(idealWidth: .infinity, maxWidth: .infinity, idealHeight: 60, maxHeight: 60)
             .background(
                 Color(red: 0.97, green: 0.97, blue: 0.97)
-                    .cornerRadius(50)
+                    .cornerRadius(60)
             )
-            .frame(idealWidth: .infinity, maxWidth: .infinity, idealHeight: 50, maxHeight: 50)
-            .padding([.leading, .trailing], 2)
-            .padding(.bottom, 5)
+            .padding([.leading, .trailing, .bottom], 2)
         }
     }// end Body
 }// end SavedDeviceRowView
@@ -125,38 +120,36 @@ private struct ConnectButton: View {
                 (isPressed ? Pressed : Unpressed)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 55, height: 55)
                 
                 if bt.bluetoothEnabled,
                    bt.data.savedDevices.indices.contains(deviceIndex),
                    bt.data.savedDevices[deviceIndex].peripheral != nil
                 {
                     //this desk is saved and available
-                    Image("Connect")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                    if isConnected {
-                        Image(systemName: "checkmark.circle.fill")
+                    if isConnected
+                    {
+                        Image("ConnectCheckMark")
                             .resizable()
-                            .accentColor(Color.green)
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 11)
-                            .background(
-                                Color.white
-                                    .cornerRadius(12)
-                                    .frame(width: 12, height: 12)
-                            )
-                            .offset(x: 10, y: 5)
+                            .frame(width: 35, height: 35)
+                    }
+                    else
+                    {
+                        Image("ConnectBlue")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 35, height: 35)
                     }
                 }
-                else {
+                else
+                {
                     //this desk is not available
                     Image("ConnectBlue")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                        .grayscale(1.0)
+                        .frame(width: 35, height: 35)
+                        .grayscale(1.0)//grayed out
                         .opacity(0.6)
                 }
             }
@@ -200,11 +193,11 @@ private struct EditButton: View {
             (isPressed ? Pressed : Unpressed)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
+                .frame(width: 55, height: 55)
             Image("EditIcon")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 20, height: 20)
+                .frame(width: 28, height: 28)
         }
         .gesture (
             DragGesture(minimumDistance: 0)

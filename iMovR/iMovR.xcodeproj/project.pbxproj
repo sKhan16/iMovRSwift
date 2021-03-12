@@ -85,6 +85,7 @@
 		4171ED9E25EF381700AB5C7F /* Repair_Icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */; };
 		4173E3BF25F982AB0047760E /* Edit_Rename_Icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4173E3BE25F982AB0047760E /* Edit_Rename_Icon.svg */; };
 		4173E3C325F982EB0047760E /* Behind_Button_Device_Manager_Page.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4173E3C225F982EB0047760E /* Behind_Button_Device_Manager_Page.svg */; };
+		4173E3CE25FAEBA40047760E /* Connect_Icon_WithCheckmark_large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4173E3CD25FAEBA40047760E /* Connect_Icon_WithCheckmark_large.svg */; };
 		419062492575C45F00D80D57 /* AddPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419062482575C45F00D80D57 /* AddPresetView.swift */; };
 		419A429925A66CD2000B261F /* TouchNGoPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A429825A66CD2000B261F /* TouchNGoPopup.swift */; };
 		41A3096E24C399D300644006 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3096D24C399D300644006 /* Preset.swift */; };
@@ -183,6 +184,7 @@
 		4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Repair_Icon.svg; sourceTree = "<group>"; };
 		4173E3BE25F982AB0047760E /* Edit_Rename_Icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Edit_Rename_Icon.svg; sourceTree = "<group>"; };
 		4173E3C225F982EB0047760E /* Behind_Button_Device_Manager_Page.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Behind_Button_Device_Manager_Page.svg; sourceTree = "<group>"; };
+		4173E3CD25FAEBA40047760E /* Connect_Icon_WithCheckmark_large.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Connect_Icon_WithCheckmark_large.svg; sourceTree = "<group>"; };
 		419062482575C45F00D80D57 /* AddPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPresetView.swift; sourceTree = "<group>"; };
 		419A429825A66CD2000B261F /* TouchNGoPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchNGoPopup.swift; sourceTree = "<group>"; };
 		41A3096D24C399D300644006 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */,
 				4173E3BE25F982AB0047760E /* Edit_Rename_Icon.svg */,
 				4126AC7925EA0D7500849107 /* Connect.svg */,
+				4173E3CD25FAEBA40047760E /* Connect_Icon_WithCheckmark_large.svg */,
 				4126AC8025EA0D7500849107 /* Connect_1_elipses.svg */,
 				4126AC8425EA0D7500849107 /* Connect_2_elipses.svg */,
 				4126AC7F25EA0D7500849107 /* Connect_3_elipses.svg */,
@@ -606,6 +609,7 @@
 				1EAA5C87252BC4D200A471E2 /* Colors.xcassets in Resources */,
 				4126ACA625EA0D7500849107 /* Up_Arrow.svg in Resources */,
 				1E23016324BCEB39009A0B3C /* Preview Assets.xcassets in Resources */,
+				4173E3CE25FAEBA40047760E /* Connect_Icon_WithCheckmark_large.svg in Resources */,
 				4126ACA725EA0D7500849107 /* Up_Arrow_Pressed.svg in Resources */,
 				4126ACB025EA14FF00849107 /* MorePresetRoundDarkBG.svg in Resources */,
 				4126AC9125EA0D7500849107 /* background@2x.png in Resources */,
@@ -876,7 +880,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.35.0;
+				MARKETING_VERSION = 1.35.2;
 				PRODUCT_BUNDLE_IDENTIFIER = iMovR.test.001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -899,7 +903,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.35.0;
+				MARKETING_VERSION = 1.35.2;
 				PRODUCT_BUNDLE_IDENTIFIER = iMovR.test.001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
