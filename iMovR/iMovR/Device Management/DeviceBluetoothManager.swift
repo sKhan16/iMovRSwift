@@ -125,6 +125,13 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         return true
     }
     
+    func readSignalStrength(savedIndex: Int) {
+        let peripheral: CBPeripheral? = data.savedDevices[savedIndex].peripheral
+        peripheral?.readRSSI()
+    }
+    
+    
+    
     
     
 ///# CoreBluetooth CentralManager Delegate functions
@@ -322,13 +329,21 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
     }
     
-
     
     
-/******************************************************************/
+//******************************************************************//
+//******************************************************************//
+    
 ///# CoreBluetooth Peripheral Delegate functions
-
-
+    
+    
+    ///# didReadRSSI
+    func peripheral(_ peripheral: CBPeripheral,
+                    didReadRSSI RSSI: NSNumber,
+                    error: Error?) {
+        //DO STUFF
+    }
+    
     ///# didDiscoverServices
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for service in peripheral.services! {

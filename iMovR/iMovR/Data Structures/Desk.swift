@@ -17,10 +17,15 @@ struct Desk: Identifiable {
     
     var name: String
     var id: Int
+    
     var peripheral: CBPeripheral?
+    var inRange: Bool = false
+    
     var rssi: NSNumber?
+    
     var isLastConnected: Bool
-        // Default preset values, unless modified on desk initialization
+    
+    // Default preset values, unless modified on desk initialization
     var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
     var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
     
@@ -47,6 +52,9 @@ struct Desk: Identifiable {
         self.name = "Discovered ZipDesk"
         self.id = deskID
         self.peripheral = deskPeripheral
+        //*CHECK RSSI VALUE
+        self.inRange = .....
+        //*CHECK RSSI VALUE
         self.rssi = rssi
         self.isLastConnected = false
     }
