@@ -108,7 +108,6 @@ struct UpButton: View {
                 }
             )
         }
-        .padding(.trailing)
     }
 }
 

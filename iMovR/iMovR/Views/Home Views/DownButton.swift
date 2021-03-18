@@ -81,7 +81,6 @@ struct DownButton: View {
                 }
             )
         }
-        .padding(.trailing)
         
     }
 }

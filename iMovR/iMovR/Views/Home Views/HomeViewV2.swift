@@ -40,6 +40,7 @@ struct HomeViewV2: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: .infinity, maxHeight: 35)
                         .padding([.leading,.trailing], 40)
+                        .padding(.top, 10)
                     Color.white
                         .frame(maxWidth: .infinity, maxHeight: 1)
                         .padding([.leading,.trailing], 30)
@@ -48,42 +49,48 @@ struct HomeViewV2: View {
                     DevicePicker (data: self.data)
                     
                     ZStack(alignment: .center) {
-                        HeightSliderV2(zipdeskUI: self.zipdeskUI, deviceData: self.data, isPaged: self.$isPaged)
+                        HeightSliderV2 (
+                            zipdeskUI: self.zipdeskUI,
+                            deviceData: self.data,
+                            isPaged: self.$isPaged
+                        )
                             .frame(minWidth: 50,maxWidth: 50, maxHeight: .infinity)
                             .padding()
                         
-                        HStack {
-                            VStack() {
-                                HStack() {
-                                    Spacer()
-                                    Text(String(format: "%.1f", self.zipdeskUI.deskHeight))
-                                        .font(.system(size: 55))
-                                        .lineLimit(1)
-                                        .foregroundColor(Color.white)
-                                    Text("in")
-                                        .foregroundColor(Color.white)
-                                        .font(.system(size: 42))
-                                        .offset(y: 4)
-                                }
-                            }
-                            .padding(.trailing, 25)
+                        HStack(alignment: .center) {
+                            VStack(alignment: .trailing) { HStack() {
+                                Spacer()
+                                Text (
+                                    String(format: "%.1f", self.zipdeskUI.deskHeight)
+                                )
+                                    .font(.system(size: 55))
+                                    .lineLimit(1)
+                                    .foregroundColor(Color.white)
+                                Text("in")
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 42))
+                                    .offset(y: 4)
+                            } }
+                                .padding(.trailing, 25)
+//                                .frame(width: geo.size.width/2)
                             
-                            HStack {
+                            HStack(alignment: .center) {
                                 Spacer()
                                 VStack {
                                     UpButton (
                                         pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
-                                        //.padding(.bottom, 5)
                                     DownButton (
                                         pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
-                                        //.padding(.top, 5)
                                 }
-                                .padding(.trailing, 15)
+                                    .padding(.leading, 65)
+                                    .padding(.trailing, 20)
+                                Spacer()
                             }
+//                                .frame(width: geo.size.width/2)
                         }
                     } // end ZStack
                     .frame(maxWidth: .infinity)
@@ -172,22 +179,22 @@ struct HomeViewV2_Previews: PreviewProvider {
                 .environmentObject(DeviceBluetoothManager(previewMode: true)!)
                 .environmentObject(UserDataManager())
             }
-            .previewDevice("iPhone 12")
+            //.previewDevice("iPhone 12 Pro")//"iPhone 6s")//"iPhone 12")//"iPhone 11 Pro")
             
-            ZStack {
-                Image("Background")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .edgesIgnoringSafeArea(.all)
-
-                HomeViewV2 (
-                    zipdeskUI: ZGoZipDeskController(),
-                    data: DeviceDataManager(test: true)!
-                )
-                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
-                .environmentObject(UserDataManager())
-            }
-            .previewDevice("iPhone 6s")
+//            ZStack {
+//                Image("Background")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .edgesIgnoringSafeArea(.all)
+//
+//                HomeViewV2 (
+//                    zipdeskUI: ZGoZipDeskController(),
+//                    data: DeviceDataManager(test: true)!
+//                )
+//                .environmentObject(DeviceBluetoothManager(previewMode: true)!)
+//                .environmentObject(UserDataManager())
+//            }
+//            .previewDevice("iPhone 6s")
 ////            .previewDevice("iPhone SE (1st generation)")
             
         }
