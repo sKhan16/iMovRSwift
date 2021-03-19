@@ -23,10 +23,10 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
     
 ///# Current Monitor Arm
-    // @Published var isMonitorArmConnected: Bool = false
+    // @Published var monitorArm: ___ = ___()
     
 ///# Current Treadmill
-    // @Published var isTreadmillConnected: Bool = false
+    // @Published var treadmill: ___ = ___()
     
 ///# Core Bluetooth
     @Published var bluetoothEnabled: Bool = false
@@ -34,6 +34,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     private var desiredPeripheral: CBPeripheral?
     private var connectingIndex: Int?
     
+    private var signalStrengthTimer: Timer?
     
 ///# Initializer
     override init() {
@@ -43,6 +44,15 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
         // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
+        
+        
+        //initialize the timer later when scan begins?
+        signalStrengthTimer = Timer.scheduledTimer(
+            withTimeInterval: 1.0,
+            repeats: true,
+            block: <#T##(Timer) -> Void#>
+            self.readSignalStrength()
+        )
     }
     
 ///# Test Mode Initializer - XCode Canvas Previews
@@ -60,13 +70,15 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
 ///# Device Discovery and Connection functions
     
-    func scanForDevices() {
+    func scanForDevices()
+    {
         print("Scanning for devices:")
         centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
     }
     
     
-    func stopScan() {
+    func stopScan()
+    {
         print("terminating device scan")
         guard self.bluetoothEnabled else {
             print("-bluetooth not ready yet")
@@ -76,7 +88,19 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
-    func connectToDevice(device: Desk, savedIndex: Int) -> Bool {
+    func readSignalStrengths()
+    {
+        for (...)//all discovered and saved devices
+        {
+            let peripheral: CBPeripheral? = data.savedDevices[savedIndex].peripheral
+            peripheral?.delegate = self
+            peripheral?.readRSSI()
+        }
+    }
+    
+    
+    func connectToDevice(device: Desk, savedIndex: Int) -> Bool
+    {
         guard device.peripheral != nil else {
             print("bt.connect -- ERROR: attempted to connect to nil peripheral")
             return false
@@ -105,8 +129,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     } // end connectToDevice
     
     
-    
-    func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool {
+    func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool
+    {
         guard device.peripheral != nil else {
             print("bt.disconnect ERROR: nil peripheral")
             return false
@@ -125,18 +149,16 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         return true
     }
     
-    func readSignalStrength(savedIndex: Int) {
-        let peripheral: CBPeripheral? = data.savedDevices[savedIndex].peripheral
-        peripheral?.readRSSI()
-    }
-    
-    
     
     
     
 ///# CoreBluetooth CentralManager Delegate functions
     
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+    
+    func centralManagerDidUpdateState(
+        _ central: CBCentralManager
+    )
+    {
         switch central.state {
         
         // Ideal case: Bluetooth is powered on, scan for desks
@@ -191,10 +213,15 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
+    
     ///# didDiscover peripheral
-    func centralManager(_ central: CBCentralManager,
-                        didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
+    func centralManager(
+        _ central: CBCentralManager,
+        didDiscover peripheral: CBPeripheral,
+        advertisementData: [String : Any],
+        rssi RSSI: NSNumber
+    )
+    {
         // Make unique ZGO manufacturer ID readable
         let rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
         // Bytes are stored as 0x3k, where 'k' is one digit of the 8 digit manufacturer ID.
@@ -251,9 +278,13 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     } // end didDiscover peripheral
     
     
+    
     ///# didConnect peripheral
-    func centralManager(_ central: CBCentralManager,
-                        didConnect peripheral: CBPeripheral) {
+    func centralManager(
+        _ central: CBCentralManager,
+        didConnect peripheral: CBPeripheral
+    )
+    {
         peripheral.delegate = self
         print("-> bt.didConnect")
         DispatchQueue.main.sync { () -> Void in
@@ -293,10 +324,14 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     } //end didConnect
     
     
+    
     ///# didFailToConnect peripheral
-    func centralManager(_ central: CBCentralManager,
-                        didFailToConnect peripheral: CBPeripheral,
-                        error: Error?) {
+    func centralManager(
+        _ central: CBCentralManager,
+        didFailToConnect peripheral: CBPeripheral,
+        error: Error?
+    )
+    {
         print("didFailToConnect peripheral, error:" + String(describing: error))
         DispatchQueue.main.sync { () -> Void in
             self.data.connectedDeskIndex = nil
@@ -305,10 +340,15 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         //self.zipdesk = nil
     }
     
+    
+    
     ///# didDisconnectPeripheral peripheral
-    func centralManager(_ central: CBCentralManager,
-                        didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        
+    func centralManager(
+        _ central: CBCentralManager,
+        didDisconnectPeripheral peripheral: CBPeripheral,
+        error: Error?
+    )
+    {
         DispatchQueue.main.sync { () -> Void in
             if self.data.connectedDeskIndex != nil,
                peripheral == data.savedDevices[data.connectedDeskIndex!].peripheral
@@ -331,21 +371,34 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
     
     
+    
 //******************************************************************//
 //******************************************************************//
     
-///# CoreBluetooth Peripheral Delegate functions
+///# CoreBluetooth Peripheral Delegate Functions
     
     
     ///# didReadRSSI
-    func peripheral(_ peripheral: CBPeripheral,
-                    didReadRSSI RSSI: NSNumber,
-                    error: Error?) {
-        //DO STUFF
+    func peripheral(
+        _ peripheral: CBPeripheral,
+        didReadRSSI RSSI: NSNumber,
+        error: Error?
+    )
+    {
+        //DO STUFF:
+        //find this peripheral in saved/discovered
+        //store the RSSI value in it's Desk data object
+        //hopefully the change to the published data.savedDevices will update UI state automatically
     }
     
+    
+    
     ///# didDiscoverServices
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+    func peripheral(
+        _ peripheral: CBPeripheral,
+        didDiscoverServices error: Error?
+    )
+    {
         for service in peripheral.services! {
             if service.uuid == ZGoServiceUUID {
                 peripheral.discoverCharacteristics(nil, for: service)
@@ -353,8 +406,15 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
     }
     
+    
+    
     ///# didDiscoverCharacteristicsFor service
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+    func peripheral(
+        _ peripheral: CBPeripheral,
+        didDiscoverCharacteristicsFor service: CBService,
+        error: Error?
+    )
+    {
         for characteristic in service.characteristics! {
             //print(characteristic)
             if characteristic.uuid == ZGoWriteCharacteristicUUID {
@@ -366,10 +426,16 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
         self.zipdesk.requestHeightsFromDesk()
     }
-
-
+    
+    
+    
     ///# didUpdateValueFor characteristic
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error:Error?) {
+    func peripheral(
+        _ peripheral: CBPeripheral,
+        didUpdateValueFor characteristic: CBCharacteristic,
+        error:Error?
+    )
+    {
         guard error == nil else {
             print("didUpdateValueFor error: characteristic value update threw error - from notify or readValue(...)")
             return
@@ -382,6 +448,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
+    
+    
+    
+    
+///# Populate data for test-mode previews of app
     private func setTestMode() {
         
         self.data.savedDevices =
