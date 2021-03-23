@@ -31,7 +31,7 @@ struct DiscoveredDeviceRowView: View {
                         .font(.system(size: 20)).bold()
                         .truncationMode(.tail)
                         .foregroundColor(ColorManager.buttonPressed)
-                    Text("("+String(currDevice.id)+")")
+                    Text("RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))//("("+String(currDevice.id)+")")
                         .font(Font.body)
                         .foregroundColor(ColorManager.buttonPressed)
                 }
