@@ -49,10 +49,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         //initialize the timer later when scan begins?
         signalStrengthTimer = Timer.scheduledTimer(
             withTimeInterval: 1.0,
-            repeats: true,
-            block: <#T##(Timer) -> Void#>
-            self.readSignalStrength()
+            repeats: true
         )
+        { timer in
+            self.readSignalStrength()
+        }
     }
     
 ///# Test Mode Initializer - XCode Canvas Previews
@@ -80,22 +81,32 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     func stopScan()
     {
         print("terminating device scan")
-        guard self.bluetoothEnabled else {
-            print("-bluetooth not ready yet")
-            return
-        }
+//        guard self.bluetoothEnabled else {
+//            print("-bluetooth not ready yet")
+//            return
+//        }
         centralManager?.stopScan()
     }
     
     
-    func readSignalStrengths()
+    func readSignalStrength()
     {
-        for (...)//all discovered and saved devices
+//        for (index, device) in data.savedDevices.enumerated()
+        for device in self.data.savedDevices
         {
-            let peripheral: CBPeripheral? = data.savedDevices[savedIndex].peripheral
-            peripheral?.delegate = self
-            peripheral?.readRSSI()
+            device.peripheral?.delegate = self
+            device.peripheral?.readRSSI()
         }
+        for device in self.discoveredDevices
+        {
+            device.peripheral?.delegate = self
+            device.peripheral?.readRSSI()
+        }
+    }
+    
+    public func isInRange(rssi: NSNumber?) -> Bool
+    {
+        return ((rssi as? Double) ?? -1000.0) > -80.0
     }
     
     
@@ -135,11 +146,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.disconnect ERROR: nil peripheral")
             return false
         }
-        guard device.peripheral!.state == .connected || device.peripheral!.state == .connecting else {
+        guard (device.peripheral!.state == .connected) || (device.peripheral!.state == .connecting) else {
             print("bt.disconnect ERROR: peripheral not connected or connecting")
             return false
         }
-        guard (savedIndex == self.data.connectedDeskIndex) else {
+        guard savedIndex == self.data.connectedDeskIndex else {
             print("bt.disconnectFromDevice error: desk device does not match connectedDeskIndex / current zipdesk peripheral")
             return false
         }
@@ -227,7 +238,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // Bytes are stored as 0x3k, where 'k' is one digit of the 8 digit manufacturer ID.
         var manufacturerDeskID : Int = 0
         for (index, digit) in rawData.enumerated() {
-            manufacturerDeskID += Int(digit - 48) * Int( pow(10,Double(7-index)) )
+            manufacturerDeskID += Int(digit - 48) * Int(pow(10,Double(7-index)))
         }
         
         print("iOS discovered device w/ id# \(manufacturerDeskID)")
@@ -241,6 +252,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                             device.id == manufacturerDeskID
                         }) {
                     self.data.savedDevices[foundIndex].peripheral = peripheral
+                    self.data.savedDevices[foundIndex].rssi = RSSI
+                    self.data.savedDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
                     // device previously saved, peripheral now stored locally-
                     // establish autoconnect to device if it was last connected
                     let thisSavedDevice: Desk = self.data.savedDevices[foundIndex]
@@ -378,6 +391,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 ///# CoreBluetooth Peripheral Delegate Functions
     
     
+    
     ///# didReadRSSI
     func peripheral(
         _ peripheral: CBPeripheral,
@@ -385,10 +399,56 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         error: Error?
     )
     {
+        // Invalidate device if readRSSI returns an error
+        if error != nil
+        {
+            print("bt.didReadRSSI ERROR:\n" + (error?.localizedDescription ?? "description not found"))
+            //disconnect if this was the connected device (and clear 'bt.zipdesk')
+            //notify user via UI / state changes "Available"->"Not Available"
+            return
+        }
         //DO STUFF:
-        //find this peripheral in saved/discovered
-        //store the RSSI value in it's Desk data object
         //hopefully the change to the published data.savedDevices will update UI state automatically
+        
+        // Locate device in savedDevices or discoveredDevices
+        if let index: Int = self.data.savedDevices.firstIndex(
+            where: { device -> Bool in
+                peripheral == device.peripheral
+            }
+        )
+        {
+            // disconnect/remove peripheral if didReadRSSI failed with error
+            // case: device is much too far away, user should interact with this device
+            //
+            guard error != nil else {
+                if peripheral.state == .connected {
+                    centralManager?.cancelPeripheralConnection(peripheral)
+                }
+                print("deleting peripheral reference")
+                self.data.savedDevices[index].peripheral = nil
+                return
+            }
+            self.data.savedDevices[index].rssi = RSSI
+            self.data.savedDevices[index].inRange = self.isInRange(rssi: RSSI)
+        }
+        
+        else if let index: Int = self.discoveredDevices.firstIndex(
+            where: { device -> Bool in
+                peripheral == device.peripheral
+            }
+        )
+        {
+            guard error != nil else {
+                if peripheral.state == .connected {
+                    centralManager?.cancelPeripheralConnection(peripheral)
+                }
+                print("deleting peripheral reference")
+                self.discoveredDevices[index].peripheral = nil
+                return
+            }
+            self.discoveredDevices[index].rssi = RSSI
+            self.discoveredDevices[index].inRange = self.isInRange(rssi: RSSI)
+        }
     }
     
     

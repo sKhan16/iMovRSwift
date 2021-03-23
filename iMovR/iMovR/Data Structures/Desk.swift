@@ -19,9 +19,8 @@ struct Desk: Identifiable {
     var id: Int
     
     var peripheral: CBPeripheral?
-    var inRange: Bool = false
-    
     var rssi: NSNumber?
+    var inRange: Bool = false
     
     var isLastConnected: Bool
     
@@ -49,12 +48,10 @@ struct Desk: Identifiable {
     
     // DeviceBTManager Discovered Desk Constructor
     init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber?) {
-        self.name = "Discovered ZipDesk"
+        self.name = "Discovered Device"
         self.id = deskID
         self.peripheral = deskPeripheral
-        //*CHECK RSSI VALUE
-        self.inRange = .....
-        //*CHECK RSSI VALUE
+        self.inRange = ((rssi as? Double) ?? -1000.0) > -80.0 // -80.0dB -> ~3.5 meters away; test & adjust
         self.rssi = rssi
         self.isLastConnected = false
     }
