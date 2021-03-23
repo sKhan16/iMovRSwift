@@ -47,13 +47,13 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         
         
         //initialize the timer later when scan begins?
-        signalStrengthTimer = Timer.scheduledTimer(
-            withTimeInterval: 1.0,
-            repeats: true
-        )
-        { timer in
-            self.readSignalStrength()
-        }
+//        signalStrengthTimer = Timer.scheduledTimer(
+//            withTimeInterval: 1.0,
+//            repeats: true
+//        )
+//        { timer in
+//            self.readSignalStrength()
+//        }
     }
     
 ///# Test Mode Initializer - XCode Canvas Previews
@@ -74,7 +74,14 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     func scanForDevices()
     {
         print("Scanning for devices:")
-        centralManager?.scanForPeripherals(withServices: [ZGoServiceUUID])
+        guard self.bluetoothEnabled else {
+            print(" ! can't scan - phone bluetooth disabled")
+            return
+        }
+        centralManager?.scanForPeripherals(
+            withServices: [ZGoServiceUUID],
+            options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
+        )
     }
     
     
@@ -175,10 +182,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // Ideal case: Bluetooth is powered on, scan for desks
         case .poweredOn:
             print("Bluetooth status is POWERED ON.")
-            self.scanForDevices()
             DispatchQueue.main.sync { () -> Void in
                 self.bluetoothEnabled = true
             }
+            self.scanForDevices()
+            
             
         // Bad cases - Bluetooth is not yet ready
         case .unknown:
@@ -421,11 +429,12 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             // case: device is much too far away, user should interact with this device
             //
             guard error != nil else {
-                if peripheral.state == .connected {
-                    centralManager?.cancelPeripheralConnection(peripheral)
-                }
-                print("deleting peripheral reference")
-                self.data.savedDevices[index].peripheral = nil
+                print("didReadRSSI error")
+//                if peripheral.state == .connected {
+//                    centralManager?.cancelPeripheralConnection(peripheral)
+//                }
+//                print("deleting peripheral reference")
+//                self.data.savedDevices[index].peripheral = nil
                 return
             }
             self.data.savedDevices[index].rssi = RSSI
