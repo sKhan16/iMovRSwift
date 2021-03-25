@@ -97,21 +97,6 @@ struct EditDeviceView: View {
                     }
                     .padding([.bottom,.leading,.trailing],20)
                     
-                    Button (
-                        action: {self.deviceIndex = -1},
-                        label: {
-                            Text("Cancel")
-                                .font(Font.headline)
-                                .foregroundColor(ColorManager.buttonPressed)
-                                .frame(width: 125, height: 30)
-                                .background(ColorManager.gray)
-                                .cornerRadius(8)
-                        }
-                    )
-                    .padding(.top, 55)
-                    
-                    Spacer()
-                    
                     Button(
                         action: {
                             print("saving 'edit device' changes")
@@ -121,15 +106,31 @@ struct EditDeviceView: View {
                             self.deviceIndex = -1
                         },
                         label: {
-                            Text("Save Changes")
+                            Text("Save")
                                 .font(Font.title2.bold())
                                 .foregroundColor(Color.white)
-                                .frame(width: 170, height: 55)
+                                .frame(width: 125, height: 45)
                                 .background(ColorManager.yesGreen)
-                                .cornerRadius(15)
+                                .cornerRadius(8)
                         }
                     )
-                    .padding(.bottom, 50)
+                    
+                    .padding(.top, 55)
+                    
+                    Spacer()
+                    
+                    Button (
+                        action: {self.deviceIndex = -1},
+                        label: {
+                            Text("Cancel")
+                                .font(Font.title2.bold())
+                                .foregroundColor(ColorManager.gray)
+                                .frame(width: 125, height: 45)
+                                .background(ColorManager.buttonPressed)
+                                .cornerRadius(8)
+                        }
+                    )
+                    .padding(.bottom, 55)
                     
                 } else { // Confirm Delete Menu
                     VStack {
