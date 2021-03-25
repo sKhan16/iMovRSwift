@@ -59,7 +59,7 @@ struct EditDeviceView: View {
                             .font(Font.title3.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
                             .offset(y: 3)
-                        Text("ZipDesk ID: " + String(selectedDevice.id))
+                        Text("Device ID: " + String(selectedDevice.id))
                             .font(Font.body.monospacedDigit())
                             .foregroundColor(ColorManager.buttonPressed)
                             .padding(.top,1)
