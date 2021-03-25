@@ -146,7 +146,7 @@ struct SaveDeviceView: View {
                         //.padding()
                         .background(ColorManager.yesGreen)
                         .cornerRadius(8)
-                        .shadow(radius: 8)
+                        //.shadow(radius: 8)
                 } ) // end save button.
                 .padding(.top, 35)
                 
