@@ -41,16 +41,16 @@ struct EditDeviceView: View {
                             .monospacedDigit())
                             .foregroundColor(ColorManager.buttonPressed)
                         Button (
-                            action: {self.deviceIndex = -1},
+                            action: {self.confirmDeleteMenu = true},
                             label: {
-                                Text("Back")
-                                    .font(Font.caption)
-                                    .frame(width: 40, height: 25)
+                                Image(systemName: "trash")
+                                    .font(.system(size: 20.0))
+                                    .frame(width: 55, height: 25)
                                     .background(Color.red)
                                     .cornerRadius(8, antialiased: true)
                             }
                         )
-                        .offset(x: -115, y: 0)
+                        .offset(x: 115, y: 0)
                     }
                     .padding(.top, 10)
 
@@ -98,9 +98,9 @@ struct EditDeviceView: View {
                     .padding([.bottom,.leading,.trailing],20)
                     
                     Button (
-                        action: { self.confirmDeleteMenu = true },
+                        action: {self.deviceIndex = -1},
                         label: {
-                            Text("Delete Device")
+                            Text("Cancel")
                                 .font(Font.headline)
                                 .foregroundColor(ColorManager.buttonPressed)
                                 .frame(width: 125, height: 30)
@@ -108,7 +108,7 @@ struct EditDeviceView: View {
                                 .cornerRadius(8)
                         }
                     )
-                    .padding(.top, 15)
+                    .padding(.top, 55)
                     
                     Spacer()
                     
