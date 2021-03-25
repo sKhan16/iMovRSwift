@@ -118,7 +118,7 @@ struct SaveDeviceView: View {
                     
                     if (self.bt.data.addDevice(desk: newDevice)) {
                         self.bt.discoveredDevices.remove(at: deviceIndex)
-                        self.bt.scanForDevices()
+                        self.bt.scanForDevices(repeating: true)
 //                        if let savedDeviceIndex: Int = bt.data.savedDevices.firstIndex(
 //                            where: { (newSavedDevice: Desk) -> Bool in
 //                                newSavedDevice.id == newDevice.id

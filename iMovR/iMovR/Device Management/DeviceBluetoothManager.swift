@@ -35,6 +35,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     private var connectingIndex: Int?
     private var connectionTimeoutTimer: Timer?
     
+    private var scanTimer: Timer?
     private var signalStrengthTimer: Timer?
     
 ///# Initializer
@@ -72,17 +73,36 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
 ///# Device Discovery and Connection functions
     
-    func scanForDevices()
+    func scanForDevices(repeating: Bool)
     {
         print("Scanning for devices:")
         guard self.bluetoothEnabled else {
             print(" ! can't scan - phone bluetooth disabled")
             return
         }
-        centralManager?.scanForPeripherals(
-            withServices: [ZGoServiceUUID],
-            options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
+        //scan for 0.1s, stop; repeat after 5s
+        if scanTimer != nil {scanTimer?.invalidate()}
+        scanTimer = Timer.scheduledTimer(
+            withTimeInterval: 5.0,
+            repeats: repeating
         )
+        { timer in
+            if self.bluetoothEnabled
+            {
+                self.centralManager?.scanForPeripherals(
+                    withServices: [ZGoServiceUUID],
+                    options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
+                )
+            }
+            _ = Timer.scheduledTimer(
+                withTimeInterval: 0.1,
+                repeats: false
+            ){ _ in
+                self.centralManager?.stopScan()
+            }
+        }
+        scanTimer?.fire()
+        
     }
     
     
@@ -93,6 +113,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 //            print("-bluetooth not ready yet")
 //            return
 //        }
+        scanTimer?.invalidate()
         centralManager?.stopScan()
     }
     
@@ -110,21 +131,14 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 }
                 else
                 {
-                    print("error in bt.connectedSignalStrength\n  connectedDeskIndex peripheral not connected")
+                    print("error in bt.readConnectedRSSI\n  connectedDeskIndex peripheral not connected")
                 }
             }
             else
             {
-                print("error in bt.connectedSignalStrength\n  no peripheral at data.connectedDeskIndex")
+                print("error in bt.readConnectedRSSI\n  no peripheral at data.connectedDeskIndex")
             }
         }
-        
-        //old code before learning readRSSI() only works if connected
-//        for device in self.data.savedDevices
-//        {
-//            device.peripheral?.delegate = self
-//            device.peripheral?.readRSSI()
-//        }
     }
     
     public func isInRange(rssi: NSNumber?) -> Bool
@@ -140,11 +154,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.connect -- ERROR: attempted to connect to nil peripheral")
             return false
         }
-//        guard self.connectingIndex == nil else
-//        {
-//            print("bt.connect error: a device is currently connecting")
-//            return false
-//        }
+        guard self.connectingIndex == nil else
+        {
+            print("bt.connect error: a device is currently connecting")
+            return false
+        }
         guard self.data.connectedDeskIndex != savedIndex else
         {
             print("bt.connect -- ERROR: that device is already connected")
@@ -223,7 +237,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("Bluetooth status is POWERED ON.")
             DispatchQueue.main.sync { () -> Void in
                 self.bluetoothEnabled = true
-                self.scanForDevices()
+                self.scanForDevices(repeating: true)
             }
             
         // Bad cases - Bluetooth is not yet ready
@@ -414,7 +428,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             }
         }
         // ensure discovery and autoconnect are enabled
-        self.scanForDevices()
+        self.scanForDevices(repeating: true)
         
         // disconnected unintentionally
         if error != nil {

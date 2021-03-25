@@ -207,7 +207,7 @@ struct EditDeviceView: View {
                                 self.deviceIndex = -1
                                 // Delete this selected device
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
-                                self.bt.scanForDevices()
+                                self.bt.scanForDevices(repeating: true)
                                 
                                 // Set devicePickerIndex post-delete.
                                 _=self.bt.data.setPickerIndex(decrement: true)

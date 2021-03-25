@@ -84,7 +84,7 @@ struct PickerLeft: View {
     var body: some View {
         Button (
             action: {
-                bt.scanForDevices()
+                bt.scanForDevices(repeating: true)
                 data.setPickerIndex(decrement: true)
             }
         ){
@@ -104,7 +104,7 @@ struct PickerRight: View {
     var body: some View {
         Button (
             action: {
-                bt.scanForDevices()
+                bt.scanForDevices(repeating: true)
                 data.setPickerIndex(increment: true)
             }
         ){
