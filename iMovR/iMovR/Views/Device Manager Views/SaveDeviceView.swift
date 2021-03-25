@@ -38,18 +38,18 @@ struct SaveDeviceView: View {
                             .font(Font.title.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
                             .padding(5)
-                        Button (
-                            action: {self.deviceIndex = -1},
-                            label: {
-                                Text("Back")
-                                .font(Font.caption)
-                                .frame(width: 50, height: 28)
-                                .offset(x:-1)
-                                .background(Color.red)
-                                .cornerRadius(13)
-                                .shadow(radius: 3)
-                        } )
-                        .offset(x: -116, y: -14)
+//                        Button (
+//                            action: {self.deviceIndex = -1},
+//                            label: {
+//                                Image(systemName: "trash")
+//                                    .font(.system(size: 20.0))
+//                                    .frame(width: 55, height: 25)
+//                                .offset(x:-1)
+//                                .background(Color.red)
+//                                .cornerRadius(13)
+//                                .shadow(radius: 3)
+//                        } )
+//                        .offset(x: 116, y: -14)
                     }
                     Rectangle()
                         .foregroundColor(ColorManager.buttonStatic)
@@ -58,7 +58,7 @@ struct SaveDeviceView: View {
                         Text(selectedDevice.name)
                             .font(Font.title3.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
-                        Text("ZipDesk ID: " + String(selectedDevice.id))
+                        Text("Device ID: " + String(selectedDevice.id))
                             .font(Font.body.monospacedDigit().weight(.regular))
                             .foregroundColor(ColorManager.buttonPressed)
                             .padding(.top,1)
@@ -139,15 +139,32 @@ struct SaveDeviceView: View {
                     
                 }, // end save button action
                 label: {
-                    Text("Save Changes")
-                        .font(Font.title3.bold())
+                    Text("Save")
+                        .font(Font.title2.bold())
                         .foregroundColor(Color.white)
-                        .padding()
+                        .frame(width: 125, height: 45)
+                        //.padding()
                         .background(ColorManager.yesGreen)
-                        .cornerRadius(20)
+                        .cornerRadius(8)
                         .shadow(radius: 8)
                 } ) // end save button.
-                .frame(width:200,height:100)
+                .padding(.top, 35)
+                
+                Spacer()
+                
+                Button (
+                    action: {self.deviceIndex = -1},
+                    label: {
+                        Text("Cancel")
+                            .font(Font.title2.bold())
+                            .foregroundColor(ColorManager.gray)
+                            .frame(width: 125, height: 45)
+                            .background(ColorManager.buttonPressed)
+                            .cornerRadius(8)
+                    }
+                )
+                .padding(.bottom, 45)
+                //.frame(width:200,height:100)
                 
                 
             } // end top-level VStack
