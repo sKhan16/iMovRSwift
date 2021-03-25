@@ -55,7 +55,7 @@ struct SaveDeviceView: View {
                         .foregroundColor(ColorManager.buttonStatic)
                         .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
                     VStack {
-                        Text(selectedDevice.name)
+                        Text("Discovered device")
                             .font(Font.title3.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
                         Text("Device ID: " + String(selectedDevice.id))
