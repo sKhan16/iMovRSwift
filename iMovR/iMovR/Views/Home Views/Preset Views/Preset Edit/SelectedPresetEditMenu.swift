@@ -117,11 +117,27 @@ struct SelectedPresetEditMenu: View {
                     .keyboardType(.decimalPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
-                .padding()
+                .padding([.bottom,.leading,.trailing],20)
                 
                 EditSaveButton(presetName: self.$editPresetName, presetHeight: self.$editPresetHeight, isInvalidInput: self.$isInvalidInput, editIndex: self.$editIndex)
+                    .padding(.top, 15)
+                
+                Spacer()
+                
+                Button (
+                    action: {self.editIndex = -1},
+                    label: {
+                        Text("Cancel")
+                            .font(Font.title2.bold())
+                            .foregroundColor(ColorManager.gray)
+                            .frame(width: 125, height: 45)
+                            .background(ColorManager.buttonPressed)
+                            .cornerRadius(8)
+                    }
+                )
+                .padding(.bottom, 55)
             }
-            .padding()
+            //.padding()
             
             
         } // end top-level if/else
@@ -176,14 +192,15 @@ private struct EditSaveButton: View {
                 self.editIndex = -1
             }
         }, label: {
-            Text("Save Changes")
+            Text("Save")
                 .font(Font.title3.bold())
                 .foregroundColor(Color.white)
-                .padding()
+                .frame(width: 125, height: 45)
+                //.padding()
                 .background(ColorManager.yesGreen)
-                .cornerRadius(27)
+                .cornerRadius(8)
         })
-        .frame(width:200,height:100)
+        //.frame(width:200,height:100)
     }
 }
 
