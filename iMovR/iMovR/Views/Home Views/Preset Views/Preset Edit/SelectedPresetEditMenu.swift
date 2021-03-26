@@ -120,9 +120,9 @@ struct SelectedPresetEditMenu: View {
                 .padding([.bottom,.leading,.trailing],20)
                 
                 EditSaveButton(presetName: self.$editPresetName, presetHeight: self.$editPresetHeight, isInvalidInput: self.$isInvalidInput, editIndex: self.$editIndex)
-                    .padding(.top, 15)
+                    .padding([.top, .bottom], 15)
                 
-                Spacer()
+                //Spacer()
                 
                 Button (
                     action: {self.editIndex = -1},
@@ -135,7 +135,7 @@ struct SelectedPresetEditMenu: View {
                             .cornerRadius(8)
                     }
                 )
-                .padding(.bottom, 55)
+                .padding(.bottom, 35)
             }
             //.padding()
             
@@ -193,7 +193,7 @@ private struct EditSaveButton: View {
             }
         }, label: {
             Text("Save")
-                .font(Font.title3.bold())
+                .font(Font.title2.bold())
                 .foregroundColor(Color.white)
                 .frame(width: 125, height: 45)
                 //.padding()
