@@ -160,7 +160,6 @@ private struct ConnectButton: View {
                     })
                     .onEnded({ _ in
                         let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
-                        
                         if isConnected
                         {
                             _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)

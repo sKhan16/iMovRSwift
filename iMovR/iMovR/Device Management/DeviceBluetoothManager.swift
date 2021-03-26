@@ -47,8 +47,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
         
-        
-        //initialize the timer later when scan begins?
         signalStrengthTimer = Timer.scheduledTimer(
             withTimeInterval: 1.0,
             repeats: true
@@ -80,28 +78,33 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print(" ! can't scan - phone bluetooth disabled")
             return
         }
-        //scan for 0.1s, stop; repeat after 5s
-        if scanTimer != nil {scanTimer?.invalidate()}
-        scanTimer = Timer.scheduledTimer(
-            withTimeInterval: 5.0,
-            repeats: repeating
-        )
-        { timer in
-            if self.bluetoothEnabled
-            {
-                self.centralManager?.scanForPeripherals(
-                    withServices: [ZGoServiceUUID],
-                    options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
-                )
+        //scan for 150ms, stop; repeat after 3s
+        if scanTimer != nil { scanTimer!.fire() }
+        else
+        {
+            scanTimer = Timer.scheduledTimer(
+                withTimeInterval: 3.0,
+                repeats: repeating
+            )
+            { scan_timer in
+                if self.bluetoothEnabled
+                {
+                    self.centralManager?.scanForPeripherals(
+                        withServices: [ZGoServiceUUID],
+                        options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
+                    )
+                }
+                _ = Timer.scheduledTimer(
+                    withTimeInterval: 0.15,
+                    repeats: false
+                ){ stop_timer in
+                    self.centralManager?.stopScan()
+                    stop_timer.invalidate()
+                }
             }
-            _ = Timer.scheduledTimer(
-                withTimeInterval: 0.1,
-                repeats: false
-            ){ _ in
-                self.centralManager?.stopScan()
-            }
+            
+            scanTimer!.fire()
         }
-        scanTimer?.fire()
         
     }
     
@@ -113,8 +116,9 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 //            print("-bluetooth not ready yet")
 //            return
 //        }
-        scanTimer?.invalidate()
-        centralManager?.stopScan()
+        self.scanTimer?.invalidate()
+        self.scanTimer = nil
+        self.centralManager?.stopScan()
     }
     
     
@@ -159,7 +163,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.connect error: a device is currently connecting")
             return false
         }
-        guard self.data.connectedDeskIndex != savedIndex else
+        guard savedIndex != self.data.connectedDeskIndex else
         {
             print("bt.connect -- ERROR: that device is already connected")
             return false
@@ -170,6 +174,12 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.connectToDevice error: device peripheral already connecting/ed but mismatches connectedDeskIndex")
             return false
         }
+        guard device.inRange else
+        {
+            print("bt.connectToDevice error: device peripheral is out of range")
+            return false
+        }
+        
         self.connectingIndex = savedIndex
         self.data.setLastConnectedDesk(desk: device)
         centralManager?.connect(device.peripheral!)
@@ -186,6 +196,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 {
                     self.centralManager?.cancelPeripheralConnection(timeoutDevice.peripheral!)
                     self.connectingIndex = nil
+//                    self.data.setLastConnectedDesk(desk: timeoutDevice, disable: true)
                     print("bt.connect: device connection timed out")
                 }
             }
@@ -283,7 +294,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
     }
     
-    
+    let WEAK_SIGNAL: NSNumber = 127
     
     ///# didDiscover peripheral
     func centralManager(
@@ -291,66 +302,85 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         didDiscover peripheral: CBPeripheral,
         advertisementData: [String : Any],
         rssi RSSI: NSNumber
-    )
-    {
+    ){
         // Make unique ZGO manufacturer ID readable
-        let rawData:[UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
-        // Bytes are stored as 0x3k, where 'k' is one digit of the 8 digit manufacturer ID.
-        var manufacturerDeskID : Int = 0
+        let rawData: [UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
+        // Bytes are stored as 0x3k, where 'k' is one digit of the ID
+        var manufacturerDeskID: Int = 0
         for (index, digit) in rawData.enumerated() {
             manufacturerDeskID += Int(digit - 48) * Int(pow(10,Double(7-index)))
         }
+        print("iOS discovered device w/ id# \(manufacturerDeskID) rssi \(RSSI) in range? \(self.isInRange(rssi: RSSI) ? "yes":"no")")
         
-        print("iOS discovered device w/ id# \(manufacturerDeskID)")
         
         DispatchQueue.main.sync { () -> Void in
-            
-            // check saved devices for this device, update device peripheral if found
-            if self.data.savedDevices.count > 0 {
+            if self.data.savedDevices.count > 0
+            {
                 if let foundIndex: Int = self.data.savedDevices.firstIndex (
                         where: { (device) -> Bool in
                             device.id == manufacturerDeskID
-                        }) {
+                        })
+                {
+                    //device signal is too weak to read
+                    if RSSI == WEAK_SIGNAL,
+                       foundIndex != self.data.connectedDeskIndex
+                    {
+                        self.data.savedDevices[foundIndex].peripheral = nil
+                        self.data.savedDevices[foundIndex].rssi = nil
+                        self.data.savedDevices[foundIndex].inRange = false
+                        return
+                    }
+                    //device signal is readable but may be in or out of range
                     self.data.savedDevices[foundIndex].peripheral = peripheral
                     self.data.savedDevices[foundIndex].rssi = RSSI
                     self.data.savedDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
-                    // device previously saved, peripheral now stored locally-
-                    // establish autoconnect to device if it was last connected
-                    let thisSavedDevice: Desk = self.data.savedDevices[foundIndex]
                     
                     if self.data.devicePickerIndex == nil {
                         _=self.data.setPickerIndex(decrement: true)
                     }
-                    
-                    if thisSavedDevice.isLastConnected,
-                       self.data.connectedDeskIndex == nil {
-                        
-                        let didConnect = self.connectToDevice(device: thisSavedDevice, savedIndex: foundIndex)
-                        print("Last connected desk autoconnect : " + (didConnect ? "success" : "fail"))
+
+                    let autoconnectDevice: Desk = self.data.savedDevices[foundIndex]
+                    if autoconnectDevice.isLastConnected,
+                       self.data.connectedDeskIndex == nil,
+                       RSSI != WEAK_SIGNAL,
+                       self.isInRange(rssi: RSSI)
+                    {
+                        _ = self.connectToDevice(device: autoconnectDevice, savedIndex: foundIndex)
+                        print("autoconnecting to device")
                         
                     }
                     return
                 }
             }
-            // check discovered devices for this device, update device peripheral if found
             if self.discoveredDevices.count > 0 {
-               let foundIndex: Int? = self.discoveredDevices.firstIndex(
+               if let foundIndex: Int = self.discoveredDevices.firstIndex(
                         where: { (device) -> Bool in
                             device.id == manufacturerDeskID
                         })
-                if foundIndex != nil {
-                    self.discoveredDevices[foundIndex!].peripheral = peripheral
-                    self.discoveredDevices[foundIndex!].rssi = RSSI
-                    self.discoveredDevices[foundIndex!].inRange = self.isInRange(rssi: RSSI)
-                    // if found in discovered devices, update but don't add a second reference
+               {
+                    if RSSI == WEAK_SIGNAL
+                    {
+                        self.discoveredDevices.remove(at: foundIndex)
+                    } else
+                    {
+                        self.discoveredDevices[foundIndex].peripheral = peripheral
+                        self.discoveredDevices[foundIndex].rssi = RSSI
+                        self.discoveredDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
+                    }
                     return
                 }
             }
-            // device wasn't found in discovered or saved so add it now
-            self.discoveredDevices.append(Desk(deskID: manufacturerDeskID, deskPeripheral: peripheral, rssi: RSSI))
-        } // end async queue
+            if RSSI != WEAK_SIGNAL
+            {
+                self.discoveredDevices.append(
+                    Desk(deskID: manufacturerDeskID,
+                        deskPeripheral: peripheral,
+                        rssi: RSSI)
+                )
+            }
+        }
         
-    } // end didDiscover peripheral
+    } //end didDiscover peripheral
     
     
     
@@ -467,10 +497,17 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         
         if data.connectedDeskIndex != nil
         {
+            let cdi: Int = data.connectedDeskIndex!
             DispatchQueue.main.sync
             { () -> Void in
-                data.savedDevices[data.connectedDeskIndex!].rssi = RSSI
-                data.savedDevices[data.connectedDeskIndex!].inRange = self.isInRange(rssi: RSSI)
+                data.savedDevices[cdi].rssi = RSSI
+                data.savedDevices[cdi].inRange = self.isInRange(rssi: RSSI)
+            }
+            if RSSI == WEAK_SIGNAL || !self.isInRange(rssi:RSSI)
+            {
+                disconnectFromDevice(
+                    device: data.savedDevices[cdi],
+                    savedIndex: cdi)
             }
         }
         
