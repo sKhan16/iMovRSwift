@@ -89,11 +89,13 @@ struct ContentView: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
                 print("app moving to background; stopping desk")
                 self.BTController.zipdesk.releaseDesk()
+                self.BTController.stopScan()
             })
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { _ in
                 print("app returning to foreground; request current heights")
                 self.BTController.zipdesk.releaseDesk()
                 self.BTController.zipdesk.requestHeightsFromDesk()
+                self.BTController.scanForDevices(repeating: true)
             })
         
     }// end body

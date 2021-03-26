@@ -27,6 +27,7 @@ struct DeviceManagerView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity, maxHeight: 35)
                     .padding([.leading,.trailing], 40)
+                    .padding(.top, 10)
                 Color.white
                     .frame(maxWidth: .infinity, maxHeight: 1)
                     .padding([.leading,.trailing], 30)
