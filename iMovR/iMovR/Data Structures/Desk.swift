@@ -17,10 +17,14 @@ struct Desk: Identifiable {
     
     var name: String
     var id: Int
+    
     var peripheral: CBPeripheral?
     var rssi: NSNumber?
+    var inRange: Bool = false
+    
     var isLastConnected: Bool
-        // Default preset values, unless modified on desk initialization
+    
+    // Default preset values, unless modified on desk initialization
     var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
     var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
     
@@ -44,9 +48,10 @@ struct Desk: Identifiable {
     
     // DeviceBTManager Discovered Desk Constructor
     init(deskID: Int, deskPeripheral: CBPeripheral, rssi: NSNumber?) {
-        self.name = "Discovered ZipDesk"
+        self.name = "Discovered Device"
         self.id = deskID
         self.peripheral = deskPeripheral
+        self.inRange = ((rssi as? Double) ?? -1000.0) > -80.0 // -80.0dB -> ~3.5 meters away; test & adjust
         self.rssi = rssi
         self.isLastConnected = false
     }

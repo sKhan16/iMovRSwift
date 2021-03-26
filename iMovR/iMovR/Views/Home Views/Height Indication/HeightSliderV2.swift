@@ -41,7 +41,6 @@ struct HeightSliderV2: View {
                             )
                         )
                         .foregroundColor(Color(UIColor.systemGreen))
-//                            .animation(Animation.linear(duration: 1))
                             .animation(Animation.linear(duration: 0.55))
                     }
                     .frame(idealWidth: 25, maxWidth: 25, maxHeight: .infinity)

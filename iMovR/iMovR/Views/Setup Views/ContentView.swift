@@ -30,7 +30,7 @@ struct ContentView: View {
                 .onAppear() {
                     // Enable autoconnect
                     if self.BTController.data.connectedDeskIndex == nil {
-                        self.BTController.scanForDevices()
+                        self.BTController.scanForDevices(repeating: true)
                     }
                 }
                 .onDisappear() {
@@ -57,13 +57,13 @@ struct ContentView: View {
                         .edgesIgnoringSafeArea(.all)
                 )
                 .onAppear() {
-                    self.BTController.scanForDevices()
+                    self.BTController.scanForDevices(repeating: true)
                 }
-                .onDisappear() {
-                    if BTController.data.connectedDeskIndex != nil {
-                        self.BTController.stopScan()
-                    }
-                }
+//                .onDisappear() {
+//                    if BTController.data.connectedDeskIndex != nil {
+//                        self.BTController.stopScan()
+//                    }
+//                }
                 .tabItem {
                     VStack {
                         Image("ConnectPage")

@@ -55,7 +55,7 @@ struct SavedDeviceRowView: View {
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
                             .foregroundColor(ColorManager.buttonPressed)
-                        Text("Connected")
+                        Text("Connected" + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.connectGreen)
                     }
@@ -64,7 +64,7 @@ struct SavedDeviceRowView: View {
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
                             .foregroundColor(ColorManager.buttonPressed)
-                        Text("Available")
+                        Text("Available" + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
                     }
@@ -157,8 +157,9 @@ private struct ConnectButton: View {
                 DragGesture(minimumDistance: 0)
                     .onChanged({ _ in
                         isPressed = true
+                    })
+                    .onEnded({ _ in
                         let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
-                        
                         if isConnected
                         {
                             _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
@@ -170,8 +171,6 @@ private struct ConnectButton: View {
                                 savedIndex: deviceIndex
                             )
                         }
-                    })
-                    .onEnded({ _ in
                         isPressed = false
                     })
             )
