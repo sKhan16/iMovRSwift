@@ -64,27 +64,28 @@ struct SavedDeviceRowView: View {
                             .foregroundColor(ColorManager.connectGreen)
                     }
                     
-                    else if self.data.savedDevices[deviceIndex].peripheral != nil,
-                            self.data.savedDevices[deviceIndex].inRange
+                    else if self.data.savedDevices[deviceIndex].peripheral != nil
                     {
-                        Text(currDevice.name)
-                            .font(.system(size: 20)).bold()
-                            .truncationMode(.tail)
-                            .foregroundColor(ColorManager.buttonPressed)
-                        Text("Available") // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
-                            .font(Font.body.weight(.medium))
-                            .foregroundColor(ColorManager.buttonPressed)
-                    }
-                    
-                    else if !self.data.savedDevices[deviceIndex].inRange
-                    {
-                        Text(currDevice.name)
-                            .font(.system(size: 20)).bold()
-                            .truncationMode(.tail)
-                            .foregroundColor(Color.gray)
-                        Text("Out of Range")
-                            .font(Font.body.weight(.medium))
-                            .foregroundColor(Color.gray)
+                        if self.data.savedDevices[deviceIndex].inRange
+                        {
+                            Text(currDevice.name)
+                                .font(.system(size: 20)).bold()
+                                .truncationMode(.tail)
+                                .foregroundColor(ColorManager.buttonPressed)
+                            Text("Available") // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
+                                .font(Font.body.weight(.medium))
+                                .foregroundColor(ColorManager.buttonPressed)
+                        }
+                        else
+                        {
+                            Text(currDevice.name)
+                                .font(.system(size: 20)).bold()
+                                .truncationMode(.tail)
+                                .foregroundColor(Color.gray)
+                            Text("Out of Range")
+                                .font(Font.body.weight(.medium))
+                                .foregroundColor(Color.gray)
+                        }
                     }
                     
                     else
@@ -154,9 +155,16 @@ private struct ConnectButton: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)
                     }
-                    else
+                    else if bt.data.savedDevices[deviceIndex].inRange
                     {
                         Image("Connect")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 35, height: 35)
+                    }
+                    else
+                    {
+                        Image("ConnectBlue")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)

@@ -78,7 +78,7 @@ struct PickerDisplayView: View {
                     
                     else
                     {
-                        Text("Not Available")
+                        Text("Not Found Nearby")
                             .font(.system(size: 20))
                             // icky change. OG color: ColorManager.morePreset
                             .foregroundColor(Color.white)
