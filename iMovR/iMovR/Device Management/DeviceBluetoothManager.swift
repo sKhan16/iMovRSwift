@@ -145,10 +145,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         }
     }
     
-    public func isInRange(rssi: NSNumber?) -> Bool
-    {
-        return ((rssi as? Double) ?? -1000.0) > -80.0
-    }
     
     
     func connectToDevice(device: Desk, savedIndex: Int) -> Bool

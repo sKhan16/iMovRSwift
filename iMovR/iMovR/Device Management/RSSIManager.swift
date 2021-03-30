@@ -13,7 +13,7 @@ public class RSSIManager
 {
     //Dictionary of peripherals to RSSI array
     //used to track short-time readings of RSSI for filtering of outliers
-    private var rssiDictionary: [CBPeripheral: Array<NSNumber>] = [:]
+    private var rssiDictionary: Dictionary<CBPeripheral, Array<NSNumber>> = [:]
     
     
     init()
@@ -23,6 +23,25 @@ public class RSSIManager
     
     
     
+    func addValue(peripheral: CBPeripheral, rssi: NSNumber)
+    {
+        
+        rssiDictionary.updateValue(<#T##value: [NSNumber]##[NSNumber]#>, forKey: peripheral)
+    }
+    
+    
+    func isInRange(rssi: NSNumber?) -> Bool
+    {
+        return ((rssi?.doubleValue) ?? -1000.0) > -80.0
+    }
+    
+    
+    func getRSSI() -> NSNumber
+    {
+        
+    }
+    
+    
     func getFilteredRSSI(peripheral: CBPeripheral) -> NSNumber?
     {
         guard let rssiArray: [NSNumber] = rssiDictionary[peripheral]
@@ -30,19 +49,11 @@ public class RSSIManager
         
         let rssiSum: Double =
             rssiArray.map{$0.doubleValue}.reduce(0.0,+)
-            //maps [NSNumber] -> [Double], then reduces to sum.
+        //maps [NSNumber] -> [Double], then reduces to sum.
         
         let rssiAvg = rssiSum / Double(rssiArray.count)
         
         return NSNumber(value: rssiAvg)
         //rough implementation, still need to remove outlier values - this only returns the total average
     }
-    
-    
-    
-    func addValue(peripheral: CBPeripheral, rssi: NSNumber)
-    {
-        rssiDictionary.updateValue(<#T##value: Array<NSNumber>##Array<NSNumber>#>, forKey: <#T##CBPeripheral#>)
-    }
-    
 }
