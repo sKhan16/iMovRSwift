@@ -41,7 +41,8 @@ struct SavedDeviceRowView: View {
                 
                 VStack {
                     /// Device Name and Status
-                    if !bt.bluetoothEnabled {
+                    if !bt.bluetoothEnabled
+                    {
                         Text(currDevice.name)
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
@@ -50,7 +51,9 @@ struct SavedDeviceRowView: View {
                             .font(Font.body)
                             .foregroundColor(Color.gray)
                     }
-                    else if self.isConnected {
+                    
+                    else if self.isConnected
+                    {
                         Text(currDevice.name)
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
@@ -60,7 +63,10 @@ struct SavedDeviceRowView: View {
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.connectGreen)
                     }
-                    else if self.data.savedDevices[deviceIndex].peripheral != nil {
+                    
+                    else if self.data.savedDevices[deviceIndex].peripheral != nil,
+                            self.data.savedDevices[deviceIndex].inRange
+                    {
                         Text(currDevice.name)
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
@@ -69,7 +75,20 @@ struct SavedDeviceRowView: View {
                             .font(Font.body.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
                     }
-                    else {
+                    
+                    else if !self.data.savedDevices[deviceIndex].inRange
+                    {
+                        Text(currDevice.name)
+                            .font(.system(size: 20)).bold()
+                            .truncationMode(.tail)
+                            .foregroundColor(Color.gray)
+                        Text("Out of Range")
+                            .font(Font.body.weight(.medium))
+                            .foregroundColor(Color.gray)
+                    }
+                    
+                    else
+                    {
                         Text(currDevice.name)
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
