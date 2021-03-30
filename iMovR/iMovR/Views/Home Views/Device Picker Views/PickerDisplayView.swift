@@ -52,7 +52,14 @@ struct PickerDisplayView: View {
                             // icky change. OG color: ColorManager.connectGreen
                             .foregroundColor(Color.white)
                             .offset(y: 30)
-                    } else {
+                    }else if !self.data.savedDevices[self.data.devicePickerIndex!].inRange {
+                        Text("Out of Range")
+                            .font(.system(size: 20))
+                            // icky change. OG color: ColorManager.morePreset
+                            .foregroundColor(Color.white)
+                            .offset(y: 30)
+                }
+                    else {
                         Text("Available")
                             .font(.system(size: 20))
                             // icky change. OG color: ColorManager.morePreset
