@@ -51,7 +51,7 @@ struct Desk: Identifiable {
         self.name = "Discovered Device"
         self.id = deskID
         self.peripheral = deskPeripheral
-        self.inRange = ((rssi as? Double) ?? -1000.0) > -80.0 // -80.0dB -> ~3.5 meters away; test & adjust
+        self.inRange = ((rssi as? Double) ?? -1000.0) > -100.0 // -80.0dB -> ~3.5 meters away; test & adjust
         self.rssi = rssi
         self.isLastConnected = false
     }
