@@ -122,7 +122,9 @@ struct DeviceManagerView: View {
             .blur(radius: popupBackgroundBlur)
             
             // pop up for editing saved device properties
-            if (editDeviceIndex != -1) {
+            if (editDeviceIndex != -1),
+               (data.savedDevices.count > editDeviceIndex)
+            {
                 EditDeviceView(deviceIndex: $editDeviceIndex, selectedDevice: self.data.savedDevices[editDeviceIndex])
                     .onAppear() {
                         self.popupBackgroundBlur = 5
@@ -133,7 +135,9 @@ struct DeviceManagerView: View {
                         withAnimation(.easeOut(duration: 5),{})
                     }
             // pop up for saving a new discovered device
-            } else if (saveDeviceIndex != -1) {
+            } else if (saveDeviceIndex != -1),
+                      (bt.discoveredDevices.count > saveDeviceIndex)
+            {
                 SaveDeviceView(deviceIndex: $saveDeviceIndex, selectedDevice: self.bt.discoveredDevices[saveDeviceIndex])
                     .onAppear() {
                         self.popupBackgroundBlur = 5
