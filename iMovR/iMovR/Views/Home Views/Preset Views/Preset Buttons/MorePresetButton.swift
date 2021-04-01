@@ -34,7 +34,7 @@ struct MorePresetButton: View {
                         width: (geoWidth - 60)/8,
                         height: (geoWidth - 60)/8
                     )
-                    .foregroundColor((self.isPaged ? ColorManager.buttonPressed : ColorManager.buttonStatic))
+                    .foregroundColor((self.isPressed ? ColorManager.buttonPressed : ColorManager.buttonStatic))
             }
         }
         .gesture (

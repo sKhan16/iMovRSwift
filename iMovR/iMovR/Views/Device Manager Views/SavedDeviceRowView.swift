@@ -82,7 +82,7 @@ struct SavedDeviceRowView: View {
                                 .font(.system(size: 20)).bold()
                                 .truncationMode(.tail)
                                 .foregroundColor(Color.gray)
-                            Text("Out of Range")
+                            Text("Weak Signal - Move Closer")
                                 .font(Font.body.weight(.medium))
                                 .foregroundColor(Color.gray)
                         }
@@ -94,7 +94,7 @@ struct SavedDeviceRowView: View {
                             .font(.system(size: 20)).bold()
                             .truncationMode(.tail)
                             .foregroundColor(Color.gray)
-                        Text("Not Found Nearby")
+                        Text("Not Found")
                             .font(Font.body.weight(.medium))
                             .foregroundColor(Color.gray)
                     }

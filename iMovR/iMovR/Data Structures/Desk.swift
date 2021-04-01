@@ -26,7 +26,7 @@ struct Desk: Identifiable {
     
     // Default preset values, unless modified on desk initialization
     var presetHeights: [Float] = [30.0, 37.0, 38.0, -1.0, -1.0, -1.0]
-    var presetNames: [String] = ["Sitting", "Standing", "Walking", "Preset 4", "Preset 5", "Preset 6"]
+    var presetNames: [String] = ["Sit", "Stand", "Walk", "Preset 4", "Preset 5", "Preset 6"]
     
     
     // DeviceDataManager & CoreData Saved Desk Constructor

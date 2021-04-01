@@ -68,7 +68,7 @@ struct PickerDisplayView: View {
                         }
                         else
                         {
-                            Text("Out of Range")
+                            Text("Weak Signal - Move Closer")
                                 .font(.system(size: 20))
                                 // icky change. OG color: ColorManager.morePreset
                                 .foregroundColor(Color.white)
@@ -78,7 +78,7 @@ struct PickerDisplayView: View {
                     
                     else
                     {
-                        Text("Not Found Nearby")
+                        Text("Not Found")
                             .font(.system(size: 20))
                             // icky change. OG color: ColorManager.morePreset
                             .foregroundColor(Color.white)
