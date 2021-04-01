@@ -60,13 +60,13 @@ struct DeviceManagerView: View {
                     
                     ForEach(data.savedDevices, id:\.self.id)
                     { device -> SavedDeviceRowView? in
+                        
                         guard let index: Int = data.savedDevices.firstIndex(
                                 where: { (getidDevice) -> Bool in
                                     getidDevice.id == device.id
                                 })
-                        else {
-                            return nil
-                        }
+                        else { return nil }
+                        
                         return SavedDeviceRowView (
                             data: self.data,
                             edit: $editDeviceIndex,
