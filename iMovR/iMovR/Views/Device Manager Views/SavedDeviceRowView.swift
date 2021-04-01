@@ -164,10 +164,11 @@ private struct ConnectButton: View {
                     }
                     else
                     {
-                        Image("ConnectBlue")
+                        Image("ConnectPage")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)
+                            .foregroundColor(ColorManager.buttonPressed)
                     }
                 }
                 else
@@ -178,7 +179,7 @@ private struct ConnectButton: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 35, height: 35)
                         .grayscale(1.0)//grayed out
-                        .opacity(0.6)
+                        .opacity(0.55)
                 }
             }
             .gesture (
