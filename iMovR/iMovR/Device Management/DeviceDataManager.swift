@@ -85,9 +85,9 @@ public class DeviceDataManager: ObservableObject {
                 }
             }
         }
-        //DispatchQueue.main.sync { () -> Void in
-        self.savedDevices = convertedDevices
-        //}
+        DispatchQueue.main.async { () -> Void in
+            self.savedDevices = convertedDevices
+        }
         return true
     } // end pullPersistentData()
     
