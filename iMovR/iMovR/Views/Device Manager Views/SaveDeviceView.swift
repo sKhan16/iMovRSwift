@@ -85,15 +85,6 @@ struct SaveDeviceView: View {
                             .offset(y:8)
                         TextField(" new name", text: $newName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                        /*
-                         Text("Device ID:")
-                         .foregroundColor(Color.white)
-                         .font(Font.body.weight(.medium))
-                         .padding(.top, 10)
-                         .offset(y:8)
-                         TextField("change id?", text: $editID)
-                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                         */
                     }
                     .padding()
                     Spacer()
@@ -126,20 +117,6 @@ struct SaveDeviceView: View {
                         {
                             self.bt.discoveredDevices.remove(at: deviceIndex)
                             self.bt.scanForDevices(repeating: true)
-    //                        if let savedDeviceIndex: Int = bt.data.savedDevices.firstIndex(
-    //                            where: { (newSavedDevice: Desk) -> Bool in
-    //                                newSavedDevice.id == newDevice.id
-    //                            })
-    //                        {
-    //
-    ////*********************************************************************
-    //// I think code here needs to change, check related git commit comment
-    ////*********************************************************************
-    //                            let didConnect = bt.connectToDevice (
-    //                                    device: newDevice,
-    //                                    savedIndex: savedDeviceIndex )
-    //                            print("saved new device: did connect - \(didConnect)")
-    //                        }
                         }
                         self.showWarning = false
                         self.deviceIndex = -1
