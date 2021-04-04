@@ -1,5 +1,5 @@
 //
-//  SaveDeviceView.swift
+//  SaveDevicePopup.swift
 //  iMovR
 //
 //  Created by Michael Humphrey on 10/27/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SaveDeviceView: View {
+struct SaveDevicePopup: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     
@@ -173,7 +173,7 @@ struct SaveDeviceView: View {
 }
 
 
-struct SaveDeviceView_Previews: PreviewProvider {
+struct SaveDevicePopup_Previews: PreviewProvider {
     
     static var previews: some View {
         
@@ -182,7 +182,7 @@ struct SaveDeviceView_Previews: PreviewProvider {
             
             //DeviceManagerView()
             
-            SaveDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false))
+            SaveDevicePopup(deviceIndex: .constant(0), selectedDevice: Desk(name:"Main Office Desk",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false))
         }
     }
 }

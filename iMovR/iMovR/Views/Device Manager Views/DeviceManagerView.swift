@@ -138,7 +138,7 @@ struct DeviceManagerView: View {
             } else if (saveDeviceIndex != -1),
                       (bt.discoveredDevices.count > saveDeviceIndex)
             {
-                SaveDeviceView(deviceIndex: $saveDeviceIndex, selectedDevice: self.bt.discoveredDevices[saveDeviceIndex])
+                SaveDevicePopup(deviceIndex: $saveDeviceIndex, selectedDevice: self.bt.discoveredDevices[saveDeviceIndex])
                     .onAppear() {
                         self.popupBackgroundBlur = 5
                         withAnimation(.easeIn(duration: 5),{})
