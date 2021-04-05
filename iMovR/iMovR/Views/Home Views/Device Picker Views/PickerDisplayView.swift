@@ -40,25 +40,36 @@ struct PickerDisplayView: View {
                 }
             )
             { // button Label
-                ZStack {
+                ZStack
+                {
                     Text(data.savedDevices[self.data.devicePickerIndex!].name)
                         .font(.system(size: 40))
                         .foregroundColor(Color.white)
-                        .padding([.leading,.trailing], 35) //fix overlap in ZStack
+                        .padding([.leading,.trailing], 35)
                     
-                    if self.data.connectedDeskIndex != nil,
-                       self.data.connectedDeskIndex! == self.data.devicePickerIndex
+                    if self.data.savedDevices[self.data.devicePickerIndex!].peripheral != nil
                     {
-                        Text("Connected")
-                            .font(.system(size: 20))
-                            // icky change. OG color: ColorManager.connectGreen
-                            .foregroundColor(Color.white)
-                            .offset(y: 30)
-                    }
-                    
-                    else if self.data.savedDevices[self.data.devicePickerIndex!].peripheral != nil
-                    {
-                        if self.data.savedDevices[self.data.devicePickerIndex!].inRange
+                        if self.data.connectedDeskIndex != nil,
+                           self.data.connectedDeskIndex! == self.data.devicePickerIndex
+                        {
+                            Text("Connected")
+                                .font(.system(size: 20))
+                                // icky change. OG color: ColorManager.connectGreen
+                                .foregroundColor(Color.white)
+                                .offset(y: 30)
+                        }
+                        
+                        else if self.bt.connectingIndex != nil,
+                                self.bt.connectingIndex == self.data.devicePickerIndex
+                        {
+                            Text("Connecting")
+                                .font(.system(size: 20))
+                                // icky change. OG color: ColorManager.connectGreen
+                                .foregroundColor(Color.white)
+                                .offset(y: 30)
+                        }
+                        
+                        else if self.data.savedDevices[self.data.devicePickerIndex!].inRange
                         {
                             Text("Available")
                                 .font(.system(size: 20))
