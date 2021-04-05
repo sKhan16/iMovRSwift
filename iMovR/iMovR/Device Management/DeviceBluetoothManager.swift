@@ -32,7 +32,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     @Published var bluetoothEnabled: Bool = false
     private var centralManager: CBCentralManager?
     
-    private var connectingIndex: Int?
+    @Published var connectingIndex: Int?
     private var connectionTimeoutTimer: Timer?
     
     private var scanTimer: Timer?

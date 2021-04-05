@@ -52,21 +52,34 @@ struct SavedDeviceRowView: View {
                             .foregroundColor(Color.gray)
                     }
                     
-                    else if self.isConnected
-                    {
-                        Text(currDevice.name)
-                            .font(.system(size: 20)).bold()
-                            .truncationMode(.tail)
-                            .foregroundColor(ColorManager.buttonPressed)
-                        Text("Connected")
-                            // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
-                            .font(Font.body.weight(.medium))
-                            .foregroundColor(ColorManager.connectGreen)
-                    }
-                    
                     else if self.data.savedDevices[deviceIndex].peripheral != nil
                     {
-                        if self.data.savedDevices[deviceIndex].inRange
+                        if self.isConnected
+                        {
+                            Text(currDevice.name)
+                                .font(.system(size: 20)).bold()
+                                .truncationMode(.tail)
+                                .foregroundColor(ColorManager.buttonPressed)
+                            Text("Connected")
+                                // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
+                                .font(Font.body.weight(.medium))
+                                .foregroundColor(ColorManager.connectGreen)
+                        }
+                        
+                        else if bt.connectingIndex != nil,
+                                bt.connectingIndex == deviceIndex
+                        {
+                            Text(currDevice.name)
+                                .font(.system(size: 20)).bold()
+                                .truncationMode(.tail)
+                                .foregroundColor(ColorManager.buttonPressed)
+                            Text("Connecting")
+                                // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
+                                .font(Font.body.weight(.medium))
+                                .foregroundColor(ColorManager.connectGreen)
+                        }
+                        
+                        else if self.data.savedDevices[deviceIndex].inRange
                         {
                             Text(currDevice.name)
                                 .font(.system(size: 20)).bold()
@@ -74,14 +87,15 @@ struct SavedDeviceRowView: View {
                                 .foregroundColor(ColorManager.buttonPressed)
                             Text("Available") // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
                                 .font(Font.body.weight(.medium))
-                                .foregroundColor(ColorManager.buttonPressed)
+                                .foregroundColor(ColorManager.royalBlue)
                         }
+                        
                         else
                         {
                             Text(currDevice.name)
                                 .font(.system(size: 20)).bold()
                                 .truncationMode(.tail)
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(ColorManager.buttonPressed)
                             Text("Weak Signal - Move Closer")
                                 .font(Font.body.weight(.medium))
                                 .foregroundColor(Color.gray)
@@ -151,6 +165,14 @@ private struct ConnectButton: View {
                     if isConnected
                     {
                         Image("ConnectCheckMark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 35, height: 35)
+                    }
+                    else if bt.connectingIndex != nil,
+                            bt.connectingIndex == deviceIndex
+                    {
+                        Image("Connect3")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)
