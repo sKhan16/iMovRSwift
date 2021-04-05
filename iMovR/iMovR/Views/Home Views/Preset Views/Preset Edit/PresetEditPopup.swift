@@ -42,7 +42,7 @@ struct PresetEditPopup: View {
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(ColorManager.buttonPressed)
-                    Text("Please Connect To A Device")
+                    Text("Connect To A Device")
                         .font(Font.title2.bold())
                         .foregroundColor(ColorManager.buttonPressed)
                 }
