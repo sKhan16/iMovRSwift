@@ -20,13 +20,13 @@ struct SaveDevicePopup: View {
     
     var body: some View {
         ZStack {
-            if self.deviceNotValid()
+            if !self.isDeviceValid()
             {
                 EmptyView()
             }
             else
             {
-                // Background back button/color filter
+                // Background back button/gray color filter
                 Button (
                     action: { self.deviceIndex = -1 },
                     label: {
@@ -37,31 +37,16 @@ struct SaveDevicePopup: View {
                     }
                 )
                 VStack {
-                    
                     VStack {
-                        ZStack {
-                            Text("New Device")
-                                .font(Font.title.weight(.medium))
-                                .foregroundColor(ColorManager.buttonPressed)
-                                .padding(5)
-    //                        Button (
-    //                            action: {self.deviceIndex = -1},
-    //                            label: {
-    //                                Image(systemName: "trash")
-    //                                    .font(.system(size: 20.0))
-    //                                    .frame(width: 55, height: 25)
-    //                                .offset(x:-1)
-    //                                .background(Color.red)
-    //                                .cornerRadius(13)
-    //                                .shadow(radius: 3)
-    //                        } )
-    //                        .offset(x: 116, y: -14)
-                        }
+                        Text("New Device")
+                            .font(Font.title.weight(.medium))
+                            .foregroundColor(ColorManager.buttonPressed)
+                            .padding(5)
                         Rectangle()
                             .foregroundColor(ColorManager.buttonStatic)
                             .frame(maxWidth:.infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
                         VStack {
-                            Text("Discovered device")
+                            Text("Discovered Device")
                                 .font(Font.title3.weight(.medium))
                                 .foregroundColor(ColorManager.buttonPressed)
                             Text("Device ID: " + String(selectedDevice.id))
@@ -71,8 +56,6 @@ struct SaveDevicePopup: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, 10)
-                        //.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                        //.padding([.leading,.trailing])
                     }
                     .frame(maxWidth: .infinity)
                     .foregroundColor(Color.white)
@@ -102,43 +85,46 @@ struct SaveDevicePopup: View {
                             .shadow(radius: 5)
                     }
                     
-                    Button(action: {
-                        print("saving new device")
-                        guard newName != "" else {
-                            print("save new device error: no name given")
-                            self.showWarning = true
-                            return
-                        }
-                        
-                        var newDevice = self.selectedDevice
-                        newDevice.name = newName
-                        
-                        if self.bt.data.addDevice(desk: newDevice)
+                    Button (
+                        action:
                         {
-                            self.bt.discoveredDevices.remove(at: deviceIndex)
-                            self.bt.scanForDevices(repeating: true)
+                            guard newName != "" else {
+                                print("save new device error: no name given")
+                                self.showWarning = true
+                                return
+                            }
+                            
+                            print("saving new device")
+                            var newDevice = self.selectedDevice
+                            newDevice.name = newName
+                            
+                            if self.bt.data.addDevice(desk: newDevice)
+                            {
+                                self.bt.discoveredDevices.remove(at: deviceIndex)
+                                self.bt.scanForDevices(repeating: true)
+                            }
+                            self.showWarning = false
+                            self.deviceIndex = -1
+                            
+                        },
+                        label:
+                        {
+                            Text("Save")
+                                .font(Font.title2.bold())
+                                .foregroundColor(Color.white)
+                                .frame(width: 125, height: 45)
+                                .background(ColorManager.yesGreen)
+                                .cornerRadius(8)
                         }
-                        self.showWarning = false
-                        self.deviceIndex = -1
-                        
-                    }, // end save button action
-                    label: {
-                        Text("Save")
-                            .font(Font.title2.bold())
-                            .foregroundColor(Color.white)
-                            .frame(width: 125, height: 45)
-                            //.padding()
-                            .background(ColorManager.yesGreen)
-                            .cornerRadius(8)
-                            //.shadow(radius: 8)
-                    } ) // end save button.
+                    ) // end save button
                     .padding(.top, 35)
                     
                     Spacer()
                     
                     Button (
                         action: {self.deviceIndex = -1},
-                        label: {
+                        label:
+                        {
                             Text("Cancel")
                                 .font(Font.title2.bold())
                                 .foregroundColor(ColorManager.gray)
@@ -148,8 +134,6 @@ struct SaveDevicePopup: View {
                         }
                     )
                     .padding(.bottom, 45)
-                    //.frame(width:200,height:100)
-                    
                     
                 } // end top-level VStack
                 .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
@@ -160,14 +144,16 @@ struct SaveDevicePopup: View {
         }//end ZStack
     }//end Body
     
-    func deviceNotValid() -> Bool
+    func isDeviceValid() -> Bool
     {
-        if bt.discoveredDevices.count < deviceIndex || selectedDevice.id != bt.discoveredDevices[deviceIndex].id
-        {
+        guard deviceIndex != -1,
+              deviceIndex < bt.discoveredDevices.count,
+              selectedDevice.id == bt.discoveredDevices[deviceIndex].id
+        else {
             self.deviceIndex = -1
-            return true
+            return false
         }
-        return false
+        return true
     }
     
 }
