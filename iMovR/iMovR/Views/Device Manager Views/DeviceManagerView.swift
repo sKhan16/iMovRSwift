@@ -122,10 +122,10 @@ struct DeviceManagerView: View {
             .blur(radius: popupBackgroundBlur)
             
             // pop up for editing saved device properties
-            if (editDeviceIndex != -1),
-               (data.savedDevices.count > editDeviceIndex)
+            if editDeviceIndex != -1,
+               editDeviceIndex < data.savedDevices.count
             {
-                EditDeviceView(deviceIndex: $editDeviceIndex, selectedDevice: self.data.savedDevices[editDeviceIndex])
+                EditDevicePopup(deviceIndex: $editDeviceIndex, selectedDevice: self.data.savedDevices[editDeviceIndex])
                     .onAppear() {
                         self.popupBackgroundBlur = 5
                         withAnimation(.easeIn(duration: 5),{})

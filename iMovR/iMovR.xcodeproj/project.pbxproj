@@ -80,7 +80,7 @@
 		414E7F1F2547A66C00AA00AD /* SavedDeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */; };
 		414E7F242547A74B00AA00AD /* DiscoveredDeviceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */; };
 		414E7F332548D0EC00AA00AD /* SaveDevicePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F322548D0EC00AA00AD /* SaveDevicePopup.swift */; };
-		414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F442548D29200AA00AD /* EditDeviceView.swift */; };
+		414E7F452548D29200AA00AD /* EditDevicePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E7F442548D29200AA00AD /* EditDevicePopup.swift */; };
 		416C5FFC260C607F0011314D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 416C5FFB260C607F0011314D /* CoreBluetooth.framework */; };
 		4171ED9B25EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4171ED9925EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg */; };
 		4171ED9E25EF381700AB5C7F /* Repair_Icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */; };
@@ -180,7 +180,7 @@
 		414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDeviceRowView.swift; sourceTree = "<group>"; };
 		414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveredDeviceRowView.swift; sourceTree = "<group>"; };
 		414E7F322548D0EC00AA00AD /* SaveDevicePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDevicePopup.swift; sourceTree = "<group>"; };
-		414E7F442548D29200AA00AD /* EditDeviceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDeviceView.swift; sourceTree = "<group>"; };
+		414E7F442548D29200AA00AD /* EditDevicePopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDevicePopup.swift; sourceTree = "<group>"; };
 		416C5FFB260C607F0011314D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		4171ED9925EF380D00AB5C7F /* Top_Divider_Device_Manager_Page.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Top_Divider_Device_Manager_Page.svg; sourceTree = "<group>"; };
 		4171ED9D25EF381700AB5C7F /* Repair_Icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Repair_Icon.svg; sourceTree = "<group>"; };
@@ -329,7 +329,7 @@
 				41166133252BA9F80063A68D /* DeviceManagerView.swift */,
 				414E7F1E2547A66C00AA00AD /* SavedDeviceRowView.swift */,
 				414E7F232547A74B00AA00AD /* DiscoveredDeviceRowView.swift */,
-				414E7F442548D29200AA00AD /* EditDeviceView.swift */,
+				414E7F442548D29200AA00AD /* EditDevicePopup.swift */,
 				414E7F322548D0EC00AA00AD /* SaveDevicePopup.swift */,
 			);
 			path = "Device Manager Views";
@@ -698,7 +698,7 @@
 				1E23015724BCEB35009A0B3C /* AppDelegate.swift in Sources */,
 				1E21EFCA24C8FFC0008BDE9A /* PageViewController.swift in Sources */,
 				7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */,
-				414E7F452548D29200AA00AD /* EditDeviceView.swift in Sources */,
+				414E7F452548D29200AA00AD /* EditDevicePopup.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserDataManager.swift in Sources */,
 				1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */,
 				41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */,

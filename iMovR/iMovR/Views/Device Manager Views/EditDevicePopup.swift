@@ -1,5 +1,5 @@
 //
-//  EditDeviceView.swift
+//  EditDevicePopup.swift
 //  iMovR
 //
 //  Created by Michael Humphrey on 10/8/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EditDeviceView: View {
+struct EditDevicePopup: View {
     
     @EnvironmentObject var bt: DeviceBluetoothManager
     
@@ -27,15 +27,14 @@ struct EditDeviceView: View {
                     .fill(Color.gray)
                     .opacity(0.2)
                     .edgesIgnoringSafeArea(.top)
-                    //.blur(radius: 3.0)
             })
             
-            VStack {
-                
-                // Header
-                VStack {
-                    
-                    ZStack {
+            VStack // Main content:
+            {
+                VStack // Header
+                {
+                    ZStack
+                    {
                         Text("Edit Device")
                             .font(Font.title.weight(.medium)
                             .monospacedDigit())
@@ -59,7 +58,7 @@ struct EditDeviceView: View {
                             .font(Font.title3.weight(.medium))
                             .foregroundColor(ColorManager.buttonPressed)
                             .offset(y: 3)
-                        Text("Device ID: " + String(selectedDevice.id))
+                        Text("ID: " + String(selectedDevice.id))
                             .font(Font.body.monospacedDigit())
                             .foregroundColor(ColorManager.buttonPressed)
                             .padding(.top,1)
@@ -75,27 +74,18 @@ struct EditDeviceView: View {
                 .foregroundColor(Color.white)
                 
                 
-                // Content
-                if !confirmDeleteMenu {
-                    VStack(alignment: .leading) {
+                if !confirmDeleteMenu
+                { // Edit Device Menu
+                    VStack(alignment: .leading)
+                    {
                         Text("Edit Name")
                             .foregroundColor(ColorManager.buttonPressed)
                             .font(Font.body.weight(.medium))
                             .offset(y:8)
                         TextField(self.selectedDevice.name, text: $editName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                        /*
-                         Text("Device ID:")
-                         .foregroundColor(Color.white)
-                         .font(Font.body.weight(.medium))
-                         .padding(.top, 10)
-                         .offset(y:8)
-                         TextField("change id?", text: $editID)
-                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                         */
-                        
                     }
-                    .padding([.bottom,.leading,.trailing],20)
+                        .padding([.bottom,.leading,.trailing],20)
                     
                     Button(
                         action: {
@@ -132,9 +122,13 @@ struct EditDeviceView: View {
                     )
                     .padding(.bottom, 55)
                     
-                } else { // Confirm Delete Menu
-                    VStack {
-                        VStack {
+                }
+                else
+                { // Confirm Delete Menu
+                    VStack
+                    {
+                        VStack
+                        {
                             Text("Are you sure you want to delete this device?")
                                 .multilineTextAlignment(.center)
                                 .font(Font.title2.bold())
@@ -144,7 +138,6 @@ struct EditDeviceView: View {
                         }
                         .foregroundColor(.white)
                         .padding(15)
-                        
                         
                         Button (
                             action: {
@@ -161,29 +154,13 @@ struct EditDeviceView: View {
                         )
                         .padding(.top, 15)
                         
-                        
-//I can do this by using the indexBinding in DevicePicker, by using a .onChange(devicePickerIndex) in DevicePicker
                         Button (
-                            action: {
+                            action:
+                            {
                                 self.confirmDeleteMenu = false
                                 
-                                // Adjust device indices when removing a saved device
-                                // Stage devicePickerIndex
+                                // Adjust various device selection indices when removing a saved device
                                 bt.data.devicePickerIndex = nil
-                            /*
-                                if self.bt.data.devicePickerIndex != nil
-                                {
-                                    if self.deviceIndex == self.bt.data.devicePickerIndex
-                                    {
-                                        self.bt.data.devicePickerIndex = nil
-                                    }
-                                    else if self.deviceIndex < self.bt.data.devicePickerIndex!
-                                    {
-                                        self.bt.data.connectedDeskIndex! -= 1
-                                    }
-                                }
-                            */
-                                // Move connectedDeskIndex
                                 if self.bt.data.connectedDeskIndex != nil
                                 {
                                     if self.deviceIndex == self.bt.data.connectedDeskIndex
@@ -202,19 +179,19 @@ struct EditDeviceView: View {
                                     {
                                         self.bt.data.connectedDeskIndex! -= 1
                                     }
-                                } // End indices adjustments
+                                }
                                 
+                                // Delete this selected device
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1
-                                // Delete this selected device
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
                                 self.bt.scanForDevices(repeating: true)
                                 
-                                // Set devicePickerIndex post-delete.
+                                // reset devicePickerIndex after delete
                                 _=self.bt.data.setPickerIndex(decrement: true)
-                                
                             },
-                            label: {
+                            label:
+                            {
                                 Text("Delete")
                                     .font(Font.headline)
                                     .foregroundColor(Color.white)
@@ -233,16 +210,27 @@ struct EditDeviceView: View {
             }// end VStack
             .frame(minWidth: 300, idealWidth: 300, maxWidth: 300, minHeight: 430, idealHeight: 430, maxHeight: 430, alignment: .top).fixedSize(horizontal: true, vertical: true)
             .background(RoundedRectangle(cornerRadius: 25).fill(Color.white).shadow(color: ColorManager.gray, radius: 2))
-            //.overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.white, lineWidth: 1))
             .padding()
 
         }//end ZStack
-        //.onTapGesture { self.deviceIndex = -1 }
-        // Goes back when tapped outside of edit window
+        
     }//end Body
+    
+    func isDeviceValid() -> Bool
+    {
+        guard deviceIndex != -1,
+              deviceIndex < bt.discoveredDevices.count,
+              selectedDevice.id == bt.discoveredDevices[deviceIndex].id
+        else {
+            self.deviceIndex = -1
+            return false
+        }
+        return true
+    }
+    
 }
 
-struct EditDeviceView_Previews: PreviewProvider {
+struct EditDevicePopup_Previews: PreviewProvider {
 
     static var previews: some View {
         
@@ -251,7 +239,7 @@ struct EditDeviceView_Previews: PreviewProvider {
             
             //DeviceManagerView()
         
-            EditDeviceView(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678, presetHeights:[], presetNames: [], isLastConnected: false))
+            EditDevicePopup(deviceIndex: .constant(0), selectedDevice: Desk(name: "Office Desk 1", deskID: 12345678, presetHeights:[], presetNames: [], isLastConnected: false))
         }
     }
 }
