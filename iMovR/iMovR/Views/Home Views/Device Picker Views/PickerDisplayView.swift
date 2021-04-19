@@ -14,6 +14,7 @@ struct PickerDisplayView: View {
     @ObservedObject var data: DeviceDataManager
     @Binding var isConnected: Bool
     
+    /// Picker index in deviceDataManager check before action blocks and see if equivalent to connDeskIndex to work. If not then no work and only show UI.
     
     @ViewBuilder
     var body: some View {
