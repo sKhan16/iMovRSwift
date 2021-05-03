@@ -329,5 +329,14 @@ public class DeviceDataManager: ObservableObject {
         
     }
     
+    func isIndexEqual () -> Bool {
+        var isEqual: Bool = false
+        
+        if self.devicePickerIndex != nil && self.connectedDeskIndex != nil {
+            isEqual = (self.devicePickerIndex == self.connectedDeskIndex)
+        }
+        
+        return isEqual
+    }
     
 }
