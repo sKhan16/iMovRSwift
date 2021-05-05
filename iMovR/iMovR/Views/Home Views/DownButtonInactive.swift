@@ -34,7 +34,7 @@ struct DownButtonInactive_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            DownButton(pressed: .constant(false), unpressedTimer: .constant(nil))
+            DownButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

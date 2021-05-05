@@ -80,11 +80,11 @@ struct HomeViewV2: View {
                                 Spacer()
                                 VStack {
                                     UpButton (
-                                        data: data, pressed: self.$suppressStopButton,
+                                        data: self.data, pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
                                     DownButton (
-                                        pressed: self.$suppressStopButton,
+                                        data: self.data, pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
                                 }
