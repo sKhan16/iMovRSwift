@@ -18,6 +18,7 @@ public class DeviceDataManager: ObservableObject {
     @Published var savedDevices: [Desk] = []
     @Published var connectedDeskIndex: Int?
     @Published var devicePickerIndex: Int?
+    @Published var isIndexEqual: Bool = false
     
     private var fetchedDevices: [ZipDeskData]?
     
@@ -329,14 +330,15 @@ public class DeviceDataManager: ObservableObject {
         
     }
     
-    func isIndexEqual () -> Bool {
-        var isEqual: Bool = false
-        
-        if self.devicePickerIndex != nil && self.connectedDeskIndex != nil {
-            isEqual = (self.devicePickerIndex == self.connectedDeskIndex)
-        }
-        
-        return isEqual
-    }
+    // checks to see if  device picker index and connected desk index are equal
+//    func isIndexEqual () -> Bool {
+//        var isEqual: Bool = false
+//
+//        if self.devicePickerIndex != nil && self.connectedDeskIndex != nil {
+//            isEqual = (self.devicePickerIndex == self.connectedDeskIndex)
+//        }
+//
+//        return isEqual
+//    }
     
 }

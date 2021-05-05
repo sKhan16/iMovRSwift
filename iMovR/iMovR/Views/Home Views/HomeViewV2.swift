@@ -47,6 +47,8 @@ struct HomeViewV2: View {
 //                        .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
                     DevicePicker (data: self.data)
+       
+                    
                     
                     ZStack(alignment: .center) {
                         HeightSliderV2 (
@@ -78,7 +80,7 @@ struct HomeViewV2: View {
                                 Spacer()
                                 VStack {
                                     UpButton (
-                                        pressed: self.$suppressStopButton,
+                                        data: data, pressed: self.$suppressStopButton,
                                         unpressedTimer: self.$unpressedUpDownTimer
                                     )
                                     DownButton (

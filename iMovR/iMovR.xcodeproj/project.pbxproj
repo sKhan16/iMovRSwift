@@ -100,6 +100,10 @@
 		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
 		7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92982525EF16FC008A6504 /* PresetBG.swift */; };
+		7DB58D1E26408FB7001BC4D7 /* UpButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */; };
+		7DB58D2126409059001BC4D7 /* UpButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */; };
+		7DB58D24264312CC001BC4D7 /* DownButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D23264312CC001BC4D7 /* DownButtonActive.swift */; };
+		7DB58D2726431328001BC4D7 /* DownButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2626431328001BC4D7 /* DownButtonInactive.swift */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +205,10 @@
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		7D92982525EF16FC008A6504 /* PresetBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetBG.swift; sourceTree = "<group>"; };
+		7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonActive.swift; sourceTree = "<group>"; };
+		7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonInactive.swift; sourceTree = "<group>"; };
+		7DB58D23264312CC001BC4D7 /* DownButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButtonActive.swift; sourceTree = "<group>"; };
+		7DB58D2626431328001BC4D7 /* DownButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButtonInactive.swift; sourceTree = "<group>"; };
 		893E3CBD5644BA439014A61E /* Pods-iMovR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.debug.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -456,7 +464,11 @@
 				41BD1DE525D20E5500260282 /* Device Picker Views */,
 				410358752583FF4100B4C3A2 /* Height Indication */,
 				1E94E1F224C27ED400155123 /* UpButton.swift */,
+				7DB58D23264312CC001BC4D7 /* DownButtonActive.swift */,
+				7DB58D2626431328001BC4D7 /* DownButtonInactive.swift */,
 				1E94E1F424C2801E00155123 /* DownButton.swift */,
+				7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */,
+				7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */,
 				416105FD2578726900D87A49 /* Preset Views */,
 			);
 			path = "Home Views";
@@ -692,6 +704,7 @@
 				1E21EFCC24C90177008BDE9A /* PageControl.swift in Sources */,
 				1EE60ED8253A310000B564F8 /* TnGToggle.swift in Sources */,
 				1EAA5C78252B90E300A471E2 /* StartGoButton.swift in Sources */,
+				7DB58D2726431328001BC4D7 /* DownButtonInactive.swift in Sources */,
 				1EAA5C82252BADD200A471E2 /* HomeViewV2.swift in Sources */,
 				41462FAE253A571E006C96C9 /* DeviceBluetoothManager.swift in Sources */,
 				1E94E1F524C2801E00155123 /* DownButton.swift in Sources */,
@@ -728,8 +741,11 @@
 				1EAA5CF325359A3B00A471E2 /* MorePresetButton.swift in Sources */,
 				1E21EFC624C8E869008BDE9A /* Subview.swift in Sources */,
 				41D54EA825B0FDE9002833B5 /* PresetEditOptions.swift in Sources */,
+				7DB58D2126409059001BC4D7 /* UpButtonInactive.swift in Sources */,
 				1EAA5CA6252BE1A600A471E2 /* DevicePicker.swift in Sources */,
 				41AD0F0D254CD54400B828BA /* PresetNew.swift in Sources */,
+				7DB58D24264312CC001BC4D7 /* DownButtonActive.swift in Sources */,
+				7DB58D1E26408FB7001BC4D7 /* UpButtonActive.swift in Sources */,
 				419062492575C45F00D80D57 /* AddPresetView.swift in Sources */,
 				41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */,
 				4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */,
