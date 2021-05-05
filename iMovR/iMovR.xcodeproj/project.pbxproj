@@ -104,6 +104,7 @@
 		7DB58D2126409059001BC4D7 /* UpButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */; };
 		7DB58D24264312CC001BC4D7 /* DownButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D23264312CC001BC4D7 /* DownButtonActive.swift */; };
 		7DB58D2726431328001BC4D7 /* DownButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2626431328001BC4D7 /* DownButtonInactive.swift */; };
+		7DB58D2A26431B02001BC4D7 /* InactivePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2926431B02001BC4D7 /* InactivePreset.swift */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +210,7 @@
 		7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonInactive.swift; sourceTree = "<group>"; };
 		7DB58D23264312CC001BC4D7 /* DownButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButtonActive.swift; sourceTree = "<group>"; };
 		7DB58D2626431328001BC4D7 /* DownButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownButtonInactive.swift; sourceTree = "<group>"; };
+		7DB58D2926431B02001BC4D7 /* InactivePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivePreset.swift; sourceTree = "<group>"; };
 		893E3CBD5644BA439014A61E /* Pods-iMovR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.debug.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -299,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				1E94E1E424C0F72800155123 /* PresetButton.swift */,
+				7DB58D2926431B02001BC4D7 /* InactivePreset.swift */,
 				1EAA5C72252B90C000A471E2 /* TouchGoButton.swift */,
 				1EAA5C77252B90E300A471E2 /* StartGoButton.swift */,
 				1EAA5C7C252B90EE00A471E2 /* StopGoButton.swift */,
@@ -747,6 +750,7 @@
 				7DB58D24264312CC001BC4D7 /* DownButtonActive.swift in Sources */,
 				7DB58D1E26408FB7001BC4D7 /* UpButtonActive.swift in Sources */,
 				419062492575C45F00D80D57 /* AddPresetView.swift in Sources */,
+				7DB58D2A26431B02001BC4D7 /* InactivePreset.swift in Sources */,
 				41166134252BA9F80063A68D /* DeviceManagerView.swift in Sources */,
 				4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
