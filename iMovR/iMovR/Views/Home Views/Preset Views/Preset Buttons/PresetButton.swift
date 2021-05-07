@@ -57,7 +57,7 @@ struct PresetButton: View {
                         InactivePreset(zipdeskUI: self.bt.zipdesk,
                                        presetHeight: heightBinding,
                                        geoWidth: geoWidth)
-                    }
+                                            }
                     Text(currDesk!.presetNames[self.index])
                         .font(.system(size: 14))
                         .foregroundColor(ColorManager.gray)
