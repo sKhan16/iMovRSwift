@@ -13,6 +13,8 @@ struct InactivePreset: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @ObservedObject var zipdeskUI: ZGoZipDeskController
     @Binding var presetHeight: Float
+    
+    @Binding var showInactivePopup: Bool
         
 //    var Unpressed = Image("ButtonFlat")
 //    var Pressed = Image("ButtonPressed")
@@ -24,6 +26,7 @@ struct InactivePreset: View {
     var body: some View {
         Button(action: {
            
+          
         }) {
             ZStack {
                 PresetBG(geoWidth: geoWidth)
@@ -35,11 +38,23 @@ struct InactivePreset: View {
                     .foregroundColor(Color(UIColor.systemBlue))
             }
             .foregroundColor(ColorManager.preset)
+            .onLongPressGesture (
+                minimumDuration: 15,
+                maximumDistance: CGFloat((geoWidth - 60)/4),
+                pressing: { pressing in
+                    self.pressed = pressing
+                    if pressing { // press begun
+                        self.showInactivePopup = true
+                        
+                    }
+                },
+                perform: {}
+            )
         }//end Button view 'Label'
     }
 }
 struct InactivePreset_Previews: PreviewProvider {
     static var previews: some View {
-        InactivePreset(zipdeskUI: ZGoZipDeskController(), presetHeight: .constant(33.3), geoWidth: CGFloat(300))
+        InactivePreset(zipdeskUI: ZGoZipDeskController(), presetHeight: .constant(33.3),showInactivePopup: .constant(false), geoWidth: CGFloat(300))
     }
 }

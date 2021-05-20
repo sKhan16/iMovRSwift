@@ -18,6 +18,7 @@ struct HomeViewV2: View {
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     
     @State private var showPresetPopup: Bool = false
+    @State private var showInactivePopup: Bool = false 
     @State private var popupBackgroundBlur: CGFloat = 0
     
     @State private var notMovingTimer: Timer?
@@ -109,7 +110,7 @@ struct HomeViewV2: View {
                             isMoving: self.$isMoving,
                             showAddPreset: self.$showAddPreset,
                             showPresetPopup: self.$showPresetPopup,
-                            geoWidth: geo.size.width
+                            showInactivePopup: self.$showInactivePopup, geoWidth: geo.size.width
                         )
                         }
                     }
@@ -134,6 +135,22 @@ struct HomeViewV2: View {
                             withAnimation(.easeOut(duration: 5),{})
                         }
                 }
+                
+                if (self.showInactivePopup) {
+                    InactivePopup (
+                        data: self.data, show: self.$showInactivePopup
+                    )
+                        .environmentObject(bt)
+                        .onAppear() {
+                            self.popupBackgroundBlur = 5
+                            withAnimation(.easeIn(duration: 5),{})
+                        }
+                        .onDisappear() {
+                            self.popupBackgroundBlur = 0
+                            withAnimation(.easeOut(duration: 5),{})
+                        }
+                }
+             
                 
                 
                 // Popup for Stop Button

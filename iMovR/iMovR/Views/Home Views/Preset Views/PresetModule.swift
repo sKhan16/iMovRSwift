@@ -16,10 +16,13 @@ struct PresetModule: View {
     @Binding var isPaged: Bool
     //@Binding var isTouchGo: Bool   replaced by 'user.tngEnabled'
     
+    
     @Binding var isMoving: Bool
     
     @Binding var showAddPreset: [Bool]
     @Binding var showPresetPopup: Bool
+    @Binding var showInactivePopup: Bool
+    
     var geoWidth: CGFloat
     
     var body: some View {
@@ -30,6 +33,7 @@ struct PresetModule: View {
                         data: bt.data,
                         index: 3,
                         showAddPreset: self.$showAddPreset[3],
+                        showInactivePreset: self.$showInactivePopup,
                         isMoving: self.$isMoving,
                         geoWidth: geoWidth
                     )
@@ -47,6 +51,7 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 4,
                             showAddPreset: self.$showAddPreset[4],
+                            showInactivePreset: self.$showInactivePopup,
                             isMoving: self.$isMoving,
                             geoWidth: geoWidth
                         )
@@ -56,7 +61,7 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 5,
                             showAddPreset: self.$showAddPreset[5],
-                            isMoving: self.$isMoving, geoWidth: geoWidth
+                            showInactivePreset: self.$showInactivePopup, isMoving: self.$isMoving, geoWidth: geoWidth
                         )
                             .fixedSize()
                             .padding(.leading, 10)
@@ -71,7 +76,7 @@ struct PresetModule: View {
                         data: bt.data,
                         index: 0,
                         showAddPreset: self.$showAddPreset[0],
-                        isMoving: self.$isMoving,
+                        showInactivePreset: self.$showInactivePopup, isMoving: self.$isMoving,
                         geoWidth: geoWidth
                     )
                         .fixedSize()
@@ -88,7 +93,7 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 1,
                             showAddPreset: self.$showAddPreset[1],
-                            isMoving: self.$isMoving,
+                            showInactivePreset: self.$showInactivePopup, isMoving: self.$isMoving,
                             geoWidth: geoWidth
                         )
                             .fixedSize()
@@ -97,7 +102,7 @@ struct PresetModule: View {
                             data: bt.data,
                             index: 2,
                             showAddPreset: self.$showAddPreset[2],
-                            isMoving: self.$isMoving, geoWidth: geoWidth
+                            showInactivePreset: self.$showInactivePopup, isMoving: self.$isMoving, geoWidth: geoWidth
                         )
                             .fixedSize()
                             .padding(.leading, 10)
@@ -136,7 +141,7 @@ struct PresetModule_Previews: PreviewProvider {
                     isMoving: .constant(false),
                     showAddPreset: .constant([Bool](repeating: false, count: 6)),
                     showPresetPopup: .constant(false),
-                    geoWidth: CGFloat(300)
+                    showInactivePopup: .constant(false), geoWidth: CGFloat(300)
                     
                 )
                 .environmentObject(DeviceBluetoothManager(previewMode: true)!)

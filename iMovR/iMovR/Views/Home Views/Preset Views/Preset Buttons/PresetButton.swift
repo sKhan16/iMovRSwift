@@ -14,6 +14,7 @@ struct PresetButton: View {
     @ObservedObject var data: DeviceDataManager
     let index: Int
     @Binding var showAddPreset: Bool
+    @Binding var showInactivePreset: Bool 
     // @Binding var isTouchGo: Bool   replaced by 'user.tngEnabled'
     @Binding var isMoving: Bool
     
@@ -56,7 +57,7 @@ struct PresetButton: View {
                     } else {
                         InactivePreset(zipdeskUI: self.bt.zipdesk,
                                        presetHeight: heightBinding,
-                                       geoWidth: geoWidth)
+                                       showInactivePopup: self.$showInactivePreset, geoWidth: geoWidth)
                                             }
                     Text(currDesk!.presetNames[self.index])
                         .font(.system(size: 14))
