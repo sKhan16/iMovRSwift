@@ -4,6 +4,7 @@ struct DownButtonInactive: View {
     @EnvironmentObject var bt: DeviceBluetoothManager
     @Binding var pressed: Bool
     @Binding var unpressedTimer: Timer?
+    @Binding var showInactivePopup: Bool
     
     var Unpressed = Image("DownButton")
     var Pressed = Image("DownButtonPressed")
@@ -26,6 +27,18 @@ struct DownButtonInactive: View {
                         .onEnded({ _ in
                             ButtonBG = false
                         }))
+                .onLongPressGesture (
+                    minimumDuration: 15,
+                    maximumDistance: CGFloat(50),
+                    pressing: { pressing in
+                        self.pressed = pressing
+                        if pressing { // press begun
+                          //  self.showInactivePopup = true
+                            
+                        }
+                    },
+                    perform: {}
+                )
         }
     }
 }
@@ -34,7 +47,7 @@ struct DownButtonInactive_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            DownButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil))
+            DownButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil), showInactivePopup: .constant(false))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

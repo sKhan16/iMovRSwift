@@ -39,6 +39,7 @@ struct UpButtonInactive: View {
     
     @Binding var pressed: Bool
     @Binding var unpressedTimer: Timer?
+    @Binding var showInactivePopup: Bool
     
     var Unpressed = Image("UpButton")
     var Pressed = Image("UpButtonPressed")
@@ -62,7 +63,18 @@ struct UpButtonInactive: View {
                         .onEnded({ _ in
                             ButtonBG = false
                         }))
-                
+                .onLongPressGesture (
+                    minimumDuration: 15,
+                    maximumDistance: CGFloat(50),
+                    pressing: { pressing in
+                        self.pressed = pressing
+                        if pressing { // press begun
+                           // self.showInactivePopup = true
+                            
+                        }
+                    },
+                    perform: {}
+                )
 //                .foregroundColor(animateColor)
 //                .blur(radius: animateBlur)
 //                .opacity(animateOpacity)
@@ -76,7 +88,7 @@ struct UpButtonInactive_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            UpButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil))
+            UpButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil), showInactivePopup: .constant(false))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

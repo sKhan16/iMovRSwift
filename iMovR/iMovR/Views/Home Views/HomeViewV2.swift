@@ -82,11 +82,11 @@ struct HomeViewV2: View {
                                 VStack {
                                     UpButton (
                                         data: self.data, pressed: self.$suppressStopButton,
-                                        unpressedTimer: self.$unpressedUpDownTimer
+                                        unpressedTimer: self.$unpressedUpDownTimer, showInactivePopup: self.$showInactivePopup
                                     )
                                     DownButton (
                                         data: self.data, pressed: self.$suppressStopButton,
-                                        unpressedTimer: self.$unpressedUpDownTimer
+                                        unpressedTimer: self.$unpressedUpDownTimer, showInactivePopup: self.$showInactivePopup
                                     )
                                 }
                                     .padding(.leading, 65)

@@ -95,7 +95,7 @@ struct UpButtonActive_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            UpButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil))
+            UpButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil), showInactivePopup: .constant(false))
                 .environmentObject(DeviceBluetoothManager())
         }
     }

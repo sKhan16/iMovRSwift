@@ -39,6 +39,7 @@ struct UpButton: View {
     @ObservedObject var data: DeviceDataManager
     @Binding var pressed: Bool
     @Binding var unpressedTimer: Timer?
+    @Binding var showInactivePopup: Bool
     
     var Unpressed = Image("UpButton")
     var Pressed = Image("UpButtonPressed")
@@ -52,7 +53,7 @@ struct UpButton: View {
         if (self.data.connectedDeskIndex == self.data.devicePickerIndex) && (self.data.connectedDeskIndex != nil) {
             UpButtonActive(pressed: self.$pressed, unpressedTimer: self.$unpressedTimer)
         } else {
-            UpButtonInactive(pressed: self.$pressed, unpressedTimer: self.$unpressedTimer)
+            UpButtonInactive(pressed: self.$pressed, unpressedTimer: self.$unpressedTimer, showInactivePopup: self.$showInactivePopup)
         }
 }
 
@@ -61,7 +62,7 @@ struct UpButton_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             ColorManager.bgColor.edgesIgnoringSafeArea(.all)
-            UpButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil))
+            UpButton(data: DeviceDataManager(), pressed: .constant(false), unpressedTimer: .constant(nil), showInactivePopup: .constant(false))
                 .environmentObject(DeviceBluetoothManager())
         }
     }
