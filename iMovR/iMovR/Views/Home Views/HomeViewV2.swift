@@ -64,10 +64,10 @@ struct HomeViewV2: View {
                             VStack(alignment: .trailing) { HStack() {
                                 Spacer()
                                 Text (
-                                    String(format: "%.1f", self.zipdeskUI.deskHeight)
+                                    //String(format: "%.1f", self.zipdeskUI.deskHeight)
                                     
                                     /// conditional for mismatches indices. shows -0.0 for some reason
-                                    //(self.data.connectedDeskIndex == self.data.devicePickerIndex ? self.zipdeskUI.deskHeight : "0.0")
+                                    (self.data.connectedDeskIndex == self.data.devicePickerIndex ? String(format: "%.1f", self.zipdeskUI.deskHeight) : "0.0")
                                     
                                 )
                                     .font(.system(size: 55))
