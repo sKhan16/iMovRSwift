@@ -40,7 +40,7 @@ struct InactivePopup: View {
                     .foregroundColor(ColorManager.buttonPressed)
                 
                 if self.data.devicePickerIndex != nil {
-                    Text("Connect To \(self.data.savedDevices[self.data.devicePickerIndex!].name)")
+                    Text("You are not connected to this desk:  \(self.data.savedDevices[self.data.devicePickerIndex!].name)")
                         .font(Font.title2.bold())
                         .foregroundColor(ColorManager.buttonPressed)
                 }
