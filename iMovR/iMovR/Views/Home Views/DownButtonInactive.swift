@@ -33,7 +33,7 @@ struct DownButtonInactive: View {
                     pressing: { pressing in
                         self.pressed = pressing
                         if pressing { // press begun
-                          //  self.showInactivePopup = true
+                            self.showInactivePopup = true
                             
                         }
                     },
