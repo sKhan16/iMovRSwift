@@ -31,7 +31,7 @@ struct InactivePopup: View {
             VStack {
                // Display Presets List
             
-                Text("Preset Settings")
+                Text("ERROR")
                     .font(Font.title)
                     .foregroundColor(ColorManager.buttonPressed)
                     .padding(.top, 5)
@@ -40,10 +40,16 @@ struct InactivePopup: View {
                     .foregroundColor(ColorManager.buttonPressed)
                 
                 if self.data.devicePickerIndex != nil {
-                    Text("You are not connected to this desk:  \(self.data.savedDevices[self.data.devicePickerIndex!].name)")
+                    VStack {
+                        Text("You are not connected to this desk:  \(self.data.savedDevices[self.data.devicePickerIndex!].name)")
                         .font(Font.title2.bold())
                         .foregroundColor(ColorManager.buttonPressed)
                         .padding()
+                        
+//                        if self.data.connectedDeskIndex != nil {
+//                            CurrDeskButton(data: self.data)
+//                        }
+                    }
                 }
                 
          
