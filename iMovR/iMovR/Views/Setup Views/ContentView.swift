@@ -75,6 +75,20 @@ struct ContentView: View {
 
             
             
+            
+            TreadmillBTTest()
+                .background (
+                    Image("Background")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                )
+                .tabItem {
+                    VStack {
+                        Image(systemName: "gearshape.2.fill")
+                        Text("Settings")
+                    }
+                }.tag(2)
 //            // Settings Page Tab
 //            SettingView().tabItem {
 //                VStack {

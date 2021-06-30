@@ -107,6 +107,7 @@
 		7DB58D2A26431B02001BC4D7 /* InactivePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2926431B02001BC4D7 /* InactivePreset.swift */; };
 		7DB58D302645D496001BC4D7 /* InactivePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2F2645D496001BC4D7 /* InactivePopup.swift */; };
 		7DD4DE1C2685175C00C8977B /* CurrDeskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4DE1B2685175C00C8977B /* CurrDeskButton.swift */; };
+		7DD4DE21268C491500C8977B /* TreadmillBTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4DE20268C491500C8977B /* TreadmillBTTest.swift */; };
 		A5DD55400AA1B5CD089E3EBF /* Pods_iMovR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,7 @@
 		7DB58D2926431B02001BC4D7 /* InactivePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivePreset.swift; sourceTree = "<group>"; };
 		7DB58D2F2645D496001BC4D7 /* InactivePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivePopup.swift; sourceTree = "<group>"; };
 		7DD4DE1B2685175C00C8977B /* CurrDeskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrDeskButton.swift; sourceTree = "<group>"; };
+		7DD4DE20268C491500C8977B /* TreadmillBTTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreadmillBTTest.swift; sourceTree = "<group>"; };
 		893E3CBD5644BA439014A61E /* Pods-iMovR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.debug.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F327044AEF5E4A397ABD33 /* Pods_iMovR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iMovR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -510,6 +512,7 @@
 				4138A3A324DD003E00BF9B64 /* Setup Views */,
 				416105FC2578714500D87A49 /* Home Views */,
 				41166132252BA9A80063A68D /* Device Manager Views */,
+				7DD4DE20268C491500C8977B /* TreadmillBTTest.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				7DB58D302645D496001BC4D7 /* InactivePopup.swift in Sources */,
 				4136705E256DB6040051ED8C /* iMovR.xcdatamodeld in Sources */,
 				1E23015924BCEB35009A0B3C /* SceneDelegate.swift in Sources */,
+				7DD4DE21268C491500C8977B /* TreadmillBTTest.swift in Sources */,
 				1E21EFC824C8FF37008BDE9A /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
