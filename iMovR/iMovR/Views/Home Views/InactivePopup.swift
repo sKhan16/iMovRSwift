@@ -45,7 +45,8 @@ struct InactivePopup: View {
                         .font(Font.title2.bold())
                         .foregroundColor(ColorManager.buttonPressed)
                         .padding()
-                        
+
+                        ///Switch to curr desk button WIP
 //                        if self.data.connectedDeskIndex != nil {
 //                            CurrDeskButton(data: self.data)
 //                        }
