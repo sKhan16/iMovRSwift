@@ -14,6 +14,7 @@ struct PresetButton: View {
     @ObservedObject var data: DeviceDataManager
     let index: Int
     @Binding var showAddPreset: Bool
+    @Binding var showInactivePreset: Bool 
     // @Binding var isTouchGo: Bool   replaced by 'user.tngEnabled'
     @Binding var isMoving: Bool
     
@@ -21,10 +22,13 @@ struct PresetButton: View {
     
     @State private var pressed: Bool = false
     var geoWidth: CGFloat
+    var selectedIndex: Int?
     
     
     var body: some View {
-        if let deskIndex: Int = data.connectedDeskIndex {
+        
+        
+        if let deskIndex: Int = data.devicePickerIndex {
             
             let currDesk: Desk? = data.savedDevices[deskIndex]
             let height: Float? = currDesk?.presetHeights[self.index]
@@ -36,18 +40,25 @@ struct PresetButton: View {
                     set: { _ in } /*Intended for Read-Only*/
                 )
                 ZStack {
-                    if user.tngEnabled {
-                        ZStack {
-                            TouchPreset(zipdeskUI: self.bt.zipdesk,
-                                        presetHeight: heightBinding,
-                                        geoWidth: geoWidth
-                            )
-                        }
-                    }
-                    else {
-                        HoldPreset(presetHeight: heightBinding, geoWidth: geoWidth)
-                    }
+                    if self.data.connectedDeskIndex == self.data.devicePickerIndex {
                     
+                        if user.tngEnabled {
+                            ZStack {
+                                TouchPreset(zipdeskUI: self.bt.zipdesk,
+                                            presetHeight: heightBinding,
+                                            geoWidth: geoWidth
+                                )
+                            }
+                        }
+                        else {
+                            HoldPreset(presetHeight: heightBinding, geoWidth: geoWidth)
+                        }
+                   
+                    } else {
+                        InactivePreset(zipdeskUI: self.bt.zipdesk,
+                                       presetHeight: heightBinding,
+                                       showInactivePopup: self.$showInactivePreset, geoWidth: geoWidth)
+                                            }
                     Text(currDesk!.presetNames[self.index])
                         .font(.system(size: 14))
                         .foregroundColor(ColorManager.gray)

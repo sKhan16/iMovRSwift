@@ -40,7 +40,7 @@ struct HeightSliderV2: View {
                             height: min ( CGFloat(self.zipdeskUI.normalizedHeight) * geometry.size.height, geometry.size.height
                             )
                         )
-                        .foregroundColor(Color(UIColor.systemGreen))
+                            .foregroundColor(deviceData.connectedDeskIndex == deviceData.devicePickerIndex ? Color(UIColor.systemGreen) : Color(UIColor.systemRed))
                             .animation(Animation.linear(duration: 0.55))
                     }
                     .frame(idealWidth: 25, maxWidth: 25, maxHeight: .infinity)

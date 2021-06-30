@@ -310,7 +310,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         for (index, digit) in rawData.enumerated() {
             manufacturerDeskID += Int(digit - 48) * Int(pow(10,Double(7-index)))
         }
-        print("iOS discovered device w/ id# \(manufacturerDeskID) rssi \(RSSI) in range? \(self.isInRange(rssi: RSSI) ? "yes":"no")")
+        //print("iOS discovered device w/ id# \(manufacturerDeskID) rssi \(RSSI) in range? \(self.isInRange(rssi: RSSI) ? "yes":"no")")
         
         
         DispatchQueue.main.sync { () -> Void in

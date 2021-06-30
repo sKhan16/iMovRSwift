@@ -14,7 +14,9 @@ struct PickerDisplayView: View {
     @ObservedObject var data: DeviceDataManager
     @Binding var isConnected: Bool
     
-    
+    /// Picker index in deviceDataManager check before action blocks and see if equivalent to connDeskIndex to work. If not then no work and only show UI.
+    /// local variable in views that checks if pickerIndex is
+    /// Create modularized views for ZipDeskControl. To use for other device views as well
     @ViewBuilder
     var body: some View {
         if data.devicePickerIndex != nil,

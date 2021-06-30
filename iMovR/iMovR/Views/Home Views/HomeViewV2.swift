@@ -18,6 +18,7 @@ struct HomeViewV2: View {
     @State var showAddPreset: [Bool] = [Bool](repeating: false, count: 6)
     
     @State private var showPresetPopup: Bool = false
+    @State private var showInactivePopup: Bool = false 
     @State private var popupBackgroundBlur: CGFloat = 0
     
     @State private var notMovingTimer: Timer?
@@ -47,6 +48,8 @@ struct HomeViewV2: View {
 //                        .frame(width: geo.size.width / 6, height: geo.size.height / 10)
                     
                     DevicePicker (data: self.data)
+       
+                    
                     
                     ZStack(alignment: .center) {
                         HeightSliderV2 (
@@ -61,7 +64,11 @@ struct HomeViewV2: View {
                             VStack(alignment: .trailing) { HStack() {
                                 Spacer()
                                 Text (
-                                    String(format: "%.1f", self.zipdeskUI.deskHeight)
+                                    //String(format: "%.1f", self.zipdeskUI.deskHeight)
+                                    
+                                    /// conditional for mismatches indices. shows -0.0 for some reason
+                                    (self.data.connectedDeskIndex == self.data.devicePickerIndex ? String(format: "%.1f", self.zipdeskUI.deskHeight) : "0.0")
+                                    
                                 )
                                     .font(.system(size: 55))
                                     .lineLimit(1)
@@ -78,12 +85,12 @@ struct HomeViewV2: View {
                                 Spacer()
                                 VStack {
                                     UpButton (
-                                        pressed: self.$suppressStopButton,
-                                        unpressedTimer: self.$unpressedUpDownTimer
+                                        data: self.data, pressed: self.$suppressStopButton,
+                                        unpressedTimer: self.$unpressedUpDownTimer, showInactivePopup: self.$showInactivePopup
                                     )
                                     DownButton (
-                                        pressed: self.$suppressStopButton,
-                                        unpressedTimer: self.$unpressedUpDownTimer
+                                        data: self.data, pressed: self.$suppressStopButton,
+                                        unpressedTimer: self.$unpressedUpDownTimer, showInactivePopup: self.$showInactivePopup
                                     )
                                 }
                                     .padding(.leading, 65)
@@ -107,7 +114,7 @@ struct HomeViewV2: View {
                             isMoving: self.$isMoving,
                             showAddPreset: self.$showAddPreset,
                             showPresetPopup: self.$showPresetPopup,
-                            geoWidth: geo.size.width
+                            showInactivePopup: self.$showInactivePopup, geoWidth: geo.size.width
                         )
                         }
                     }
@@ -132,6 +139,22 @@ struct HomeViewV2: View {
                             withAnimation(.easeOut(duration: 5),{})
                         }
                 }
+                
+                if (self.showInactivePopup) {
+                    InactivePopup (
+                        data: self.data, show: self.$showInactivePopup
+                    )
+                        .environmentObject(bt)
+                        .onAppear() {
+                            self.popupBackgroundBlur = 5
+                            withAnimation(.easeIn(duration: 5),{})
+                        }
+                        .onDisappear() {
+                            self.popupBackgroundBlur = 0
+                            withAnimation(.easeOut(duration: 5),{})
+                        }
+                }
+             
                 
                 
                 // Popup for Stop Button
