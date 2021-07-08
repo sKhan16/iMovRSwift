@@ -27,6 +27,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
 ///# Current Treadmill
     // @Published var treadmill: ___ = ___()
+    var treadmill: TreadmillController = TreadmillController()
     
 ///# Core Bluetooth
     @Published var bluetoothEnabled: Bool = false

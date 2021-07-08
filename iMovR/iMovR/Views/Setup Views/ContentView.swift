@@ -79,7 +79,7 @@ struct ContentView: View {
             TreadmillBTTest()
                 .background (
                     Image("Background")
-                        .resizable()
+                        //.resizable()
                         .aspectRatio(contentMode: .fill)
                         .edgesIgnoringSafeArea(.all)
                 )

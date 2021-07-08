@@ -99,6 +99,7 @@
 		41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */; };
 		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
+		7D58F5BA2695214800BA920B /* TreadmillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5B92695214800BA920B /* TreadmillController.swift */; };
 		7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92982525EF16FC008A6504 /* PresetBG.swift */; };
 		7DB58D1E26408FB7001BC4D7 /* UpButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */; };
 		7DB58D2126409059001BC4D7 /* UpButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */; };
@@ -208,6 +209,7 @@
 		41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZipDeskData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
+		7D58F5B92695214800BA920B /* TreadmillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreadmillController.swift; sourceTree = "<group>"; };
 		7D92982525EF16FC008A6504 /* PresetBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetBG.swift; sourceTree = "<group>"; };
 		7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonActive.swift; sourceTree = "<group>"; };
 		7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonInactive.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 		41D079BF24C220E00047FD48 /* Device Management */ = {
 			isa = PBXGroup;
 			children = (
+				7D58F5B82695211300BA920B /* Treadmill */,
 				41367031256DA78A0051ED8C /* DeviceDataManager.swift */,
 				41462FAD253A571E006C96C9 /* DeviceBluetoothManager.swift */,
 				41166141252BABFD0063A68D /* ZGo ZipDesk */,
@@ -544,6 +547,14 @@
 				41D54EA725B0FDE9002833B5 /* PresetEditOptions.swift */,
 			);
 			path = "Preset Edit";
+			sourceTree = "<group>";
+		};
+		7D58F5B82695211300BA920B /* Treadmill */ = {
+			isa = PBXGroup;
+			children = (
+				7D58F5B92695214800BA920B /* TreadmillController.swift */,
+			);
+			path = Treadmill;
 			sourceTree = "<group>";
 		};
 		7F07244DFABD274366A726AB /* Frameworks */ = {
@@ -736,6 +747,7 @@
 				1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */,
 				1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */,
 				414E7F332548D0EC00AA00AD /* SaveDevicePopup.swift in Sources */,
+				7D58F5BA2695214800BA920B /* TreadmillController.swift in Sources */,
 				1EAA5CAB252FC97800A471E2 /* HeightSliderV2.swift in Sources */,
 				1E94E1F124C241A400155123 /* MotherView.swift in Sources */,
 				41462F9F253A51A0006C96C9 /* PresetEditPopup.swift in Sources */,
