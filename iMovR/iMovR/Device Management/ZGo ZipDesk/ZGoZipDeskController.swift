@@ -10,7 +10,7 @@
 import Foundation
 import SwiftUI
 import CoreBluetooth
-
+		
 
 ///# ZipDesk Bluetooth Service and Characteristic CBUUIDs
 let ZGoServiceUUID = CBUUID(string:"0xFEE0")

@@ -91,7 +91,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 if self.bluetoothEnabled
                 {
                     self.centralManager?.scanForPeripherals(
-                        withServices: [ZGoServiceUUID],
+                        withServices: [ZGoServiceUUID, TreadmillServiceUUID],
                         options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
                     )
                 }
@@ -152,7 +152,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
-    func connectToDevice(device: Desk, savedIndex: Int) -> Bool
+    func connectToDesk(device: Desk, savedIndex: Int) -> Bool
     {
         guard device.peripheral != nil else
         {
@@ -209,8 +209,67 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         // calls centralManager:didFailToConnectPeripheral:error: on failure
         // continue connection process by scanning for the desk again
         return true
-    } // end connectToDevice
+    } // end connectToDesk
     
+    
+    func connectToTreadmill(device: Treadmill, savedIndex: Int) -> Bool
+    {
+        guard device.peripheral != nil else
+        {
+            print("bt.connect -- ERROR: attempted to connect to nil peripheral")
+            return false
+        }
+        guard self.connectingIndex == nil else
+        {
+            print("bt.connect error: a device is currently connecting")
+            return false
+        }
+        guard savedIndex != self.data.connectedTreadmillIndex else
+        {
+            print("bt.connect -- ERROR: that device is already connected")
+            return false
+        }
+        guard device.peripheral?.state != .connected,
+              device.peripheral?.state != .connecting else
+        {
+            print("bt.connectToDevice error: device peripheral already connecting/ed but mismatches connectedDeskIndex")
+            return false
+        }
+        guard device.inRange else
+        {
+            print("bt.connectToDevice error: device peripheral is out of range")
+            return false
+        }
+        
+        self.connectingIndex = savedIndex
+        self.data.setLastConnectedTreadmill(desk: device)
+        centralManager?.connect(device.peripheral!)
+        connectionTimeoutTimer = Timer.scheduledTimer(
+            withTimeInterval: 3.0,
+            repeats: false
+        )
+        { timer in
+            if self.connectingIndex != nil
+            {
+                let timeoutDevice = self.data.savedDevices[self.connectingIndex!]
+                if timeoutDevice.peripheral != nil,
+                   timeoutDevice.peripheral!.state != .connected
+                {
+                    self.centralManager?.cancelPeripheralConnection(timeoutDevice.peripheral!)
+                    self.connectingIndex = nil
+//                    self.data.setLastConnectedDesk(desk: timeoutDevice, disable: true)
+                    print("bt.connect: device connection timed out")
+                }
+            }
+            timer.invalidate()
+        }
+        print("connecting to this device: \(device.name), id:\(device.id)")
+        // calls centralManager:didConnectPeripheral: on success
+        // continue connection process by initializing ZGoZipDeskController
+        // calls centralManager:didFailToConnectPeripheral:error: on failure
+        // continue connection process by scanning for the desk again
+        return true
+    } // end connectToDesk
     
     func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool
     {
@@ -304,8 +363,14 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         advertisementData: [String : Any],
         rssi RSSI: NSNumber
     ){
+        //###########
+        let deviceName: String = peripheral.name ?? "no name"
+        print(deviceName)
+        //########## leaving off here for treadmill discovery stuff
+        
         // Make unique ZGO manufacturer ID readable
-        let rawData: [UInt8] = [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
+        let rawData: [UInt8] =
+             [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
         // Bytes are stored as 0x3k, where 'k' is one digit of the ID
         var manufacturerDeskID: Int = 0
         for (index, digit) in rawData.enumerated() {

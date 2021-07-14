@@ -100,6 +100,7 @@
 		41EC72B525770D1500F13796 /* ZipDeskData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC72B325770D1500F13796 /* ZipDeskData+CoreDataProperties.swift */; };
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
 		7D58F5BA2695214800BA920B /* TreadmillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5B92695214800BA920B /* TreadmillController.swift */; };
+		7D58F5BD269F728400BA920B /* Treadmill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5BC269F728400BA920B /* Treadmill.swift */; };
 		7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92982525EF16FC008A6504 /* PresetBG.swift */; };
 		7DB58D1E26408FB7001BC4D7 /* UpButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */; };
 		7DB58D2126409059001BC4D7 /* UpButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */; };
@@ -210,6 +211,7 @@
 		41F306A025461A0B0008F62B /* TouchPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPreset.swift; sourceTree = "<group>"; };
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		7D58F5B92695214800BA920B /* TreadmillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreadmillController.swift; sourceTree = "<group>"; };
+		7D58F5BC269F728400BA920B /* Treadmill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Treadmill.swift; sourceTree = "<group>"; };
 		7D92982525EF16FC008A6504 /* PresetBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetBG.swift; sourceTree = "<group>"; };
 		7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonActive.swift; sourceTree = "<group>"; };
 		7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonInactive.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				1EAA5C8E252BC66300A471E2 /* ColorManager.swift */,
 				41C2EFE4252E371D006D6BF2 /* Device.swift */,
 				41AD0F0C254CD54400B828BA /* PresetNew.swift */,
+				7D58F5BC269F728400BA920B /* Treadmill.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				1EE60F07253FB57300B564F8 /* HoldPreset.swift in Sources */,
 				41C2EFE5252E371D006D6BF2 /* Device.swift in Sources */,
 				1E94E1F324C27ED400155123 /* UpButton.swift in Sources */,
+				7D58F5BD269F728400BA920B /* Treadmill.swift in Sources */,
 				1EAA5CE7253579E400A471E2 /* PresetModule.swift in Sources */,
 				1EAA5C73252B90C000A471E2 /* TouchGoButton.swift in Sources */,
 				414E7F332548D0EC00AA00AD /* SaveDevicePopup.swift in Sources */,
