@@ -101,6 +101,8 @@
 		41F306A125461A0B0008F62B /* TouchPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F306A025461A0B0008F62B /* TouchPreset.swift */; };
 		7D58F5BA2695214800BA920B /* TreadmillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5B92695214800BA920B /* TreadmillController.swift */; };
 		7D58F5BD269F728400BA920B /* Treadmill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5BC269F728400BA920B /* Treadmill.swift */; };
+		7D58F5C626A241C200BA920B /* TreadmillData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5C426A241C200BA920B /* TreadmillData+CoreDataClass.swift */; };
+		7D58F5C726A241C200BA920B /* TreadmillData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D58F5C526A241C200BA920B /* TreadmillData+CoreDataProperties.swift */; };
 		7D92982625EF16FC008A6504 /* PresetBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92982525EF16FC008A6504 /* PresetBG.swift */; };
 		7DB58D1E26408FB7001BC4D7 /* UpButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */; };
 		7DB58D2126409059001BC4D7 /* UpButtonInactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */; };
@@ -212,6 +214,8 @@
 		47D781462BDC20945DC780AB /* Pods-iMovR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iMovR.release.xcconfig"; path = "Target Support Files/Pods-iMovR/Pods-iMovR.release.xcconfig"; sourceTree = "<group>"; };
 		7D58F5B92695214800BA920B /* TreadmillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreadmillController.swift; sourceTree = "<group>"; };
 		7D58F5BC269F728400BA920B /* Treadmill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Treadmill.swift; sourceTree = "<group>"; };
+		7D58F5C426A241C200BA920B /* TreadmillData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TreadmillData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7D58F5C526A241C200BA920B /* TreadmillData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TreadmillData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7D92982525EF16FC008A6504 /* PresetBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetBG.swift; sourceTree = "<group>"; };
 		7DB58D1D26408FB7001BC4D7 /* UpButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonActive.swift; sourceTree = "<group>"; };
 		7DB58D2026409059001BC4D7 /* UpButtonInactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpButtonInactive.swift; sourceTree = "<group>"; };
@@ -443,6 +447,8 @@
 		41367058256DB6040051ED8C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				7D58F5C426A241C200BA920B /* TreadmillData+CoreDataClass.swift */,
+				7D58F5C526A241C200BA920B /* TreadmillData+CoreDataProperties.swift */,
 				4127B25725C4CFB700571AD9 /* UserData+CoreDataClass.swift */,
 				4127B25825C4CFB700571AD9 /* UserData+CoreDataProperties.swift */,
 				41EC72B225770D1500F13796 /* ZipDeskData+CoreDataClass.swift */,
@@ -740,6 +746,7 @@
 				414E7F452548D29200AA00AD /* EditDevicePopup.swift in Sources */,
 				1E94E1E824C12C1A00155123 /* UserDataManager.swift in Sources */,
 				1E94E1F724C3B8C500155123 /* ViewRouter.swift in Sources */,
+				7D58F5C726A241C200BA920B /* TreadmillData+CoreDataProperties.swift in Sources */,
 				41EC72B425770D1500F13796 /* ZipDeskData+CoreDataClass.swift in Sources */,
 				414E7F242547A74B00AA00AD /* DiscoveredDeviceRowView.swift in Sources */,
 				41A3096E24C399D300644006 /* Preset.swift in Sources */,
@@ -760,6 +767,7 @@
 				41BD1DE725D20EAC00260282 /* PickerDisplayView.swift in Sources */,
 				1EE60EE4253A38AF00B564F8 /* PresetEditButton.swift in Sources */,
 				1EAA5C7D252B90EE00A471E2 /* StopGoButton.swift in Sources */,
+				7D58F5C626A241C200BA920B /* TreadmillData+CoreDataClass.swift in Sources */,
 				41A3097224C3C1D400644006 /* ZGoZipDeskController.swift in Sources */,
 				1E94E1E524C0F72800155123 /* PresetButton.swift in Sources */,
 				1EAA5C8F252BC66300A471E2 /* ColorManager.swift in Sources */,
