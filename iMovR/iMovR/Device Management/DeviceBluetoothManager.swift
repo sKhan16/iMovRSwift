@@ -91,7 +91,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 if self.bluetoothEnabled
                 {
                     self.centralManager?.scanForPeripherals(
-                        withServices: [ZGoServiceUUID, TreadmillServiceUUID],
+                        withServices: [ZGoServiceUUID, TreadmillAdUUID],
                         options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
                     )
                 }

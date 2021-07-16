@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import CoreBluetooth
 
+let TreadmillAdUUID = CBUUID(string: "00001826-0000-1000-8000-00805F9B34FB")
 let TreadmillServiceUUID = CBUUID(string:"0x2AD9")
 let TreadmillNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
 let TreadmillWriteCharacteristicUUID = CBUUID(string:"0xFEE2")

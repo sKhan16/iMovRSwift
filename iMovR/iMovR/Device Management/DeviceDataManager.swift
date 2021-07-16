@@ -104,6 +104,17 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
+    func findTreadmillData (treadmill: Treadmill) -> TreadmillData? {
+        guard let index: Int = self.fetchedDevices!.firstIndex(
+                where: { (thisDeskData: TreadmillData) -> Bool in
+                    thisDeskData.deskID == desk.id
+                }) else {
+            return nil
+        }
+        return fetchedDevices![index]
+    }
+    
+    
     // Add/Save a newly Discovered Device to Persistent Saved Devices
     func addDevice(desk: Desk) -> Bool {
         if let _: Int = self.fetchedDevices!.firstIndex(
@@ -226,6 +237,34 @@ public class DeviceDataManager: ObservableObject {
         }
     }
     
+    ///last connected treadmill to be implemented here
+    func setLastConnectedTreadmill (treadmill: Treadmill,
+                               disable: Bool = false) {
+        guard let thisDeskData: ZipDeskData = findDeskData(desk: desk) else {
+            print("DeviceDataManager.setLastConnectedDesk error: desk data not found")
+            return
+        }
+        thisDeskData.isLastConnectedTo = !disable
+        // turn off autoconnect for all other desks
+        for otherDeskData in self.fetchedDevices! {
+            if(thisDeskData.deskID != otherDeskData.deskID) {
+                otherDeskData.isLastConnectedTo = false
+            }
+        }
+
+        do {
+            try self.context.save()
+            if !disable {
+                print("Last connected desk set (\(desk.name), \(desk.id))")
+            }
+        } catch {
+            print(error.localizedDescription)
+            print("DeviceDataManager.setLastConnectedDesk error saving desk removal")
+        }
+        if !self.pullPersistentData() {
+            print("DeviceDataManager.setLastConnectedDesk data fetch error")
+        }
+    }
     
     private func archiveStringArray(array: [String]) -> Data {
         do {                                // this might be the wrong archive fx
