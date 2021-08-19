@@ -66,18 +66,18 @@ struct SavedDeviceRowView: View {
                                 .foregroundColor(ColorManager.connectGreen)
                         }
                         
-                        else if bt.connectingIndex != nil,
-                                bt.connectingIndex == deviceIndex
-                        {
-                            Text(currDevice.name)
-                                .font(.system(size: 20)).bold()
-                                .truncationMode(.tail)
-                                .foregroundColor(ColorManager.buttonPressed)
-                            Text("Connecting")
-                                // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
-                                .font(Font.body.weight(.medium))
-                                .foregroundColor(ColorManager.connectGreen)
-                        }
+//                        else if bt.connectingIndex != nil,
+//                                bt.connectingIndex == deviceIndex
+//                        {
+//                            Text(currDevice.name)
+//                                .font(.system(size: 20)).bold()
+//                                .truncationMode(.tail)
+//                                .foregroundColor(ColorManager.buttonPressed)
+//                            Text("Connecting")
+//                                // + " - RSSI: " + String(Float(truncating: currDevice.rssi ?? 1337.0)))
+//                                .font(Font.body.weight(.medium))
+//                                .foregroundColor(ColorManager.connectGreen)
+//                        }
                         
                         else if self.data.savedDevices[deviceIndex].inRange
                         {
@@ -169,14 +169,14 @@ private struct ConnectButton: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)
                     }
-                    else if bt.connectingIndex != nil,
-                            bt.connectingIndex == deviceIndex
-                    {
-                        Image("Connect3")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 35, height: 35)
-                    }
+//                    else if bt.connectingIndex != nil,
+//                            bt.connectingIndex == deviceIndex
+//                    {
+//                        Image("Connect3")
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: 35, height: 35)
+//                    }
                     else if bt.data.savedDevices[deviceIndex].inRange
                     {
                         Image("Connect")
@@ -210,16 +210,15 @@ private struct ConnectButton: View {
                         isPressed = true
                     })
                     .onEnded({ _ in
-                        let thisDevice: Desk = self.bt.data.savedDevices[deviceIndex]
+                        let thisDevice: Device = self.bt.data.savedTreadmills[deviceIndex]
                         if isConnected
                         {
-                            _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
+                        //    _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)
                         }
                         else
                         {
-                            _ = self.bt.connectToDevice (
-                                device: thisDevice,
-                                savedIndex: deviceIndex
+                            _ = self.bt.connectToTreadmill (
+                                device: thisDevice
                             )
                         }
                         isPressed = false

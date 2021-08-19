@@ -16,11 +16,14 @@ public class DeviceDataManager: ObservableObject {
     @EnvironmentObject var BTManager: DeviceBluetoothManager
     
     @Published var savedDevices: [Desk] = []
+    @Published var savedTreadmills: [Device] = [] 
     @Published var connectedDeskIndex: Int?
+    @Published var connectedTreadmillIndex: Int?
     @Published var devicePickerIndex: Int?
     @Published var isIndexEqual: Bool = false
     
     private var fetchedDevices: [ZipDeskData]?
+    private var fetchedTreadmills: [TreadmillData]?
     
     // Access context for CoreData persistent storage
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -104,14 +107,14 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func findTreadmillData (treadmill: Treadmill) -> TreadmillData? {
-        guard let index: Int = self.fetchedDevices!.firstIndex(
-                where: { (thisDeskData: TreadmillData) -> Bool in
-                    thisDeskData.deskID == desk.id
+    func findTreadmillData (treadmill: Device) -> TreadmillData? {
+        guard let index: Int = self.fetchedTreadmills!.firstIndex(
+                where: { (thisTreadData: TreadmillData) -> Bool in
+                    thisTreadData.treadID == treadmill.id
                 }) else {
             return nil
         }
-        return fetchedDevices![index]
+        return fetchedTreadmills![index]
     }
     
     
@@ -238,16 +241,16 @@ public class DeviceDataManager: ObservableObject {
     }
     
     ///last connected treadmill to be implemented here
-    func setLastConnectedTreadmill (treadmill: Treadmill,
+    func setLastConnectedTreadmill (treadmill: Device,
                                disable: Bool = false) {
-        guard let thisDeskData: ZipDeskData = findDeskData(desk: desk) else {
+        guard let thisTreadmillData: TreadmillData = findTreadmillData(treadmill: treadmill) else {
             print("DeviceDataManager.setLastConnectedDesk error: desk data not found")
             return
         }
-        thisDeskData.isLastConnectedTo = !disable
+        thisTreadmillData.isLastConnectedTo = !disable
         // turn off autoconnect for all other desks
         for otherDeskData in self.fetchedDevices! {
-            if(thisDeskData.deskID != otherDeskData.deskID) {
+            if(thisTreadmillData.treadID != otherDeskData.deskID) {
                 otherDeskData.isLastConnectedTo = false
             }
         }
@@ -255,7 +258,7 @@ public class DeviceDataManager: ObservableObject {
         do {
             try self.context.save()
             if !disable {
-                print("Last connected desk set (\(desk.name), \(desk.id))")
+                print("Last connected desk set (\(treadmill.name), \(treadmill.id))")
             }
         } catch {
             print(error.localizedDescription)

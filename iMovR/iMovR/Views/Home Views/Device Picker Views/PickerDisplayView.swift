@@ -26,18 +26,16 @@ struct PickerDisplayView: View {
                 action: {
                     guard let pickerIndex: Int = data.devicePickerIndex
                     else { return }
-                    let thisDevice: Desk = self.bt.data.savedDevices[pickerIndex]
+                    let thisDevice: Device = self.bt.data.savedTreadmills[pickerIndex]
                     if isConnected
                     { // Disconnect from this connected desk
-                        _ = bt.disconnectFromDevice (
-                            device: thisDevice,
-                            savedIndex: pickerIndex )
+                        _ = bt.disconnectFromTreadmill (
+                            device: thisDevice)
                     }
                     else
                     {
-                        _ = self.bt.connectToDevice (
-                            device: thisDevice,
-                            savedIndex: pickerIndex )
+                        _ = self.bt.connectToTreadmill (
+                            device: thisDevice)
                     }
                 }
             )
@@ -61,15 +59,15 @@ struct PickerDisplayView: View {
                                 .offset(y: 30)
                         }
                         
-                        else if self.bt.connectingIndex != nil,
-                                self.bt.connectingIndex == self.data.devicePickerIndex
-                        {
-                            Text("Connecting")
-                                .font(.system(size: 20))
-                                // icky change. OG color: ColorManager.connectGreen
-                                .foregroundColor(Color.white)
-                                .offset(y: 30)
-                        }
+//                        else if self.bt.connectingIndex != nil,
+//                                self.bt.connectingIndex == self.data.devicePickerIndex
+//                        {
+//                            Text("Connecting")
+//                                .font(.system(size: 20))
+//                                // icky change. OG color: ColorManager.connectGreen
+//                                .foregroundColor(Color.white)
+//                                .offset(y: 30)
+//                        }
                         
                         else if self.data.savedDevices[self.data.devicePickerIndex!].inRange
                         {

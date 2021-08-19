@@ -100,8 +100,8 @@ struct SaveDevicePopup: View {
                             
                             if self.bt.data.addDevice(desk: newDevice)
                             {
-                                self.bt.discoveredDevices.remove(at: deviceIndex)
-                                self.bt.scanForDevices(repeating: true)
+                                //self.bt.discoveredDevices.remove(at: deviceIndex)
+                                //self.bt.scanForDevices(repeating: true)
                             }
                             self.showWarning = false
                             self.deviceIndex = -1

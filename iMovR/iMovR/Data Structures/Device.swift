@@ -27,7 +27,12 @@ class Device {
     
     let peripheral: CBPeripheral?
     
-    init(devicePeripheral: CBPeripheral?) {
+    let name: String
+    let id: Int
+    
+    init(devicePeripheral: CBPeripheral?, deviceName: String, deviceID: Int) {
         self.peripheral = devicePeripheral
+        self.name = deviceName
+        self.id = deviceID
     }
 }

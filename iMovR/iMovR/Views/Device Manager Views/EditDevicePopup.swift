@@ -165,14 +165,14 @@ struct EditDevicePopup: View {
                                 {
                                     if self.deviceIndex == self.bt.data.connectedDeskIndex
                                     {
-                                        guard self.bt.disconnectFromDevice (
-                                                device: self.bt.data.savedDevices[self.deviceIndex],
-                                                savedIndex: self.deviceIndex )
-                                        else
-                                        {
-                                            print("delete device failed to disconnect")
-                                            return
-                                        }
+//                                        guard self.bt.disconnectFromDevice (
+//                                                device: self.bt.data.savedDevices[self.deviceIndex],
+//                                                savedIndex: self.deviceIndex )
+//                                        else
+//                                        {
+//                                            print("delete device failed to disconnect")
+//                                            return
+//                                        }
                                         self.bt.data.connectedDeskIndex = nil
                                     }
                                     else if self.deviceIndex < self.bt.data.connectedDeskIndex!
@@ -185,7 +185,7 @@ struct EditDevicePopup: View {
                                 let tempIndex: Int = self.deviceIndex
                                 self.deviceIndex = -1
                                 self.bt.data.deleteDevice(desk: self.selectedDevice, savedIndex: tempIndex)
-                                self.bt.scanForDevices(repeating: true)
+                                self.bt.scanForDevices()
                                 
                                 // reset devicePickerIndex after delete
                                 _=self.bt.data.setPickerIndex(decrement: true)

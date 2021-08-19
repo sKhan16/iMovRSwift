@@ -17,27 +17,19 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
 ///# Persistent Device Data & Discovered Devices
     @Published var data: DeviceDataManager = DeviceDataManager()
-    @Published var discoveredDevices: [Desk] = []
+    @Published var discoveredDevices: [Treadmill] = []
     
-///# Current Desk
     var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
-    
-///# Current Monitor Arm
-    // @Published var monitorArm: ___ = ___()
-    
+
 ///# Current Treadmill
     // @Published var treadmill: ___ = ___()
     var treadmill: TreadmillController = TreadmillController()
+    var treadmillDevice: Treadmill?
     
 ///# Core Bluetooth
     @Published var bluetoothEnabled: Bool = false
     private var centralManager: CBCentralManager?
     
-    @Published var connectingIndex: Int?
-    private var connectionTimeoutTimer: Timer?
-    
-    private var scanTimer: Timer?
-    private var signalStrengthTimer: Timer?
     
 ///# Initializer
     override init() {
@@ -47,14 +39,6 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         let centralQueue: DispatchQueue = DispatchQueue(label: "com.iMovr.centralQueueName", attributes: .concurrent)
         // Creates Manager to scan for, connect to, and manage/collect data from peripherals (desks)
         centralManager = CBCentralManager(delegate: self, queue: centralQueue)
-        
-        signalStrengthTimer = Timer.scheduledTimer(
-            withTimeInterval: 1.0,
-            repeats: true
-        )
-        { timer in
-            self.readConnectedRSSI()
-        }
     }
     
 ///# Test Mode Initializer - XCode Canvas Previews
@@ -72,41 +56,20 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
 ///# Device Discovery and Connection functions
     
-    func scanForDevices(repeating: Bool)
+    func scanForDevices()
     {
         print("Scanning for devices:")
         guard self.bluetoothEnabled else {
             print(" ! can't scan - phone bluetooth disabled")
             return
         }
-        //scan for 150ms, stop; repeat after 3s
-        if scanTimer != nil { scanTimer!.fire() }
-        else
+        if self.bluetoothEnabled
         {
-            scanTimer = Timer.scheduledTimer(
-                withTimeInterval: 3.0,
-                repeats: repeating
+            self.centralManager?.scanForPeripherals(
+                withServices: [FitnessMachineServiceUUID],
+                options: [CBCentralManagerScanOptionAllowDuplicatesKey : false]
             )
-            { scan_timer in
-                if self.bluetoothEnabled
-                {
-                    self.centralManager?.scanForPeripherals(
-                        withServices: [ZGoServiceUUID, TreadmillAdUUID],
-                        options: [CBCentralManagerScanOptionAllowDuplicatesKey : true]
-                    )
-                }
-                _ = Timer.scheduledTimer(
-                    withTimeInterval: 0.15,
-                    repeats: false
-                ){ stop_timer in
-                    self.centralManager?.stopScan()
-                    stop_timer.invalidate()
-                }
-            }
-            
-            scanTimer!.fire()
         }
-        
     }
     
     
@@ -117,34 +80,10 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
 //            print("-bluetooth not ready yet")
 //            return
 //        }
-        self.scanTimer?.invalidate()
-        self.scanTimer = nil
         self.centralManager?.stopScan()
     }
     
     
-    func readConnectedRSSI()
-    {
-        if let connectedIndex: Int = data.connectedDeskIndex //"index != nil"
-        {
-            if let peripheral: CBPeripheral = data.savedDevices[connectedIndex].peripheral
-            {
-                if peripheral.state == CBPeripheralState.connected
-                {
-                    peripheral.delegate = self
-                    peripheral.readRSSI()
-                }
-                else
-                {
-                    print("error in bt.readConnectedRSSI\n  connectedDeskIndex peripheral not connected")
-                }
-            }
-            else
-            {
-                print("error in bt.readConnectedRSSI\n  no peripheral at data.connectedDeskIndex")
-            }
-        }
-    }
     
     public func isInRange(rssi: NSNumber?) -> Bool
     {
@@ -152,21 +91,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     }
     
     
-    func connectToDesk(device: Desk, savedIndex: Int) -> Bool
+    func connectToTreadmill(device: Treadmill) -> Bool
     {
         guard device.peripheral != nil else
         {
             print("bt.connect -- ERROR: attempted to connect to nil peripheral")
-            return false
-        }
-        guard self.connectingIndex == nil else
-        {
-            print("bt.connect error: a device is currently connecting")
-            return false
-        }
-        guard savedIndex != self.data.connectedDeskIndex else
-        {
-            print("bt.connect -- ERROR: that device is already connected")
             return false
         }
         guard device.peripheral?.state != .connected,
@@ -175,103 +104,19 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.connectToDevice error: device peripheral already connecting/ed but mismatches connectedDeskIndex")
             return false
         }
-        guard device.inRange else
-        {
-            print("bt.connectToDevice error: device peripheral is out of range")
-            return false
-        }
         
-        self.connectingIndex = savedIndex
-        self.data.setLastConnectedDesk(desk: device)
         centralManager?.connect(device.peripheral!)
-        connectionTimeoutTimer = Timer.scheduledTimer(
-            withTimeInterval: 3.0,
-            repeats: false
-        )
-        { timer in
-            if self.connectingIndex != nil
-            {
-                let timeoutDevice = self.data.savedDevices[self.connectingIndex!]
-                if timeoutDevice.peripheral != nil,
-                   timeoutDevice.peripheral!.state != .connected
-                {
-                    self.centralManager?.cancelPeripheralConnection(timeoutDevice.peripheral!)
-                    self.connectingIndex = nil
-//                    self.data.setLastConnectedDesk(desk: timeoutDevice, disable: true)
-                    print("bt.connect: device connection timed out")
-                }
-            }
-            timer.invalidate()
-        }
-        print("connecting to this device: \(device.name), id:\(device.id)")
-        // calls centralManager:didConnectPeripheral: on success
-        // continue connection process by initializing ZGoZipDeskController
-        // calls centralManager:didFailToConnectPeripheral:error: on failure
-        // continue connection process by scanning for the desk again
+        
+        print("connecting to treadmill:\n\t[\(device.name), id:\(device.id)]")
+                // calls centralManager:didConnectPeripheral: on success
+                // continue connection process by instantiating TreadmillController
+                // calls centralManager:didFailToConnectPeripheral:error: on failure
+                // retry connection process by scanning for the desk again
         return true
     } // end connectToDesk
     
     
-    func connectToTreadmill(device: Treadmill, savedIndex: Int) -> Bool
-    {
-        guard device.peripheral != nil else
-        {
-            print("bt.connect -- ERROR: attempted to connect to nil peripheral")
-            return false
-        }
-        guard self.connectingIndex == nil else
-        {
-            print("bt.connect error: a device is currently connecting")
-            return false
-        }
-        guard savedIndex != self.data.connectedTreadmillIndex else
-        {
-            print("bt.connect -- ERROR: that device is already connected")
-            return false
-        }
-        guard device.peripheral?.state != .connected,
-              device.peripheral?.state != .connecting else
-        {
-            print("bt.connectToDevice error: device peripheral already connecting/ed but mismatches connectedDeskIndex")
-            return false
-        }
-        guard device.inRange else
-        {
-            print("bt.connectToDevice error: device peripheral is out of range")
-            return false
-        }
-        
-        self.connectingIndex = savedIndex
-        self.data.setLastConnectedTreadmill(desk: device)
-        centralManager?.connect(device.peripheral!)
-        connectionTimeoutTimer = Timer.scheduledTimer(
-            withTimeInterval: 3.0,
-            repeats: false
-        )
-        { timer in
-            if self.connectingIndex != nil
-            {
-                let timeoutDevice = self.data.savedDevices[self.connectingIndex!]
-                if timeoutDevice.peripheral != nil,
-                   timeoutDevice.peripheral!.state != .connected
-                {
-                    self.centralManager?.cancelPeripheralConnection(timeoutDevice.peripheral!)
-                    self.connectingIndex = nil
-//                    self.data.setLastConnectedDesk(desk: timeoutDevice, disable: true)
-                    print("bt.connect: device connection timed out")
-                }
-            }
-            timer.invalidate()
-        }
-        print("connecting to this device: \(device.name), id:\(device.id)")
-        // calls centralManager:didConnectPeripheral: on success
-        // continue connection process by initializing ZGoZipDeskController
-        // calls centralManager:didFailToConnectPeripheral:error: on failure
-        // continue connection process by scanning for the desk again
-        return true
-    } // end connectToDesk
-    
-    func disconnectFromDevice(device: Desk, savedIndex: Int) -> Bool
+    func disconnectFromTreadmill(device: Device) -> Bool
     {
         guard device.peripheral != nil else {
             print("bt.disconnect ERROR: nil peripheral")
@@ -281,16 +126,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("bt.disconnect ERROR: peripheral not connected or connecting")
             return false
         }
-        guard savedIndex == self.data.connectedDeskIndex else {
-            print("bt.disconnectFromDevice error: desk device does not match connectedDeskIndex / current zipdesk peripheral")
-            return false
-        }
-        print("disconnecting from connected desk")
-        self.data.setLastConnectedDesk(desk: device, disable: true)
+        print("disconnecting from treadmill:\n\t[\(device.name), id:\(device.id)]")
+        self.data.setLastConnectedTreadmill(treadmill: device, disable: true)
         centralManager?.cancelPeripheralConnection(device.peripheral!)
         return true
     }
-    
     
     
     
@@ -308,7 +148,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("Bluetooth status is POWERED ON.")
             DispatchQueue.main.sync { () -> Void in
                 self.bluetoothEnabled = true
-                self.scanForDevices(repeating: true)
+                self.scanForDevices()
             }
             
         // Bad cases - Bluetooth is not yet ready
@@ -338,9 +178,8 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
                 self.bluetoothEnabled = false
                 if let index: Int = self.data.connectedDeskIndex {
                     self.data.connectedDeskIndex = nil
-                    self.disconnectFromDevice (
-                        device: self.data.savedDevices[index],
-                        savedIndex: index
+                    _=self.disconnectFromTreadmill (
+                        device: self.data.savedTreadmills[0]
                     )
                 }
             }
@@ -363,89 +202,106 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         advertisementData: [String : Any],
         rssi RSSI: NSNumber
     ){
-        //###########
+        
         let deviceName: String = peripheral.name ?? "no name"
         print(deviceName)
-        //########## leaving off here for treadmill discovery stuff
-        
-        // Make unique ZGO manufacturer ID readable
-        let rawData: [UInt8] =
+        let rawManufacDataByteArr: [UInt8] =
              [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
-        // Bytes are stored as 0x3k, where 'k' is one digit of the ID
-        var manufacturerDeskID: Int = 0
-        for (index, digit) in rawData.enumerated() {
-            manufacturerDeskID += Int(digit - 48) * Int(pow(10,Double(7-index)))
+        //{if statement} to tell if its a treadmill based upon the advertising info
+//#######################################################################
+//#######################################################################
+//#######################################################################
+        if deviceName == "iMovR"
+        {
+            treadmillDevice = Treadmill(deskID: 1, deskPeripheral: peripheral, rssi: 10)
+            
+            ///Should connect to device as soon as its discovered without the following line
+            discoveredDevices.append(treadmillDevice!)
+            
+            connectToTreadmill(device: treadmillDevice!)
+            print("Connected to treadmill")
         }
-        //print("iOS discovered device w/ id# \(manufacturerDeskID) rssi \(RSSI) in range? \(self.isInRange(rssi: RSSI) ? "yes":"no")")
+        else    //do whatever you want, this wasnt a treadmill so we can just ignore it
+        {
+            print("found treadmill name \"\(deviceName)\" doesn't match expected \"iMovR\"")
+        }
+//#######################################################################
+//#######################################################################
+//#######################################################################
         
         
-        DispatchQueue.main.sync { () -> Void in
-            if self.data.savedDevices.count > 0
-            {
-                if let foundIndex: Int = self.data.savedDevices.firstIndex (
-                        where: { (device) -> Bool in
-                            device.id == manufacturerDeskID
-                        })
-                {
-                    //device signal is too weak to read
-                    if RSSI == WEAK_SIGNAL,
-                       foundIndex != self.data.connectedDeskIndex
-                    {
-                        self.data.savedDevices[foundIndex].peripheral = nil
-                        self.data.savedDevices[foundIndex].rssi = nil
-                        self.data.savedDevices[foundIndex].inRange = false
-                        return
-                    }
-                    //device signal is readable but may be in or out of range
-                    self.data.savedDevices[foundIndex].peripheral = peripheral
-                    self.data.savedDevices[foundIndex].rssi = RSSI
-                    self.data.savedDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
-                    
-                    if self.data.devicePickerIndex == nil {
-                        _=self.data.setPickerIndex(decrement: true)
-                    }
 
-                    let autoconnectDevice: Desk = self.data.savedDevices[foundIndex]
-                    if autoconnectDevice.isLastConnected,
-                       self.data.connectedDeskIndex == nil,
-                       RSSI != WEAK_SIGNAL,
-                       self.isInRange(rssi: RSSI)
-                    {
-                        _ = self.connectToDevice(device: autoconnectDevice, savedIndex: foundIndex)
-                        print("autoconnecting to device")
-                        
-                    }
-                    return
-                }
-            }
-            if self.discoveredDevices.count > 0 {
-               if let foundIndex: Int = self.discoveredDevices.firstIndex(
-                        where: { (device) -> Bool in
-                            device.id == manufacturerDeskID
-                        })
-               {
-                    if RSSI == WEAK_SIGNAL
-                    {
-                        self.discoveredDevices.remove(at: foundIndex)
-                    } else
-                    {
-                        self.discoveredDevices[foundIndex].peripheral = peripheral
-                        self.discoveredDevices[foundIndex].rssi = RSSI
-                        self.discoveredDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
-                    }
-                    return
-                }
-            }
-            if RSSI != WEAK_SIGNAL
-            {
-                self.discoveredDevices.append(
-                    Desk(deskID: manufacturerDeskID,
-                        deskPeripheral: peripheral,
-                        rssi: RSSI)
-                )
-            }
-        }
-        
+//
+//
+////        DispatchQueue.main.sync { () -> Void in
+////
+////
+//////            if self.data.savedDevices.count > 0
+//////            {
+//////                if let foundIndex: Int = self.data.savedDevices.firstIndex (
+//////                        where: { (device) -> Bool in
+//////                            device.id == manufacturerDeskID
+//////                        })
+////                {
+////                    //device signal is too weak to read
+////                    if RSSI == WEAK_SIGNAL,
+////                       foundIndex != self.data.connectedDeskIndex
+////                    {
+////                        self.data.savedDevices[foundIndex].peripheral = nil
+////                        self.data.savedDevices[foundIndex].rssi = nil
+////                        self.data.savedDevices[foundIndex].inRange = false
+////                        return
+////                    }
+////                    //device signal is readable but may be in or out of range
+////                    self.data.savedDevices[foundIndex].peripheral = peripheral
+////                    self.data.savedDevices[foundIndex].rssi = RSSI
+////                    self.data.savedDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
+////
+////                    if self.data.devicePickerIndex == nil {
+////                        _=self.data.setPickerIndex(decrement: true)
+////                    }
+////
+////                    let autoconnectDevice: Desk = self.data.savedDevices[foundIndex]
+////                    if autoconnectDevice.isLastConnected,
+////                       self.data.connectedDeskIndex == nil,
+////                       RSSI != WEAK_SIGNAL,
+////                       self.isInRange(rssi: RSSI)
+////                    {
+////                        _ = self.connectToDesk(device: autoconnectDevice, savedIndex: foundIndex)
+////                        print("autoconnecting to device")
+////
+////                    }
+////                    return
+////                }
+////            }
+////            if self.discoveredDevices.count > 0 {
+////               if let foundIndex: Int = self.discoveredDevices.firstIndex(
+////                        where: { (device) -> Bool in
+////                            device.id == manufacturerDeskID
+////                        })
+////               {
+////                    if RSSI == WEAK_SIGNAL
+////                    {
+////                        self.discoveredDevices.remove(at: foundIndex)
+////                    } else
+////                    {
+////                        self.discoveredDevices[foundIndex].peripheral = peripheral
+////                        self.discoveredDevices[foundIndex].rssi = RSSI
+////                        self.discoveredDevices[foundIndex].inRange = self.isInRange(rssi: RSSI)
+////                    }
+////                    return
+////                }
+////            }
+////            if RSSI != WEAK_SIGNAL
+////            {
+////                self.discoveredDevices.append(
+////                    Desk(deskID: manufacturerDeskID,
+////                        deskPeripheral: peripheral,
+////                        rssi: RSSI)
+////                )
+////            }
+////        }
+//
     } //end didDiscover peripheral
     
     
@@ -456,42 +312,20 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         didConnect peripheral: CBPeripheral
     )
     {
+        
         peripheral.delegate = self
-        print("-> bt.didConnect")
-        DispatchQueue.main.sync { () -> Void in
-            guard self.connectingIndex != nil else {
-                print("didConnect ERROR: connectingIndex was unstaged. ")
-                return
-            }
-            guard peripheral == data.savedDevices[connectingIndex!].peripheral else {
-                print("didConnect ERROR: peripherals do not match")
-                return
-            }
-            guard self.zipdesk.setDesk (
-                    soonConnectedDesk: data.savedDevices[connectingIndex!]
-            ) else {
-                print("didConnect ERROR: rejected by zipdesk.setDesk")
-                return
-            }
-            
-            // set UI indices to represent newly connected desk
-            self.data.connectedDeskIndex = self.connectingIndex
-            self.data.devicePickerIndex = self.connectingIndex
-            self.connectingIndex = nil
-            self.zipdesk.getPeripheral()!.discoverServices([ZGoServiceUUID])
-            
-            print("Successfully connected to desk # \(self.zipdesk.getDesk().id).")
-            print("bt.didConnect: disconnecting from all other desks")
-            for (index, device) in data.savedDevices.enumerated() {
-                // find improperly connected devices
-                if index != self.data.connectedDeskIndex,
-                   device.peripheral != nil,
-                   (device.peripheral!.state == .connected || device.peripheral!.state == .connecting)
-                {
-                    centralManager?.cancelPeripheralConnection(device.peripheral!)
-                }
-            }
-        }
+        treadmill.setPeripheral(peripheral)
+//#######################################################################
+//#######################################################################
+        //put treadmill services to discover/save in this fx call
+        peripheral.discoverServices(
+            [FitnessMachineServiceUUID]
+        )
+//#######################################################################
+//#######################################################################
+
+        
+        print("successfully connected to treadmill")
     } //end didConnect
     
     
@@ -524,7 +358,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             }
         }
         // ensure discovery and autoconnect are enabled
-        self.scanForDevices(repeating: true)
+        self.scanForDevices()//repeating: true)
         
         // disconnected unintentionally
         if error != nil {
@@ -571,9 +405,10 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             }
             if RSSI == WEAK_SIGNAL || !self.isInRange(rssi:RSSI)
             {
-                disconnectFromDevice(
-                    device: data.savedDevices[cdi],
-                    savedIndex: cdi)
+               // disconnectFromDevice(
+                   // device: data.savedDevices[cdi],
+                    //savedIndex: cdi)
+                print("out of range")
             }
         }
         
@@ -631,7 +466,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     )
     {
         for service in peripheral.services! {
-            if service.uuid == ZGoServiceUUID {
+            if service.uuid == FitnessMachineServiceUUID /*ZGoServiceUUID*/ {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
         }
@@ -646,16 +481,26 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         error: Error?
     )
     {
+//        for characteristic in service.characteristics! {
+//            //print(characteristic)
+//            if characteristic.uuid == ZGoWriteCharacteristicUUID {
+//                self.zipdesk.writeCharacteristic = characteristic
+//            } else if characteristic.uuid == ZGoNotifyCharacteristicUUID {
+//                self.zipdesk.readCharacteristic = characteristic
+//                peripheral.setNotifyValue(true, for: self.zipdesk.readCharacteristic!)
+//            }
+//        }
         for characteristic in service.characteristics! {
-            //print(characteristic)
-            if characteristic.uuid == ZGoWriteCharacteristicUUID {
-                self.zipdesk.writeCharacteristic = characteristic
-            } else if characteristic.uuid == ZGoNotifyCharacteristicUUID {
-                self.zipdesk.readCharacteristic = characteristic
-                peripheral.setNotifyValue(true, for: self.zipdesk.readCharacteristic!)
+            print("characteristic uuid: \(characteristic.uuid)")
+            if characteristic.uuid == TreadmillWriteCharacteristicUUID {
+                self.treadmill.writeCharacteristic = characteristic
+            } else if characteristic.uuid == TreadmillNotifyCharacteristicUUID {
+                self.treadmill.readCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: self.treadmill.readCharacteristic!)
             }
         }
-        self.zipdesk.requestHeightsFromDesk()
+        
+        //self.zipdesk.requestHeightsFromDesk()
     }
     
     
@@ -675,7 +520,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             print("didUpdateValueFor error: updated characteristic is not ZGoNotifyCharacteristic")
             return
         }
-        self.zipdesk.identifyMessage()
+       // self.zipdesk.identifyMessage()
     }
     
     
@@ -695,11 +540,11 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
               Desk(name:"Home Monitor Arm",deskID:10009810, presetHeights:[28.3,39.5,41.0,-1,-1,-1], presetNames:["Sit","Stand","Walk","PresetFour","PresetFive","PresetSix"], isLastConnected: false),
               ]
         
-        self.discoveredDevices =
+      /*  self.discoveredDevices =
             [ Desk(name: "Discovered ZipDesk", deskID: 10007189, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false),
               Desk(name: "Discovered ZipDesk", deskID: 10004955, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false),
               Desk(name: "Discovered ZipDesk", deskID: 10003210, presetHeights:[-1,-1,-1,-1,-1,-1], presetNames: ["","","","","",""], isLastConnected: false)
-            ]
+            ] */
         
         self.data.connectedDeskIndex = 0
     }

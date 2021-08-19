@@ -30,7 +30,7 @@ struct ContentView: View {
                 .onAppear() {
                     // Enable autoconnect
                     if self.BTController.data.connectedDeskIndex == nil {
-                        self.BTController.scanForDevices(repeating: true)
+                        self.BTController.scanForDevices()
                     }
                 }
                 .onDisappear() {
@@ -57,7 +57,7 @@ struct ContentView: View {
                         .edgesIgnoringSafeArea(.all)
                 )
                 .onAppear() {
-                    self.BTController.scanForDevices(repeating: true)
+                    self.BTController.scanForDevices()
                 }
 //                .onDisappear() {
 //                    if BTController.data.connectedDeskIndex != nil {
@@ -109,7 +109,7 @@ struct ContentView: View {
                 print("app returning to foreground; request current heights")
                 self.BTController.zipdesk.releaseDesk()
                 self.BTController.zipdesk.requestHeightsFromDesk()
-                self.BTController.scanForDevices(repeating: true)
+                self.BTController.scanForDevices()
             })
         
     }// end body

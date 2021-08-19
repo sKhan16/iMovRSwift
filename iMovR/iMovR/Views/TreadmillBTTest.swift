@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct TreadmillBTTest: View {
+    
+    @ObservedObject var treadmill: TreadmillController
+    
     var body: some View {
         Button(action: {
-            print("Start Connection to Treadmill")
+            treadmill.testPrint()
         }) {
             Text("Connect to Treadmill")
         }
@@ -20,6 +23,6 @@ struct TreadmillBTTest: View {
 
 struct TreadmillBTTest_Previews: PreviewProvider {
     static var previews: some View {
-        TreadmillBTTest()
+        TreadmillBTTest(treadmill: TreadmillController())
     }
 }
