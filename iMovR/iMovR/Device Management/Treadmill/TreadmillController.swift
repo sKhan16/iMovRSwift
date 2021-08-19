@@ -11,7 +11,9 @@ import SwiftUI
 import CoreBluetooth
 //below used to be named TreadmillAdServiceUUID
 public let FitnessMachineServiceUUID = CBUUID(string: "00001826-0000-1000-8000-00805F9B34FB")
-//let TreadmillServiceUUID = CBUUID(string:"0x2AD9")
+//let TreadmillServiceUUID = CBUUID(string:"0x2AD9") control point used to turn on and off.
+
+//The following chars are accessed through another service uuid
 let TreadmillNotifyCharacteristicUUID = CBUUID(string:"0xFEE1")
 let TreadmillWriteCharacteristicUUID = CBUUID(string:"0xFEE2")
 let TreadmillIO_CharacteristicUUID = CBUUID(string:"0xFEE3")
@@ -98,11 +100,11 @@ class TreadmillController : ObservableObject {
     
     private func writeToTreadmill(data:NSData, type:CBCharacteristicWriteType) {
         guard self.isTreadmillConnected() else {
-            print("writeToDesk error: desk peripheral is not connected")
+            print("writeToTreadmill error: treadmill peripheral is not connected")
             return
         }
         guard self.writeCharacteristic != nil else {
-            print("writeToDesk error: treadmill writeCharacteristic not assigned")
+            print("writeToTreadmill error: treadmill writeCharacteristic not assigned")
             return
         }
         self.peripheral!.writeValue(data as Data, for: self.writeCharacteristic!, type: type)

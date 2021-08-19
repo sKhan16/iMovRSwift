@@ -205,8 +205,12 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
         
         let deviceName: String = peripheral.name ?? "no name"
         print(deviceName)
+        /*if [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!) == nil {
+            print("ad data at location CBAdvertisementDataManufacturerDataKey is nil!")
+        } else {
         let rawManufacDataByteArr: [UInt8] =
              [UInt8]((advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data)!)
+        }*/
         //{if statement} to tell if its a treadmill based upon the advertising info
 //#######################################################################
 //#######################################################################
