@@ -17,7 +17,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     
 ///# Persistent Device Data & Discovered Devices
     @Published var data: DeviceDataManager = DeviceDataManager()
-    @Published var discoveredDevices: [Treadmill] = []
+    @Published var discoveredDevices: [Desk] = []
     
     var zipdesk: ZGoZipDeskController = ZGoZipDeskController()
 
@@ -116,7 +116,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
     } // end connectToDesk
     
     
-    func disconnectFromTreadmill(device: Device) -> Bool
+    func disconnectFromTreadmill(device: Treadmill) -> Bool
     {
         guard device.peripheral != nil else {
             print("bt.disconnect ERROR: nil peripheral")
@@ -216,7 +216,7 @@ class DeviceBluetoothManager: NSObject, ObservableObject,
             treadmillDevice = Treadmill(deskID: 1, deskPeripheral: peripheral, rssi: 10)
             
             ///Should connect to device as soon as its discovered without the following line
-            discoveredDevices.append(treadmillDevice!)
+            //discoveredDevices.append(treadmillDevice!)
             
             connectToTreadmill(device: treadmillDevice!)
             print("Connected to treadmill")

@@ -210,7 +210,7 @@ private struct ConnectButton: View {
                         isPressed = true
                     })
                     .onEnded({ _ in
-                        let thisDevice: Device = self.bt.data.savedTreadmills[deviceIndex]
+                        let thisDevice: Treadmill = self.bt.data.savedTreadmills[deviceIndex]
                         if isConnected
                         {
                         //    _ = bt.disconnectFromDevice(device: thisDevice, savedIndex: deviceIndex)

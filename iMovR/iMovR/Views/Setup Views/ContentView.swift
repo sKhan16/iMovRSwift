@@ -76,7 +76,7 @@ struct ContentView: View {
             
             
             
-            TreadmillBTTest()
+            TreadmillBTTest(treadmill: BTController.treadmill)
                 .background (
                     Image("Background")
                         //.resizable()

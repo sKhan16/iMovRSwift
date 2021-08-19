@@ -16,7 +16,7 @@ public class DeviceDataManager: ObservableObject {
     @EnvironmentObject var BTManager: DeviceBluetoothManager
     
     @Published var savedDevices: [Desk] = []
-    @Published var savedTreadmills: [Device] = [] 
+    @Published var savedTreadmills: [Treadmill] = [] 
     @Published var connectedDeskIndex: Int?
     @Published var connectedTreadmillIndex: Int?
     @Published var devicePickerIndex: Int?
@@ -107,7 +107,7 @@ public class DeviceDataManager: ObservableObject {
     }
     
     
-    func findTreadmillData (treadmill: Device) -> TreadmillData? {
+    func findTreadmillData (treadmill: Treadmill) -> TreadmillData? {
         guard let index: Int = self.fetchedTreadmills!.firstIndex(
                 where: { (thisTreadData: TreadmillData) -> Bool in
                     thisTreadData.treadID == treadmill.id
@@ -241,7 +241,7 @@ public class DeviceDataManager: ObservableObject {
     }
     
     ///last connected treadmill to be implemented here
-    func setLastConnectedTreadmill (treadmill: Device,
+    func setLastConnectedTreadmill (treadmill: Treadmill,
                                disable: Bool = false) {
         guard let thisTreadmillData: TreadmillData = findTreadmillData(treadmill: treadmill) else {
             print("DeviceDataManager.setLastConnectedDesk error: desk data not found")

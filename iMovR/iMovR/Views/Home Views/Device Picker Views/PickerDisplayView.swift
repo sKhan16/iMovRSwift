@@ -26,7 +26,7 @@ struct PickerDisplayView: View {
                 action: {
                     guard let pickerIndex: Int = data.devicePickerIndex
                     else { return }
-                    let thisDevice: Device = self.bt.data.savedTreadmills[pickerIndex]
+                    let thisDevice: Treadmill = self.bt.data.savedTreadmills[pickerIndex]
                     if isConnected
                     { // Disconnect from this connected desk
                         _ = bt.disconnectFromTreadmill (
